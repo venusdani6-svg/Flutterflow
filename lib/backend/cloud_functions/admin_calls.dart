@@ -205,11 +205,13 @@ Future<Map<String, dynamic>?> adminGetAuditLogs({
   String? targetType,
   String? targetId,
   int limit = 50,
+  int offset = 0,
 }) =>
     _callAdmin('adminGetAuditLogs', {
       if (targetType != null) 'targetType': targetType,
       if (targetId != null) 'targetId': targetId,
       'limit': limit,
+      'offset': offset,
     });
 
 Future<Map<String, dynamic>?> adminGetAnnouncements({int limit = 50}) =>
@@ -246,5 +248,35 @@ Future<Map<String, dynamic>?> adminUpdateAdminAccess({
       if (adminRole != null) 'adminRole': adminRole,
       if (adminPermissions != null) 'adminPermissions': adminPermissions,
       if (managedPrefectures != null) 'managedPrefectures': managedPrefectures,
+    });
+
+Future<Map<String, dynamic>?> adminGetCocotenShops({
+  int limit = 50,
+  int offset = 0,
+}) =>
+    _callAdmin('adminGetCocotenShops', {'limit': limit, 'offset': offset});
+
+Future<Map<String, dynamic>?> adminUpsertCocotenShop({
+  String? shopId,
+  required Map<String, dynamic> payload,
+}) =>
+    _callAdmin('adminUpsertCocotenShop', {
+      if (shopId != null) 'shopId': shopId,
+      'payload': payload,
+    });
+
+Future<Map<String, dynamic>?> adminGetJobBoardPosts({
+  int limit = 50,
+  int offset = 0,
+}) =>
+    _callAdmin('adminGetJobBoardPosts', {'limit': limit, 'offset': offset});
+
+Future<Map<String, dynamic>?> adminUpsertJobBoardPost({
+  String? postId,
+  required Map<String, dynamic> payload,
+}) =>
+    _callAdmin('adminUpsertJobBoardPost', {
+      if (postId != null) 'postId': postId,
+      'payload': payload,
     });
 

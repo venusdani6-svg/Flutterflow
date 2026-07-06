@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.adminUpdateAdminAccess = exports.adminGetMyPermissions = exports.adminUpdateGuideline = exports.adminGetGuideline = exports.adminUpsertAnnouncement = exports.adminGetAnnouncements = exports.adminGetAuditLogs = exports.adminUpdateAffiliateRate = exports.adminGetAffiliateOverview = exports.adminResolveReport = exports.adminGetReports = exports.adminUpsertBanner = exports.adminGetBanners = exports.adminGetSystemConfig = exports.adminUpdateSystemConfig = exports.adminApprovePayout = exports.adminGetPayoutRequests = exports.adminGetStripeLogs = exports.adminGetLedger = exports.adminGetTipsByReservation = exports.adminForceCancel = exports.adminGetReservation = exports.adminGetReservations = exports.adminForceDeleteUser = exports.adminToggleFreeze = exports.adminApproveKYC = exports.adminGetUser = exports.adminGetUsers = exports.adminHealthCheck = exports.adminGetDashboardStats = void 0;
+exports.adminUpdateAdminAccess = exports.adminGetMyPermissions = exports.adminUpsertJobBoardPost = exports.adminGetJobBoardPosts = exports.adminUpsertCocotenShop = exports.adminGetCocotenShops = exports.adminUpdateGuideline = exports.adminGetGuideline = exports.adminUpsertAnnouncement = exports.adminGetAnnouncements = exports.adminGetAuditLogs = exports.adminUpdateAffiliateRate = exports.adminGetAffiliateOverview = exports.adminResolveReport = exports.adminGetReports = exports.adminUpsertBanner = exports.adminGetBanners = exports.adminGetSystemConfig = exports.adminUpdateSystemConfig = exports.adminApprovePayout = exports.adminGetPayoutRequests = exports.adminGetStripeLogs = exports.adminGetLedger = exports.adminGetTipsByReservation = exports.adminForceCancel = exports.adminGetReservation = exports.adminGetReservations = exports.adminForceDeleteUser = exports.adminToggleFreeze = exports.adminApproveKYC = exports.adminGetUser = exports.adminGetUsers = exports.adminHealthCheck = exports.adminGetDashboardStats = void 0;
 const admin = __importStar(require("firebase-admin"));
 const functions = __importStar(require("firebase-functions"));
 const adminPermissions_1 = require("./auth/adminPermissions");
@@ -262,6 +262,11 @@ Object.defineProperty(exports, "adminGetAnnouncements", { enumerable: true, get:
 Object.defineProperty(exports, "adminUpsertAnnouncement", { enumerable: true, get: function () { return content_1.adminUpsertAnnouncement; } });
 Object.defineProperty(exports, "adminGetGuideline", { enumerable: true, get: function () { return content_1.adminGetGuideline; } });
 Object.defineProperty(exports, "adminUpdateGuideline", { enumerable: true, get: function () { return content_1.adminUpdateGuideline; } });
+var cocoten_1 = require("./admin/cocoten");
+Object.defineProperty(exports, "adminGetCocotenShops", { enumerable: true, get: function () { return cocoten_1.adminGetCocotenShops; } });
+Object.defineProperty(exports, "adminUpsertCocotenShop", { enumerable: true, get: function () { return cocoten_1.adminUpsertCocotenShop; } });
+Object.defineProperty(exports, "adminGetJobBoardPosts", { enumerable: true, get: function () { return cocoten_1.adminGetJobBoardPosts; } });
+Object.defineProperty(exports, "adminUpsertJobBoardPost", { enumerable: true, get: function () { return cocoten_1.adminUpsertJobBoardPost; } });
 var permissions_1 = require("./admin/permissions");
 Object.defineProperty(exports, "adminGetMyPermissions", { enumerable: true, get: function () { return permissions_1.adminGetMyPermissions; } });
 Object.defineProperty(exports, "adminUpdateAdminAccess", { enumerable: true, get: function () { return permissions_1.adminUpdateAdminAccess; } });

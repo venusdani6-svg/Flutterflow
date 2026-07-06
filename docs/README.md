@@ -7,6 +7,7 @@
 | 受け入れテスト | [ACCEPTANCE_TEST_CHECKLIST.md](./ACCEPTANCE_TEST_CHECKLIST.md) | 10 項目・手順・合格基準 |
 | デモ動画シナリオ | [DEMO_VIDEO_SCRIPT.md](./DEMO_VIDEO_SCRIPT.md) | 顧客確認用録画ガイド（約13分） |
 | デプロイ手順 | [../firebase/DEPLOYMENT_GUIDE.md](../firebase/DEPLOYMENT_GUIDE.md) | Firebase デプロイ・フェーズ0〜8 |
+| **ロードマップ監査** | [ROADMAP_AUDIT.md](./ROADMAP_AUDIT.md) | フェーズ0〜8 達成状況・残作業 |
 
 ## クイックスタート（受け入れテスト）
 

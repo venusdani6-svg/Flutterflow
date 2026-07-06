@@ -152,6 +152,27 @@
 
 ## affiliate_stats / cocoten_shops / chat_rooms
 
+### cocoten_shops
+
+| フィールド | 型 |
+|------------|-----|
+| name | string |
+| prefecture | string |
+| active | bool |
+| created_at | timestamp |
+| updated_at | timestamp |
+
+### job_board
+
+| フィールド | 型 |
+|------------|-----|
+| title | string |
+| prefecture | string |
+| status | string |
+| created_at | timestamp |
+
+## affiliate_stats / chat_rooms
+
 フェーズ5以降で拡張。Functions: `adminGetAffiliateOverview` 等。
 
 ## monthly_sales

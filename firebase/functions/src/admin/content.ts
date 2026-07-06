@@ -173,21 +173,31 @@ export const adminGetAuditLogs = functions
     const targetType = data?.targetType as string | undefined;
     const targetId = data?.targetId as string | undefined;
     const limit = Math.min(Number(data?.limit ?? 50), 100);
-    let query: FirebaseFirestore.Query = db()
-      .collection("audit_logs")
-      .orderBy("created_at", "desc")
-      .limit(limit);
+    const offset = Number(data?.offset ?? 0);
+    let query: FirebaseFirestore.Query = db().collection("audit_logs");
     if (targetType) {
       query = query.where("target_type", "==", targetType);
     }
     if (targetId) {
       query = query.where("target_id", "==", targetId);
     }
-    const snap = await query.get().catch(async () =>
-      db().collection("audit_logs").limit(limit).get(),
-    );
+    const countSnap = await query.count().get().catch(() => null);
+    const snap = await query
+      .orderBy("created_at", "desc")
+      .offset(offset)
+      .limit(limit)
+      .get()
+      .catch(async () =>
+        db()
+          .collection("audit_logs")
+          .orderBy("created_at", "desc")
+          .offset(offset)
+          .limit(limit)
+          .get(),
+      );
     const logs = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-    return { logs, total: logs.length };
+    const total = countSnap?.data().count ?? logs.length;
+    return { logs, total, hasMore: offset + limit < total };
   });
 
 export const adminGetAnnouncements = functions

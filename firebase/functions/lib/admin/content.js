@@ -176,25 +176,35 @@ exports.adminUpdateAffiliateRate = functions
 exports.adminGetAuditLogs = functions
     .region("asia-northeast1")
     .https.onCall(async (data, context) => {
-    var _a;
+    var _a, _b, _c;
     const adminUser = await (0, verifyAdmin_1.verifyAdmin)(context);
     (0, adminPermissions_1.requirePermission)(adminUser, "audit_logs");
     const targetType = data === null || data === void 0 ? void 0 : data.targetType;
     const targetId = data === null || data === void 0 ? void 0 : data.targetId;
     const limit = Math.min(Number((_a = data === null || data === void 0 ? void 0 : data.limit) !== null && _a !== void 0 ? _a : 50), 100);
-    let query = db()
-        .collection("audit_logs")
-        .orderBy("created_at", "desc")
-        .limit(limit);
+    const offset = Number((_b = data === null || data === void 0 ? void 0 : data.offset) !== null && _b !== void 0 ? _b : 0);
+    let query = db().collection("audit_logs");
     if (targetType) {
         query = query.where("target_type", "==", targetType);
     }
     if (targetId) {
         query = query.where("target_id", "==", targetId);
     }
-    const snap = await query.get().catch(async () => db().collection("audit_logs").limit(limit).get());
+    const countSnap = await query.count().get().catch(() => null);
+    const snap = await query
+        .orderBy("created_at", "desc")
+        .offset(offset)
+        .limit(limit)
+        .get()
+        .catch(async () => db()
+        .collection("audit_logs")
+        .orderBy("created_at", "desc")
+        .offset(offset)
+        .limit(limit)
+        .get());
     const logs = snap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
-    return { logs, total: logs.length };
+    const total = (_c = countSnap === null || countSnap === void 0 ? void 0 : countSnap.data().count) !== null && _c !== void 0 ? _c : logs.length;
+    return { logs, total, hasMore: offset + limit < total };
 });
 exports.adminGetAnnouncements = functions
     .region("asia-northeast1")

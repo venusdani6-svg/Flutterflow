@@ -705,7 +705,8 @@ class _AdministratodetailsPageWidgetState
                                                   ),
                                                 ),
                                               ],
-                                              Row(
+                                              if (_model.userId.isEmpty)
+                                                Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,

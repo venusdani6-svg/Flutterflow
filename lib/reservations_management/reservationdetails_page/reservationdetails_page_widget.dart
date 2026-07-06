@@ -671,7 +671,8 @@ class _ReservationdetailsPageWidgetState
                                                   reservationId:
                                                       _model.reservationId,
                                                 ),
-                                              Row(
+                                              if (_model.reservationId.isEmpty)
+                                                Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,

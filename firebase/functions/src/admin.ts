@@ -305,4 +305,10 @@ export {
   adminGetGuideline,
   adminUpdateGuideline,
 } from "./admin/content";
+export {
+  adminGetCocotenShops,
+  adminUpsertCocotenShop,
+  adminGetJobBoardPosts,
+  adminUpsertJobBoardPost,
+} from "./admin/cocoten";
 export { adminGetMyPermissions, adminUpdateAdminAccess } from "./admin/permissions";

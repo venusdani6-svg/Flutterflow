@@ -33,6 +33,12 @@ export {
   adminGetGuideline,
   adminUpdateGuideline,
 } from "./admin";
+export {
+  adminGetCocotenShops,
+  adminUpsertCocotenShop,
+  adminGetJobBoardPosts,
+  adminUpsertJobBoardPost,
+} from "./admin/cocoten";
 export { adminGetMyPermissions, adminUpdateAdminAccess } from "./admin/permissions";
 
 export { stripeWebhook } from "./stripe/stripe-webhooks";

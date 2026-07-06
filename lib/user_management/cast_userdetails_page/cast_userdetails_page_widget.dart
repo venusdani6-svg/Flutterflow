@@ -720,7 +720,8 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                 ),
                                               ),
                                             ],
-                                            Row(
+                                            if (_model.userId.isEmpty)
+                                              Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Expanded(

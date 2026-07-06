@@ -715,7 +715,8 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                 ),
                                               ),
                                             ],
-                                            Row(
+                                            if (_model.userId.isEmpty)
+                                              Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Expanded(

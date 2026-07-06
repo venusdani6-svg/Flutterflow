@@ -85,7 +85,7 @@ cd .. && firebase emulators:start --only functions,firestore
 
 - **クライアント**: 自分の `users/{uid}` のみ Firestore 直読み可
 - **管理データ**: Cloud Functions（`verifyAdmin`）経由のみ
-- 引き渡しバックエンド（`admin.ts` 全 API）はフェーズ1で本リポジトリに追加予定
+- 管理 API は `firebase/functions/src/` に同梱（`admin.ts` ほか 30+ 関数）
 
 ## 引き渡しバックエンドの統合
 
@@ -97,7 +97,7 @@ cd firebase/functions && npm run build
 firebase deploy --only functions
 ```
 
-現リポジトリには `src/admin.ts`（`adminGetDashboardStats`, `adminHealthCheck`）と `src/auth/verifyAdmin.ts` を同梱しています。
+現リポジトリには `src/admin.ts` および `src/auth/verifyAdmin.ts`、Stripe・モバイル・権限 API を同梱しています。
 
 ---
 
