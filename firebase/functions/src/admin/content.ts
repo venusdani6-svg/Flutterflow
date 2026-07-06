@@ -1,5 +1,13 @@
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
+import {
+  applyPrefectureQueryFilter,
+  assertPrefectureAccess,
+  filterRowsByPrefecture,
+  getManagedPrefectures,
+  readPrefecture,
+  requirePermission,
+} from "../auth/adminPermissions";
 import { verifyAdmin } from "../auth/verifyAdmin";
 
 const db = () => admin.firestore();
@@ -8,6 +16,7 @@ export const adminUpdateSystemConfig = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
     const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "system_settings");
     const section = (data?.section as string) ?? "settings";
     const payload = data?.payload ?? {};
     const docRef = db().collection("system_config").doc("default");
@@ -25,7 +34,8 @@ export const adminUpdateSystemConfig = functions
 export const adminGetSystemConfig = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
-    await verifyAdmin(context);
+    const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "system_settings");
     const snap = await db().collection("system_config").doc("default").get();
     return snap.exists ? snap.data() : {};
   });
@@ -33,7 +43,8 @@ export const adminGetSystemConfig = functions
 export const adminGetBanners = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
-    await verifyAdmin(context);
+    const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "banners");
     const limit = Math.min(Number(data?.limit ?? 50), 100);
     const snap = await db()
       .collection("banners")
@@ -49,6 +60,7 @@ export const adminUpsertBanner = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
     const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "banners");
     const bannerId = (data?.bannerId as string) ?? db().collection("banners").doc().id;
     const payload = { ...(data?.payload as Record<string, unknown>), updated_at: admin.firestore.FieldValue.serverTimestamp(), updated_by: adminUser.uid };
     await db().collection("banners").doc(bannerId).set(payload, { merge: true });
@@ -58,29 +70,35 @@ export const adminUpsertBanner = functions
 export const adminGetReports = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
-    await verifyAdmin(context);
+    const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "reports");
+    const prefectures = getManagedPrefectures(adminUser);
     const status = data?.status as string | undefined;
     const limit = Math.min(Number(data?.limit ?? 50), 100);
     const offset = Number(data?.offset ?? 0);
-    let baseQuery: FirebaseFirestore.Query = db().collection("reports");
+    let baseQuery: FirebaseFirestore.Query = applyPrefectureQueryFilter(
+      db().collection("reports"),
+      prefectures,
+    );
     if (status) {
       baseQuery = baseQuery.where("status", "==", status);
     }
-    const countSnap = await baseQuery.count().get();
-    const total = countSnap.data().count;
     const snap = await baseQuery
       .orderBy("created_at", "desc")
-      .offset(offset)
-      .limit(limit)
+      .limit(prefectures ? 500 : offset + limit)
       .get();
-    const reports = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-    return { reports, total, hasMore: offset + limit < total };
+    let reports = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    reports = filterRowsByPrefecture(reports, prefectures);
+    const total = reports.length;
+    const page = reports.slice(offset, offset + limit);
+    return { reports: page, total, hasMore: offset + limit < total };
   });
 
 export const adminResolveReport = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
     const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "reports");
     const reportId = data?.reportId as string;
     const resolution = (data?.resolution as string) ?? "resolved";
     if (!reportId) {
@@ -89,6 +107,8 @@ export const adminResolveReport = functions
         "reportId is required.",
       );
     }
+    const reportDoc = await db().collection("reports").doc(reportId).get();
+    assertPrefectureAccess(adminUser, readPrefecture(reportDoc.data() ?? {}));
     await db().collection("reports").doc(reportId).update({
       status: resolution,
       resolved_at: admin.firestore.FieldValue.serverTimestamp(),
@@ -100,17 +120,21 @@ export const adminResolveReport = functions
 export const adminGetAffiliateOverview = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
-    await verifyAdmin(context);
+    const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "affiliate");
+    const prefectures = getManagedPrefectures(adminUser);
     const limit = Math.min(Number(data?.limit ?? 100), 200);
-    const snap = await db()
-      .collection("users")
-      .where("is_affiliate", "==", true)
+    const snap = await applyPrefectureQueryFilter(
+      db().collection("users").where("is_affiliate", "==", true),
+      prefectures,
+    )
       .limit(limit)
       .get()
       .catch(async () =>
         db().collection("affiliate_stats").limit(limit).get(),
       );
-    const affiliates = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    let affiliates = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    affiliates = filterRowsByPrefecture(affiliates, prefectures);
     const monthlySnap = await db()
       .collection("affiliate_monthly_rewards")
       .orderBy("month", "desc")
@@ -125,7 +149,8 @@ export const adminGetAffiliateOverview = functions
 export const adminUpdateAffiliateRate = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
-    await verifyAdmin(context);
+    const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "affiliate");
     const userId = data?.userId as string;
     const rate = Number(data?.rate);
     if (!userId || Number.isNaN(rate)) {
@@ -134,6 +159,8 @@ export const adminUpdateAffiliateRate = functions
         "userId and rate are required.",
       );
     }
+    const userDoc = await db().collection("users").doc(userId).get();
+    assertPrefectureAccess(adminUser, readPrefecture(userDoc.data() ?? {}));
     await db().collection("users").doc(userId).update({ affiliate_rate: rate });
     return { ok: true, userId, rate };
   });
@@ -141,7 +168,8 @@ export const adminUpdateAffiliateRate = functions
 export const adminGetAuditLogs = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
-    await verifyAdmin(context);
+    const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "audit_logs");
     const targetType = data?.targetType as string | undefined;
     const targetId = data?.targetId as string | undefined;
     const limit = Math.min(Number(data?.limit ?? 50), 100);
@@ -165,7 +193,8 @@ export const adminGetAuditLogs = functions
 export const adminGetAnnouncements = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
-    await verifyAdmin(context);
+    const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "system_settings");
     const limit = Math.min(Number(data?.limit ?? 50), 100);
     const snap = await db()
       .collection("announcements")
@@ -181,6 +210,7 @@ export const adminUpsertAnnouncement = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
     const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "system_settings");
     const announcementId =
       (data?.announcementId as string) ??
       db().collection("announcements").doc().id;
@@ -202,7 +232,8 @@ export const adminUpsertAnnouncement = functions
 export const adminGetGuideline = functions
   .region("asia-northeast1")
   .https.onCall(async (_data, context) => {
-    await verifyAdmin(context);
+    const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "system_settings");
     const snap = await db().collection("system_config").doc("default").get();
     const data = snap.data() ?? {};
     return {
@@ -215,6 +246,7 @@ export const adminUpdateGuideline = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
     const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "system_settings");
     const content = (data?.content as string) ?? "";
     await db()
       .collection("system_config")

@@ -232,22 +232,19 @@ Future<Map<String, dynamic>?> adminUpdateGuideline({
 }) =>
     _callAdmin('adminUpdateGuideline', {'content': content});
 
-Future<Map<String, dynamic>?> adminGetAnnouncements({int limit = 50}) =>
-    _callAdmin('adminGetAnnouncements', {'limit': limit});
+Future<Map<String, dynamic>?> adminGetMyPermissions() =>
+    _callAdmin('adminGetMyPermissions');
 
-Future<Map<String, dynamic>?> adminUpsertAnnouncement({
-  String? announcementId,
-  required Map<String, dynamic> payload,
+Future<Map<String, dynamic>?> adminUpdateAdminAccess({
+  required String userId,
+  String? adminRole,
+  Map<String, bool>? adminPermissions,
+  List<String>? managedPrefectures,
 }) =>
-    _callAdmin('adminUpsertAnnouncement', {
-      if (announcementId != null) 'announcementId': announcementId,
-      'payload': payload,
+    _callAdmin('adminUpdateAdminAccess', {
+      'userId': userId,
+      if (adminRole != null) 'adminRole': adminRole,
+      if (adminPermissions != null) 'adminPermissions': adminPermissions,
+      if (managedPrefectures != null) 'managedPrefectures': managedPrefectures,
     });
 
-Future<Map<String, dynamic>?> adminGetGuideline() =>
-    _callAdmin('adminGetGuideline');
-
-Future<Map<String, dynamic>?> adminUpdateGuideline({
-  required String content,
-}) =>
-    _callAdmin('adminUpdateGuideline', {'content': content});

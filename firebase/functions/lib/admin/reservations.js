@@ -36,6 +36,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.adminGetTipsByReservation = exports.adminForceCancel = exports.adminGetReservation = exports.adminGetReservations = void 0;
 const admin = __importStar(require("firebase-admin"));
 const functions = __importStar(require("firebase-functions"));
+const adminPermissions_1 = require("../auth/adminPermissions");
 const verifyAdmin_1 = require("../auth/verifyAdmin");
 const audit_1 = require("./audit");
 const db = () => admin.firestore();
@@ -43,21 +44,22 @@ exports.adminGetReservations = functions
     .region("asia-northeast1")
     .https.onCall(async (data, context) => {
     var _a, _b, _c;
-    await (0, verifyAdmin_1.verifyAdmin)(context);
+    const adminUser = await (0, verifyAdmin_1.verifyAdmin)(context);
+    (0, adminPermissions_1.requirePermission)(adminUser, "reservations");
+    const prefectures = (0, adminPermissions_1.getManagedPrefectures)(adminUser);
     const status = data === null || data === void 0 ? void 0 : data.status;
     const search = ((_a = data === null || data === void 0 ? void 0 : data.search) !== null && _a !== void 0 ? _a : "").trim().toLowerCase();
     const limit = Math.min(Number((_b = data === null || data === void 0 ? void 0 : data.limit) !== null && _b !== void 0 ? _b : 50), 100);
     const offset = Number((_c = data === null || data === void 0 ? void 0 : data.offset) !== null && _c !== void 0 ? _c : 0);
     if (search) {
-        let query = db()
-            .collection("reservations")
-            .orderBy("created_at", "desc");
+        let query = (0, adminPermissions_1.applyPrefectureQueryFilter)(db().collection("reservations"), prefectures).orderBy("created_at", "desc");
         if (status) {
             query = query.where("status", "==", status);
         }
         query = query.limit(500);
         const snap = await query.get();
         let reservations = snap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
+        reservations = (0, adminPermissions_1.filterRowsByPrefecture)(reservations, prefectures);
         reservations = reservations.filter((r) => {
             var _a, _b, _c;
             const id = String((_a = r.id) !== null && _a !== void 0 ? _a : "").toLowerCase();
@@ -69,7 +71,7 @@ exports.adminGetReservations = functions
         const page = reservations.slice(offset, offset + limit);
         return { reservations: page, total, hasMore: offset + limit < total };
     }
-    let baseQuery = db().collection("reservations");
+    let baseQuery = (0, adminPermissions_1.applyPrefectureQueryFilter)(db().collection("reservations"), prefectures);
     if (status) {
         baseQuery = baseQuery.where("status", "==", status);
     }
@@ -86,7 +88,9 @@ exports.adminGetReservations = functions
 exports.adminGetReservation = functions
     .region("asia-northeast1")
     .https.onCall(async (data, context) => {
-    await (0, verifyAdmin_1.verifyAdmin)(context);
+    var _a;
+    const adminUser = await (0, verifyAdmin_1.verifyAdmin)(context);
+    (0, adminPermissions_1.requirePermission)(adminUser, "reservations");
     const reservationId = data === null || data === void 0 ? void 0 : data.reservationId;
     if (!reservationId) {
         throw new functions.https.HttpsError("invalid-argument", "reservationId is required.");
@@ -95,18 +99,23 @@ exports.adminGetReservation = functions
     if (!doc.exists) {
         throw new functions.https.HttpsError("not-found", "Reservation not found.");
     }
-    return Object.assign({ id: doc.id }, doc.data());
+    const dataMap = (_a = doc.data()) !== null && _a !== void 0 ? _a : {};
+    (0, adminPermissions_1.assertPrefectureAccess)(adminUser, (0, adminPermissions_1.readPrefecture)(dataMap));
+    return Object.assign({ id: doc.id }, dataMap);
 });
 exports.adminForceCancel = functions
     .region("asia-northeast1")
     .https.onCall(async (data, context) => {
-    var _a;
+    var _a, _b;
     const adminUser = await (0, verifyAdmin_1.verifyAdmin)(context);
+    (0, adminPermissions_1.requirePermission)(adminUser, "reservations");
     const reservationId = data === null || data === void 0 ? void 0 : data.reservationId;
     const reason = (_a = data === null || data === void 0 ? void 0 : data.reason) !== null && _a !== void 0 ? _a : "admin_force_cancel";
     if (!reservationId) {
         throw new functions.https.HttpsError("invalid-argument", "reservationId is required.");
     }
+    const doc = await db().collection("reservations").doc(reservationId).get();
+    (0, adminPermissions_1.assertPrefectureAccess)(adminUser, (0, adminPermissions_1.readPrefecture)((_b = doc.data()) !== null && _b !== void 0 ? _b : {}));
     await db().collection("reservations").doc(reservationId).update({
         status: "cancelled",
         cancelled_by: "admin",
@@ -126,11 +135,18 @@ exports.adminForceCancel = functions
 exports.adminGetTipsByReservation = functions
     .region("asia-northeast1")
     .https.onCall(async (data, context) => {
-    await (0, verifyAdmin_1.verifyAdmin)(context);
+    var _a;
+    const adminUser = await (0, verifyAdmin_1.verifyAdmin)(context);
+    (0, adminPermissions_1.requirePermission)(adminUser, "reservations");
     const reservationId = data === null || data === void 0 ? void 0 : data.reservationId;
     if (!reservationId) {
         throw new functions.https.HttpsError("invalid-argument", "reservationId is required.");
     }
+    const reservationDoc = await db()
+        .collection("reservations")
+        .doc(reservationId)
+        .get();
+    (0, adminPermissions_1.assertPrefectureAccess)(adminUser, (0, adminPermissions_1.readPrefecture)((_a = reservationDoc.data()) !== null && _a !== void 0 ? _a : {}));
     const snap = await db()
         .collection("ledger")
         .where("reservation_id", "==", reservationId)

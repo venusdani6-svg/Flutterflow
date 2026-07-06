@@ -33,6 +33,7 @@ export {
   adminGetGuideline,
   adminUpdateGuideline,
 } from "./admin";
+export { adminGetMyPermissions, adminUpdateAdminAccess } from "./admin/permissions";
 
 export { stripeWebhook } from "./stripe/stripe-webhooks";
 export {

@@ -1,5 +1,13 @@
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
+import {
+  applyPrefectureQueryFilter,
+  assertPrefectureAccess,
+  filterRowsByPrefecture,
+  getManagedPrefectures,
+  readPrefecture,
+  requirePermission,
+} from "../auth/adminPermissions";
 import { verifyAdmin } from "../auth/verifyAdmin";
 import { writeAuditLog } from "./audit";
 
@@ -13,8 +21,9 @@ function applyUserFilters(
     kycStatus?: string;
     isFrozen?: boolean;
   },
+  prefectures: string[] | null,
 ): FirebaseFirestore.Query {
-  let q = query;
+  let q = applyPrefectureQueryFilter(query, prefectures);
   if (filters.role !== undefined) {
     q = q.where("role", "==", filters.role);
   }
@@ -33,7 +42,10 @@ function applyUserFilters(
 export const adminGetUsers = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
-    await verifyAdmin(context);
+    const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "user_management");
+    const prefectures = getManagedPrefectures(adminUser);
+
     const role = data?.role as number | undefined;
     const roleAdmin = data?.roleAdmin as string | undefined;
     const kycStatus = data?.kycStatus as string | undefined;
@@ -52,7 +64,7 @@ export const adminGetUsers = functions
       : "created_time";
 
     if (search) {
-      let query = applyUserFilters(db().collection("users"), filters);
+      let query = applyUserFilters(db().collection("users"), filters, prefectures);
       query = query.orderBy(
         orderField,
         orderDirection === "asc" ? "asc" : "desc",
@@ -63,6 +75,7 @@ export const adminGetUsers = functions
         string,
         unknown
       >[];
+      users = filterRowsByPrefecture(users, prefectures);
       users = users.filter((u) => {
         const email = String(u.email ?? "").toLowerCase();
         const name = String(u.display_name ?? "").toLowerCase();
@@ -73,16 +86,21 @@ export const adminGetUsers = functions
       return { users: page, total, hasMore: offset + limit < total };
     }
 
-    const baseQuery = applyUserFilters(db().collection("users"), filters);
+    const baseQuery = applyUserFilters(db().collection("users"), filters, prefectures);
     const countSnap = await baseQuery.count().get();
-    const total = countSnap.data().count;
+    let total = countSnap.data().count;
 
     let dataQuery = baseQuery
       .orderBy(orderField, orderDirection === "asc" ? "asc" : "desc")
       .offset(offset)
       .limit(limit);
     const snap = await dataQuery.get();
-    const users = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    let users = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+
+    if (prefectures && prefectures.length > 10) {
+      users = filterRowsByPrefecture(users, prefectures);
+      total = users.length;
+    }
 
     return {
       users,
@@ -94,7 +112,8 @@ export const adminGetUsers = functions
 export const adminGetUser = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
-    await verifyAdmin(context);
+    const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "user_management");
     const userId = data?.userId as string;
     if (!userId) {
       throw new functions.https.HttpsError(
@@ -106,13 +125,16 @@ export const adminGetUser = functions
     if (!doc.exists) {
       throw new functions.https.HttpsError("not-found", "User not found.");
     }
-    return { id: doc.id, ...doc.data() };
+    const userData = doc.data() ?? {};
+    assertPrefectureAccess(adminUser, readPrefecture(userData));
+    return { id: doc.id, ...userData };
   });
 
 export const adminApproveKYC = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
     const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "kyc");
     const userId = data?.userId as string;
     const approved = Boolean(data?.approved ?? true);
     if (!userId) {
@@ -122,7 +144,9 @@ export const adminApproveKYC = functions
       );
     }
     const userDoc = await db().collection("users").doc(userId).get();
-    const userName = String(userDoc.data()?.display_name ?? userId);
+    const userData = userDoc.data() ?? {};
+    assertPrefectureAccess(adminUser, readPrefecture(userData));
+    const userName = String(userData.display_name ?? userId);
     const kycStatus = approved ? "approved" : "rejected";
     await db().collection("users").doc(userId).update({
       kyc_status: kycStatus,
@@ -143,6 +167,7 @@ export const adminToggleFreeze = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
     const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "user_management");
     const userId = data?.userId as string;
     const frozen = Boolean(data?.frozen);
     if (!userId) {
@@ -152,7 +177,9 @@ export const adminToggleFreeze = functions
       );
     }
     const userDoc = await db().collection("users").doc(userId).get();
-    const userName = String(userDoc.data()?.display_name ?? userId);
+    const userData = userDoc.data() ?? {};
+    assertPrefectureAccess(adminUser, readPrefecture(userData));
+    const userName = String(userData.display_name ?? userId);
     await db()
       .collection("users")
       .doc(userId)
@@ -171,6 +198,7 @@ export const adminForceDeleteUser = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
     const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "user_management");
     const userId = data?.userId as string;
     if (!userId) {
       throw new functions.https.HttpsError(
@@ -179,7 +207,9 @@ export const adminForceDeleteUser = functions
       );
     }
     const userDoc = await db().collection("users").doc(userId).get();
-    const userName = String(userDoc.data()?.display_name ?? userId);
+    const userData = userDoc.data() ?? {};
+    assertPrefectureAccess(adminUser, readPrefecture(userData));
+    const userName = String(userData.display_name ?? userId);
     await writeAuditLog({
       actorUid: adminUser.uid,
       action: "user_deleted",

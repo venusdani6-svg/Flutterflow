@@ -1,5 +1,6 @@
 import '/auth/admin_auth_util.dart';
 import '/backend/cloud_functions/admin_calls.dart';
+import '/components/admin_common/admin_permissions_editor_section.dart';
 import '/components/admin_common/admin_detail_common_section.dart';
 import '/components/admin_common/admin_user_profile_section.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -671,6 +672,9 @@ class _AdministratodetailsPageWidgetState
                                             children: [
                                               if (_model.userId.isNotEmpty) ...[
                                                 AdminUserProfileSection(
+                                                  userId: _model.userId,
+                                                ),
+                                                AdminPermissionsEditorSection(
                                                   userId: _model.userId,
                                                 ),
                                                 AdminDetailCommonSection(

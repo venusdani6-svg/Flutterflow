@@ -1,4 +1,5 @@
 import '/account/reset_password_form/reset_password_form_widget.dart';
+import '/auth/admin_permissions_util.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -383,6 +384,10 @@ class _AdminLoginPageWidgetState extends State<AdminLoginPageWidget> {
                             }
 
                             if (currentUserIsAdmin) {
+                              await AdminPermissions.refresh();
+                              if (!context.mounted) {
+                                return;
+                              }
                               context.pushNamedAuth(
                                 AdminDashboardPageWidget.routeName,
                                 context.mounted,

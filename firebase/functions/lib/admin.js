@@ -33,9 +33,10 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.adminUpdateGuideline = exports.adminGetGuideline = exports.adminUpsertAnnouncement = exports.adminGetAnnouncements = exports.adminGetAuditLogs = exports.adminUpdateAffiliateRate = exports.adminGetAffiliateOverview = exports.adminResolveReport = exports.adminGetReports = exports.adminUpsertBanner = exports.adminGetBanners = exports.adminGetSystemConfig = exports.adminUpdateSystemConfig = exports.adminApprovePayout = exports.adminGetPayoutRequests = exports.adminGetStripeLogs = exports.adminGetLedger = exports.adminGetTipsByReservation = exports.adminForceCancel = exports.adminGetReservation = exports.adminGetReservations = exports.adminForceDeleteUser = exports.adminToggleFreeze = exports.adminApproveKYC = exports.adminGetUser = exports.adminGetUsers = exports.adminHealthCheck = exports.adminGetDashboardStats = void 0;
+exports.adminUpdateAdminAccess = exports.adminGetMyPermissions = exports.adminUpdateGuideline = exports.adminGetGuideline = exports.adminUpsertAnnouncement = exports.adminGetAnnouncements = exports.adminGetAuditLogs = exports.adminUpdateAffiliateRate = exports.adminGetAffiliateOverview = exports.adminResolveReport = exports.adminGetReports = exports.adminUpsertBanner = exports.adminGetBanners = exports.adminGetSystemConfig = exports.adminUpdateSystemConfig = exports.adminApprovePayout = exports.adminGetPayoutRequests = exports.adminGetStripeLogs = exports.adminGetLedger = exports.adminGetTipsByReservation = exports.adminForceCancel = exports.adminGetReservation = exports.adminGetReservations = exports.adminForceDeleteUser = exports.adminToggleFreeze = exports.adminApproveKYC = exports.adminGetUser = exports.adminGetUsers = exports.adminHealthCheck = exports.adminGetDashboardStats = void 0;
 const admin = __importStar(require("firebase-admin"));
 const functions = __importStar(require("firebase-functions"));
+const adminPermissions_1 = require("./auth/adminPermissions");
 const verifyAdmin_1 = require("./auth/verifyAdmin");
 const db = () => admin.firestore();
 function startOfTodayJst() {
@@ -45,66 +46,56 @@ function startOfTodayJst() {
     jst.setUTCHours(0, 0, 0, 0);
     return new Date(jst.getTime() - jstOffsetMs);
 }
-async function countUsersByRole(role) {
-    const snap = await db()
-        .collection("users")
-        .where("role", "==", role)
+async function countUsersByRole(role, prefectures) {
+    const snap = await (0, adminPermissions_1.applyPrefectureQueryFilter)(db().collection("users").where("role", "==", role), prefectures)
         .count()
         .get();
     return snap.data().count;
 }
-async function countTodayRegistrations() {
-    const snap = await db()
+async function countTodayRegistrations(prefectures) {
+    const snap = await (0, adminPermissions_1.applyPrefectureQueryFilter)(db()
         .collection("users")
-        .where("created_time", ">=", startOfTodayJst())
+        .where("created_time", ">=", startOfTodayJst()), prefectures)
         .count()
         .get();
     return snap.data().count;
 }
-async function countPendingKyc() {
+async function countPendingKyc(prefectures) {
     var _a;
-    const snap = await db()
-        .collection("users")
-        .where("kyc_status", "==", "pending")
+    const snap = await (0, adminPermissions_1.applyPrefectureQueryFilter)(db().collection("users").where("kyc_status", "==", "pending"), prefectures)
         .count()
         .get()
         .catch(() => null);
     return (_a = snap === null || snap === void 0 ? void 0 : snap.data().count) !== null && _a !== void 0 ? _a : 0;
 }
-async function countTodayReservations() {
+async function countTodayReservations(prefectures) {
     var _a;
-    const snap = await db()
+    const snap = await (0, adminPermissions_1.applyPrefectureQueryFilter)(db()
         .collection("reservations")
-        .where("created_at", ">=", startOfTodayJst())
+        .where("created_at", ">=", startOfTodayJst()), prefectures)
         .count()
         .get()
         .catch(() => null);
     return (_a = snap === null || snap === void 0 ? void 0 : snap.data().count) !== null && _a !== void 0 ? _a : 0;
 }
-async function countPendingPayouts() {
+async function countPendingPayouts(prefectures) {
     var _a;
-    const snap = await db()
-        .collection("payout_requests")
-        .where("status", "==", "pending")
+    const snap = await (0, adminPermissions_1.applyPrefectureQueryFilter)(db().collection("payout_requests").where("status", "==", "pending"), prefectures)
         .count()
         .get()
         .catch(() => null);
     return (_a = snap === null || snap === void 0 ? void 0 : snap.data().count) !== null && _a !== void 0 ? _a : 0;
 }
-async function countPendingReports() {
+async function countPendingReports(prefectures) {
     var _a;
-    const snap = await db()
-        .collection("reports")
-        .where("status", "in", ["pending", "open"])
+    const snap = await (0, adminPermissions_1.applyPrefectureQueryFilter)(db().collection("reports").where("status", "in", ["pending", "open"]), prefectures)
         .count()
         .get()
         .catch(() => null);
     return (_a = snap === null || snap === void 0 ? void 0 : snap.data().count) !== null && _a !== void 0 ? _a : 0;
 }
-async function countAffiliates() {
-    const snap = await db()
-        .collection("users")
-        .where("is_affiliate", "==", true)
+async function countAffiliates(prefectures) {
+    const snap = await (0, adminPermissions_1.applyPrefectureQueryFilter)(db().collection("users").where("is_affiliate", "==", true), prefectures)
         .count()
         .get()
         .catch(() => null);
@@ -119,11 +110,11 @@ async function countCocotenShops() {
 async function countJobBoardPosts() {
     return countCollection("job_board");
 }
-async function getSalesToday() {
-    const snap = await db()
+async function getSalesToday(prefectures) {
+    const snap = await (0, adminPermissions_1.applyPrefectureQueryFilter)(db()
         .collection("ledger")
         .where("type", "==", "payment")
-        .where("created_at", ">=", startOfTodayJst())
+        .where("created_at", ">=", startOfTodayJst()), prefectures)
         .get()
         .catch(() => null);
     if (!snap) {
@@ -186,18 +177,20 @@ async function getMonthlySales() {
 exports.adminGetDashboardStats = functions
     .region("asia-northeast1")
     .https.onCall(async (_data, context) => {
-    await (0, verifyAdmin_1.verifyAdmin)(context);
+    const adminUser = await (0, verifyAdmin_1.verifyAdmin)(context);
+    (0, adminPermissions_1.requirePermission)(adminUser, "dashboard");
+    const prefectures = (0, adminPermissions_1.getManagedPrefectures)(adminUser);
     const [todayNewRegistrations, guestCount, castCount, staffCount, pendingKyc, todayReservations, salesToday, pendingPayouts, pendingReports, affiliateCount, cocotenShopCount, jobBoardPostCount, monthlySales, recentActivityLogs,] = await Promise.all([
-        countTodayRegistrations(),
-        countUsersByRole(0).catch(() => 0),
-        countUsersByRole(1).catch(() => 0),
-        countUsersByRole(2).catch(() => 0),
-        countPendingKyc(),
-        countTodayReservations(),
-        getSalesToday(),
-        countPendingPayouts(),
-        countPendingReports(),
-        countAffiliates(),
+        countTodayRegistrations(prefectures),
+        countUsersByRole(0, prefectures).catch(() => 0),
+        countUsersByRole(1, prefectures).catch(() => 0),
+        countUsersByRole(2, prefectures).catch(() => 0),
+        countPendingKyc(prefectures),
+        countTodayReservations(prefectures),
+        getSalesToday(prefectures),
+        countPendingPayouts(prefectures),
+        countPendingReports(prefectures),
+        countAffiliates(prefectures),
         countCocotenShops(),
         countJobBoardPosts(),
         getMonthlySales(),
@@ -221,6 +214,7 @@ exports.adminGetDashboardStats = functions
         },
         monthlySales,
         recentActivityLogs,
+        managedPrefectures: prefectures !== null && prefectures !== void 0 ? prefectures : [],
         generatedAt: new Date().toISOString(),
     };
 });
@@ -268,4 +262,7 @@ Object.defineProperty(exports, "adminGetAnnouncements", { enumerable: true, get:
 Object.defineProperty(exports, "adminUpsertAnnouncement", { enumerable: true, get: function () { return content_1.adminUpsertAnnouncement; } });
 Object.defineProperty(exports, "adminGetGuideline", { enumerable: true, get: function () { return content_1.adminGetGuideline; } });
 Object.defineProperty(exports, "adminUpdateGuideline", { enumerable: true, get: function () { return content_1.adminUpdateGuideline; } });
+var permissions_1 = require("./admin/permissions");
+Object.defineProperty(exports, "adminGetMyPermissions", { enumerable: true, get: function () { return permissions_1.adminGetMyPermissions; } });
+Object.defineProperty(exports, "adminUpdateAdminAccess", { enumerable: true, get: function () { return permissions_1.adminUpdateAdminAccess; } });
 //# sourceMappingURL=admin.js.map

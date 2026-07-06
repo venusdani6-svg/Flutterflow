@@ -1,5 +1,10 @@
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
+import {
+  applyPrefectureQueryFilter,
+  getManagedPrefectures,
+  requirePermission,
+} from "./auth/adminPermissions";
 import { verifyAdmin } from "./auth/verifyAdmin";
 
 const db = () => admin.firestore();
@@ -12,68 +17,90 @@ function startOfTodayJst(): Date {
   return new Date(jst.getTime() - jstOffsetMs);
 }
 
-async function countUsersByRole(role: number): Promise<number> {
-  const snap = await db()
-    .collection("users")
-    .where("role", "==", role)
+async function countUsersByRole(
+  role: number,
+  prefectures: string[] | null,
+): Promise<number> {
+  const snap = await applyPrefectureQueryFilter(
+    db().collection("users").where("role", "==", role),
+    prefectures,
+  )
     .count()
     .get();
   return snap.data().count;
 }
 
-async function countTodayRegistrations(): Promise<number> {
-  const snap = await db()
-    .collection("users")
-    .where("created_time", ">=", startOfTodayJst())
+async function countTodayRegistrations(
+  prefectures: string[] | null,
+): Promise<number> {
+  const snap = await applyPrefectureQueryFilter(
+    db()
+      .collection("users")
+      .where("created_time", ">=", startOfTodayJst()),
+    prefectures,
+  )
     .count()
     .get();
   return snap.data().count;
 }
 
-async function countPendingKyc(): Promise<number> {
-  const snap = await db()
-    .collection("users")
-    .where("kyc_status", "==", "pending")
+async function countPendingKyc(prefectures: string[] | null): Promise<number> {
+  const snap = await applyPrefectureQueryFilter(
+    db().collection("users").where("kyc_status", "==", "pending"),
+    prefectures,
+  )
     .count()
     .get()
     .catch(() => null);
   return snap?.data().count ?? 0;
 }
 
-async function countTodayReservations(): Promise<number> {
-  const snap = await db()
-    .collection("reservations")
-    .where("created_at", ">=", startOfTodayJst())
+async function countTodayReservations(
+  prefectures: string[] | null,
+): Promise<number> {
+  const snap = await applyPrefectureQueryFilter(
+    db()
+      .collection("reservations")
+      .where("created_at", ">=", startOfTodayJst()),
+    prefectures,
+  )
     .count()
     .get()
     .catch(() => null);
   return snap?.data().count ?? 0;
 }
 
-async function countPendingPayouts(): Promise<number> {
-  const snap = await db()
-    .collection("payout_requests")
-    .where("status", "==", "pending")
+async function countPendingPayouts(
+  prefectures: string[] | null,
+): Promise<number> {
+  const snap = await applyPrefectureQueryFilter(
+    db().collection("payout_requests").where("status", "==", "pending"),
+    prefectures,
+  )
     .count()
     .get()
     .catch(() => null);
   return snap?.data().count ?? 0;
 }
 
-async function countPendingReports(): Promise<number> {
-  const snap = await db()
-    .collection("reports")
-    .where("status", "in", ["pending", "open"])
+async function countPendingReports(
+  prefectures: string[] | null,
+): Promise<number> {
+  const snap = await applyPrefectureQueryFilter(
+    db().collection("reports").where("status", "in", ["pending", "open"]),
+    prefectures,
+  )
     .count()
     .get()
     .catch(() => null);
   return snap?.data().count ?? 0;
 }
 
-async function countAffiliates(): Promise<number> {
-  const snap = await db()
-    .collection("users")
-    .where("is_affiliate", "==", true)
+async function countAffiliates(prefectures: string[] | null): Promise<number> {
+  const snap = await applyPrefectureQueryFilter(
+    db().collection("users").where("is_affiliate", "==", true),
+    prefectures,
+  )
     .count()
     .get()
     .catch(() => null);
@@ -91,11 +118,14 @@ async function countJobBoardPosts(): Promise<number> {
   return countCollection("job_board");
 }
 
-async function getSalesToday(): Promise<number> {
-  const snap = await db()
-    .collection("ledger")
-    .where("type", "==", "payment")
-    .where("created_at", ">=", startOfTodayJst())
+async function getSalesToday(prefectures: string[] | null): Promise<number> {
+  const snap = await applyPrefectureQueryFilter(
+    db()
+      .collection("ledger")
+      .where("type", "==", "payment")
+      .where("created_at", ">=", startOfTodayJst()),
+    prefectures,
+  )
     .get()
     .catch(() => null);
   if (!snap) {
@@ -168,7 +198,9 @@ async function getMonthlySales(): Promise<
 export const adminGetDashboardStats = functions
   .region("asia-northeast1")
   .https.onCall(async (_data, context) => {
-    await verifyAdmin(context);
+    const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "dashboard");
+    const prefectures = getManagedPrefectures(adminUser);
 
     const [
       todayNewRegistrations,
@@ -186,16 +218,16 @@ export const adminGetDashboardStats = functions
       monthlySales,
       recentActivityLogs,
     ] = await Promise.all([
-      countTodayRegistrations(),
-      countUsersByRole(0).catch(() => 0),
-      countUsersByRole(1).catch(() => 0),
-      countUsersByRole(2).catch(() => 0),
-      countPendingKyc(),
-      countTodayReservations(),
-      getSalesToday(),
-      countPendingPayouts(),
-      countPendingReports(),
-      countAffiliates(),
+      countTodayRegistrations(prefectures),
+      countUsersByRole(0, prefectures).catch(() => 0),
+      countUsersByRole(1, prefectures).catch(() => 0),
+      countUsersByRole(2, prefectures).catch(() => 0),
+      countPendingKyc(prefectures),
+      countTodayReservations(prefectures),
+      getSalesToday(prefectures),
+      countPendingPayouts(prefectures),
+      countPendingReports(prefectures),
+      countAffiliates(prefectures),
       countCocotenShops(),
       countJobBoardPosts(),
       getMonthlySales(),
@@ -220,6 +252,7 @@ export const adminGetDashboardStats = functions
       },
       monthlySales,
       recentActivityLogs,
+      managedPrefectures: prefectures ?? [],
       generatedAt: new Date().toISOString(),
     };
   });
@@ -272,3 +305,4 @@ export {
   adminGetGuideline,
   adminUpdateGuideline,
 } from "./admin/content";
+export { adminGetMyPermissions, adminUpdateAdminAccess } from "./admin/permissions";

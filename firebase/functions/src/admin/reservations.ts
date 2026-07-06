@@ -1,5 +1,13 @@
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
+import {
+  applyPrefectureQueryFilter,
+  assertPrefectureAccess,
+  filterRowsByPrefecture,
+  getManagedPrefectures,
+  readPrefecture,
+  requirePermission,
+} from "../auth/adminPermissions";
 import { verifyAdmin } from "../auth/verifyAdmin";
 import { writeAuditLog } from "./audit";
 
@@ -8,16 +16,20 @@ const db = () => admin.firestore();
 export const adminGetReservations = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
-    await verifyAdmin(context);
+    const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "reservations");
+    const prefectures = getManagedPrefectures(adminUser);
+
     const status = data?.status as string | undefined;
     const search = ((data?.search as string) ?? "").trim().toLowerCase();
     const limit = Math.min(Number(data?.limit ?? 50), 100);
     const offset = Number(data?.offset ?? 0);
 
     if (search) {
-      let query: FirebaseFirestore.Query = db()
-        .collection("reservations")
-        .orderBy("created_at", "desc");
+      let query: FirebaseFirestore.Query = applyPrefectureQueryFilter(
+        db().collection("reservations"),
+        prefectures,
+      ).orderBy("created_at", "desc");
       if (status) {
         query = query.where("status", "==", status);
       }
@@ -27,6 +39,7 @@ export const adminGetReservations = functions
         id: d.id,
         ...d.data(),
       })) as Record<string, unknown>[];
+      reservations = filterRowsByPrefecture(reservations, prefectures);
       reservations = reservations.filter((r) => {
         const id = String(r.id ?? "").toLowerCase();
         const guest = String(r.guest_id ?? "").toLowerCase();
@@ -40,7 +53,10 @@ export const adminGetReservations = functions
       return { reservations: page, total, hasMore: offset + limit < total };
     }
 
-    let baseQuery: FirebaseFirestore.Query = db().collection("reservations");
+    let baseQuery: FirebaseFirestore.Query = applyPrefectureQueryFilter(
+      db().collection("reservations"),
+      prefectures,
+    );
     if (status) {
       baseQuery = baseQuery.where("status", "==", status);
     }
@@ -59,7 +75,8 @@ export const adminGetReservations = functions
 export const adminGetReservation = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
-    await verifyAdmin(context);
+    const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "reservations");
     const reservationId = data?.reservationId as string;
     if (!reservationId) {
       throw new functions.https.HttpsError(
@@ -74,13 +91,16 @@ export const adminGetReservation = functions
         "Reservation not found.",
       );
     }
-    return { id: doc.id, ...doc.data() };
+    const dataMap = doc.data() ?? {};
+    assertPrefectureAccess(adminUser, readPrefecture(dataMap));
+    return { id: doc.id, ...dataMap };
   });
 
 export const adminForceCancel = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
     const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "reservations");
     const reservationId = data?.reservationId as string;
     const reason = (data?.reason as string) ?? "admin_force_cancel";
     if (!reservationId) {
@@ -89,6 +109,8 @@ export const adminForceCancel = functions
         "reservationId is required.",
       );
     }
+    const doc = await db().collection("reservations").doc(reservationId).get();
+    assertPrefectureAccess(adminUser, readPrefecture(doc.data() ?? {}));
     await db().collection("reservations").doc(reservationId).update({
       status: "cancelled",
       cancelled_by: "admin",
@@ -109,7 +131,8 @@ export const adminForceCancel = functions
 export const adminGetTipsByReservation = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
-    await verifyAdmin(context);
+    const adminUser = await verifyAdmin(context);
+    requirePermission(adminUser, "reservations");
     const reservationId = data?.reservationId as string;
     if (!reservationId) {
       throw new functions.https.HttpsError(
@@ -117,6 +140,11 @@ export const adminGetTipsByReservation = functions
         "reservationId is required.",
       );
     }
+    const reservationDoc = await db()
+      .collection("reservations")
+      .doc(reservationId)
+      .get();
+    assertPrefectureAccess(adminUser, readPrefecture(reservationDoc.data() ?? {}));
     const snap = await db()
       .collection("ledger")
       .where("reservation_id", "==", reservationId)

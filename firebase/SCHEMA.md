@@ -28,13 +28,17 @@
 | role | int | 0=guest, 1=cast, 2=staff |
 | role_admin | string | `"admin"` で管理画面可 |
 | admin_role | string | super_admin / prefecture_admin |
-| admin_permissions | map | 画面単位権限 |
+| admin_permissions | map | 画面単位権限（キー一覧は下記） |
 | managed_prefectures | array | 都道府県管理者用 |
+
+`admin_permissions` キー: `dashboard`, `user_management`, `reservations`, `payment_ledger`, `withdrawal`, `kyc`, `reports`, `affiliate`, `cocoten`, `job_board`, `banners`, `system_settings`, `audit_logs`
+
 | is_active | bool | |
 | is_frozen | bool | |
 | kyc_status | string | pending / approved / rejected |
 | affiliate_rate | number | |
 | base_hourly_rate | int | |
+| prefecture | string | 所属都道府県（都道府県管理者フィルタ用） |
 | stripe_connect_account_id | string | Stripe Connect Express（フェーズ6） |
 | stripe_connect_onboarding_complete | bool | |
 | stripe_connect_charges_enabled | bool | |
@@ -70,6 +74,7 @@
 | thirty_min_rule_applied | bool | |
 | sales_finalized_at | timestamp | |
 | created_at | timestamp | |
+| prefecture | string | 都道府県フィルタ（フェーズ7） |
 
 ## ledger
 

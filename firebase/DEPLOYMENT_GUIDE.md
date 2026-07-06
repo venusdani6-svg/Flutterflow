@@ -184,3 +184,28 @@ Stripe CLI で Webhook を転送:
 ```bash
 stripe listen --forward-to http://127.0.0.1:5001/icoccha-admin-dashboard/asia-northeast1/stripeWebhook
 ```
+
+---
+
+## フェーズ7 — 権限・都道府県管理者
+
+### 7-1. 管理者フィールド（`users` ドキュメント）
+
+| フィールド | 値 | 説明 |
+|------------|-----|------|
+| `admin_role` | `super_admin` | 全画面・全データ |
+| `admin_role` | `prefecture_admin` | `admin_permissions` + `managed_prefectures` で制限 |
+| `admin_permissions` | map | 画面単位 ON/OFF |
+| `managed_prefectures` | array | 例: `["東京都", "神奈川県"]` |
+
+### 7-2. 権限設定 UI
+
+スーパー管理者 → **管理者詳細** → **管理者権限設定** カード  
+API: `adminUpdateAdminAccess`（super_admin のみ）
+
+### 7-3. 動作確認
+
+1. 都道府県管理者を作成（`admin_role: prefecture_admin`, 管轄都道府県・画面権限を設定）
+2. ログイン → サイドメニューに許可画面のみ表示
+3. ユーザー・予約一覧が管轄都道府県のデータのみ返ること（`prefecture` フィールド必須）
+4. 未許可 API を直接呼ぶと `permission-denied` になること

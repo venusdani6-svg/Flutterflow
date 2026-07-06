@@ -36,11 +36,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.adminForceDeleteUser = exports.adminToggleFreeze = exports.adminApproveKYC = exports.adminGetUser = exports.adminGetUsers = void 0;
 const admin = __importStar(require("firebase-admin"));
 const functions = __importStar(require("firebase-functions"));
+const adminPermissions_1 = require("../auth/adminPermissions");
 const verifyAdmin_1 = require("../auth/verifyAdmin");
 const audit_1 = require("./audit");
 const db = () => admin.firestore();
-function applyUserFilters(query, filters) {
-    let q = query;
+function applyUserFilters(query, filters, prefectures) {
+    let q = (0, adminPermissions_1.applyPrefectureQueryFilter)(query, prefectures);
     if (filters.role !== undefined) {
         q = q.where("role", "==", filters.role);
     }
@@ -59,7 +60,9 @@ exports.adminGetUsers = functions
     .region("asia-northeast1")
     .https.onCall(async (data, context) => {
     var _a, _b, _c, _d, _e;
-    await (0, verifyAdmin_1.verifyAdmin)(context);
+    const adminUser = await (0, verifyAdmin_1.verifyAdmin)(context);
+    (0, adminPermissions_1.requirePermission)(adminUser, "user_management");
+    const prefectures = (0, adminPermissions_1.getManagedPrefectures)(adminUser);
     const role = data === null || data === void 0 ? void 0 : data.role;
     const roleAdmin = data === null || data === void 0 ? void 0 : data.roleAdmin;
     const kycStatus = data === null || data === void 0 ? void 0 : data.kycStatus;
@@ -74,11 +77,12 @@ exports.adminGetUsers = functions
         ? orderBy
         : "created_time";
     if (search) {
-        let query = applyUserFilters(db().collection("users"), filters);
+        let query = applyUserFilters(db().collection("users"), filters, prefectures);
         query = query.orderBy(orderField, orderDirection === "asc" ? "asc" : "desc");
         query = query.limit(500);
         const snap = await query.get();
         let users = snap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
+        users = (0, adminPermissions_1.filterRowsByPrefecture)(users, prefectures);
         users = users.filter((u) => {
             var _a, _b;
             const email = String((_a = u.email) !== null && _a !== void 0 ? _a : "").toLowerCase();
@@ -89,15 +93,19 @@ exports.adminGetUsers = functions
         const page = users.slice(offset, offset + limit);
         return { users: page, total, hasMore: offset + limit < total };
     }
-    const baseQuery = applyUserFilters(db().collection("users"), filters);
+    const baseQuery = applyUserFilters(db().collection("users"), filters, prefectures);
     const countSnap = await baseQuery.count().get();
-    const total = countSnap.data().count;
+    let total = countSnap.data().count;
     let dataQuery = baseQuery
         .orderBy(orderField, orderDirection === "asc" ? "asc" : "desc")
         .offset(offset)
         .limit(limit);
     const snap = await dataQuery.get();
-    const users = snap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
+    let users = snap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
+    if (prefectures && prefectures.length > 10) {
+        users = (0, adminPermissions_1.filterRowsByPrefecture)(users, prefectures);
+        total = users.length;
+    }
     return {
         users,
         total,
@@ -107,7 +115,9 @@ exports.adminGetUsers = functions
 exports.adminGetUser = functions
     .region("asia-northeast1")
     .https.onCall(async (data, context) => {
-    await (0, verifyAdmin_1.verifyAdmin)(context);
+    var _a;
+    const adminUser = await (0, verifyAdmin_1.verifyAdmin)(context);
+    (0, adminPermissions_1.requirePermission)(adminUser, "user_management");
     const userId = data === null || data === void 0 ? void 0 : data.userId;
     if (!userId) {
         throw new functions.https.HttpsError("invalid-argument", "userId is required.");
@@ -116,20 +126,25 @@ exports.adminGetUser = functions
     if (!doc.exists) {
         throw new functions.https.HttpsError("not-found", "User not found.");
     }
-    return Object.assign({ id: doc.id }, doc.data());
+    const userData = (_a = doc.data()) !== null && _a !== void 0 ? _a : {};
+    (0, adminPermissions_1.assertPrefectureAccess)(adminUser, (0, adminPermissions_1.readPrefecture)(userData));
+    return Object.assign({ id: doc.id }, userData);
 });
 exports.adminApproveKYC = functions
     .region("asia-northeast1")
     .https.onCall(async (data, context) => {
     var _a, _b, _c;
     const adminUser = await (0, verifyAdmin_1.verifyAdmin)(context);
+    (0, adminPermissions_1.requirePermission)(adminUser, "kyc");
     const userId = data === null || data === void 0 ? void 0 : data.userId;
     const approved = Boolean((_a = data === null || data === void 0 ? void 0 : data.approved) !== null && _a !== void 0 ? _a : true);
     if (!userId) {
         throw new functions.https.HttpsError("invalid-argument", "userId is required.");
     }
     const userDoc = await db().collection("users").doc(userId).get();
-    const userName = String((_c = (_b = userDoc.data()) === null || _b === void 0 ? void 0 : _b.display_name) !== null && _c !== void 0 ? _c : userId);
+    const userData = (_b = userDoc.data()) !== null && _b !== void 0 ? _b : {};
+    (0, adminPermissions_1.assertPrefectureAccess)(adminUser, (0, adminPermissions_1.readPrefecture)(userData));
+    const userName = String((_c = userData.display_name) !== null && _c !== void 0 ? _c : userId);
     const kycStatus = approved ? "approved" : "rejected";
     await db().collection("users").doc(userId).update({
         kyc_status: kycStatus,
@@ -150,13 +165,16 @@ exports.adminToggleFreeze = functions
     .https.onCall(async (data, context) => {
     var _a, _b;
     const adminUser = await (0, verifyAdmin_1.verifyAdmin)(context);
+    (0, adminPermissions_1.requirePermission)(adminUser, "user_management");
     const userId = data === null || data === void 0 ? void 0 : data.userId;
     const frozen = Boolean(data === null || data === void 0 ? void 0 : data.frozen);
     if (!userId) {
         throw new functions.https.HttpsError("invalid-argument", "userId is required.");
     }
     const userDoc = await db().collection("users").doc(userId).get();
-    const userName = String((_b = (_a = userDoc.data()) === null || _a === void 0 ? void 0 : _a.display_name) !== null && _b !== void 0 ? _b : userId);
+    const userData = (_a = userDoc.data()) !== null && _a !== void 0 ? _a : {};
+    (0, adminPermissions_1.assertPrefectureAccess)(adminUser, (0, adminPermissions_1.readPrefecture)(userData));
+    const userName = String((_b = userData.display_name) !== null && _b !== void 0 ? _b : userId);
     await db()
         .collection("users")
         .doc(userId)
@@ -175,12 +193,15 @@ exports.adminForceDeleteUser = functions
     .https.onCall(async (data, context) => {
     var _a, _b;
     const adminUser = await (0, verifyAdmin_1.verifyAdmin)(context);
+    (0, adminPermissions_1.requirePermission)(adminUser, "user_management");
     const userId = data === null || data === void 0 ? void 0 : data.userId;
     if (!userId) {
         throw new functions.https.HttpsError("invalid-argument", "userId is required.");
     }
     const userDoc = await db().collection("users").doc(userId).get();
-    const userName = String((_b = (_a = userDoc.data()) === null || _a === void 0 ? void 0 : _a.display_name) !== null && _b !== void 0 ? _b : userId);
+    const userData = (_a = userDoc.data()) !== null && _a !== void 0 ? _a : {};
+    (0, adminPermissions_1.assertPrefectureAccess)(adminUser, (0, adminPermissions_1.readPrefecture)(userData));
+    const userName = String((_b = userData.display_name) !== null && _b !== void 0 ? _b : userId);
     await (0, audit_1.writeAuditLog)({
         actorUid: adminUser.uid,
         action: "user_deleted",
