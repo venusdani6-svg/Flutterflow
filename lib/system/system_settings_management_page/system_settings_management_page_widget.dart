@@ -834,6 +834,24 @@ class _SystemSettingsManagementPageWidgetState
                                                   ),
                                                 ],
                                               ),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: ListTile(
+                                                      tileColor: FlutterFlowTheme.of(context).primaryBackground,
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(16),
+                                                      ),
+                                                      leading: const Icon(Icons.phone_android),
+                                                      title: const Text('モバイル連携プレビュー'),
+                                                      subtitle: const Text('バナー・機能フラグ・Stripe Connect'),
+                                                      onTap: () => context.pushNamed(
+                                                        MobileIntegrationPageWidget.routeName,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ].divide(SizedBox(height: 8.0)),
                                           ),
                                         ),

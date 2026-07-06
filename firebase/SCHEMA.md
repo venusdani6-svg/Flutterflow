@@ -9,7 +9,9 @@
 |--------------|------------------------|----------|
 | `users`（自分の doc） | 読み書き可 | Cloud Functions |
 | `invitions` | 作成・読取可 | Functions |
-| その他すべて | **不可** | Cloud Functions（`verifyAdmin`） |
+| その他すべて | **不可** | Cloud Functions（`verifyAdmin` / モバイル用 `verifyAuth`） |
+
+モバイル向け読取（バナー・機能フラグ等）は `getAppHomeData` / `getAppFeatureFlags`（認証必須）経由。
 
 ---
 
@@ -33,6 +35,10 @@
 | kyc_status | string | pending / approved / rejected |
 | affiliate_rate | number | |
 | base_hourly_rate | int | |
+| stripe_connect_account_id | string | Stripe Connect Express（フェーズ6） |
+| stripe_connect_onboarding_complete | bool | |
+| stripe_connect_charges_enabled | bool | |
+| stripe_connect_payouts_enabled | bool | |
 | created_time | timestamp | |
 
 ## invitions

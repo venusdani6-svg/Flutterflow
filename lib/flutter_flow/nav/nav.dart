@@ -332,6 +332,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => GuidelineEditPageWidget(),
         ),
         FFRoute(
+          name: MobileIntegrationPageWidget.routeName,
+          path: MobileIntegrationPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
+          builder: (context, params) => MobileIntegrationPageWidget(),
+        ),
+        FFRoute(
           name: AuditLogListPageWidget.routeName,
           path: AuditLogListPageWidget.routePath,
           requireAuth: true,

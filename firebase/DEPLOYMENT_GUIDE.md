@@ -98,3 +98,89 @@ firebase deploy --only functions
 ```
 
 現リポジトリには `src/admin.ts`（`adminGetDashboardStats`, `adminHealthCheck`）と `src/auth/verifyAdmin.ts` を同梱しています。
+
+---
+
+## フェーズ6 — Stripe・モバイルアプリ連携
+
+### 6-1. デプロイ対象 Functions
+
+| 関数 | 種別 | 用途 |
+|------|------|------|
+| `stripeWebhook` | HTTP | Stripe Dashboard からの Webhook |
+| `createStripeConnectOnboardingLink` | Callable | キャスト Connect onboarding（モバイル） |
+| `getStripeConnectStatus` | Callable | Connect 状態確認（モバイル） |
+| `getAppHomeData` | Callable | Home バナー・お知らせ・機能フラグ |
+| `getAppFeatureFlags` | Callable | タブ表示切替用 `features_enabled` |
+
+```bash
+cd firebase/functions && npm run build
+cd .. && firebase deploy --only functions
+```
+
+### 6-2. Stripe Webhook 登録
+
+1. [Stripe Dashboard](https://dashboard.stripe.com/webhooks) → エンドポイントを追加
+2. URL:
+
+```
+https://asia-northeast1-icoccha-admin-dashboard.cloudfunctions.net/stripeWebhook
+```
+
+3. イベント（最低限）:
+   - `payment_intent.succeeded`
+   - `charge.refunded`
+   - `account.updated`（Connect onboarding 完了同期）
+
+4. 署名シークレットを `STRIPE_WEBHOOK_SECRET`（または `stripe.webhook_secret`）に設定
+
+### 6-3. Webhook → 台帳
+
+`payment_intent.succeeded` → `ledger`（`type: payment`）+ `stripe_logs`  
+`charge.refunded` → `ledger`（`type: refund`）  
+`account.updated` → `users` の Connect フィールド更新
+
+予約メタデータ: PaymentIntent に `metadata.reservation_id` / `metadata.user_id` を付与すると予約・台帳が紐付きます。
+
+### 6-4. モバイルアプリ側（別リポジトリ）
+
+以下をモバイルプロジェクトにコピー:
+
+- `lib/backend/cloud_functions/mobile_calls.dart`
+- `lib/backend/mobile/mobile_app_service.dart`
+
+```dart
+import '/backend/cloud_functions/mobile_calls.dart';
+
+// キャスト: Connect onboarding
+final link = await createStripeConnectOnboardingLink(
+  returnUrl: 'myapp://stripe/return',
+  refreshUrl: 'myapp://stripe/refresh',
+);
+
+// Home 起動時・プルリフレッシュ
+final home = await getAppHomeData();
+
+// 設定保存後のタブ切替確認
+final flags = await getAppFeatureFlags();
+// flags['featuresEnabled']['cocoten'] 等
+```
+
+### 6-5. 機能フラグ・バナー確認手順
+
+1. 管理画面 → システム設定 → `features_enabled` を変更して保存
+2. **システム設定管理** → **モバイル連携プレビュー** で `getAppFeatureFlags` / `getAppHomeData` の結果を確認
+3. モバイルアプリで同 API を再取得 → タブ表示・Home バナーが切り替わること
+4. 管理画面 → バナー一覧で画像 URL・有効フラグを変更 → プレビュー画面で再取得して反映を確認
+
+### 6-6. 疎通確認（エミュレータ）
+
+```bash
+cd firebase && firebase emulators:start --only functions,firestore
+```
+
+Stripe CLI で Webhook を転送:
+
+```bash
+stripe listen --forward-to http://127.0.0.1:5001/icoccha-admin-dashboard/asia-northeast1/stripeWebhook
+```

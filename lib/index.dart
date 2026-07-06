@@ -65,6 +65,8 @@ export '/content/announcement_edit_page/announcement_edit_page_widget.dart'
     show AnnouncementEditPageWidget;
 export '/content/guideline_edit_page/guideline_edit_page_widget.dart'
     show GuidelineEditPageWidget;
+export '/system/mobile_integration_page/mobile_integration_page_widget.dart'
+    show MobileIntegrationPageWidget;
 export '/audit_log/audit_log_list_page/audit_log_list_page_widget.dart'
     show AuditLogListPageWidget;
 export '/audit_log/audit_log_management_page/audit_log_management_page_widget.dart'
