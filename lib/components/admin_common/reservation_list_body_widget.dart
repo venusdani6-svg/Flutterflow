@@ -1,6 +1,7 @@
 import '/backend/cloud_functions/admin_calls.dart';
 import '/components/admin_common/admin_list_query_state.dart';
 import '/components/admin_common/admin_pagination_bar.dart';
+import '/components/admin_common/admin_timestamp_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
@@ -23,16 +24,7 @@ class ReservationListItem {
   final DateTime? scheduledAt;
 
   factory ReservationListItem.fromMap(Map<String, dynamic> map) {
-    DateTime? scheduled;
-    final raw = map['scheduled_at'];
-    if (raw is Map) {
-      final sec = raw['_seconds'] ?? raw['seconds'];
-      if (sec != null) {
-        scheduled = DateTime.fromMillisecondsSinceEpoch((sec as int) * 1000);
-      }
-    } else if (raw is String) {
-      scheduled = DateTime.tryParse(raw);
-    }
+    final scheduled = parseAdminTimestamp(map['scheduled_at']);
     return ReservationListItem(
       id: map['id'] as String? ?? '',
       guestId: map['guest_id'] as String? ?? '-',

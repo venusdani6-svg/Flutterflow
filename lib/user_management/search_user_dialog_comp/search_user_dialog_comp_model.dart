@@ -14,6 +14,8 @@ class SearchUserDialogCompModel
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
+  String? dropDownValue2;
+  FormFieldController<String>? dropDownValue2Controller;
 
   @override
   void initState(BuildContext context) {}

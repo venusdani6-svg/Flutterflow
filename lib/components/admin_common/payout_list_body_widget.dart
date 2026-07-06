@@ -2,6 +2,7 @@ import '/backend/cloud_functions/admin_calls.dart';
 import '/components/admin_common/admin_confirm_dialog.dart';
 import '/components/admin_common/admin_list_query_state.dart';
 import '/components/admin_common/admin_pagination_bar.dart';
+import '/components/admin_common/admin_timestamp_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -22,15 +23,7 @@ class PayoutListItem {
   final DateTime? createdAt;
 
   factory PayoutListItem.fromMap(Map<String, dynamic> map) {
-    DateTime? created;
-    final raw = map['created_at'];
-    if (raw is Map && raw['_seconds'] != null) {
-      created = DateTime.fromMillisecondsSinceEpoch(
-        (raw['_seconds'] as int) * 1000,
-      );
-    } else if (raw is String) {
-      created = DateTime.tryParse(raw);
-    }
+    final created = parseAdminTimestamp(map['created_at']);
     return PayoutListItem(
       id: map['id'] as String? ?? '',
       userId: map['user_id'] as String? ?? '-',

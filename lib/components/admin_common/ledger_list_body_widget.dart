@@ -1,6 +1,7 @@
 import '/backend/cloud_functions/admin_calls.dart';
 import '/components/admin_common/admin_list_query_state.dart';
 import '/components/admin_common/admin_pagination_bar.dart';
+import '/components/admin_common/admin_timestamp_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -23,15 +24,7 @@ class LedgerListItem {
   final DateTime? createdAt;
 
   factory LedgerListItem.fromMap(Map<String, dynamic> map) {
-    DateTime? created;
-    final raw = map['created_at'];
-    if (raw is Map && raw['_seconds'] != null) {
-      created = DateTime.fromMillisecondsSinceEpoch(
-        (raw['_seconds'] as int) * 1000,
-      );
-    } else if (raw is String) {
-      created = DateTime.tryParse(raw);
-    }
+    final created = parseAdminTimestamp(map['created_at']);
     return LedgerListItem(
       id: map['id'] as String? ?? '',
       type: map['type'] as String? ?? '-',
@@ -94,6 +87,7 @@ class _LedgerListBodyWidgetState extends State<LedgerListBodyWidget> {
             ? _resIdController.text
             : null,
         limit: _query.pageSize,
+        offset: _query.offset,
       );
       if (result == null) {
         throw Exception('台帳一覧の取得に失敗しました');

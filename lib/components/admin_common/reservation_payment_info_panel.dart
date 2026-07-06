@@ -1,5 +1,6 @@
 import '/backend/cloud_functions/admin_calls.dart';
 import '/components/admin_common/admin_confirm_dialog.dart';
+import '/components/admin_common/admin_timestamp_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -61,8 +62,11 @@ class _ReservationPaymentInfoPanelState
       );
       setState(() {
         _reservation = reservation;
-        _tipTotal = (tips?['total'] as num?)?.toDouble() ?? 0;
-        _hasTips = tips?['hasTips'] == true;
+        final tipFromLedger = (tips?['total'] as num?)?.toDouble() ?? 0;
+        final tipFromDoc =
+            (reservation?['tip_total'] as num?)?.toDouble() ?? 0;
+        _hasTips = tips?['hasTips'] == true || tipFromDoc > 0;
+        _tipTotal = tipFromLedger > 0 ? tipFromLedger : tipFromDoc;
         _isLoading = false;
       });
     } catch (e) {
@@ -80,18 +84,7 @@ class _ReservationPaymentInfoPanelState
   String _formatYen(double value) => '¥${_currency.format(value.round())}';
 
   String _formatTimestamp(dynamic raw) {
-    if (raw == null) {
-      return '-';
-    }
-    DateTime? dt;
-    if (raw is Map) {
-      final sec = raw['_seconds'] ?? raw['seconds'];
-      if (sec != null) {
-        dt = DateTime.fromMillisecondsSinceEpoch((sec as int) * 1000);
-      }
-    } else if (raw is String) {
-      dt = DateTime.tryParse(raw);
-    }
+    final dt = parseAdminTimestamp(raw);
     if (dt == null) {
       return '-';
     }

@@ -37,6 +37,7 @@ exports.adminGetTipsByReservation = exports.adminForceCancel = exports.adminGetR
 const admin = __importStar(require("firebase-admin"));
 const functions = __importStar(require("firebase-functions"));
 const verifyAdmin_1 = require("../auth/verifyAdmin");
+const audit_1 = require("./audit");
 const db = () => admin.firestore();
 exports.adminGetReservations = functions
     .region("asia-northeast1")
@@ -47,28 +48,40 @@ exports.adminGetReservations = functions
     const search = ((_a = data === null || data === void 0 ? void 0 : data.search) !== null && _a !== void 0 ? _a : "").trim().toLowerCase();
     const limit = Math.min(Number((_b = data === null || data === void 0 ? void 0 : data.limit) !== null && _b !== void 0 ? _b : 50), 100);
     const offset = Number((_c = data === null || data === void 0 ? void 0 : data.offset) !== null && _c !== void 0 ? _c : 0);
-    let query = db()
-        .collection("reservations")
-        .orderBy("created_at", "desc");
-    if (status) {
-        query = query.where("status", "==", status);
-    }
-    const fetchLimit = search ? 500 : limit + offset;
-    query = query.limit(fetchLimit);
-    const snap = await query.get();
-    let reservations = snap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
     if (search) {
+        let query = db()
+            .collection("reservations")
+            .orderBy("created_at", "desc");
+        if (status) {
+            query = query.where("status", "==", status);
+        }
+        query = query.limit(500);
+        const snap = await query.get();
+        let reservations = snap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
         reservations = reservations.filter((r) => {
             var _a, _b, _c;
             const id = String((_a = r.id) !== null && _a !== void 0 ? _a : "").toLowerCase();
             const guest = String((_b = r.guest_id) !== null && _b !== void 0 ? _b : "").toLowerCase();
             const cast = String((_c = r.cast_id) !== null && _c !== void 0 ? _c : "").toLowerCase();
-            return id.includes(search) || guest.includes(search) || cast.includes(search);
+            return (id.includes(search) || guest.includes(search) || cast.includes(search));
         });
+        const total = reservations.length;
+        const page = reservations.slice(offset, offset + limit);
+        return { reservations: page, total, hasMore: offset + limit < total };
     }
-    const total = reservations.length;
-    const page = reservations.slice(offset, offset + limit);
-    return { reservations: page, total, hasMore: offset + limit < total };
+    let baseQuery = db().collection("reservations");
+    if (status) {
+        baseQuery = baseQuery.where("status", "==", status);
+    }
+    const countSnap = await baseQuery.count().get();
+    const total = countSnap.data().count;
+    const snap = await baseQuery
+        .orderBy("created_at", "desc")
+        .offset(offset)
+        .limit(limit)
+        .get();
+    const reservations = snap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
+    return { reservations, total, hasMore: offset + limit < total };
 });
 exports.adminGetReservation = functions
     .region("asia-northeast1")
@@ -100,6 +113,13 @@ exports.adminForceCancel = functions
         cancel_reason: reason,
         cancelled_at: admin.firestore.FieldValue.serverTimestamp(),
         cancelled_by_uid: adminUser.uid,
+    });
+    await (0, audit_1.writeAuditLog)({
+        actorUid: adminUser.uid,
+        action: "reservation_force_cancelled",
+        targetType: "reservation",
+        targetId: reservationId,
+        metadata: { reason },
     });
     return { ok: true, reservationId };
 });

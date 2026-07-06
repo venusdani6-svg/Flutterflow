@@ -1,5 +1,6 @@
 import '/backend/cloud_functions/admin_calls.dart';
 import '/components/admin_common/admin_confirm_dialog.dart';
+import '/components/admin_common/admin_timestamp_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
@@ -46,6 +47,8 @@ class AdminDetailCommonSection extends StatefulWidget {
 class _AdminDetailCommonSectionState extends State<AdminDetailCommonSection> {
   bool _isEditing = false;
   bool _isLoadingLogs = true;
+  bool _isUserFrozen = false;
+  bool _isLoadingUser = false;
   List<Map<String, dynamic>> _auditLogs = [];
   final _dateFormat = DateFormat('yy.MM.dd　HH : mm');
 
@@ -53,6 +56,7 @@ class _AdminDetailCommonSectionState extends State<AdminDetailCommonSection> {
   void initState() {
     super.initState();
     _loadAuditLogs();
+    _loadUserState();
   }
 
   @override
@@ -60,6 +64,23 @@ class _AdminDetailCommonSectionState extends State<AdminDetailCommonSection> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.targetId != widget.targetId) {
       _loadAuditLogs();
+      _loadUserState();
+    }
+  }
+
+  Future<void> _loadUserState() async {
+    if (widget.targetType != 'user' || widget.targetId.isEmpty) {
+      return;
+    }
+    setState(() => _isLoadingUser = true);
+    try {
+      final user = await adminGetUser(userId: widget.targetId);
+      setState(() {
+        _isUserFrozen = user?['is_frozen'] == true;
+        _isLoadingUser = false;
+      });
+    } catch (_) {
+      setState(() => _isLoadingUser = false);
     }
   }
 
@@ -90,6 +111,22 @@ class _AdminDetailCommonSectionState extends State<AdminDetailCommonSection> {
   }
 
   Future<void> _handleFreeze() async {
+    if (widget.targetType == 'user') {
+      final nextFrozen = !_isUserFrozen;
+      final ok = await showAdminConfirmDialog(
+        context,
+        title: nextFrozen ? 'ユーザー凍結' : '凍結解除',
+        message: nextFrozen
+            ? 'このユーザーを凍結しますか？'
+            : 'このユーザーの凍結を解除しますか？',
+      );
+      if (ok) {
+        await adminToggleFreeze(userId: widget.targetId, frozen: nextFrozen);
+        await _loadUserState();
+        await _loadAuditLogs();
+      }
+      return;
+    }
     if (widget.onFreeze == null) {
       return;
     }
@@ -160,10 +197,10 @@ class _AdminDetailCommonSectionState extends State<AdminDetailCommonSection> {
                   ),
               ],
               const Spacer(),
-              if (widget.onFreeze != null)
+              if (widget.onFreeze != null || widget.targetType == 'user')
                 FFButtonWidget(
-                  onPressed: _handleFreeze,
-                  text: '凍結',
+                  onPressed: _isLoadingUser ? () async {} : _handleFreeze,
+                  text: _isUserFrozen ? '凍結解除' : '凍結',
                   options: FFButtonOptions(
                     height: 36.0,
                     color: Colors.orange.shade800,
@@ -231,14 +268,8 @@ class _AdminDetailCommonSectionState extends State<AdminDetailCommonSection> {
   }
 
   Widget _buildAuditRow(Map<String, dynamic> log) {
-    final createdRaw = log['created_at'];
-    String when = '-';
-    if (createdRaw is String) {
-      final dt = DateTime.tryParse(createdRaw);
-      if (dt != null) {
-        when = _dateFormat.format(dt.toLocal());
-      }
-    }
+    final dt = parseAdminTimestamp(log['created_at']);
+    final when = dt != null ? _dateFormat.format(dt.toLocal()) : '-';
 
     return Container(
       width: double.infinity,

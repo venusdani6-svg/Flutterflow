@@ -122,6 +122,7 @@ async function countJobBoardPosts() {
 async function getSalesToday() {
     const snap = await db()
         .collection("ledger")
+        .where("type", "==", "payment")
         .where("created_at", ">=", startOfTodayJst())
         .get()
         .catch(() => null);

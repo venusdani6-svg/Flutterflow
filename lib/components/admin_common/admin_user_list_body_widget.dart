@@ -71,29 +71,13 @@ class _AdminUserListBodyWidgetState extends State<AdminUserListBodyWidget> {
       }
 
       final rawUsers = (result['users'] as List?) ?? [];
-      var items = rawUsers
+      final items = rawUsers
           .map(
             (e) => AdminUserListItem.fromMap(
               Map<String, dynamic>.from(e as Map),
             ),
           )
           .toList();
-
-      if (_query.search.isNotEmpty) {
-        final q = _query.search.toLowerCase();
-        items = items
-            .where(
-              (u) =>
-                  u.email.toLowerCase().contains(q) ||
-                  u.displayName.toLowerCase().contains(q),
-            )
-            .toList();
-      }
-
-      if (_query.filter.isFrozen != null) {
-        items =
-            items.where((u) => u.isFrozen == _query.filter.isFrozen).toList();
-      }
 
       setState(() {
         _users = items;

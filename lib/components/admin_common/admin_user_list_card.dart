@@ -1,3 +1,4 @@
+import '/components/admin_common/admin_timestamp_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -29,13 +30,7 @@ class AdminUserListItem {
   final bool isFrozen;
 
   factory AdminUserListItem.fromMap(Map<String, dynamic> map) {
-    DateTime? created;
-    final createdRaw = map['created_time'];
-    if (createdRaw is String) {
-      created = DateTime.tryParse(createdRaw);
-    }
-
-    final role = map['role'];
+    final created = parseAdminTimestamp(map['created_time']);
     final roleInt = role is int ? role : int.tryParse(role?.toString() ?? '');
     return AdminUserListItem(
       id: map['id']?.toString() ?? map['uid']?.toString() ?? '',

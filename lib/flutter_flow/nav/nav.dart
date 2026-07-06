@@ -76,16 +76,30 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
-      errorBuilder: (context, state) => appStateNotifier.loggedIn
-          ? AdminDashboardPageWidget()
-          : AdminLoginPageWidget(),
+      errorBuilder: (context, state) {
+        if (!appStateNotifier.loggedIn) {
+          return AdminLoginPageWidget();
+        }
+        if (currentUserDocument == null) {
+          return Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(
+                FlutterFlowTheme.of(context).primary,
+              ),
+            ),
+          );
+        }
+        return currentUserIsAdmin
+            ? AdminDashboardPageWidget()
+            : AdminLoginPageWidget();
+      },
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => appStateNotifier.loggedIn
-              ? AdminDashboardPageWidget()
-              : AdminLoginPageWidget(),
+          requireAuth: true,
+          requireAdmin: true,
+          builder: (context, _) => AdminDashboardPageWidget(),
         ),
         FFRoute(
           name: AdminLoginPageWidget.routeName,
@@ -506,11 +520,10 @@ class FFRoute {
             return AdminLoginPageWidget.routePath;
           }
 
-          if (requireAdmin &&
-              appStateNotifier.loggedIn &&
-              currentUserDocument != null &&
-              !currentUserIsAdmin) {
-            return AdminLoginPageWidget.routePath;
+          if (requireAdmin && appStateNotifier.loggedIn) {
+            if (currentUserDocument != null && !currentUserIsAdmin) {
+              return AdminLoginPageWidget.routePath;
+            }
           }
 
           return null;
@@ -524,7 +537,10 @@ class FFRoute {
                   builder: (context, _) => builder(context, ffParams),
                 )
               : builder(context, ffParams);
-          final child = appStateNotifier.loading
+          final waitingForAdminProfile = requireAdmin &&
+              appStateNotifier.loggedIn &&
+              currentUserDocument == null;
+          final child = appStateNotifier.loading || waitingForAdminProfile
               ? Center(
                   child: SizedBox(
                     width: 50.0,

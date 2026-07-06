@@ -1,6 +1,7 @@
 import '/backend/cloud_functions/admin_calls.dart';
 import '/components/admin_common/admin_list_query_state.dart';
 import '/components/admin_common/admin_pagination_bar.dart';
+import '/components/admin_common/admin_timestamp_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -21,15 +22,7 @@ class StripeLogListItem {
   final DateTime? createdAt;
 
   factory StripeLogListItem.fromMap(Map<String, dynamic> map) {
-    DateTime? created;
-    final raw = map['created_at'];
-    if (raw is Map && raw['_seconds'] != null) {
-      created = DateTime.fromMillisecondsSinceEpoch(
-        (raw['_seconds'] as int) * 1000,
-      );
-    } else if (raw is String) {
-      created = DateTime.tryParse(raw);
-    }
+    final created = parseAdminTimestamp(map['created_at']);
     return StripeLogListItem(
       id: map['id'] as String? ?? '',
       eventType: map['event_type'] as String? ?? '-',
@@ -94,6 +87,7 @@ class _StripeLogsListBodyWidgetState extends State<StripeLogsListBodyWidget> {
         startDate: _startDate?.toIso8601String(),
         endDate: _endDate?.toIso8601String(),
         limit: _query.pageSize,
+        offset: _query.offset,
       );
       if (result == null) {
         throw Exception('Stripeログの取得に失敗しました');

@@ -71,7 +71,7 @@ cd firebase/functions && npm run build
 cd .. && firebase emulators:start --only functions,firestore
 ```
 
-クライアントからは Custom Action `adminGetDashboardStats`（`lib/custom_code/actions/`）を呼び出します。
+クライアントからは `lib/backend/cloud_functions/admin_calls.dart` のラッパー関数を呼び出します（例: `adminGetDashboardStats()`）。
 
 ### 合格基準
 

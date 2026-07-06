@@ -99,11 +99,13 @@ Future<Map<String, dynamic>?> adminGetLedger({
   String? type,
   String? reservationId,
   int limit = 50,
+  int offset = 0,
 }) =>
     _callAdmin('adminGetLedger', {
       if (type != null) 'type': type,
       if (reservationId != null) 'reservationId': reservationId,
       'limit': limit,
+      'offset': offset,
     });
 
 Future<Map<String, dynamic>?> adminGetStripeLogs({
@@ -112,6 +114,7 @@ Future<Map<String, dynamic>?> adminGetStripeLogs({
   String? startDate,
   String? endDate,
   int limit = 50,
+  int offset = 0,
 }) =>
     _callAdmin('adminGetStripeLogs', {
       if (eventType != null) 'eventType': eventType,
@@ -119,6 +122,7 @@ Future<Map<String, dynamic>?> adminGetStripeLogs({
       if (startDate != null) 'startDate': startDate,
       if (endDate != null) 'endDate': endDate,
       'limit': limit,
+      'offset': offset,
     });
 
 Future<Map<String, dynamic>?> adminGetPayoutRequests({

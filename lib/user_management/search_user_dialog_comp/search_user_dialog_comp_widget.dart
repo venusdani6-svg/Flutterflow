@@ -42,7 +42,53 @@ class _SearchUserDialogCompWidgetState
       text: widget.initialFilter?.searchKeyword ?? '',
     );
     _model.textFieldFocusNode ??= FocusNode();
-    _model.dropDownValue = widget.initialFilter?.accountType;
+    _model.dropDownValue = widget.initialFilter?.kycStatus != null
+        ? 'KYC状態'
+        : widget.initialFilter?.isFrozen != null
+            ? '有効 / 凍結状態'
+            : null;
+    _model.dropDownValue2 = _initialValueLabel(widget.initialFilter);
+  }
+
+  String? _initialValueLabel(AdminUserFilter? filter) {
+    if (filter?.kycStatus == 'pending') return '未審査';
+    if (filter?.kycStatus == 'approved') return '承認済';
+    if (filter?.kycStatus == 'rejected') return '否認';
+    if (filter?.isFrozen == true) return '凍結';
+    if (filter?.isFrozen == false) return '有効';
+    return null;
+  }
+
+  List<String> _valueOptionsForCategory(String? category) {
+    switch (category) {
+      case 'KYC状態':
+        return ['未審査', '承認済', '否認'];
+      case '有効 / 凍結状態':
+        return ['有効', '凍結'];
+      default:
+        return [];
+    }
+  }
+
+  AdminUserFilter _buildFilter() {
+    final filter = AdminUserFilter()
+      ..searchKeyword = _model.textController?.text.trim();
+    switch (_model.dropDownValue) {
+      case 'KYC状態':
+        filter.kycStatus = switch (_model.dropDownValue2) {
+          '未審査' => 'pending',
+          '承認済' => 'approved',
+          '否認' => 'rejected',
+          _ => null,
+        };
+      case '有効 / 凍結状態':
+        filter.isFrozen = switch (_model.dropDownValue2) {
+          '凍結' => true,
+          '有効' => false,
+          _ => null,
+        };
+    }
+    return filter;
   }
 
   @override
@@ -195,18 +241,7 @@ class _SearchUserDialogCompWidgetState
                 ),
                 FFButtonWidget(
                   onPressed: () {
-                    final filter = AdminUserFilter()
-                      ..searchKeyword = _model.textController?.text.trim()
-                      ..kycStatus = _model.dropDownValue == 'KYC状態'
-                          ? 'pending'
-                          : widget.initialFilter?.kycStatus
-                      ..isFrozen = _model.dropDownValue == '有効 / 凍結状態'
-                          ? true
-                          : widget.initialFilter?.isFrozen
-                      ..accountType = _model.dropDownValue == 'アカウント種別'
-                          ? 'cast'
-                          : _model.dropDownValue;
-                    Navigator.pop(context, filter);
+                    Navigator.pop(context, _buildFilter());
                   },
                   text: '検　索',
                   options: FFButtonOptions(
@@ -243,9 +278,11 @@ class _SearchUserDialogCompWidgetState
                 FlutterFlowDropDown<String>(
                   controller: _model.dropDownValueController ??=
                       FormFieldController<String>(null),
-                  options: ['アカウント種別', 'KYC状態', '地域', '有効 / 凍結状態', '登録期間'],
-                  onChanged: (val) =>
-                      safeSetState(() => _model.dropDownValue = val),
+                  options: ['KYC状態', '有効 / 凍結状態'],
+                  onChanged: (val) => safeSetState(() {
+                    _model.dropDownValue = val;
+                    _model.dropDownValue2 = null;
+                  }),
                   width: 700.0,
                   height: 40.0,
                   textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -282,6 +319,43 @@ class _SearchUserDialogCompWidgetState
                 ),
               ].divide(SizedBox(width: 8.0)),
             ),
+            if (_valueOptionsForCategory(_model.dropDownValue).isNotEmpty)
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FlutterFlowDropDown<String>(
+                    controller: _model.dropDownValue2Controller ??=
+                        FormFieldController<String>(_model.dropDownValue2),
+                    options: _valueOptionsForCategory(_model.dropDownValue),
+                    onChanged: (val) =>
+                        safeSetState(() => _model.dropDownValue2 = val),
+                    width: 700.0,
+                    height: 40.0,
+                    textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                          font: GoogleFonts.inter(fontSize: 12.0),
+                        ),
+                    hintText: '条件を選択してください',
+                    icon: Icon(
+                      Icons.keyboard_arrow_down_rounded,
+                      color: FlutterFlowTheme.of(context).secondaryText,
+                      size: 24.0,
+                    ),
+                    fillColor:
+                        FlutterFlowTheme.of(context).secondaryBackground,
+                    elevation: 2.0,
+                    borderColor: FlutterFlowTheme.of(context).alternate,
+                    borderWidth: 0.0,
+                    borderRadius: 8.0,
+                    margin:
+                        EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                    hidesUnderline: true,
+                    isOverButton: false,
+                    isSearchable: false,
+                    isMultiSelect: false,
+                  ),
+                ],
+              ),
             Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,

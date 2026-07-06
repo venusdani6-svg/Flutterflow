@@ -37,54 +37,57 @@ exports.adminApprovePayout = exports.adminGetPayoutRequests = exports.adminGetSt
 const admin = __importStar(require("firebase-admin"));
 const functions = __importStar(require("firebase-functions"));
 const verifyAdmin_1 = require("../auth/verifyAdmin");
+const audit_1 = require("./audit");
 const db = () => admin.firestore();
 exports.adminGetLedger = functions
     .region("asia-northeast1")
     .https.onCall(async (data, context) => {
-    var _a;
+    var _a, _b;
     await (0, verifyAdmin_1.verifyAdmin)(context);
     const type = data === null || data === void 0 ? void 0 : data.type;
     const reservationId = data === null || data === void 0 ? void 0 : data.reservationId;
     const limit = Math.min(Number((_a = data === null || data === void 0 ? void 0 : data.limit) !== null && _a !== void 0 ? _a : 50), 100);
-    let query = db()
-        .collection("ledger")
-        .orderBy("created_at", "desc")
-        .limit(limit);
+    const offset = Number((_b = data === null || data === void 0 ? void 0 : data.offset) !== null && _b !== void 0 ? _b : 0);
+    let baseQuery = db().collection("ledger");
     if (type) {
-        query = query.where("type", "==", type);
+        baseQuery = baseQuery.where("type", "==", type);
     }
     if (reservationId) {
-        query = query.where("reservation_id", "==", reservationId);
+        baseQuery = baseQuery.where("reservation_id", "==", reservationId);
     }
-    const snap = await query.get().catch(async () => {
-        return db().collection("ledger").limit(limit).get();
-    });
+    const countSnap = await baseQuery.count().get();
+    const total = countSnap.data().count;
+    const snap = await baseQuery
+        .orderBy("created_at", "desc")
+        .offset(offset)
+        .limit(limit)
+        .get();
     const entries = snap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
-    return { entries, total: entries.length };
+    return { entries, total, hasMore: offset + limit < total };
 });
 exports.adminGetStripeLogs = functions
     .region("asia-northeast1")
     .https.onCall(async (data, context) => {
-    var _a;
+    var _a, _b;
     await (0, verifyAdmin_1.verifyAdmin)(context);
     const eventType = data === null || data === void 0 ? void 0 : data.eventType;
     const reservationId = data === null || data === void 0 ? void 0 : data.reservationId;
     const startDate = data === null || data === void 0 ? void 0 : data.startDate;
     const endDate = data === null || data === void 0 ? void 0 : data.endDate;
     const limit = Math.min(Number((_a = data === null || data === void 0 ? void 0 : data.limit) !== null && _a !== void 0 ? _a : 50), 100);
-    let query = db()
-        .collection("stripe_logs")
-        .orderBy("created_at", "desc")
-        .limit(limit);
+    const offset = Number((_b = data === null || data === void 0 ? void 0 : data.offset) !== null && _b !== void 0 ? _b : 0);
+    let baseQuery = db().collection("stripe_logs");
     if (eventType) {
-        query = query.where("event_type", "==", eventType);
+        baseQuery = baseQuery.where("event_type", "==", eventType);
     }
     if (reservationId) {
-        query = query.where("reservation_id", "==", reservationId);
+        baseQuery = baseQuery.where("reservation_id", "==", reservationId);
     }
-    const snap = await query.get().catch(async () => {
-        return db().collection("stripe_logs").limit(limit).get();
-    });
+    const fetchLimit = startDate || endDate ? 500 : offset + limit;
+    const snap = await baseQuery
+        .orderBy("created_at", "desc")
+        .limit(fetchLimit)
+        .get();
     let logs = snap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
     if (startDate || endDate) {
         const start = startDate ? new Date(startDate).getTime() : 0;
@@ -96,8 +99,19 @@ exports.adminGetStripeLogs = functions
             const ts = (_c = (_b = (_a = created === null || created === void 0 ? void 0 : created.toDate) === null || _a === void 0 ? void 0 : _a.call(created)) === null || _b === void 0 ? void 0 : _b.getTime()) !== null && _c !== void 0 ? _c : 0;
             return ts >= start && ts <= end;
         });
+        const total = logs.length;
+        const page = logs.slice(offset, offset + limit);
+        return { logs: page, total, hasMore: offset + limit < total };
     }
-    return { logs, total: logs.length };
+    const countSnap = await baseQuery.count().get();
+    const total = countSnap.data().count;
+    const pageSnap = await baseQuery
+        .orderBy("created_at", "desc")
+        .offset(offset)
+        .limit(limit)
+        .get();
+    logs = pageSnap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
+    return { logs, total, hasMore: offset + limit < total };
 });
 exports.adminGetPayoutRequests = functions
     .region("asia-northeast1")
@@ -107,19 +121,19 @@ exports.adminGetPayoutRequests = functions
     const status = data === null || data === void 0 ? void 0 : data.status;
     const limit = Math.min(Number((_a = data === null || data === void 0 ? void 0 : data.limit) !== null && _a !== void 0 ? _a : 50), 100);
     const offset = Number((_b = data === null || data === void 0 ? void 0 : data.offset) !== null && _b !== void 0 ? _b : 0);
-    let query = db()
-        .collection("payout_requests")
-        .orderBy("created_at", "desc");
+    let baseQuery = db().collection("payout_requests");
     if (status) {
-        query = query.where("status", "==", status);
+        baseQuery = baseQuery.where("status", "==", status);
     }
-    const fetchLimit = limit + offset;
-    query = query.limit(fetchLimit);
-    const snap = await query.get();
-    const all = snap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
-    const total = all.length;
-    const page = all.slice(offset, offset + limit);
-    return { payouts: page, total, hasMore: offset + limit < total };
+    const countSnap = await baseQuery.count().get();
+    const total = countSnap.data().count;
+    const snap = await baseQuery
+        .orderBy("created_at", "desc")
+        .offset(offset)
+        .limit(limit)
+        .get();
+    const payouts = snap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
+    return { payouts, total, hasMore: offset + limit < total };
 });
 exports.adminApprovePayout = functions
     .region("asia-northeast1")
@@ -139,6 +153,12 @@ exports.adminApprovePayout = functions
         status,
         reviewed_at: admin.firestore.FieldValue.serverTimestamp(),
         reviewed_by: adminUser.uid,
+    });
+    await (0, audit_1.writeAuditLog)({
+        actorUid: adminUser.uid,
+        action: `payout_${status}`,
+        targetType: "payout",
+        targetId: payoutId,
     });
     return { ok: true, payoutId, status };
 });

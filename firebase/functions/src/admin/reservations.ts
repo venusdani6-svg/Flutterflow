@@ -1,6 +1,7 @@
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
 import { verifyAdmin } from "../auth/verifyAdmin";
+import { writeAuditLog } from "./audit";
 
 const db = () => admin.firestore();
 
@@ -12,32 +13,47 @@ export const adminGetReservations = functions
     const search = ((data?.search as string) ?? "").trim().toLowerCase();
     const limit = Math.min(Number(data?.limit ?? 50), 100);
     const offset = Number(data?.offset ?? 0);
-    let query: FirebaseFirestore.Query = db()
-      .collection("reservations")
-      .orderBy("created_at", "desc");
-    if (status) {
-      query = query.where("status", "==", status);
-    }
-    const fetchLimit = search ? 500 : limit + offset;
-    query = query.limit(fetchLimit);
-    const snap = await query.get();
-    let reservations = snap.docs.map((d) => ({ id: d.id, ...d.data() })) as Record<
-      string,
-      unknown
-    >[];
 
     if (search) {
+      let query: FirebaseFirestore.Query = db()
+        .collection("reservations")
+        .orderBy("created_at", "desc");
+      if (status) {
+        query = query.where("status", "==", status);
+      }
+      query = query.limit(500);
+      const snap = await query.get();
+      let reservations = snap.docs.map((d) => ({
+        id: d.id,
+        ...d.data(),
+      })) as Record<string, unknown>[];
       reservations = reservations.filter((r) => {
         const id = String(r.id ?? "").toLowerCase();
         const guest = String(r.guest_id ?? "").toLowerCase();
         const cast = String(r.cast_id ?? "").toLowerCase();
-        return id.includes(search) || guest.includes(search) || cast.includes(search);
+        return (
+          id.includes(search) || guest.includes(search) || cast.includes(search)
+        );
       });
+      const total = reservations.length;
+      const page = reservations.slice(offset, offset + limit);
+      return { reservations: page, total, hasMore: offset + limit < total };
     }
 
-    const total = reservations.length;
-    const page = reservations.slice(offset, offset + limit);
-    return { reservations: page, total, hasMore: offset + limit < total };
+    let baseQuery: FirebaseFirestore.Query = db().collection("reservations");
+    if (status) {
+      baseQuery = baseQuery.where("status", "==", status);
+    }
+    const countSnap = await baseQuery.count().get();
+    const total = countSnap.data().count;
+
+    const snap = await baseQuery
+      .orderBy("created_at", "desc")
+      .offset(offset)
+      .limit(limit)
+      .get();
+    const reservations = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    return { reservations, total, hasMore: offset + limit < total };
   });
 
 export const adminGetReservation = functions
@@ -79,6 +95,13 @@ export const adminForceCancel = functions
       cancel_reason: reason,
       cancelled_at: admin.firestore.FieldValue.serverTimestamp(),
       cancelled_by_uid: adminUser.uid,
+    });
+    await writeAuditLog({
+      actorUid: adminUser.uid,
+      action: "reservation_force_cancelled",
+      targetType: "reservation",
+      targetId: reservationId,
+      metadata: { reason },
     });
     return { ok: true, reservationId };
   });
