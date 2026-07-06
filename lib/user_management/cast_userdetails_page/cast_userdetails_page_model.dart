@@ -10,6 +10,8 @@ class CastUserdetailsPageModel
 
   // Model for Main_Menu_Comp component.
   late MainMenuCompModel mainMenuCompModel;
+
+  String userId = '';
   // State field(s) for TabBar widget.
   TabController? tabBarController;
   int get tabBarCurrentIndex =>

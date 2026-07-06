@@ -4,23 +4,16 @@ import { verifyAdmin } from "../auth/verifyAdmin";
 
 const db = () => admin.firestore();
 
-function paginate<T>(
-  docs: FirebaseFirestore.QueryDocumentSnapshot[],
-  limit = 50,
-  offset = 0,
-): T[] {
-  return docs.slice(offset, offset + limit).map((d) => ({
-    id: d.id,
-    ...d.data(),
-  })) as T[];
-}
-
 export const adminGetUsers = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
     await verifyAdmin(context);
     const role = data?.role as number | undefined;
     const kycStatus = data?.kycStatus as string | undefined;
+    const search = ((data?.search as string) ?? "").trim().toLowerCase();
+    const orderBy = (data?.orderBy as string) ?? "created_time";
+    const orderDirection = (data?.orderDirection as string) ?? "desc";
+    const isFrozen = data?.isFrozen as boolean | undefined;
     const limit = Math.min(Number(data?.limit ?? 50), 100);
     const offset = Number(data?.offset ?? 0);
 
@@ -31,9 +24,45 @@ export const adminGetUsers = functions
     if (kycStatus) {
       query = query.where("kyc_status", "==", kycStatus);
     }
-    query = query.orderBy("created_time", "desc").limit(limit + offset);
+    if (isFrozen !== undefined) {
+      query = query.where("is_frozen", "==", isFrozen);
+    }
+
+    const orderField = ["created_time", "email", "display_name"].includes(
+      orderBy,
+    )
+      ? orderBy
+      : "created_time";
+    query = query.orderBy(
+      orderField,
+      orderDirection === "asc" ? "asc" : "desc",
+    );
+
+    const fetchLimit = search ? 500 : limit + offset;
+    query = query.limit(fetchLimit);
     const snap = await query.get();
-    return { users: paginate(snap.docs, limit, offset), total: snap.size };
+
+    let users = snap.docs.map((d) => ({ id: d.id, ...d.data() })) as Record<
+      string,
+      unknown
+    >[];
+
+    if (search) {
+      users = users.filter((u) => {
+        const email = String(u.email ?? "").toLowerCase();
+        const name = String(u.display_name ?? "").toLowerCase();
+        return email.includes(search) || name.includes(search);
+      });
+    }
+
+    const total = users.length;
+    const page = users.slice(offset, offset + limit);
+
+    return {
+      users: page,
+      total,
+      hasMore: offset + limit < total,
+    };
   });
 
 export const adminApproveKYC = functions

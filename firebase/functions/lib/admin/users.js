@@ -38,18 +38,19 @@ const admin = __importStar(require("firebase-admin"));
 const functions = __importStar(require("firebase-functions"));
 const verifyAdmin_1 = require("../auth/verifyAdmin");
 const db = () => admin.firestore();
-function paginate(docs, limit = 50, offset = 0) {
-    return docs.slice(offset, offset + limit).map((d) => (Object.assign({ id: d.id }, d.data())));
-}
 exports.adminGetUsers = functions
     .region("asia-northeast1")
     .https.onCall(async (data, context) => {
-    var _a, _b;
+    var _a, _b, _c, _d, _e;
     await (0, verifyAdmin_1.verifyAdmin)(context);
     const role = data === null || data === void 0 ? void 0 : data.role;
     const kycStatus = data === null || data === void 0 ? void 0 : data.kycStatus;
-    const limit = Math.min(Number((_a = data === null || data === void 0 ? void 0 : data.limit) !== null && _a !== void 0 ? _a : 50), 100);
-    const offset = Number((_b = data === null || data === void 0 ? void 0 : data.offset) !== null && _b !== void 0 ? _b : 0);
+    const search = ((_a = data === null || data === void 0 ? void 0 : data.search) !== null && _a !== void 0 ? _a : "").trim().toLowerCase();
+    const orderBy = (_b = data === null || data === void 0 ? void 0 : data.orderBy) !== null && _b !== void 0 ? _b : "created_time";
+    const orderDirection = (_c = data === null || data === void 0 ? void 0 : data.orderDirection) !== null && _c !== void 0 ? _c : "desc";
+    const isFrozen = data === null || data === void 0 ? void 0 : data.isFrozen;
+    const limit = Math.min(Number((_d = data === null || data === void 0 ? void 0 : data.limit) !== null && _d !== void 0 ? _d : 50), 100);
+    const offset = Number((_e = data === null || data === void 0 ? void 0 : data.offset) !== null && _e !== void 0 ? _e : 0);
     let query = db().collection("users");
     if (role !== undefined) {
         query = query.where("role", "==", role);
@@ -57,9 +58,32 @@ exports.adminGetUsers = functions
     if (kycStatus) {
         query = query.where("kyc_status", "==", kycStatus);
     }
-    query = query.orderBy("created_time", "desc").limit(limit + offset);
+    if (isFrozen !== undefined) {
+        query = query.where("is_frozen", "==", isFrozen);
+    }
+    const orderField = ["created_time", "email", "display_name"].includes(orderBy)
+        ? orderBy
+        : "created_time";
+    query = query.orderBy(orderField, orderDirection === "asc" ? "asc" : "desc");
+    const fetchLimit = search ? 500 : limit + offset;
+    query = query.limit(fetchLimit);
     const snap = await query.get();
-    return { users: paginate(snap.docs, limit, offset), total: snap.size };
+    let users = snap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
+    if (search) {
+        users = users.filter((u) => {
+            var _a, _b;
+            const email = String((_a = u.email) !== null && _a !== void 0 ? _a : "").toLowerCase();
+            const name = String((_b = u.display_name) !== null && _b !== void 0 ? _b : "").toLowerCase();
+            return email.includes(search) || name.includes(search);
+        });
+    }
+    const total = users.length;
+    const page = users.slice(offset, offset + limit);
+    return {
+        users: page,
+        total,
+        hasMore: offset + limit < total,
+    };
 });
 exports.adminApproveKYC = functions
     .region("asia-northeast1")

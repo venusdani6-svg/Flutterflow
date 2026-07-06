@@ -1,3 +1,4 @@
+import '/components/admin_common/admin_list_query_state.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -10,7 +11,12 @@ import 'search_user_dialog_comp_model.dart';
 export 'search_user_dialog_comp_model.dart';
 
 class SearchUserDialogCompWidget extends StatefulWidget {
-  const SearchUserDialogCompWidget({super.key});
+  const SearchUserDialogCompWidget({
+    super.key,
+    this.initialFilter,
+  });
+
+  final AdminUserFilter? initialFilter;
 
   @override
   State<SearchUserDialogCompWidget> createState() =>
@@ -32,8 +38,11 @@ class _SearchUserDialogCompWidgetState
     super.initState();
     _model = createModel(context, () => SearchUserDialogCompModel());
 
-    _model.textController ??= TextEditingController();
+    _model.textController ??= TextEditingController(
+      text: widget.initialFilter?.searchKeyword ?? '',
+    );
     _model.textFieldFocusNode ??= FocusNode();
+    _model.dropDownValue = widget.initialFilter?.accountType;
   }
 
   @override
@@ -186,7 +195,18 @@ class _SearchUserDialogCompWidgetState
                 ),
                 FFButtonWidget(
                   onPressed: () {
-                    print('Button pressed ...');
+                    final filter = AdminUserFilter()
+                      ..searchKeyword = _model.textController?.text.trim()
+                      ..kycStatus = _model.dropDownValue == 'KYC状態'
+                          ? 'pending'
+                          : widget.initialFilter?.kycStatus
+                      ..isFrozen = _model.dropDownValue == '有効 / 凍結状態'
+                          ? true
+                          : widget.initialFilter?.isFrozen
+                      ..accountType = _model.dropDownValue == 'アカウント種別'
+                          ? 'cast'
+                          : _model.dropDownValue;
+                    Navigator.pop(context, filter);
                   },
                   text: '検　索',
                   options: FFButtonOptions(

@@ -19,12 +19,20 @@ Future<Map<String, dynamic>?> adminHealthCheck() =>
 Future<Map<String, dynamic>?> adminGetUsers({
   int? role,
   String? kycStatus,
+  String? search,
+  String? orderBy,
+  String? orderDirection,
+  bool? isFrozen,
   int limit = 50,
   int offset = 0,
 }) =>
     _callAdmin('adminGetUsers', {
       if (role != null) 'role': role,
       if (kycStatus != null) 'kycStatus': kycStatus,
+      if (search != null && search.isNotEmpty) 'search': search,
+      if (orderBy != null) 'orderBy': orderBy,
+      if (orderDirection != null) 'orderDirection': orderDirection,
+      if (isFrozen != null) 'isFrozen': isFrozen,
       'limit': limit,
       'offset': offset,
     });

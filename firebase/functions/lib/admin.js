@@ -71,6 +71,90 @@ async function countPendingKyc() {
         .catch(() => null);
     return (_a = snap === null || snap === void 0 ? void 0 : snap.data().count) !== null && _a !== void 0 ? _a : 0;
 }
+async function countTodayReservations() {
+    var _a;
+    const snap = await db()
+        .collection("reservations")
+        .where("created_at", ">=", startOfTodayJst())
+        .count()
+        .get()
+        .catch(() => null);
+    return (_a = snap === null || snap === void 0 ? void 0 : snap.data().count) !== null && _a !== void 0 ? _a : 0;
+}
+async function countPendingPayouts() {
+    var _a;
+    const snap = await db()
+        .collection("payout_requests")
+        .where("status", "==", "pending")
+        .count()
+        .get()
+        .catch(() => null);
+    return (_a = snap === null || snap === void 0 ? void 0 : snap.data().count) !== null && _a !== void 0 ? _a : 0;
+}
+async function countPendingReports() {
+    var _a;
+    const snap = await db()
+        .collection("reports")
+        .where("status", "in", ["pending", "open"])
+        .count()
+        .get()
+        .catch(() => null);
+    return (_a = snap === null || snap === void 0 ? void 0 : snap.data().count) !== null && _a !== void 0 ? _a : 0;
+}
+async function countAffiliates() {
+    const snap = await db()
+        .collection("users")
+        .where("is_affiliate", "==", true)
+        .count()
+        .get()
+        .catch(() => null);
+    if (snap) {
+        return snap.data().count;
+    }
+    return countCollection("affiliate_stats");
+}
+async function countCocotenShops() {
+    return countCollection("cocoten_shops");
+}
+async function countJobBoardPosts() {
+    return countCollection("job_board");
+}
+async function getSalesToday() {
+    const snap = await db()
+        .collection("ledger")
+        .where("created_at", ">=", startOfTodayJst())
+        .get()
+        .catch(() => null);
+    if (!snap) {
+        return 0;
+    }
+    return snap.docs.reduce((sum, doc) => { var _a; return sum + Number((_a = doc.data().amount) !== null && _a !== void 0 ? _a : 0); }, 0);
+}
+async function getRecentActivityLogs() {
+    const snap = await db()
+        .collection("audit_logs")
+        .orderBy("created_at", "desc")
+        .limit(5)
+        .get()
+        .catch(() => null);
+    if (!snap) {
+        return [];
+    }
+    return snap.docs.map((doc) => {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+        const data = doc.data();
+        const createdAt = data.created_at;
+        return {
+            id: doc.id,
+            action: (_a = data.action) !== null && _a !== void 0 ? _a : "",
+            targetType: (_b = data.target_type) !== null && _b !== void 0 ? _b : "",
+            targetId: (_c = data.target_id) !== null && _c !== void 0 ? _c : "",
+            targetUserName: (_e = (_d = data.target_user_name) !== null && _d !== void 0 ? _d : data.target_id) !== null && _e !== void 0 ? _e : "-",
+            actorUid: (_f = data.actor_uid) !== null && _f !== void 0 ? _f : "",
+            createdAt: (_j = (_h = (_g = createdAt === null || createdAt === void 0 ? void 0 : createdAt.toDate) === null || _g === void 0 ? void 0 : _g.call(createdAt)) === null || _h === void 0 ? void 0 : _h.toISOString()) !== null && _j !== void 0 ? _j : null,
+        };
+    });
+}
 async function countCollection(name) {
     var _a;
     const snap = await db().collection(name).count().get().catch(() => null);
@@ -102,26 +186,40 @@ exports.adminGetDashboardStats = functions
     .region("asia-northeast1")
     .https.onCall(async (_data, context) => {
     await (0, verifyAdmin_1.verifyAdmin)(context);
-    const [todayNewRegistrations, guestCount, castCount, staffCount, pendingKyc, reservationCount, monthlySales,] = await Promise.all([
+    const [todayNewRegistrations, guestCount, castCount, staffCount, pendingKyc, todayReservations, salesToday, pendingPayouts, pendingReports, affiliateCount, cocotenShopCount, jobBoardPostCount, monthlySales, recentActivityLogs,] = await Promise.all([
         countTodayRegistrations(),
         countUsersByRole(0).catch(() => 0),
         countUsersByRole(1).catch(() => 0),
         countUsersByRole(2).catch(() => 0),
         countPendingKyc(),
-        countCollection("reservations"),
+        countTodayReservations(),
+        getSalesToday(),
+        countPendingPayouts(),
+        countPendingReports(),
+        countAffiliates(),
+        countCocotenShops(),
+        countJobBoardPosts(),
         getMonthlySales(),
+        getRecentActivityLogs(),
     ]);
     return {
         todayNewRegistrations,
-        reservationCount,
+        todayReservationCount: todayReservations,
+        reservationCount: todayReservations,
         pendingKycCount: pendingKyc,
-        salesToday: 0,
+        salesToday,
+        pendingPayoutCount: pendingPayouts,
+        pendingReportsCount: pendingReports,
+        affiliateCount,
+        cocotenShopCount,
+        jobBoardPostCount,
         userTypeCounts: {
             guest: guestCount,
             cast: castCount,
             staff: staffCount,
         },
         monthlySales,
+        recentActivityLogs,
         generatedAt: new Date().toISOString(),
     };
 });
