@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <title>icoccha 管理画面 — 管理者マニュアル</title>
+  <style>
+    @page { margin: 2cm; }
+    body { font-family: "Hiragino Sans", "Noto Sans JP", sans-serif; line-height: 1.65; color: #222; max-width: 800px; margin: 0 auto; padding: 1cm; }
+    h1 { font-size: 1.6em; border-bottom: 2px solid #3829FE; padding-bottom: 0.3em; }
+    h2 { font-size: 1.25em; margin-top: 1.5em; color: #3829FE; }
+    h3 { font-size: 1.05em; margin-top: 1em; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 0.9em; }
+    th, td { border: 1px solid #ccc; padding: 6px 8px; text-align: left; }
+    th { background: #f5f5f5; }
+    code { background: #f0f0f0; padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+    .meta { color: #666; font-size: 0.9em; margin-bottom: 2em; }
+    ul { padding-left: 1.4em; }
+  </style>
+</head>
+<body>
+  <h1>icoccha 管理画面 — 管理者マニュアル</h1>
+  <p class="meta"><strong>版:</strong> 1.0（フェーズ8 納品）　<strong>プロジェクト:</strong> icoccha-admin-dashboard</p>
+
+  <h2>1. はじめに</h2>
+  <p>本マニュアルは icoccha <strong>管理画面（Web）</strong>の操作手順です。管理データは <strong>Cloud Functions</strong> 経由でのみ操作します。</p>
+  <table>
+    <tr><th>項目</th><th>推奨</th></tr>
+    <tr><td>ブラウザ</td><td>Google Chrome 最新版</td></tr>
+    <tr><td>画面幅</td><td>1024px 以上</td></tr>
+    <tr><td>リージョン</td><td>asia-northeast1</td></tr>
+  </table>
+
+  <h2>2. ログイン</h2>
+  <ol>
+    <li><code>/adminLoginPage</code> を開く</li>
+    <li>管理者メール/パスワードでログイン</li>
+    <li><code>users/{uid}.role_admin == "admin"</code> が必須</li>
+  </ol>
+  <p>非管理者は「管理者権限がありません」と表示されサインアウトされます。</p>
+
+  <h2>3. メニュー一覧</h2>
+  <table>
+    <tr><th>メニュー</th><th>権限キー</th></tr>
+    <tr><td>ダッシュボード</td><td>dashboard</td></tr>
+    <tr><td>ユーザー管理</td><td>user_management</td></tr>
+    <tr><td>予約管理</td><td>reservations</td></tr>
+    <tr><td>決済・台帳管理</td><td>payment_ledger</td></tr>
+    <tr><td>出金申請管理</td><td>withdrawal</td></tr>
+    <tr><td>KYC審査管理</td><td>kyc</td></tr>
+    <tr><td>通報管理</td><td>reports</td></tr>
+    <tr><td>アフィリエイト管理</td><td>affiliate</td></tr>
+    <tr><td>ココ店管理</td><td>cocoten</td></tr>
+    <tr><td>お仕事掲示板管理</td><td>job_board</td></tr>
+    <tr><td>バナー広告管理</td><td>banners</td></tr>
+    <tr><td>システム設定管理</td><td>system_settings</td></tr>
+    <tr><td>監査ログ管理</td><td>audit_logs</td></tr>
+  </table>
+
+  <h2>4. 主要操作</h2>
+  <h3>4.1 ダッシュボード</h3>
+  <p>KPI（本日登録・予約・売上）、ユーザータイプグラフ、月次売上、監査ログを表示。<code>adminGetDashboardStats</code> を使用。</p>
+
+  <h3>4.2 KYC 審査</h3>
+  <p>KYC審査管理 → pending ユーザーを承認/却下。モバイルは <code>users/{uid}.kyc_status</code> を参照して機能解放。</p>
+
+  <h3>4.3 予約詳細</h3>
+  <p>決済情報パネルでチップ合計・強制キャンセル。<code>adminGetTipsByReservation</code> / <code>adminForceCancel</code></p>
+
+  <h3>4.4 Stripe ログ（3 フィルタ）</h3>
+  <p>イベント種別・予約 ID・日付範囲で検索。<code>adminGetStripeLogs</code></p>
+
+  <h3>4.5 出金申請（4 ステータス）</h3>
+  <p>pending / approved / on_hold / rejected。pending から承認・保留・否認。</p>
+
+  <h3>4.6 バナー → モバイル Home</h3>
+  <p>バナー編集後、<code>getAppHomeData</code> でモバイルに反映。管理画面の「モバイル連携プレビュー」で確認可。</p>
+
+  <h3>4.7 システム設定（タブ別保存）</h3>
+  <table>
+    <tr><th>タブ</th><th>保存ボタン</th></tr>
+    <tr><td>基本設定</td><td>基本設定を保存する</td></tr>
+    <tr><td>キャスト報酬</td><td>キャスト報酬設定を保存する</td></tr>
+    <tr><td>アフィリエイト</td><td>アフィリエイト設定を保存する</td></tr>
+    <tr><td>提供エリア</td><td>提供エリア設定を保存する</td></tr>
+    <tr><td>タクシー代</td><td>タクシー代設定を保存する</td></tr>
+  </table>
+
+  <h3>4.8 cocoten OFF</h3>
+  <p>基本設定で cocoten を OFF → 保存。<code>getAppFeatureFlags</code> で cocoten: false → モバイルのココ店タブ非表示。</p>
+
+  <h2>5. 管理者の種類（フェーズ7）</h2>
+  <table>
+    <tr><th>種別</th><th>admin_role</th><th>説明</th></tr>
+    <tr><td>スーパー管理者</td><td>super_admin</td><td>全画面・全データ</td></tr>
+    <tr><td>都道府県管理者</td><td>prefecture_admin</td><td>画面権限 + 管轄都道府県</td></tr>
+  </table>
+  <p>スーパー管理者は管理者詳細 →「管理者権限設定」で他管理者の権限を編集。</p>
+
+  <h2>6. デプロイ・テスト</h2>
+  <ul>
+    <li>デプロイ: <code>firebase/DEPLOYMENT_GUIDE.md</code></li>
+    <li>受け入れテスト: <code>docs/ACCEPTANCE_TEST_CHECKLIST.md</code>（10 項目）</li>
+    <li>デモ動画: <code>docs/DEMO_VIDEO_SCRIPT.md</code></li>
+  </ul>
+
+  <h2>7. トラブルシューティング</h2>
+  <table>
+    <tr><th>症状</th><th>対処</th></tr>
+    <tr><td>ログイン不可</td><td>role_admin: admin を確認</td></tr>
+    <tr><td>API エラー</td><td>Functions デプロイ・リージョン確認</td></tr>
+    <tr><td>データ 0 件</td><td>Firestore テストデータ・prefecture フィールド確認</td></tr>
+    <tr><td>モバイル未反映</td><td>getAppHomeData / getAppFeatureFlags 再取得</td></tr>
+  </table>
+
+  <p class="meta" style="margin-top:3em;">— フェーズ8 納品物 —</p>
+</body>
+</html>

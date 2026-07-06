@@ -209,3 +209,62 @@ API: `adminUpdateAdminAccess`（super_admin のみ）
 2. ログイン → サイドメニューに許可画面のみ表示
 3. ユーザー・予約一覧が管轄都道府県のデータのみ返ること（`prefecture` フィールド必須）
 4. 未許可 API を直接呼ぶと `permission-denied` になること
+
+---
+
+## フェーズ8 — テスト・納品
+
+### 8-1. 納品物一覧（契約 MS2/MS3）
+
+| 成果物 | パス | 状態 |
+|--------|------|------|
+| 動作する管理画面 | 本リポジトリ `lib/` + `firebase/functions/` | 実装済み（要デプロイ） |
+| 管理者マニュアル PDF | `docs/ADMIN_MANUAL.pdf` | `scripts/generate-admin-manual-pdf.sh` で生成 |
+| 管理者マニュアル（ソース） | `docs/ADMIN_MANUAL.md` | 同梱 |
+| デプロイ手順 | `firebase/DEPLOYMENT_GUIDE.md` | 本書 |
+| 受け入れテストチェックリスト | `docs/ACCEPTANCE_TEST_CHECKLIST.md` | 10 項目穴埋め済み |
+| デモ動画シナリオ | `docs/DEMO_VIDEO_SCRIPT.md` | 顧客側録画用 |
+
+### 8-2. 受け入れテスト（10 項目）
+
+`docs/ACCEPTANCE_TEST_CHECKLIST.md` を印刷または共有し、Pass/Fail を記入してください。
+
+| # | テスト | 主要 API / 画面 |
+|---|--------|-----------------|
+| 1 | 非管理者ログイン拒否 | `admin_login_page`, `guardAdminAccess` |
+| 2 | ダッシュボード実データ | `adminGetDashboardStats` |
+| 3 | KYC 承認 → アプリ解放 | `adminApproveKYC` → `users.kyc_status` |
+| 4 | Stripe ログ 3 フィルタ | `adminGetStripeLogs`, `StripeLogsListBodyWidget` |
+| 5 | 予約詳細チップ表示 | `adminGetTipsByReservation`, `ReservationPaymentInfoPanel` |
+| 6 | 強制キャンセル | `adminForceCancel` |
+| 7 | 出金 4 ステータス | `adminGetPayoutRequests`, `PayoutListBodyWidget` |
+| 8 | バナー変更 → アプリ反映 | `adminUpsertBanner`, `getAppHomeData` |
+| 9 | 設定タブ個別保存 | `SystemSettingsService.save*` |
+| 10 | cocoten OFF 時の挙動 | `features_enabled.cocoten`, `getAppFeatureFlags` |
+
+### 8-3. マニュアル PDF 生成
+
+```bash
+chmod +x scripts/generate-admin-manual-pdf.sh
+./scripts/generate-admin-manual-pdf.sh
+# 出力: docs/ADMIN_MANUAL.pdf
+```
+
+pandoc 未インストール時は `docs/ADMIN_MANUAL.md` を Google Docs / Word にインポートして PDF エクスポートも可。
+
+### 8-4. 本番リリース前チェック
+
+```bash
+# Functions ビルド
+cd firebase/functions && npm run build
+
+# デプロイ（ログイン済み環境）
+cd .. && npx firebase-tools deploy --only functions,firestore:rules
+
+# Flutter Web ビルド（ホスティングする場合）
+cd ../.. && flutter build web
+```
+
+### 8-5. デモ動画
+
+`docs/DEMO_VIDEO_SCRIPT.md` のシナリオ（約 13 分）に沿って録画し、顧客に MP4 を納品してください。
