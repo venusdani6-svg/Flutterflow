@@ -1,3 +1,5 @@
+import '/auth/admin_auth_util.dart';
+import '/components/admin_common/system_settings_service.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -63,6 +65,17 @@ class _SystemSettingsListPageWidgetState
 
     _model.textController4 ??= TextEditingController();
     _model.textFieldFocusNode4 ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await guardAdminAccess(context);
+      final err = await SystemSettingsService.load(_model);
+      if (err != null && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('設定の読み込みに失敗: $err')),
+        );
+      }
+      safeSetState(() {});
+    });
   }
 
   @override
@@ -2093,8 +2106,11 @@ class _SystemSettingsListPageWidgetState
                                                                                 0.0),
                                                                             child:
                                                                                 FFButtonWidget(
-                                                                              onPressed: () {
-                                                                                print('Button pressed ...');
+                                                                              onPressed: () async {
+                                                                                final err = await SystemSettingsService.saveBasic(_model, context);
+                                                                                if (err != null && mounted) {
+                                                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(err)));
+                                                                                }
                                                                               },
                                                                               text: '基本設定を保存する',
                                                                               options: FFButtonOptions(
@@ -2986,9 +3002,11 @@ class _SystemSettingsListPageWidgetState
                                                                               0.0),
                                                                           child:
                                                                               FFButtonWidget(
-                                                                            onPressed:
-                                                                                () {
-                                                                              print('Button pressed ...');
+                                                                            onPressed: () async {
+                                                                              final err = await SystemSettingsService.saveRewards(_model, context);
+                                                                              if (err != null && mounted) {
+                                                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(err)));
+                                                                              }
                                                                             },
                                                                             text:
                                                                                 'キャスト報酬設定を保存する',
@@ -3455,9 +3473,11 @@ class _SystemSettingsListPageWidgetState
                                                                               0.0),
                                                                           child:
                                                                               FFButtonWidget(
-                                                                            onPressed:
-                                                                                () {
-                                                                              print('Button pressed ...');
+                                                                            onPressed: () async {
+                                                                              final err = await SystemSettingsService.saveAffiliate(_model, context);
+                                                                              if (err != null && mounted) {
+                                                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(err)));
+                                                                              }
                                                                             },
                                                                             text:
                                                                                 'アフィリエイト設定を保存する',
@@ -4361,9 +4381,11 @@ class _SystemSettingsListPageWidgetState
                                                                               0.0),
                                                                           child:
                                                                               FFButtonWidget(
-                                                                            onPressed:
-                                                                                () {
-                                                                              print('Button pressed ...');
+                                                                            onPressed: () async {
+                                                                              final err = await SystemSettingsService.saveServiceAreas(_model, context);
+                                                                              if (err != null && mounted) {
+                                                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(err)));
+                                                                              }
                                                                             },
                                                                             text:
                                                                                 '提供エリア設定を保存する',
@@ -4793,9 +4815,11 @@ class _SystemSettingsListPageWidgetState
                                                                               0.0),
                                                                           child:
                                                                               FFButtonWidget(
-                                                                            onPressed:
-                                                                                () {
-                                                                              print('Button pressed ...');
+                                                                            onPressed: () async {
+                                                                              final err = await SystemSettingsService.saveTaxi(_model, context);
+                                                                              if (err != null && mounted) {
+                                                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(err)));
+                                                                              }
                                                                             },
                                                                             text:
                                                                                 'タクシー代設定を保存する',

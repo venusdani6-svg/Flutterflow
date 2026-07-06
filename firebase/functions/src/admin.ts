@@ -260,10 +260,15 @@ export {
 export {
   adminUpdateSystemConfig,
   adminGetSystemConfig,
+  adminGetBanners,
   adminUpsertBanner,
   adminGetReports,
   adminResolveReport,
   adminGetAffiliateOverview,
   adminUpdateAffiliateRate,
   adminGetAuditLogs,
+  adminGetAnnouncements,
+  adminUpsertAnnouncement,
+  adminGetGuideline,
+  adminUpdateGuideline,
 } from "./admin/content";

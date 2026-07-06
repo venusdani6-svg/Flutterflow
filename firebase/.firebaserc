@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "icoccha-admin-dashboard",
+    "staging": "icoccha-admin-dashboard"
+  }
+}

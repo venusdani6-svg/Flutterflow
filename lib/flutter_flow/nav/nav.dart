@@ -311,6 +311,27 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => SystemSettingsListPageWidget(),
         ),
         FFRoute(
+          name: AnnouncementListPageWidget.routeName,
+          path: AnnouncementListPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
+          builder: (context, params) => AnnouncementListPageWidget(),
+        ),
+        FFRoute(
+          name: AnnouncementEditPageWidget.routeName,
+          path: AnnouncementEditPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
+          builder: (context, params) => AnnouncementEditPageWidget(),
+        ),
+        FFRoute(
+          name: GuidelineEditPageWidget.routeName,
+          path: GuidelineEditPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
+          builder: (context, params) => GuidelineEditPageWidget(),
+        ),
+        FFRoute(
           name: AuditLogListPageWidget.routeName,
           path: AuditLogListPageWidget.routePath,
           requireAuth: true,

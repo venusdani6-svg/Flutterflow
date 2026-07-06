@@ -1,3 +1,4 @@
+import '/auth/admin_auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/info_dialog_comp/info_dialog_comp_widget.dart';
@@ -29,6 +30,10 @@ class _SystemSettingsManagementPageWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => SystemSettingsManagementPageModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await guardAdminAccess(context);
+    });
   }
 
   @override
@@ -797,6 +802,37 @@ class _SystemSettingsManagementPageWidgetState
                                                     ),
                                                   ),
                                                 ].divide(SizedBox(width: 8.0)),
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: ListTile(
+                                                      tileColor: FlutterFlowTheme.of(context).primaryBackground,
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(16),
+                                                      ),
+                                                      leading: const Icon(Icons.campaign),
+                                                      title: const Text('お知らせ管理'),
+                                                      onTap: () => context.pushNamed(
+                                                        AnnouncementListPageWidget.routeName,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 8),
+                                                  Expanded(
+                                                    child: ListTile(
+                                                      tileColor: FlutterFlowTheme.of(context).primaryBackground,
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(16),
+                                                      ),
+                                                      leading: const Icon(Icons.article),
+                                                      title: const Text('ガイドライン編集'),
+                                                      onTap: () => context.pushNamed(
+                                                        GuidelineEditPageWidget.routeName,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ].divide(SizedBox(height: 8.0)),
                                           ),

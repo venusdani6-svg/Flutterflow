@@ -9,7 +9,7 @@ export const adminUpdateSystemConfig = functions
   .https.onCall(async (data, context) => {
     const adminUser = await verifyAdmin(context);
     const section = (data?.section as string) ?? "settings";
-    const payload = (data?.payload as Record<string, unknown>) ?? {};
+    const payload = data?.payload ?? {};
     const docRef = db().collection("system_config").doc("default");
     await docRef.set(
       {
@@ -30,6 +30,21 @@ export const adminGetSystemConfig = functions
     return snap.exists ? snap.data() : {};
   });
 
+export const adminGetBanners = functions
+  .region("asia-northeast1")
+  .https.onCall(async (data, context) => {
+    await verifyAdmin(context);
+    const limit = Math.min(Number(data?.limit ?? 50), 100);
+    const snap = await db()
+      .collection("banners")
+      .orderBy("sort_order", "asc")
+      .limit(limit)
+      .get()
+      .catch(async () => db().collection("banners").limit(limit).get());
+    const banners = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    return { banners, total: banners.length };
+  });
+
 export const adminUpsertBanner = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
@@ -46,18 +61,20 @@ export const adminGetReports = functions
     await verifyAdmin(context);
     const status = data?.status as string | undefined;
     const limit = Math.min(Number(data?.limit ?? 50), 100);
-    let query: FirebaseFirestore.Query = db()
-      .collection("reports")
-      .orderBy("created_at", "desc")
-      .limit(limit);
+    const offset = Number(data?.offset ?? 0);
+    let baseQuery: FirebaseFirestore.Query = db().collection("reports");
     if (status) {
-      query = query.where("status", "==", status);
+      baseQuery = baseQuery.where("status", "==", status);
     }
-    const snap = await query.get().catch(async () =>
-      db().collection("reports").limit(limit).get(),
-    );
+    const countSnap = await baseQuery.count().get();
+    const total = countSnap.data().count;
+    const snap = await baseQuery
+      .orderBy("created_at", "desc")
+      .offset(offset)
+      .limit(limit)
+      .get();
     const reports = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-    return { reports, total: reports.length };
+    return { reports, total, hasMore: offset + limit < total };
   });
 
 export const adminResolveReport = functions
@@ -84,11 +101,25 @@ export const adminGetAffiliateOverview = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
     await verifyAdmin(context);
-    const snap = await db().collection("affiliate_stats").limit(100).get().catch(async () =>
-      db().collection("users").where("role", "==", 3).limit(100).get(),
-    );
+    const limit = Math.min(Number(data?.limit ?? 100), 200);
+    const snap = await db()
+      .collection("users")
+      .where("is_affiliate", "==", true)
+      .limit(limit)
+      .get()
+      .catch(async () =>
+        db().collection("affiliate_stats").limit(limit).get(),
+      );
     const affiliates = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-    return { affiliates, total: affiliates.length };
+    const monthlySnap = await db()
+      .collection("affiliate_monthly_rewards")
+      .orderBy("month", "desc")
+      .limit(12)
+      .get()
+      .catch(() => null);
+    const monthlyRewards =
+      monthlySnap?.docs.map((d) => ({ id: d.id, ...d.data() })) ?? [];
+    return { affiliates, total: affiliates.length, monthlyRewards };
   });
 
 export const adminUpdateAffiliateRate = functions
@@ -129,4 +160,72 @@ export const adminGetAuditLogs = functions
     );
     const logs = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
     return { logs, total: logs.length };
+  });
+
+export const adminGetAnnouncements = functions
+  .region("asia-northeast1")
+  .https.onCall(async (data, context) => {
+    await verifyAdmin(context);
+    const limit = Math.min(Number(data?.limit ?? 50), 100);
+    const snap = await db()
+      .collection("announcements")
+      .orderBy("created_at", "desc")
+      .limit(limit)
+      .get()
+      .catch(async () => db().collection("announcements").limit(limit).get());
+    const announcements = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    return { announcements, total: announcements.length };
+  });
+
+export const adminUpsertAnnouncement = functions
+  .region("asia-northeast1")
+  .https.onCall(async (data, context) => {
+    const adminUser = await verifyAdmin(context);
+    const announcementId =
+      (data?.announcementId as string) ??
+      db().collection("announcements").doc().id;
+    const payload = {
+      ...(data?.payload as Record<string, unknown>),
+      updated_at: admin.firestore.FieldValue.serverTimestamp(),
+      updated_by: adminUser.uid,
+    };
+    const docRef = db().collection("announcements").doc(announcementId);
+    const existing = await docRef.get();
+    if (!existing.exists) {
+      (payload as Record<string, unknown>).created_at =
+        admin.firestore.FieldValue.serverTimestamp();
+    }
+    await docRef.set(payload, { merge: true });
+    return { ok: true, announcementId };
+  });
+
+export const adminGetGuideline = functions
+  .region("asia-northeast1")
+  .https.onCall(async (_data, context) => {
+    await verifyAdmin(context);
+    const snap = await db().collection("system_config").doc("default").get();
+    const data = snap.data() ?? {};
+    return {
+      content: data.guideline ?? data.guidelines ?? "",
+      updated_at: data.guideline_updated_at ?? null,
+    };
+  });
+
+export const adminUpdateGuideline = functions
+  .region("asia-northeast1")
+  .https.onCall(async (data, context) => {
+    const adminUser = await verifyAdmin(context);
+    const content = (data?.content as string) ?? "";
+    await db()
+      .collection("system_config")
+      .doc("default")
+      .set(
+        {
+          guideline: content,
+          guideline_updated_at: admin.firestore.FieldValue.serverTimestamp(),
+          guideline_updated_by: adminUser.uid,
+        },
+        { merge: true },
+      );
+    return { ok: true };
   });

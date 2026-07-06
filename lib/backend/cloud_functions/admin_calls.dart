@@ -147,7 +147,7 @@ Future<Map<String, dynamic>?> adminApprovePayout({
 
 Future<Map<String, dynamic>?> adminUpdateSystemConfig({
   required String section,
-  required Map<String, dynamic> payload,
+  required Object payload,
 }) =>
     _callAdmin('adminUpdateSystemConfig', {
       'section': section,
@@ -156,6 +156,9 @@ Future<Map<String, dynamic>?> adminUpdateSystemConfig({
 
 Future<Map<String, dynamic>?> adminGetSystemConfig() =>
     _callAdmin('adminGetSystemConfig');
+
+Future<Map<String, dynamic>?> adminGetBanners({int limit = 50}) =>
+    _callAdmin('adminGetBanners', {'limit': limit});
 
 Future<Map<String, dynamic>?> adminUpsertBanner({
   String? bannerId,
@@ -169,10 +172,12 @@ Future<Map<String, dynamic>?> adminUpsertBanner({
 Future<Map<String, dynamic>?> adminGetReports({
   String? status,
   int limit = 50,
+  int offset = 0,
 }) =>
     _callAdmin('adminGetReports', {
       if (status != null) 'status': status,
       'limit': limit,
+      'offset': offset,
     });
 
 Future<Map<String, dynamic>?> adminResolveReport({
@@ -206,3 +211,43 @@ Future<Map<String, dynamic>?> adminGetAuditLogs({
       if (targetId != null) 'targetId': targetId,
       'limit': limit,
     });
+
+Future<Map<String, dynamic>?> adminGetAnnouncements({int limit = 50}) =>
+    _callAdmin('adminGetAnnouncements', {'limit': limit});
+
+Future<Map<String, dynamic>?> adminUpsertAnnouncement({
+  String? announcementId,
+  required Map<String, dynamic> payload,
+}) =>
+    _callAdmin('adminUpsertAnnouncement', {
+      if (announcementId != null) 'announcementId': announcementId,
+      'payload': payload,
+    });
+
+Future<Map<String, dynamic>?> adminGetGuideline() =>
+    _callAdmin('adminGetGuideline');
+
+Future<Map<String, dynamic>?> adminUpdateGuideline({
+  required String content,
+}) =>
+    _callAdmin('adminUpdateGuideline', {'content': content});
+
+Future<Map<String, dynamic>?> adminGetAnnouncements({int limit = 50}) =>
+    _callAdmin('adminGetAnnouncements', {'limit': limit});
+
+Future<Map<String, dynamic>?> adminUpsertAnnouncement({
+  String? announcementId,
+  required Map<String, dynamic> payload,
+}) =>
+    _callAdmin('adminUpsertAnnouncement', {
+      if (announcementId != null) 'announcementId': announcementId,
+      'payload': payload,
+    });
+
+Future<Map<String, dynamic>?> adminGetGuideline() =>
+    _callAdmin('adminGetGuideline');
+
+Future<Map<String, dynamic>?> adminUpdateGuideline({
+  required String content,
+}) =>
+    _callAdmin('adminUpdateGuideline', {'content': content});

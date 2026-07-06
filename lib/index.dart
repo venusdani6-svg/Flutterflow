@@ -59,6 +59,12 @@ export '/system/system_settings_management_page/system_settings_management_page_
     show SystemSettingsManagementPageWidget;
 export '/system/system_settings_list_page/system_settings_list_page_widget.dart'
     show SystemSettingsListPageWidget;
+export '/content/announcement_list_page/announcement_list_page_widget.dart'
+    show AnnouncementListPageWidget;
+export '/content/announcement_edit_page/announcement_edit_page_widget.dart'
+    show AnnouncementEditPageWidget;
+export '/content/guideline_edit_page/guideline_edit_page_widget.dart'
+    show GuidelineEditPageWidget;
 export '/audit_log/audit_log_list_page/audit_log_list_page_widget.dart'
     show AuditLogListPageWidget;
 export '/audit_log/audit_log_management_page/audit_log_management_page_widget.dart'

@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.adminGetAuditLogs = exports.adminUpdateAffiliateRate = exports.adminGetAffiliateOverview = exports.adminResolveReport = exports.adminGetReports = exports.adminUpsertBanner = exports.adminGetSystemConfig = exports.adminUpdateSystemConfig = exports.adminApprovePayout = exports.adminGetPayoutRequests = exports.adminGetStripeLogs = exports.adminGetLedger = exports.adminGetTipsByReservation = exports.adminForceCancel = exports.adminGetReservation = exports.adminGetReservations = exports.adminForceDeleteUser = exports.adminToggleFreeze = exports.adminApproveKYC = exports.adminGetUser = exports.adminGetUsers = exports.adminHealthCheck = exports.adminGetDashboardStats = exports.onUserDeleted = void 0;
+exports.adminUpdateGuideline = exports.adminGetGuideline = exports.adminUpsertAnnouncement = exports.adminGetAnnouncements = exports.adminGetAuditLogs = exports.adminUpdateAffiliateRate = exports.adminGetAffiliateOverview = exports.adminResolveReport = exports.adminGetReports = exports.adminUpsertBanner = exports.adminGetBanners = exports.adminGetSystemConfig = exports.adminUpdateSystemConfig = exports.adminApprovePayout = exports.adminGetPayoutRequests = exports.adminGetStripeLogs = exports.adminGetLedger = exports.adminGetTipsByReservation = exports.adminForceCancel = exports.adminGetReservation = exports.adminGetReservations = exports.adminForceDeleteUser = exports.adminToggleFreeze = exports.adminApproveKYC = exports.adminGetUser = exports.adminGetUsers = exports.adminHealthCheck = exports.adminGetDashboardStats = exports.onUserDeleted = void 0;
 const admin = __importStar(require("firebase-admin"));
 admin.initializeApp();
 var auth_1 = require("./triggers/auth");
@@ -56,10 +56,15 @@ Object.defineProperty(exports, "adminGetPayoutRequests", { enumerable: true, get
 Object.defineProperty(exports, "adminApprovePayout", { enumerable: true, get: function () { return admin_1.adminApprovePayout; } });
 Object.defineProperty(exports, "adminUpdateSystemConfig", { enumerable: true, get: function () { return admin_1.adminUpdateSystemConfig; } });
 Object.defineProperty(exports, "adminGetSystemConfig", { enumerable: true, get: function () { return admin_1.adminGetSystemConfig; } });
+Object.defineProperty(exports, "adminGetBanners", { enumerable: true, get: function () { return admin_1.adminGetBanners; } });
 Object.defineProperty(exports, "adminUpsertBanner", { enumerable: true, get: function () { return admin_1.adminUpsertBanner; } });
 Object.defineProperty(exports, "adminGetReports", { enumerable: true, get: function () { return admin_1.adminGetReports; } });
 Object.defineProperty(exports, "adminResolveReport", { enumerable: true, get: function () { return admin_1.adminResolveReport; } });
 Object.defineProperty(exports, "adminGetAffiliateOverview", { enumerable: true, get: function () { return admin_1.adminGetAffiliateOverview; } });
 Object.defineProperty(exports, "adminUpdateAffiliateRate", { enumerable: true, get: function () { return admin_1.adminUpdateAffiliateRate; } });
 Object.defineProperty(exports, "adminGetAuditLogs", { enumerable: true, get: function () { return admin_1.adminGetAuditLogs; } });
+Object.defineProperty(exports, "adminGetAnnouncements", { enumerable: true, get: function () { return admin_1.adminGetAnnouncements; } });
+Object.defineProperty(exports, "adminUpsertAnnouncement", { enumerable: true, get: function () { return admin_1.adminUpsertAnnouncement; } });
+Object.defineProperty(exports, "adminGetGuideline", { enumerable: true, get: function () { return admin_1.adminGetGuideline; } });
+Object.defineProperty(exports, "adminUpdateGuideline", { enumerable: true, get: function () { return admin_1.adminUpdateGuideline; } });
 //# sourceMappingURL=index.js.map
