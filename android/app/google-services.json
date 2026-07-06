@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "238378389288",
+    "project_id": "icoccha-admin-dashboard",
+    "storage_bucket": "icoccha-admin-dashboard.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238378389288:android:2506b1b0303fb571cc8a1d",
+        "android_client_info": {
+          "package_name": "com.mycompany.icocchaadmindashboard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMd_2cs5N1l7oOcwf4B5W8sd8BFDFe9kM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238378389288:android:106161a514cc56c7cc8a1d",
+        "android_client_info": {
+          "package_name": "com.mycompany.icocchamockup2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMd_2cs5N1l7oOcwf4B5W8sd8BFDFe9kM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

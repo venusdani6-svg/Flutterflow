@@ -1,0 +1,69 @@
+// Export pages
+export '/account/admin_login_page/admin_login_page_widget.dart'
+    show AdminLoginPageWidget;
+export '/pages/admin_dashboard_page/admin_dashboard_page_widget.dart'
+    show AdminDashboardPageWidget;
+export '/user_management/staff_user_list_page/staff_user_list_page_widget.dart'
+    show StaffUserListPageWidget;
+export '/user_management/administrator_list_page/administrator_list_page_widget.dart'
+    show AdministratorListPageWidget;
+export '/user_management/guest_user_list_page/guest_user_list_page_widget.dart'
+    show GuestUserListPageWidget;
+export '/user_management/user_management_page/user_management_page_widget.dart'
+    show UserManagementPageWidget;
+export '/reservations_management/reservations_management_page/reservations_management_page_widget.dart'
+    show ReservationsManagementPageWidget;
+export '/reservations_management/reservation_list_page/reservation_list_page_widget.dart'
+    show ReservationListPageWidget;
+export '/user_management/cast_user_list_page/cast_user_list_page_widget.dart'
+    show CastUserListPageWidget;
+export '/user_management/staff_userdetails_page/staff_userdetails_page_widget.dart'
+    show StaffUserdetailsPageWidget;
+export '/user_management/administratodetails_page/administratodetails_page_widget.dart'
+    show AdministratodetailsPageWidget;
+export '/reservations_management/reservationdetails_page/reservationdetails_page_widget.dart'
+    show ReservationdetailsPageWidget;
+export '/paymet_ledger/payment_ledger_list_page/payment_ledger_list_page_widget.dart'
+    show PaymentLedgerListPageWidget;
+export '/withdrawal_application/withdrawal_application_list_page/withdrawal_application_list_page_widget.dart'
+    show WithdrawalApplicationListPageWidget;
+export '/kyc/k_y_c_review_list_page/k_y_c_review_list_page_widget.dart'
+    show KYCReviewListPageWidget;
+export '/report/report_list_page/report_list_page_widget.dart'
+    show ReportListPageWidget;
+export '/paymet_ledger/payment_ledger_management_page/payment_ledger_management_page_widget.dart'
+    show PaymentLedgerManagementPageWidget;
+export '/withdrawal_application/withdrawal_application_management_page/withdrawal_application_management_page_widget.dart'
+    show WithdrawalApplicationManagementPageWidget;
+export '/kyc/k_y_c_review_management_page/k_y_c_review_management_page_widget.dart'
+    show KYCReviewManagementPageWidget;
+export '/report/report_management_page/report_management_page_widget.dart'
+    show ReportManagementPageWidget;
+export '/affiliate/affiliate_list_page/affiliate_list_page_widget.dart'
+    show AffiliateListPageWidget;
+export '/affiliate/affiliate_management_page/affiliate_management_page_widget.dart'
+    show AffiliateManagementPageWidget;
+export '/cocomise/cocomise_list_page/cocomise_list_page_widget.dart'
+    show CocomiseListPageWidget;
+export '/cocomise/cocomise_management_page/cocomise_management_page_widget.dart'
+    show CocomiseManagementPageWidget;
+export '/job_board/job_board_management_page/job_board_management_page_widget.dart'
+    show JobBoardManagementPageWidget;
+export '/job_board/job_board_list_page/job_board_list_page_widget.dart'
+    show JobBoardListPageWidget;
+export '/banner/banner_management_page/banner_management_page_widget.dart'
+    show BannerManagementPageWidget;
+export '/banner/banner_list_page/banner_list_page_widget.dart'
+    show BannerListPageWidget;
+export '/system/system_settings_management_page/system_settings_management_page_widget.dart'
+    show SystemSettingsManagementPageWidget;
+export '/system/system_settings_list_page/system_settings_list_page_widget.dart'
+    show SystemSettingsListPageWidget;
+export '/audit_log/audit_log_list_page/audit_log_list_page_widget.dart'
+    show AuditLogListPageWidget;
+export '/audit_log/audit_log_management_page/audit_log_management_page_widget.dart'
+    show AuditLogManagementPageWidget;
+export '/user_management/cast_userdetails_page/cast_userdetails_page_widget.dart'
+    show CastUserdetailsPageWidget;
+export '/user_management/guest_userdetails_page/guest_userdetails_page_widget.dart'
+    show GuestUserdetailsPageWidget;
