@@ -35,6 +35,17 @@ class _AdminLoginPageWidgetState extends State<AdminLoginPageWidget> {
 
     _model.loginPasswordFieldTextController ??= TextEditingController();
     _model.loginPasswordFieldFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (loggedIn &&
+          currentUserDocument != null &&
+          !currentUserIsAdmin) {
+        await authManager.signOut();
+        if (mounted) {
+          safeSetState(() {});
+        }
+      }
+    });
   }
 
   @override
@@ -371,9 +382,7 @@ class _AdminLoginPageWidgetState extends State<AdminLoginPageWidget> {
                               return;
                             }
 
-                            if (valueOrDefault(
-                                    currentUserDocument?.roleAdmin, '') ==
-                                'admin') {
+                            if (currentUserIsAdmin) {
                               context.pushNamedAuth(
                                 AdminDashboardPageWidget.routeName,
                                 context.mounted,

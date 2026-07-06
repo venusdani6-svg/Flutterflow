@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 import '/backend/backend.dart';
 import 'package:stream_transform/stream_transform.dart';
@@ -29,6 +30,14 @@ String get currentPhoneNumber =>
 String get currentJwtToken => _currentJwtToken ?? '';
 
 bool get currentUserEmailVerified => currentUser?.emailVerified ?? false;
+
+/// True when the Firestore user document has role_admin == "admin".
+bool get currentUserIsAdmin =>
+    valueOrDefault(currentUserDocument?.roleAdmin, '') == 'admin';
+
+/// Firebase Functions instance (asia-northeast1 admin API).
+FirebaseFunctions get adminFunctions =>
+    FirebaseFunctions.instanceFor(region: 'asia-northeast1');
 
 /// Create a Stream that listens to the current user's JWT Token, since Firebase
 /// generates a new token every hour.

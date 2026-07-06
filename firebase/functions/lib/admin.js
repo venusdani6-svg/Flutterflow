@@ -1,0 +1,164 @@
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.adminGetAuditLogs = exports.adminUpdateAffiliateRate = exports.adminGetAffiliateOverview = exports.adminResolveReport = exports.adminGetReports = exports.adminUpsertBanner = exports.adminGetSystemConfig = exports.adminUpdateSystemConfig = exports.adminApprovePayout = exports.adminGetStripeLogs = exports.adminGetLedger = exports.adminGetTipsByReservation = exports.adminForceCancel = exports.adminGetReservations = exports.adminForceDeleteUser = exports.adminToggleFreeze = exports.adminApproveKYC = exports.adminGetUsers = exports.adminHealthCheck = exports.adminGetDashboardStats = void 0;
+const admin = __importStar(require("firebase-admin"));
+const functions = __importStar(require("firebase-functions"));
+const verifyAdmin_1 = require("./auth/verifyAdmin");
+const db = () => admin.firestore();
+function startOfTodayJst() {
+    const now = new Date();
+    const jstOffsetMs = 9 * 60 * 60 * 1000;
+    const jst = new Date(now.getTime() + jstOffsetMs);
+    jst.setUTCHours(0, 0, 0, 0);
+    return new Date(jst.getTime() - jstOffsetMs);
+}
+async function countUsersByRole(role) {
+    const snap = await db()
+        .collection("users")
+        .where("role", "==", role)
+        .count()
+        .get();
+    return snap.data().count;
+}
+async function countTodayRegistrations() {
+    const snap = await db()
+        .collection("users")
+        .where("created_time", ">=", startOfTodayJst())
+        .count()
+        .get();
+    return snap.data().count;
+}
+async function countPendingKyc() {
+    var _a;
+    const snap = await db()
+        .collection("users")
+        .where("kyc_status", "==", "pending")
+        .count()
+        .get()
+        .catch(() => null);
+    return (_a = snap === null || snap === void 0 ? void 0 : snap.data().count) !== null && _a !== void 0 ? _a : 0;
+}
+async function countCollection(name) {
+    var _a;
+    const snap = await db().collection(name).count().get().catch(() => null);
+    return (_a = snap === null || snap === void 0 ? void 0 : snap.data().count) !== null && _a !== void 0 ? _a : 0;
+}
+async function getMonthlySales() {
+    const snap = await db()
+        .collection("monthly_sales")
+        .orderBy("month", "asc")
+        .limit(12)
+        .get()
+        .catch(() => null);
+    if (!snap || snap.empty) {
+        return [];
+    }
+    return snap.docs.map((doc) => {
+        var _a, _b, _c;
+        const data = doc.data();
+        return {
+            month: String((_a = data.month) !== null && _a !== void 0 ? _a : doc.id),
+            amount: Number((_c = (_b = data.amount) !== null && _b !== void 0 ? _b : data.total) !== null && _c !== void 0 ? _c : 0),
+        };
+    });
+}
+/**
+ * Dashboard KPI and chart data for the admin home screen.
+ */
+exports.adminGetDashboardStats = functions
+    .region("asia-northeast1")
+    .https.onCall(async (_data, context) => {
+    await (0, verifyAdmin_1.verifyAdmin)(context);
+    const [todayNewRegistrations, guestCount, castCount, staffCount, pendingKyc, reservationCount, monthlySales,] = await Promise.all([
+        countTodayRegistrations(),
+        countUsersByRole(0).catch(() => 0),
+        countUsersByRole(1).catch(() => 0),
+        countUsersByRole(2).catch(() => 0),
+        countPendingKyc(),
+        countCollection("reservations"),
+        getMonthlySales(),
+    ]);
+    return {
+        todayNewRegistrations,
+        reservationCount,
+        pendingKycCount: pendingKyc,
+        salesToday: 0,
+        userTypeCounts: {
+            guest: guestCount,
+            cast: castCount,
+            staff: staffCount,
+        },
+        monthlySales,
+        generatedAt: new Date().toISOString(),
+    };
+});
+/**
+ * Health-check callable for deployment verification.
+ */
+exports.adminHealthCheck = functions
+    .region("asia-northeast1")
+    .https.onCall(async (_data, context) => {
+    var _a;
+    const adminUser = await (0, verifyAdmin_1.verifyAdmin)(context);
+    return {
+        ok: true,
+        uid: adminUser.uid,
+        email: (_a = adminUser.email) !== null && _a !== void 0 ? _a : null,
+    };
+});
+var users_1 = require("./admin/users");
+Object.defineProperty(exports, "adminGetUsers", { enumerable: true, get: function () { return users_1.adminGetUsers; } });
+Object.defineProperty(exports, "adminApproveKYC", { enumerable: true, get: function () { return users_1.adminApproveKYC; } });
+Object.defineProperty(exports, "adminToggleFreeze", { enumerable: true, get: function () { return users_1.adminToggleFreeze; } });
+Object.defineProperty(exports, "adminForceDeleteUser", { enumerable: true, get: function () { return users_1.adminForceDeleteUser; } });
+var reservations_1 = require("./admin/reservations");
+Object.defineProperty(exports, "adminGetReservations", { enumerable: true, get: function () { return reservations_1.adminGetReservations; } });
+Object.defineProperty(exports, "adminForceCancel", { enumerable: true, get: function () { return reservations_1.adminForceCancel; } });
+Object.defineProperty(exports, "adminGetTipsByReservation", { enumerable: true, get: function () { return reservations_1.adminGetTipsByReservation; } });
+var payments_1 = require("./admin/payments");
+Object.defineProperty(exports, "adminGetLedger", { enumerable: true, get: function () { return payments_1.adminGetLedger; } });
+Object.defineProperty(exports, "adminGetStripeLogs", { enumerable: true, get: function () { return payments_1.adminGetStripeLogs; } });
+Object.defineProperty(exports, "adminApprovePayout", { enumerable: true, get: function () { return payments_1.adminApprovePayout; } });
+var content_1 = require("./admin/content");
+Object.defineProperty(exports, "adminUpdateSystemConfig", { enumerable: true, get: function () { return content_1.adminUpdateSystemConfig; } });
+Object.defineProperty(exports, "adminGetSystemConfig", { enumerable: true, get: function () { return content_1.adminGetSystemConfig; } });
+Object.defineProperty(exports, "adminUpsertBanner", { enumerable: true, get: function () { return content_1.adminUpsertBanner; } });
+Object.defineProperty(exports, "adminGetReports", { enumerable: true, get: function () { return content_1.adminGetReports; } });
+Object.defineProperty(exports, "adminResolveReport", { enumerable: true, get: function () { return content_1.adminResolveReport; } });
+Object.defineProperty(exports, "adminGetAffiliateOverview", { enumerable: true, get: function () { return content_1.adminGetAffiliateOverview; } });
+Object.defineProperty(exports, "adminUpdateAffiliateRate", { enumerable: true, get: function () { return content_1.adminUpdateAffiliateRate; } });
+Object.defineProperty(exports, "adminGetAuditLogs", { enumerable: true, get: function () { return content_1.adminGetAuditLogs; } });
+//# sourceMappingURL=admin.js.map

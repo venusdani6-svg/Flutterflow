@@ -1,0 +1,95 @@
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.adminGetTipsByReservation = exports.adminForceCancel = exports.adminGetReservations = void 0;
+const admin = __importStar(require("firebase-admin"));
+const functions = __importStar(require("firebase-functions"));
+const verifyAdmin_1 = require("../auth/verifyAdmin");
+const db = () => admin.firestore();
+exports.adminGetReservations = functions
+    .region("asia-northeast1")
+    .https.onCall(async (data, context) => {
+    var _a;
+    await (0, verifyAdmin_1.verifyAdmin)(context);
+    const status = data === null || data === void 0 ? void 0 : data.status;
+    const limit = Math.min(Number((_a = data === null || data === void 0 ? void 0 : data.limit) !== null && _a !== void 0 ? _a : 50), 100);
+    let query = db()
+        .collection("reservations")
+        .orderBy("created_at", "desc")
+        .limit(limit);
+    if (status) {
+        query = query.where("status", "==", status);
+    }
+    const snap = await query.get();
+    const reservations = snap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
+    return { reservations, total: reservations.length };
+});
+exports.adminForceCancel = functions
+    .region("asia-northeast1")
+    .https.onCall(async (data, context) => {
+    var _a;
+    const adminUser = await (0, verifyAdmin_1.verifyAdmin)(context);
+    const reservationId = data === null || data === void 0 ? void 0 : data.reservationId;
+    const reason = (_a = data === null || data === void 0 ? void 0 : data.reason) !== null && _a !== void 0 ? _a : "admin_force_cancel";
+    if (!reservationId) {
+        throw new functions.https.HttpsError("invalid-argument", "reservationId is required.");
+    }
+    await db().collection("reservations").doc(reservationId).update({
+        status: "cancelled",
+        cancelled_by: "admin",
+        cancel_reason: reason,
+        cancelled_at: admin.firestore.FieldValue.serverTimestamp(),
+        cancelled_by_uid: adminUser.uid,
+    });
+    return { ok: true, reservationId };
+});
+exports.adminGetTipsByReservation = functions
+    .region("asia-northeast1")
+    .https.onCall(async (data, context) => {
+    await (0, verifyAdmin_1.verifyAdmin)(context);
+    const reservationId = data === null || data === void 0 ? void 0 : data.reservationId;
+    if (!reservationId) {
+        throw new functions.https.HttpsError("invalid-argument", "reservationId is required.");
+    }
+    const snap = await db()
+        .collection("ledger")
+        .where("reservation_id", "==", reservationId)
+        .where("type", "==", "tip")
+        .get();
+    const tips = snap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
+    const total = tips.reduce((sum, t) => { var _a; return sum + Number((_a = t.amount) !== null && _a !== void 0 ? _a : 0); }, 0);
+    return { tips, total, hasTips: tips.length > 0 };
+});
+//# sourceMappingURL=reservations.js.map

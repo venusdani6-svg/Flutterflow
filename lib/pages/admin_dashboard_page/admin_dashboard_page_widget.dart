@@ -1,3 +1,5 @@
+import '/auth/admin_auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -29,6 +31,10 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AdminDashboardPageModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await guardAdminAccess(context);
+    });
   }
 
   @override

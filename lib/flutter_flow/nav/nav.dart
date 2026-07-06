@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '/auth/base_auth_user_provider.dart';
+import '/auth/firebase_auth/auth_util.dart';
 
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -76,15 +77,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) => appStateNotifier.loggedIn
-          ? AdminLoginPageWidget()
-          : AdminDashboardPageWidget(),
+          ? AdminDashboardPageWidget()
+          : AdminLoginPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
-              ? AdminLoginPageWidget()
-              : AdminDashboardPageWidget(),
+              ? AdminDashboardPageWidget()
+              : AdminLoginPageWidget(),
         ),
         FFRoute(
           name: AdminLoginPageWidget.routeName,
@@ -94,167 +95,233 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: AdminDashboardPageWidget.routeName,
           path: AdminDashboardPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => AdminDashboardPageWidget(),
         ),
         FFRoute(
           name: StaffUserListPageWidget.routeName,
           path: StaffUserListPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => StaffUserListPageWidget(),
         ),
         FFRoute(
           name: AdministratorListPageWidget.routeName,
           path: AdministratorListPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => AdministratorListPageWidget(),
         ),
         FFRoute(
           name: GuestUserListPageWidget.routeName,
           path: GuestUserListPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => GuestUserListPageWidget(),
         ),
         FFRoute(
           name: UserManagementPageWidget.routeName,
           path: UserManagementPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => UserManagementPageWidget(),
         ),
         FFRoute(
           name: ReservationsManagementPageWidget.routeName,
           path: ReservationsManagementPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => ReservationsManagementPageWidget(),
         ),
         FFRoute(
           name: ReservationListPageWidget.routeName,
           path: ReservationListPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => ReservationListPageWidget(),
         ),
         FFRoute(
           name: CastUserListPageWidget.routeName,
           path: CastUserListPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => CastUserListPageWidget(),
         ),
         FFRoute(
           name: StaffUserdetailsPageWidget.routeName,
           path: StaffUserdetailsPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => StaffUserdetailsPageWidget(),
         ),
         FFRoute(
           name: AdministratodetailsPageWidget.routeName,
           path: AdministratodetailsPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => AdministratodetailsPageWidget(),
         ),
         FFRoute(
           name: ReservationdetailsPageWidget.routeName,
           path: ReservationdetailsPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => ReservationdetailsPageWidget(),
         ),
         FFRoute(
           name: PaymentLedgerListPageWidget.routeName,
           path: PaymentLedgerListPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => PaymentLedgerListPageWidget(),
         ),
         FFRoute(
           name: WithdrawalApplicationListPageWidget.routeName,
           path: WithdrawalApplicationListPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => WithdrawalApplicationListPageWidget(),
         ),
         FFRoute(
           name: KYCReviewListPageWidget.routeName,
           path: KYCReviewListPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => KYCReviewListPageWidget(),
         ),
         FFRoute(
           name: ReportListPageWidget.routeName,
           path: ReportListPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => ReportListPageWidget(),
         ),
         FFRoute(
           name: PaymentLedgerManagementPageWidget.routeName,
           path: PaymentLedgerManagementPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => PaymentLedgerManagementPageWidget(),
         ),
         FFRoute(
           name: WithdrawalApplicationManagementPageWidget.routeName,
           path: WithdrawalApplicationManagementPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) =>
               WithdrawalApplicationManagementPageWidget(),
         ),
         FFRoute(
           name: KYCReviewManagementPageWidget.routeName,
           path: KYCReviewManagementPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => KYCReviewManagementPageWidget(),
         ),
         FFRoute(
           name: ReportManagementPageWidget.routeName,
           path: ReportManagementPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => ReportManagementPageWidget(),
         ),
         FFRoute(
           name: AffiliateListPageWidget.routeName,
           path: AffiliateListPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => AffiliateListPageWidget(),
         ),
         FFRoute(
           name: AffiliateManagementPageWidget.routeName,
           path: AffiliateManagementPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => AffiliateManagementPageWidget(),
         ),
         FFRoute(
           name: CocomiseListPageWidget.routeName,
           path: CocomiseListPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => CocomiseListPageWidget(),
         ),
         FFRoute(
           name: CocomiseManagementPageWidget.routeName,
           path: CocomiseManagementPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => CocomiseManagementPageWidget(),
         ),
         FFRoute(
           name: JobBoardManagementPageWidget.routeName,
           path: JobBoardManagementPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => JobBoardManagementPageWidget(),
         ),
         FFRoute(
           name: JobBoardListPageWidget.routeName,
           path: JobBoardListPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => JobBoardListPageWidget(),
         ),
         FFRoute(
           name: BannerManagementPageWidget.routeName,
           path: BannerManagementPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => BannerManagementPageWidget(),
         ),
         FFRoute(
           name: BannerListPageWidget.routeName,
           path: BannerListPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => BannerListPageWidget(),
         ),
         FFRoute(
           name: SystemSettingsManagementPageWidget.routeName,
           path: SystemSettingsManagementPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => SystemSettingsManagementPageWidget(),
         ),
         FFRoute(
           name: SystemSettingsListPageWidget.routeName,
           path: SystemSettingsListPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => SystemSettingsListPageWidget(),
         ),
         FFRoute(
           name: AuditLogListPageWidget.routeName,
           path: AuditLogListPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => AuditLogListPageWidget(),
         ),
         FFRoute(
           name: AuditLogManagementPageWidget.routeName,
           path: AuditLogManagementPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => AuditLogManagementPageWidget(),
         ),
         FFRoute(
           name: CastUserdetailsPageWidget.routeName,
           path: CastUserdetailsPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => CastUserdetailsPageWidget(),
         ),
         FFRoute(
           name: GuestUserdetailsPageWidget.routeName,
           path: GuestUserdetailsPageWidget.routePath,
+          requireAuth: true,
+          requireAdmin: true,
           builder: (context, params) => GuestUserdetailsPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
@@ -324,7 +391,7 @@ extension GoRouterExtensions on GoRouter {
       !ignoreRedirect && appState.hasRedirect();
   void clearRedirectLocation() => appState.clearRedirectLocation();
   void setRedirectLocationIfUnset(String location) =>
-      appState.updateNotifyOnAuthChange(false);
+      appState.setRedirectLocationIfUnset(location);
 }
 
 extension _GoRouterStateExtensions on GoRouterState {
@@ -403,6 +470,7 @@ class FFRoute {
     required this.path,
     required this.builder,
     this.requireAuth = false,
+    this.requireAdmin = false,
     this.asyncParams = const {},
     this.routes = const [],
   });
@@ -410,6 +478,7 @@ class FFRoute {
   final String name;
   final String path;
   final bool requireAuth;
+  final bool requireAdmin;
   final Map<String, Future<dynamic> Function(String)> asyncParams;
   final Widget Function(BuildContext, FFParameters) builder;
   final List<GoRoute> routes;
@@ -424,10 +493,26 @@ class FFRoute {
             return redirectLocation;
           }
 
+          final isLoginRoute = path == AdminLoginPageWidget.routePath;
+
+          if (isLoginRoute &&
+              appStateNotifier.loggedIn &&
+              currentUserIsAdmin) {
+            return AdminDashboardPageWidget.routePath;
+          }
+
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/adminDashboardPage';
+            return AdminLoginPageWidget.routePath;
           }
+
+          if (requireAdmin &&
+              appStateNotifier.loggedIn &&
+              currentUserDocument != null &&
+              !currentUserIsAdmin) {
+            return AdminLoginPageWidget.routePath;
+          }
+
           return null;
         },
         pageBuilder: (context, state) {

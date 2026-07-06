@@ -19,15 +19,18 @@
   },
   "devDependencies": {
     "eslint": "^6.8.0",
-    "eslint-plugin-promise": "^4.2.1"
+    "eslint-plugin-promise": "^4.2.1",
+    "typescript": "^5.4.5"
   },
+  "main": "lib/index.js",
   "scripts": {
+    "build": "tsc",
     "lint": "./node_modules/.bin/eslint --max-warnings=0 .",
-    "serve": "firebase -P icoccha-admin-dashboard emulators:start --only functions",
+    "serve": "npm run build && firebase -P icoccha-admin-dashboard emulators:start --only functions",
     "shell": "firebase -P icoccha-admin-dashboard functions:shell",
     "start": "npm run shell",
     "logs": "firebase -P icoccha-admin-dashboard functions:log",
-    "compile": "cp ../../tsconfig.template.json ./tsconfig-compile.json && tsc --project tsconfig-compile.json"
+    "deploy": "npm run build && firebase -P icoccha-admin-dashboard deploy --only functions"
   },
   "engines": {
     "node": "20"
