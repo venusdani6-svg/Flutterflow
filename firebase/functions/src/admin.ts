@@ -239,18 +239,21 @@ export const adminHealthCheck = functions
 
 export {
   adminGetUsers,
+  adminGetUser,
   adminApproveKYC,
   adminToggleFreeze,
   adminForceDeleteUser,
 } from "./admin/users";
 export {
   adminGetReservations,
+  adminGetReservation,
   adminForceCancel,
   adminGetTipsByReservation,
 } from "./admin/reservations";
 export {
   adminGetLedger,
   adminGetStripeLogs,
+  adminGetPayoutRequests,
   adminApprovePayout,
 } from "./admin/payments";
 export {

@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.adminApprovePayout = exports.adminGetStripeLogs = exports.adminGetLedger = void 0;
+exports.adminApprovePayout = exports.adminGetPayoutRequests = exports.adminGetStripeLogs = exports.adminGetLedger = void 0;
 const admin = __importStar(require("firebase-admin"));
 const functions = __importStar(require("firebase-functions"));
 const verifyAdmin_1 = require("../auth/verifyAdmin");
@@ -98,6 +98,28 @@ exports.adminGetStripeLogs = functions
         });
     }
     return { logs, total: logs.length };
+});
+exports.adminGetPayoutRequests = functions
+    .region("asia-northeast1")
+    .https.onCall(async (data, context) => {
+    var _a, _b;
+    await (0, verifyAdmin_1.verifyAdmin)(context);
+    const status = data === null || data === void 0 ? void 0 : data.status;
+    const limit = Math.min(Number((_a = data === null || data === void 0 ? void 0 : data.limit) !== null && _a !== void 0 ? _a : 50), 100);
+    const offset = Number((_b = data === null || data === void 0 ? void 0 : data.offset) !== null && _b !== void 0 ? _b : 0);
+    let query = db()
+        .collection("payout_requests")
+        .orderBy("created_at", "desc");
+    if (status) {
+        query = query.where("status", "==", status);
+    }
+    const fetchLimit = limit + offset;
+    query = query.limit(fetchLimit);
+    const snap = await query.get();
+    const all = snap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
+    const total = all.length;
+    const page = all.slice(offset, offset + limit);
+    return { payouts: page, total, hasMore: offset + limit < total };
 });
 exports.adminApprovePayout = functions
     .region("asia-northeast1")

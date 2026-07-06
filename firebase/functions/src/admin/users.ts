@@ -9,6 +9,7 @@ export const adminGetUsers = functions
   .https.onCall(async (data, context) => {
     await verifyAdmin(context);
     const role = data?.role as number | undefined;
+    const roleAdmin = data?.roleAdmin as string | undefined;
     const kycStatus = data?.kycStatus as string | undefined;
     const search = ((data?.search as string) ?? "").trim().toLowerCase();
     const orderBy = (data?.orderBy as string) ?? "created_time";
@@ -20,6 +21,9 @@ export const adminGetUsers = functions
     let query: FirebaseFirestore.Query = db().collection("users");
     if (role !== undefined) {
       query = query.where("role", "==", role);
+    }
+    if (roleAdmin) {
+      query = query.where("role_admin", "==", roleAdmin);
     }
     if (kycStatus) {
       query = query.where("kyc_status", "==", kycStatus);
@@ -63,6 +67,24 @@ export const adminGetUsers = functions
       total,
       hasMore: offset + limit < total,
     };
+  });
+
+export const adminGetUser = functions
+  .region("asia-northeast1")
+  .https.onCall(async (data, context) => {
+    await verifyAdmin(context);
+    const userId = data?.userId as string;
+    if (!userId) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "userId is required.",
+      );
+    }
+    const doc = await db().collection("users").doc(userId).get();
+    if (!doc.exists) {
+      throw new functions.https.HttpsError("not-found", "User not found.");
+    }
+    return { id: doc.id, ...doc.data() };
   });
 
 export const adminApproveKYC = functions

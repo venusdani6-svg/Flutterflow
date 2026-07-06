@@ -1,3 +1,5 @@
+import '/auth/admin_auth_util.dart';
+import '/components/admin_common/reservation_payment_info_panel.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
@@ -28,6 +30,13 @@ class _ReservationdetailsPageWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => ReservationdetailsPageModel());
+
+    _model.reservationId =
+        GoRouterState.of(context).uri.queryParameters['reservationId'] ?? '';
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await guardAdminAccess(context);
+    });
   }
 
   @override
@@ -657,6 +666,11 @@ class _ReservationdetailsPageWidgetState
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
+                                              if (_model.reservationId.isNotEmpty)
+                                                ReservationPaymentInfoPanel(
+                                                  reservationId:
+                                                      _model.reservationId,
+                                                ),
                                               Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:

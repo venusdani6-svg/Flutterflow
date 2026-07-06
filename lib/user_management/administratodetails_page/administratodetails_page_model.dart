@@ -11,6 +11,8 @@ class AdministratodetailsPageModel
   // Model for Main_Menu_Comp component.
   late MainMenuCompModel mainMenuCompModel;
 
+  String userId = '';
+
   @override
   void initState(BuildContext context) {
     mainMenuCompModel = createModel(context, () => MainMenuCompModel());

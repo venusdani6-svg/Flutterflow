@@ -9,7 +9,8 @@ class GuestUserdetailsPageModel
 
   // Model for Main_Menu_Comp component.
   late MainMenuCompModel mainMenuCompModel;
-  // State field(s) for TabBar widget.
+
+  String userId = '';
   TabController? tabBarController;
   int get tabBarCurrentIndex =>
       tabBarController != null ? tabBarController!.index : 0;

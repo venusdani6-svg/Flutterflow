@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.adminGetTipsByReservation = exports.adminForceCancel = exports.adminGetReservations = void 0;
+exports.adminGetTipsByReservation = exports.adminForceCancel = exports.adminGetReservation = exports.adminGetReservations = void 0;
 const admin = __importStar(require("firebase-admin"));
 const functions = __importStar(require("firebase-functions"));
 const verifyAdmin_1 = require("../auth/verifyAdmin");
@@ -41,20 +41,48 @@ const db = () => admin.firestore();
 exports.adminGetReservations = functions
     .region("asia-northeast1")
     .https.onCall(async (data, context) => {
-    var _a;
+    var _a, _b, _c;
     await (0, verifyAdmin_1.verifyAdmin)(context);
     const status = data === null || data === void 0 ? void 0 : data.status;
-    const limit = Math.min(Number((_a = data === null || data === void 0 ? void 0 : data.limit) !== null && _a !== void 0 ? _a : 50), 100);
+    const search = ((_a = data === null || data === void 0 ? void 0 : data.search) !== null && _a !== void 0 ? _a : "").trim().toLowerCase();
+    const limit = Math.min(Number((_b = data === null || data === void 0 ? void 0 : data.limit) !== null && _b !== void 0 ? _b : 50), 100);
+    const offset = Number((_c = data === null || data === void 0 ? void 0 : data.offset) !== null && _c !== void 0 ? _c : 0);
     let query = db()
         .collection("reservations")
-        .orderBy("created_at", "desc")
-        .limit(limit);
+        .orderBy("created_at", "desc");
     if (status) {
         query = query.where("status", "==", status);
     }
+    const fetchLimit = search ? 500 : limit + offset;
+    query = query.limit(fetchLimit);
     const snap = await query.get();
-    const reservations = snap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
-    return { reservations, total: reservations.length };
+    let reservations = snap.docs.map((d) => (Object.assign({ id: d.id }, d.data())));
+    if (search) {
+        reservations = reservations.filter((r) => {
+            var _a, _b, _c;
+            const id = String((_a = r.id) !== null && _a !== void 0 ? _a : "").toLowerCase();
+            const guest = String((_b = r.guest_id) !== null && _b !== void 0 ? _b : "").toLowerCase();
+            const cast = String((_c = r.cast_id) !== null && _c !== void 0 ? _c : "").toLowerCase();
+            return id.includes(search) || guest.includes(search) || cast.includes(search);
+        });
+    }
+    const total = reservations.length;
+    const page = reservations.slice(offset, offset + limit);
+    return { reservations: page, total, hasMore: offset + limit < total };
+});
+exports.adminGetReservation = functions
+    .region("asia-northeast1")
+    .https.onCall(async (data, context) => {
+    await (0, verifyAdmin_1.verifyAdmin)(context);
+    const reservationId = data === null || data === void 0 ? void 0 : data.reservationId;
+    if (!reservationId) {
+        throw new functions.https.HttpsError("invalid-argument", "reservationId is required.");
+    }
+    const doc = await db().collection("reservations").doc(reservationId).get();
+    if (!doc.exists) {
+        throw new functions.https.HttpsError("not-found", "Reservation not found.");
+    }
+    return Object.assign({ id: doc.id }, doc.data());
 });
 exports.adminForceCancel = functions
     .region("asia-northeast1")

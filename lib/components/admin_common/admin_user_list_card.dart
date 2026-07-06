@@ -11,6 +11,7 @@ class AdminUserListItem {
     required this.displayName,
     required this.email,
     required this.roleLabel,
+    this.role,
     this.photoUrl,
     this.createdAt,
     this.kycStatus,
@@ -21,6 +22,7 @@ class AdminUserListItem {
   final String displayName;
   final String email;
   final String roleLabel;
+  final int? role;
   final String? photoUrl;
   final DateTime? createdAt;
   final String? kycStatus;
@@ -34,6 +36,7 @@ class AdminUserListItem {
     }
 
     final role = map['role'];
+    final roleInt = role is int ? role : int.tryParse(role?.toString() ?? '');
     return AdminUserListItem(
       id: map['id']?.toString() ?? map['uid']?.toString() ?? '',
       displayName: map['display_name']?.toString() ??
@@ -41,6 +44,7 @@ class AdminUserListItem {
           '-',
       email: map['email']?.toString() ?? '-',
       roleLabel: _roleLabel(role),
+      role: roleInt,
       photoUrl: map['photo_url']?.toString() ?? map['prefile_image']?.toString(),
       createdAt: created,
       kycStatus: map['kyc_status']?.toString(),

@@ -18,6 +18,7 @@ Future<Map<String, dynamic>?> adminHealthCheck() =>
 
 Future<Map<String, dynamic>?> adminGetUsers({
   int? role,
+  String? roleAdmin,
   String? kycStatus,
   String? search,
   String? orderBy,
@@ -28,6 +29,7 @@ Future<Map<String, dynamic>?> adminGetUsers({
 }) =>
     _callAdmin('adminGetUsers', {
       if (role != null) 'role': role,
+      if (roleAdmin != null) 'roleAdmin': roleAdmin,
       if (kycStatus != null) 'kycStatus': kycStatus,
       if (search != null && search.isNotEmpty) 'search': search,
       if (orderBy != null) 'orderBy': orderBy,
@@ -36,6 +38,11 @@ Future<Map<String, dynamic>?> adminGetUsers({
       'limit': limit,
       'offset': offset,
     });
+
+Future<Map<String, dynamic>?> adminGetUser({
+  required String userId,
+}) =>
+    _callAdmin('adminGetUser', {'userId': userId});
 
 Future<Map<String, dynamic>?> adminApproveKYC({
   required String userId,
@@ -56,12 +63,21 @@ Future<Map<String, dynamic>?> adminForceDeleteUser({
 
 Future<Map<String, dynamic>?> adminGetReservations({
   String? status,
+  String? search,
   int limit = 50,
+  int offset = 0,
 }) =>
     _callAdmin('adminGetReservations', {
       if (status != null) 'status': status,
+      if (search != null && search.isNotEmpty) 'search': search,
       'limit': limit,
+      'offset': offset,
     });
+
+Future<Map<String, dynamic>?> adminGetReservation({
+  required String reservationId,
+}) =>
+    _callAdmin('adminGetReservation', {'reservationId': reservationId});
 
 Future<Map<String, dynamic>?> adminForceCancel({
   required String reservationId,
@@ -103,6 +119,17 @@ Future<Map<String, dynamic>?> adminGetStripeLogs({
       if (startDate != null) 'startDate': startDate,
       if (endDate != null) 'endDate': endDate,
       'limit': limit,
+    });
+
+Future<Map<String, dynamic>?> adminGetPayoutRequests({
+  String? status,
+  int limit = 50,
+  int offset = 0,
+}) =>
+    _callAdmin('adminGetPayoutRequests', {
+      if (status != null) 'status': status,
+      'limit': limit,
+      'offset': offset,
     });
 
 Future<Map<String, dynamic>?> adminApprovePayout({

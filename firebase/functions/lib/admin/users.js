@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.adminForceDeleteUser = exports.adminToggleFreeze = exports.adminApproveKYC = exports.adminGetUsers = void 0;
+exports.adminForceDeleteUser = exports.adminToggleFreeze = exports.adminApproveKYC = exports.adminGetUser = exports.adminGetUsers = void 0;
 const admin = __importStar(require("firebase-admin"));
 const functions = __importStar(require("firebase-functions"));
 const verifyAdmin_1 = require("../auth/verifyAdmin");
@@ -44,6 +44,7 @@ exports.adminGetUsers = functions
     var _a, _b, _c, _d, _e;
     await (0, verifyAdmin_1.verifyAdmin)(context);
     const role = data === null || data === void 0 ? void 0 : data.role;
+    const roleAdmin = data === null || data === void 0 ? void 0 : data.roleAdmin;
     const kycStatus = data === null || data === void 0 ? void 0 : data.kycStatus;
     const search = ((_a = data === null || data === void 0 ? void 0 : data.search) !== null && _a !== void 0 ? _a : "").trim().toLowerCase();
     const orderBy = (_b = data === null || data === void 0 ? void 0 : data.orderBy) !== null && _b !== void 0 ? _b : "created_time";
@@ -54,6 +55,9 @@ exports.adminGetUsers = functions
     let query = db().collection("users");
     if (role !== undefined) {
         query = query.where("role", "==", role);
+    }
+    if (roleAdmin) {
+        query = query.where("role_admin", "==", roleAdmin);
     }
     if (kycStatus) {
         query = query.where("kyc_status", "==", kycStatus);
@@ -84,6 +88,20 @@ exports.adminGetUsers = functions
         total,
         hasMore: offset + limit < total,
     };
+});
+exports.adminGetUser = functions
+    .region("asia-northeast1")
+    .https.onCall(async (data, context) => {
+    await (0, verifyAdmin_1.verifyAdmin)(context);
+    const userId = data === null || data === void 0 ? void 0 : data.userId;
+    if (!userId) {
+        throw new functions.https.HttpsError("invalid-argument", "userId is required.");
+    }
+    const doc = await db().collection("users").doc(userId).get();
+    if (!doc.exists) {
+        throw new functions.https.HttpsError("not-found", "User not found.");
+    }
+    return Object.assign({ id: doc.id }, doc.data());
 });
 exports.adminApproveKYC = functions
     .region("asia-northeast1")

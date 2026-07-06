@@ -1,7 +1,12 @@
+import '/auth/admin_auth_util.dart';
+import '/backend/cloud_functions/admin_calls.dart';
+import '/components/admin_common/admin_detail_common_section.dart';
+import '/components/admin_common/admin_user_profile_section.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/user_management/search_user_dialog_comp/search_user_dialog_comp_widget.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'staff_userdetails_page_model.dart';
@@ -28,6 +33,13 @@ class _StaffUserdetailsPageWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => StaffUserdetailsPageModel());
+
+    _model.userId =
+        GoRouterState.of(context).uri.queryParameters['userId'] ?? '';
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await guardAdminAccess(context);
+    });
   }
 
   @override
@@ -657,6 +669,38 @@ class _StaffUserdetailsPageWidgetState
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
+                                              if (_model.userId.isNotEmpty) ...[
+                                                AdminUserProfileSection(
+                                                  userId: _model.userId,
+                                                ),
+                                                AdminDetailCommonSection(
+                                                  targetType: 'user',
+                                                  targetId: _model.userId,
+                                                  relatedLinks: const [
+                                                    AdminRelatedLink(
+                                                      label: '予約一覧',
+                                                      routeName:
+                                                          ReservationListPageWidget
+                                                              .routeName,
+                                                    ),
+                                                    AdminRelatedLink(
+                                                      label: '決済・台帳',
+                                                      routeName:
+                                                          PaymentLedgerListPageWidget
+                                                              .routeName,
+                                                    ),
+                                                  ],
+                                                  onFreeze: () =>
+                                                      adminToggleFreeze(
+                                                    userId: _model.userId,
+                                                    frozen: true,
+                                                  ),
+                                                  onDelete: () =>
+                                                      adminForceDeleteUser(
+                                                    userId: _model.userId,
+                                                  ),
+                                                ),
+                                              ],
                                               Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:

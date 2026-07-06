@@ -10,6 +10,8 @@ class ReservationdetailsPageModel
   // Model for Main_Menu_Comp component.
   late MainMenuCompModel mainMenuCompModel;
 
+  String reservationId = '';
+
   @override
   void initState(BuildContext context) {
     mainMenuCompModel = createModel(context, () => MainMenuCompModel());

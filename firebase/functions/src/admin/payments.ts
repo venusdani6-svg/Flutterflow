@@ -65,6 +65,28 @@ export const adminGetStripeLogs = functions
     return { logs, total: logs.length };
   });
 
+export const adminGetPayoutRequests = functions
+  .region("asia-northeast1")
+  .https.onCall(async (data, context) => {
+    await verifyAdmin(context);
+    const status = data?.status as string | undefined;
+    const limit = Math.min(Number(data?.limit ?? 50), 100);
+    const offset = Number(data?.offset ?? 0);
+    let query: FirebaseFirestore.Query = db()
+      .collection("payout_requests")
+      .orderBy("created_at", "desc");
+    if (status) {
+      query = query.where("status", "==", status);
+    }
+    const fetchLimit = limit + offset;
+    query = query.limit(fetchLimit);
+    const snap = await query.get();
+    const all = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    const total = all.length;
+    const page = all.slice(offset, offset + limit);
+    return { payouts: page, total, hasMore: offset + limit < total };
+  });
+
 export const adminApprovePayout = functions
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {

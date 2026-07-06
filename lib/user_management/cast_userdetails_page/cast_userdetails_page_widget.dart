@@ -1,5 +1,6 @@
 import '/auth/admin_auth_util.dart';
 import '/backend/cloud_functions/admin_calls.dart';
+import '/components/admin_common/admin_user_profile_section.dart';
 import '/components/admin_common/admin_detail_common_section.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -685,7 +686,11 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            if (_model.userId.isNotEmpty)
+                                            if (_model.userId.isNotEmpty) ...[
+                                              AdminUserProfileSection(
+                                                userId: _model.userId,
+                                                showAffiliateRate: true,
+                                              ),
                                               AdminDetailCommonSection(
                                                 targetType: 'user',
                                                 targetId: _model.userId,
@@ -714,6 +719,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                   userId: _model.userId,
                                                 ),
                                               ),
+                                            ],
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
