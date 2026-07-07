@@ -31,14 +31,17 @@ class AdminUserListItem {
 
   factory AdminUserListItem.fromMap(Map<String, dynamic> map) {
     final created = parseAdminTimestamp(map['created_time']);
-    final roleInt = role is int ? role : int.tryParse(role?.toString() ?? '');
+    final roleValue = map['role'];
+    final roleInt = roleValue is int
+        ? roleValue
+        : int.tryParse(roleValue?.toString() ?? '');
     return AdminUserListItem(
       id: map['id']?.toString() ?? map['uid']?.toString() ?? '',
       displayName: map['display_name']?.toString() ??
           map['displayName']?.toString() ??
           '-',
       email: map['email']?.toString() ?? '-',
-      roleLabel: _roleLabel(role),
+      roleLabel: _roleLabel(roleValue),
       role: roleInt,
       photoUrl: map['photo_url']?.toString() ?? map['prefile_image']?.toString(),
       createdAt: created,

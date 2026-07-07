@@ -1,4 +1,3 @@
-import 'package:cloud_functions/cloud_functions.dart';
 
 import '/auth/firebase_auth/auth_util.dart';
 

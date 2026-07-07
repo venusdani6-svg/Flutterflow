@@ -8,7 +8,7 @@ class GuestUserListBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AdminUserListBodyWidget(
+    return AdminUserListBodyWidget(
       config: AdminUserListConfig(
         role: 0,
         detailRouteName: GuestUserdetailsPageWidget.routeName,

@@ -1,9 +1,7 @@
-import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/auth/admin_auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/components/admin_common/affiliate_list_body_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/form_field_controller.dart';
 import '/pages/info_dialog_comp/info_dialog_comp_widget.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import 'package:flutter/material.dart';

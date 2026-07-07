@@ -8,7 +8,7 @@ class CastUserListBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AdminUserListBodyWidget(
+    return AdminUserListBodyWidget(
       config: AdminUserListConfig(
         role: 1,
         detailRouteName: CastUserdetailsPageWidget.routeName,

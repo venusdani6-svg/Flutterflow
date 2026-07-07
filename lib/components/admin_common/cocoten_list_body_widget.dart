@@ -4,7 +4,6 @@ import '/components/admin_common/admin_pagination_bar.dart';
 import '/components/admin_common/admin_timestamp_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class CocotenShopListItem {
   CocotenShopListItem({

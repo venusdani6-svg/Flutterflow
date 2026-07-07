@@ -37,7 +37,7 @@ T createModel<T extends FlutterFlowModel>(
 abstract class FlutterFlowModel<W extends Widget> {
   // Initialization methods
   bool _isInitialized = false;
-  void initState(BuildContext context);
+  void initState(BuildContext context) {}
   void _init(BuildContext context) {
     if (!_isInitialized) {
       initState(context);
@@ -64,7 +64,7 @@ abstract class FlutterFlowModel<W extends Widget> {
   // disposed. By default this is true for pages and false for components,
   // as page/component models handle the disposal of their children.
   bool disposeOnWidgetDisposal = true;
-  void dispose();
+  void dispose() {}
   void maybeDispose() {
     if (disposeOnWidgetDisposal) {
       dispose();

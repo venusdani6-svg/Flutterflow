@@ -690,7 +690,7 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                               AdminDetailCommonSection(
                                                 targetType: 'user',
                                                 targetId: _model.userId,
-                                                relatedLinks: const [
+                                                relatedLinks: [
                                                   AdminRelatedLink(
                                                     label: '予約一覧',
                                                     routeName:

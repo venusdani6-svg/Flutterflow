@@ -676,7 +676,7 @@ class _StaffUserdetailsPageWidgetState
                                                 AdminDetailCommonSection(
                                                   targetType: 'user',
                                                   targetId: _model.userId,
-                                                  relatedLinks: const [
+                                                  relatedLinks: [
                                                     AdminRelatedLink(
                                                       label: '予約一覧',
                                                       routeName:

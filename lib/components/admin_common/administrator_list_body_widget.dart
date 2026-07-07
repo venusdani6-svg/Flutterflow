@@ -8,7 +8,7 @@ class AdministratorListBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AdminUserListBodyWidget(
+    return AdminUserListBodyWidget(
       config: AdminUserListConfig(
         roleAdmin: 'admin',
         detailRouteName: AdministratodetailsPageWidget.routeName,
