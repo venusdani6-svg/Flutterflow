@@ -46,10 +46,14 @@ class AdminDashboardPageModel
   void updateUserTypeLabelsAtIndex(int index, Function(String) updateFn) =>
       userTypeLabels[index] = updateFn(userTypeLabels[index]);
 
+  dynamic testResult;
+
   ///  State fields for stateful widgets in this page.
 
   // Model for Main_Menu_Comp component.
   late MainMenuCompModel mainMenuCompModel;
+  // Stores action output result for [Custom Action - adminGetDashboardStats] action in Button widget.
+  dynamic apiResult;
 
   @override
   void initState(BuildContext context) {

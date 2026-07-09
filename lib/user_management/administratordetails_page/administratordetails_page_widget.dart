@@ -4,30 +4,30 @@ import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/user_management/search_user_dialog_comp/search_user_dialog_comp_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'administratodetails_page_model.dart';
-export 'administratodetails_page_model.dart';
+import 'administratordetails_page_model.dart';
+export 'administratordetails_page_model.dart';
 
-class AdministratodetailsPageWidget extends StatefulWidget {
-  const AdministratodetailsPageWidget({super.key});
+class AdministratordetailsPageWidget extends StatefulWidget {
+  const AdministratordetailsPageWidget({super.key});
 
-  static String routeName = 'AdministratodetailsPage';
-  static String routePath = '/administratodetailsPage';
+  static String routeName = 'AdministratordetailsPage';
+  static String routePath = '/administratordetailsPage';
 
   @override
-  State<AdministratodetailsPageWidget> createState() =>
-      _AdministratodetailsPageWidgetState();
+  State<AdministratordetailsPageWidget> createState() =>
+      _AdministratordetailsPageWidgetState();
 }
 
-class _AdministratodetailsPageWidgetState
-    extends State<AdministratodetailsPageWidget> {
-  late AdministratodetailsPageModel _model;
+class _AdministratordetailsPageWidgetState
+    extends State<AdministratordetailsPageWidget> {
+  late AdministratordetailsPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AdministratodetailsPageModel());
+    _model = createModel(context, () => AdministratordetailsPageModel());
   }
 
   @override

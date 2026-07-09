@@ -76,15 +76,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) => appStateNotifier.loggedIn
-          ? AdminLoginPageWidget()
-          : AdminDashboardPageWidget(),
+          ? AdminDashboardPageWidget()
+          : AdminLoginPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) => appStateNotifier.loggedIn
-              ? AdminLoginPageWidget()
-              : AdminDashboardPageWidget(),
+              ? AdminDashboardPageWidget()
+              : AdminLoginPageWidget(),
         ),
         FFRoute(
           name: AdminLoginPageWidget.routeName,
@@ -137,9 +137,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => StaffUserdetailsPageWidget(),
         ),
         FFRoute(
-          name: AdministratodetailsPageWidget.routeName,
-          path: AdministratodetailsPageWidget.routePath,
-          builder: (context, params) => AdministratodetailsPageWidget(),
+          name: AdministratordetailsPageWidget.routeName,
+          path: AdministratordetailsPageWidget.routePath,
+          builder: (context, params) => AdministratordetailsPageWidget(),
         ),
         FFRoute(
           name: ReservationdetailsPageWidget.routeName,
@@ -426,7 +426,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/adminDashboardPage';
+            return '/adminLoginPage';
           }
           return null;
         },

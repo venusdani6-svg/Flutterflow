@@ -19,8 +19,8 @@ export '/user_management/cast_user_list_page/cast_user_list_page_widget.dart'
     show CastUserListPageWidget;
 export '/user_management/staff_userdetails_page/staff_userdetails_page_widget.dart'
     show StaffUserdetailsPageWidget;
-export '/user_management/administratodetails_page/administratodetails_page_widget.dart'
-    show AdministratodetailsPageWidget;
+export '/user_management/administratordetails_page/administratordetails_page_widget.dart'
+    show AdministratordetailsPageWidget;
 export '/reservations_management/reservationdetails_page/reservationdetails_page_widget.dart'
     show ReservationdetailsPageWidget;
 export '/paymet_ledger/payment_ledger_list_page/payment_ledger_list_page_widget.dart'

@@ -770,7 +770,7 @@ class _AdministratorListPageWidgetState
                                                                             () async {
                                                                           context
                                                                               .pushNamed(
-                                                                            AdministratodetailsPageWidget.routeName,
+                                                                            AdministratordetailsPageWidget.routeName,
                                                                             extra: <String,
                                                                                 dynamic>{
                                                                               '__transition_info__': TransitionInfo(

@@ -132,8 +132,7 @@ class _ResetPasswordFormWidgetState extends State<ResetPasswordFormWidget> {
                             await authManager.signOut();
                             GoRouter.of(context).clearRedirectLocation();
 
-                            context.goNamedAuth(
-                                AdminDashboardPageWidget.routeName,
+                            context.goNamedAuth(AdminLoginPageWidget.routeName,
                                 context.mounted);
                           },
                           child: ClipRRect(
