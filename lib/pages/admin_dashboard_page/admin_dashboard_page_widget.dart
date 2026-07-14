@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -7,6 +8,7 @@ import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'admin_dashboard_page_model.dart';
 export 'admin_dashboard_page_model.dart';
@@ -31,6 +33,76 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AdminDashboardPageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (valueOrDefault(currentUserDocument?.roleAdmin, '') == 'admin') {
+        // apiResult
+        await actions.adminGetDashboardStats();
+        // Save dashboardStats
+        _model.dashboardStats = getJsonField(
+          _model.apiResult,
+          r'''$''',
+        );
+        safeSetState(() {});
+        _model.userTypeLabels = (getJsonField(
+          _model.apiResult,
+          r'''$.userTypeLabels''',
+          true,
+        ) as List?)!
+            .map<String>((e) => e.toString())
+            .toList()
+            .cast<String>()
+            .toList()
+            .cast<String>();
+        _model.userTypeValues = (getJsonField(
+          _model.apiResult,
+          r'''$.userTypeValues''',
+          true,
+        ) as List?)!
+            .cast<int>()
+            .toList()
+            .cast<int>();
+        _model.monthLabels = (getJsonField(
+          _model.apiResult,
+          r'''$.monthLabels''',
+          true,
+        ) as List?)!
+            .map<String>((e) => e.toString())
+            .toList()
+            .cast<String>()
+            .toList()
+            .cast<String>();
+        _model.salesAmounts = (getJsonField(
+          _model.apiResult,
+          r'''$.salesAmounts''',
+          true,
+        ) as List?)!
+            .cast<int>()
+            .toList()
+            .cast<int>();
+        safeSetState(() {});
+      } else {
+        // アクセスできません
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              '管理者権限がありません',
+              style: TextStyle(
+                color: FlutterFlowTheme.of(context).primaryText,
+              ),
+            ),
+            duration: Duration(milliseconds: 4000),
+            backgroundColor: FlutterFlowTheme.of(context).secondary,
+          ),
+        );
+        GoRouter.of(context).prepareAuthEvent();
+        await authManager.signOut();
+        GoRouter.of(context).clearRedirectLocation();
+
+        context.pushNamedAuth(AdminLoginPageWidget.routeName, context.mounted);
+      }
+    });
   }
 
   @override
@@ -717,7 +789,15 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                         .center,
                                                                 children: [
                                                                   Text(
-                                                                    '123',
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      getJsonField(
+                                                                        _model
+                                                                            .dashboardStats,
+                                                                        r'''$.totals.users''',
+                                                                      )?.toString(),
+                                                                      '0',
+                                                                    ),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -906,7 +986,15 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                         .center,
                                                                 children: [
                                                                   Text(
-                                                                    '123',
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      getJsonField(
+                                                                        _model
+                                                                            .dashboardStats,
+                                                                        r'''$.totals.reservations''',
+                                                                      )?.toString(),
+                                                                      '0',
+                                                                    ),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -1478,7 +1566,15 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                         .center,
                                                                 children: [
                                                                   Text(
-                                                                    '123',
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      getJsonField(
+                                                                        _model
+                                                                            .dashboardStats,
+                                                                        r'''$.totals.pendingKyc''',
+                                                                      )?.toString(),
+                                                                      '0',
+                                                                    ),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -1667,7 +1763,15 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                         .center,
                                                                 children: [
                                                                   Text(
-                                                                    '123',
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      getJsonField(
+                                                                        _model
+                                                                            .dashboardStats,
+                                                                        r'''$.totals.openReports''',
+                                                                      )?.toString(),
+                                                                      '0',
+                                                                    ),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -3735,7 +3839,15 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                 AlignmentDirectional(
                                                                     0.0, 1.0),
                                                             child: Text(
-                                                              'test',
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                getJsonField(
+                                                                  _model
+                                                                      .dashboardStats,
+                                                                  r'''$''',
+                                                                )?.toString(),
+                                                                '-',
+                                                              ),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium

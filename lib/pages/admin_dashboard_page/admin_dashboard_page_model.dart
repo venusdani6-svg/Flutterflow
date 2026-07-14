@@ -48,6 +48,8 @@ class AdminDashboardPageModel
 
   dynamic testResult;
 
+  dynamic dashboardStats;
+
   ///  State fields for stateful widgets in this page.
 
   // Model for Main_Menu_Comp component.

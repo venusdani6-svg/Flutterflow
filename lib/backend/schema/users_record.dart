@@ -80,6 +80,56 @@ class UsersRecord extends FirestoreRecord {
   String get roleAdmin => _roleAdmin ?? '';
   bool hasRoleAdmin() => _roleAdmin != null;
 
+  // "account_type" field.
+  String? _accountType;
+  String get accountType => _accountType ?? '';
+  bool hasAccountType() => _accountType != null;
+
+  // "approval_status" field.
+  String? _approvalStatus;
+  String get approvalStatus => _approvalStatus ?? '';
+  bool hasApprovalStatus() => _approvalStatus != null;
+
+  // "kyc_status" field.
+  String? _kycStatus;
+  String get kycStatus => _kycStatus ?? '';
+  bool hasKycStatus() => _kycStatus != null;
+
+  // "kyc_doc_url" field.
+  String? _kycDocUrl;
+  String get kycDocUrl => _kycDocUrl ?? '';
+  bool hasKycDocUrl() => _kycDocUrl != null;
+
+  // "kyc_selfie_url" field.
+  String? _kycSelfieUrl;
+  String get kycSelfieUrl => _kycSelfieUrl ?? '';
+  bool hasKycSelfieUrl() => _kycSelfieUrl != null;
+
+  // "is_verified" field.
+  bool? _isVerified;
+  bool get isVerified => _isVerified ?? false;
+  bool hasIsVerified() => _isVerified != null;
+
+  // "is_frozen" field.
+  bool? _isFrozen;
+  bool get isFrozen => _isFrozen ?? false;
+  bool hasIsFrozen() => _isFrozen != null;
+
+  // "affiliate_rate" field.
+  double? _affiliateRate;
+  double get affiliateRate => _affiliateRate ?? 0.0;
+  bool hasAffiliateRate() => _affiliateRate != null;
+
+  // "stripe_account_id" field.
+  String? _stripeAccountId;
+  String get stripeAccountId => _stripeAccountId ?? '';
+  bool hasStripeAccountId() => _stripeAccountId != null;
+
+  // "updated_at" field.
+  DateTime? _updatedAt;
+  DateTime? get updatedAt => _updatedAt;
+  bool hasUpdatedAt() => _updatedAt != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -94,6 +144,16 @@ class UsersRecord extends FirestoreRecord {
     _averageRating = castToType<double>(snapshotData['average_rating']);
     _prefileImage = snapshotData['prefile_image'] as String?;
     _roleAdmin = snapshotData['role_admin'] as String?;
+    _accountType = snapshotData['account_type'] as String?;
+    _approvalStatus = snapshotData['approval_status'] as String?;
+    _kycStatus = snapshotData['kyc_status'] as String?;
+    _kycDocUrl = snapshotData['kyc_doc_url'] as String?;
+    _kycSelfieUrl = snapshotData['kyc_selfie_url'] as String?;
+    _isVerified = snapshotData['is_verified'] as bool?;
+    _isFrozen = snapshotData['is_frozen'] as bool?;
+    _affiliateRate = castToType<double>(snapshotData['affiliate_rate']);
+    _stripeAccountId = snapshotData['stripe_account_id'] as String?;
+    _updatedAt = snapshotData['updated_at'] as DateTime?;
   }
 
   static CollectionReference get collection =>
@@ -143,6 +203,16 @@ Map<String, dynamic> createUsersRecordData({
   double? averageRating,
   String? prefileImage,
   String? roleAdmin,
+  String? accountType,
+  String? approvalStatus,
+  String? kycStatus,
+  String? kycDocUrl,
+  String? kycSelfieUrl,
+  bool? isVerified,
+  bool? isFrozen,
+  double? affiliateRate,
+  String? stripeAccountId,
+  DateTime? updatedAt,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -159,6 +229,16 @@ Map<String, dynamic> createUsersRecordData({
       'average_rating': averageRating,
       'prefile_image': prefileImage,
       'role_admin': roleAdmin,
+      'account_type': accountType,
+      'approval_status': approvalStatus,
+      'kyc_status': kycStatus,
+      'kyc_doc_url': kycDocUrl,
+      'kyc_selfie_url': kycSelfieUrl,
+      'is_verified': isVerified,
+      'is_frozen': isFrozen,
+      'affiliate_rate': affiliateRate,
+      'stripe_account_id': stripeAccountId,
+      'updated_at': updatedAt,
     }.withoutNulls,
   );
 
@@ -182,7 +262,17 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.transportConfig == e2?.transportConfig &&
         e1?.averageRating == e2?.averageRating &&
         e1?.prefileImage == e2?.prefileImage &&
-        e1?.roleAdmin == e2?.roleAdmin;
+        e1?.roleAdmin == e2?.roleAdmin &&
+        e1?.accountType == e2?.accountType &&
+        e1?.approvalStatus == e2?.approvalStatus &&
+        e1?.kycStatus == e2?.kycStatus &&
+        e1?.kycDocUrl == e2?.kycDocUrl &&
+        e1?.kycSelfieUrl == e2?.kycSelfieUrl &&
+        e1?.isVerified == e2?.isVerified &&
+        e1?.isFrozen == e2?.isFrozen &&
+        e1?.affiliateRate == e2?.affiliateRate &&
+        e1?.stripeAccountId == e2?.stripeAccountId &&
+        e1?.updatedAt == e2?.updatedAt;
   }
 
   @override
@@ -199,7 +289,17 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.transportConfig,
         e?.averageRating,
         e?.prefileImage,
-        e?.roleAdmin
+        e?.roleAdmin,
+        e?.accountType,
+        e?.approvalStatus,
+        e?.kycStatus,
+        e?.kycDocUrl,
+        e?.kycSelfieUrl,
+        e?.isVerified,
+        e?.isFrozen,
+        e?.affiliateRate,
+        e?.stripeAccountId,
+        e?.updatedAt
       ]);
 
   @override
