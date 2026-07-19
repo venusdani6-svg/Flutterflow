@@ -2,7 +2,6 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/info_dialog_comp/info_dialog_comp_widget.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -38,7 +37,7 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (valueOrDefault(currentUserDocument?.roleAdmin, '') == 'admin') {
         // apiResult
-        await actions.adminGetDashboardStats();
+        _model.apiResult = await actions.adminGetDashboardStats();
         // Save dashboardStats
         _model.dashboardStats = getJsonField(
           _model.apiResult,
@@ -1183,7 +1182,15 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                         .center,
                                                                 children: [
                                                                   Text(
-                                                                    '123,456',
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      getJsonField(
+                                                                        _model
+                                                                            .dashboardStats,
+                                                                        r'''$.totals.revenue''',
+                                                                      )?.toString(),
+                                                                      '0',
+                                                                    ),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -1377,7 +1384,15 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                         .center,
                                                                 children: [
                                                                   Text(
-                                                                    '123',
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      getJsonField(
+                                                                        _model
+                                                                            .dashboardStats,
+                                                                        r'''$.totals.pendingWithdrawals''',
+                                                                      )?.toString(),
+                                                                      '0',
+                                                                    ),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -1965,7 +1980,15 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                         .center,
                                                                 children: [
                                                                   Text(
-                                                                    '123',
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      getJsonField(
+                                                                        _model
+                                                                            .dashboardStats,
+                                                                        r'''$.totals.affiliateCount''',
+                                                                      )?.toString(),
+                                                                      '0',
+                                                                    ),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -2154,7 +2177,15 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                         .center,
                                                                 children: [
                                                                   Text(
-                                                                    '12',
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      getJsonField(
+                                                                        _model
+                                                                            .dashboardStats,
+                                                                        r'''$.totals.cocotenShopCount''',
+                                                                      )?.toString(),
+                                                                      '0',
+                                                                    ),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -2343,7 +2374,15 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                         .center,
                                                                 children: [
                                                                   Text(
-                                                                    '123',
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      getJsonField(
+                                                                        _model
+                                                                            .dashboardStats,
+                                                                        r'''$.totals.jobBoardPostCount''',
+                                                                      )?.toString(),
+                                                                      '0',
+                                                                    ),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -2537,7 +2576,15 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                         .center,
                                                                 children: [
                                                                   Text(
-                                                                    '12',
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      getJsonField(
+                                                                        _model
+                                                                            .dashboardStats,
+                                                                        r'''$.totals.bannerCount''',
+                                                                      )?.toString(),
+                                                                      '0',
+                                                                    ),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -3175,33 +3222,29 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                   width: 16.0)),
                                                             ),
                                                           ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsets.all(
-                                                                    8.0),
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Container(
-                                                                  width: 350.0,
-                                                                  height: 250.0,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryBackground,
-                                                                  ),
-                                                                  child:
-                                                                      Container(
+                                                          Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    0.0, 0.0),
+                                                            child: Container(
+                                                              width: 350.0,
+                                                              height: 250.0,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
+                                                              ),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Container(
                                                                     width:
-                                                                        370.0,
+                                                                        350.0,
                                                                     height:
-                                                                        230.0,
+                                                                        250.0,
                                                                     child:
                                                                         FlutterFlowPieChart(
                                                                       data:
@@ -3237,9 +3280,8 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                           ),
                                                                     ),
                                                                   ),
-                                                                ),
-                                                              ].divide(SizedBox(
-                                                                  width: 16.0)),
+                                                                ],
+                                                              ),
                                                             ),
                                                           ),
                                                         ],
@@ -3762,121 +3804,19 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                             BorderRadius
                                                                 .circular(16.0),
                                                       ),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          FFButtonWidget(
-                                                            onPressed:
-                                                                () async {
-                                                              _model.apiResult =
-                                                                  await actions
-                                                                      .adminGetDashboardStats();
-                                                              _model.testResult =
-                                                                  _model
-                                                                      .apiResult;
-                                                              safeSetState(
-                                                                  () {});
-
-                                                              safeSetState(
-                                                                  () {});
-                                                            },
-                                                            text: 'Test API',
-                                                            options:
-                                                                FFButtonOptions(
-                                                              height: 40.0,
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          16.0,
-                                                                          0.0,
-                                                                          16.0,
-                                                                          0.0),
-                                                              iconPadding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primary,
-                                                              textStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmall
-                                                                      .override(
-                                                                        font: GoogleFonts
-                                                                            .interTight(
-                                                                          fontWeight: FlutterFlowTheme.of(context)
-                                                                              .titleSmall
-                                                                              .fontWeight,
-                                                                          fontStyle: FlutterFlowTheme.of(context)
-                                                                              .titleSmall
-                                                                              .fontStyle,
-                                                                        ),
-                                                                        color: Colors
-                                                                            .white,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight: FlutterFlowTheme.of(context)
-                                                                            .titleSmall
-                                                                            .fontWeight,
-                                                                        fontStyle: FlutterFlowTheme.of(context)
-                                                                            .titleSmall
-                                                                            .fontStyle,
-                                                                      ),
-                                                              elevation: 0.0,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8.0),
-                                                            ),
-                                                          ),
-                                                          Align(
-                                                            alignment:
-                                                                AlignmentDirectional(
-                                                                    0.0, 1.0),
-                                                            child: Text(
-                                                              valueOrDefault<
-                                                                  String>(
-                                                                getJsonField(
-                                                                  _model
-                                                                      .dashboardStats,
-                                                                  r'''$''',
-                                                                )?.toString(),
-                                                                '-',
-                                                              ),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    font: GoogleFonts
-                                                                        .inter(
-                                                                      fontWeight: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontWeight,
-                                                                      fontStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontStyle,
-                                                                    ),
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                        ],
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.all(8.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: <Widget>[]
+                                                              .divide(SizedBox(
+                                                                  width: 16.0)),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),

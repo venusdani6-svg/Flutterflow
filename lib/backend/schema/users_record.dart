@@ -45,11 +45,6 @@ class UsersRecord extends FirestoreRecord {
   String get phoneNumber => _phoneNumber ?? '';
   bool hasPhoneNumber() => _phoneNumber != null;
 
-  // "role" field.
-  int? _role;
-  int get role => _role ?? 0;
-  bool hasRole() => _role != null;
-
   // "is_active" field.
   bool? _isActive;
   bool get isActive => _isActive ?? false;
@@ -130,6 +125,11 @@ class UsersRecord extends FirestoreRecord {
   DateTime? get updatedAt => _updatedAt;
   bool hasUpdatedAt() => _updatedAt != null;
 
+  // "role" field.
+  String? _role;
+  String get role => _role ?? '';
+  bool hasRole() => _role != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -137,7 +137,6 @@ class UsersRecord extends FirestoreRecord {
     _uid = snapshotData['uid'] as String?;
     _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
-    _role = castToType<int>(snapshotData['role']);
     _isActive = snapshotData['is_active'] as bool?;
     _baseHourlyRate = castToType<int>(snapshotData['base_hourly_rate']);
     _transportConfig = castToType<int>(snapshotData['transport_config']);
@@ -154,6 +153,7 @@ class UsersRecord extends FirestoreRecord {
     _affiliateRate = castToType<double>(snapshotData['affiliate_rate']);
     _stripeAccountId = snapshotData['stripe_account_id'] as String?;
     _updatedAt = snapshotData['updated_at'] as DateTime?;
+    _role = snapshotData['role'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -196,7 +196,6 @@ Map<String, dynamic> createUsersRecordData({
   String? uid,
   DateTime? createdTime,
   String? phoneNumber,
-  int? role,
   bool? isActive,
   int? baseHourlyRate,
   int? transportConfig,
@@ -213,6 +212,7 @@ Map<String, dynamic> createUsersRecordData({
   double? affiliateRate,
   String? stripeAccountId,
   DateTime? updatedAt,
+  String? role,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -222,7 +222,6 @@ Map<String, dynamic> createUsersRecordData({
       'uid': uid,
       'created_time': createdTime,
       'phone_number': phoneNumber,
-      'role': role,
       'is_active': isActive,
       'base_hourly_rate': baseHourlyRate,
       'transport_config': transportConfig,
@@ -239,6 +238,7 @@ Map<String, dynamic> createUsersRecordData({
       'affiliate_rate': affiliateRate,
       'stripe_account_id': stripeAccountId,
       'updated_at': updatedAt,
+      'role': role,
     }.withoutNulls,
   );
 
@@ -256,7 +256,6 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.uid == e2?.uid &&
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
-        e1?.role == e2?.role &&
         e1?.isActive == e2?.isActive &&
         e1?.baseHourlyRate == e2?.baseHourlyRate &&
         e1?.transportConfig == e2?.transportConfig &&
@@ -272,7 +271,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.isFrozen == e2?.isFrozen &&
         e1?.affiliateRate == e2?.affiliateRate &&
         e1?.stripeAccountId == e2?.stripeAccountId &&
-        e1?.updatedAt == e2?.updatedAt;
+        e1?.updatedAt == e2?.updatedAt &&
+        e1?.role == e2?.role;
   }
 
   @override
@@ -283,7 +283,6 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.uid,
         e?.createdTime,
         e?.phoneNumber,
-        e?.role,
         e?.isActive,
         e?.baseHourlyRate,
         e?.transportConfig,
@@ -299,7 +298,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.isFrozen,
         e?.affiliateRate,
         e?.stripeAccountId,
-        e?.updatedAt
+        e?.updatedAt,
+        e?.role
       ]);
 
   @override

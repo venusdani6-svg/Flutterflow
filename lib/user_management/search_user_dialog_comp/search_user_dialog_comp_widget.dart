@@ -1,11 +1,15 @@
+import '/components/end_date_picker_dialog_comp_widget.dart';
+import '/components/start_date_picker_dialog_comp_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'search_user_dialog_comp_model.dart';
 export 'search_user_dialog_comp_model.dart';
 
@@ -45,6 +49,8 @@ class _SearchUserDialogCompWidgetState
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Align(
       alignment: AlignmentDirectional(0.0, 0.0),
       child: Container(
@@ -185,8 +191,60 @@ class _SearchUserDialogCompWidgetState
                   ),
                 ),
                 FFButtonWidget(
-                  onPressed: () {
-                    print('Button pressed ...');
+                  onPressed: () async {
+                    FFAppState().activeAccountType =
+                        _model.filterCategoryDropDownValue == 'アカウント種別'
+                            ? _model.accountTypeDropDownValue!
+                            : 'guest';
+                    FFAppState().activeIsFrozen =
+                        _model.filterCategoryDropDownValue == '有効 / 凍結状態'
+                            ? (_model.frozenStatusDropDownValue == '凍結中')
+                            : false;
+                    FFAppState().activeKycStatus =
+                        _model.filterCategoryDropDownValue == 'KYC状態'
+                            ? _model.kycStatusDropDownValue!
+                            : '';
+                    FFAppState().activePrefecture =
+                        _model.filterCategoryDropDownValue == '地域'
+                            ? _model.prefectureDropDownValue!
+                            : '';
+                    FFAppState().activeCreatedAfter = _model
+                                .filterCategoryDropDownValue ==
+                            '登録期間'
+                        ? dateTimeFormat("yMd", FFAppState().filterCreatedAfter)
+                        : '';
+                    FFAppState().activeCreatedBefore =
+                        _model.filterCategoryDropDownValue == '登録期間'
+                            ? dateTimeFormat(
+                                "yMd", FFAppState().filterCreatedBefore)
+                            : '';
+                    FFAppState().activeNicknamePrefix =
+                        _model.textController.text;
+                    safeSetState(() {});
+                    _model.searchResult = await actions.adminGetUsers(
+                      FFAppState().activeAccountType,
+                      '',
+                      FFAppState().activeIsFrozen,
+                      FFAppState().activeKycStatus,
+                      FFAppState().activePrefecture,
+                      FFAppState().activeCreatedAfter,
+                      FFAppState().activeCreatedBefore,
+                      FFAppState().activeNicknamePrefix,
+                      50,
+                      '',
+                      '',
+                    );
+                    FFAppState().guestUserList = getJsonField(
+                      _model.searchResult,
+                      r'''$.users''',
+                      true,
+                    )!
+                        .toList()
+                        .cast<dynamic>();
+                    safeSetState(() {});
+                    Navigator.pop(context);
+
+                    safeSetState(() {});
                   },
                   text: '検　索',
                   options: FFButtonOptions(
@@ -221,11 +279,11 @@ class _SearchUserDialogCompWidgetState
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FlutterFlowDropDown<String>(
-                  controller: _model.dropDownValueController ??=
+                  controller: _model.filterCategoryDropDownValueController ??=
                       FormFieldController<String>(null),
                   options: ['アカウント種別', 'KYC状態', '地域', '有効 / 凍結状態', '登録期間'],
-                  onChanged: (val) =>
-                      safeSetState(() => _model.dropDownValue = val),
+                  onChanged: (val) => safeSetState(
+                      () => _model.filterCategoryDropDownValue = val),
                   width: 700.0,
                   height: 40.0,
                   textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -261,6 +319,305 @@ class _SearchUserDialogCompWidgetState
                   isMultiSelect: false,
                 ),
               ].divide(SizedBox(width: 8.0)),
+            ),
+            if (_model.filterCategoryDropDownValue == '有効 / 凍結状態')
+              FlutterFlowDropDown<String>(
+                controller: _model.frozenStatusDropDownValueController ??=
+                    FormFieldController<String>(
+                  _model.frozenStatusDropDownValue ??= '有効',
+                ),
+                options: ['有効', '凍結中'],
+                onChanged: (val) =>
+                    safeSetState(() => _model.frozenStatusDropDownValue = val),
+                width: 200.0,
+                height: 40.0,
+                textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                      font: GoogleFonts.inter(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      ),
+                      letterSpacing: 0.0,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                    ),
+                hintText: 'Select...',
+                icon: Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  color: FlutterFlowTheme.of(context).secondaryText,
+                  size: 24.0,
+                ),
+                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                elevation: 2.0,
+                borderColor: Colors.transparent,
+                borderWidth: 0.0,
+                borderRadius: 8.0,
+                margin: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                hidesUnderline: true,
+                isOverButton: false,
+                isSearchable: false,
+                isMultiSelect: false,
+              ),
+            if (_model.filterCategoryDropDownValue == 'KYC状態')
+              FlutterFlowDropDown<String>(
+                controller: _model.kycStatusDropDownValueController ??=
+                    FormFieldController<String>(
+                  _model.kycStatusDropDownValue ??= 'submitted',
+                ),
+                options: List<String>.from(
+                    ['pending', 'submitted', 'approved', 'rejected']),
+                optionLabels: ['未提出', '審査中', '承認済み', '却下'],
+                onChanged: (val) =>
+                    safeSetState(() => _model.kycStatusDropDownValue = val),
+                width: 200.0,
+                height: 40.0,
+                textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                      font: GoogleFonts.inter(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      ),
+                      letterSpacing: 0.0,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                    ),
+                hintText: 'Select...',
+                icon: Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  color: FlutterFlowTheme.of(context).secondaryText,
+                  size: 24.0,
+                ),
+                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                elevation: 2.0,
+                borderColor: Colors.transparent,
+                borderWidth: 0.0,
+                borderRadius: 8.0,
+                margin: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                hidesUnderline: true,
+                isOverButton: false,
+                isSearchable: false,
+                isMultiSelect: false,
+              ),
+            if (_model.filterCategoryDropDownValue == 'アカウント種別')
+              FlutterFlowDropDown<String>(
+                controller: _model.accountTypeDropDownValueController ??=
+                    FormFieldController<String>(
+                  _model.accountTypeDropDownValue ??= 'guest',
+                ),
+                options: List<String>.from(['guest', 'cast']),
+                optionLabels: ['ゲスト', 'キャスト'],
+                onChanged: (val) =>
+                    safeSetState(() => _model.accountTypeDropDownValue = val),
+                width: 200.0,
+                height: 40.0,
+                textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                      font: GoogleFonts.inter(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      ),
+                      letterSpacing: 0.0,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                    ),
+                hintText: 'Select...',
+                icon: Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  color: FlutterFlowTheme.of(context).secondaryText,
+                  size: 24.0,
+                ),
+                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                elevation: 2.0,
+                borderColor: Colors.transparent,
+                borderWidth: 0.0,
+                borderRadius: 8.0,
+                margin: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                hidesUnderline: true,
+                isOverButton: false,
+                isSearchable: false,
+                isMultiSelect: false,
+              ),
+            if (_model.filterCategoryDropDownValue == '地域')
+              FlutterFlowDropDown<String>(
+                controller: _model.prefectureDropDownValueController ??=
+                    FormFieldController<String>(
+                  _model.prefectureDropDownValue ??= '東京都',
+                ),
+                options: [
+                  '東京都',
+                  '神奈川県',
+                  '千葉県',
+                  '愛知県',
+                  '京都府',
+                  '大阪府',
+                  '兵庫県',
+                  '岡山県',
+                  '広島県',
+                  '福岡県'
+                ],
+                onChanged: (val) =>
+                    safeSetState(() => _model.prefectureDropDownValue = val),
+                width: 200.0,
+                height: 40.0,
+                textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                      font: GoogleFonts.inter(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      ),
+                      letterSpacing: 0.0,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                    ),
+                hintText: 'Select...',
+                icon: Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  color: FlutterFlowTheme.of(context).secondaryText,
+                  size: 24.0,
+                ),
+                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                elevation: 2.0,
+                borderColor: Colors.transparent,
+                borderWidth: 0.0,
+                borderRadius: 8.0,
+                margin: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                hidesUnderline: true,
+                isOverButton: false,
+                isSearchable: false,
+                isMultiSelect: false,
+              ),
+            Expanded(
+              child: Align(
+                alignment: AlignmentDirectional(0.0, 0.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (_model.filterCategoryDropDownValue == '登録期間')
+                      Builder(
+                        builder: (context) => FFButtonWidget(
+                          onPressed: () async {
+                            await showDialog(
+                              context: context,
+                              builder: (dialogContext) {
+                                return Dialog(
+                                  elevation: 0,
+                                  insetPadding: EdgeInsets.zero,
+                                  backgroundColor: Colors.transparent,
+                                  alignment: AlignmentDirectional(0.0, 0.0)
+                                      .resolve(Directionality.of(context)),
+                                  child: Container(
+                                    height: 600.0,
+                                    width: 400.0,
+                                    child: StartDatePickerDialogCompWidget(),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          text: '開始日を選択',
+                          options: FFButtonOptions(
+                            height: 40.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).primary,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  font: GoogleFonts.interTight(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
+                                ),
+                            elevation: 0.0,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
+                    if (_model.filterCategoryDropDownValue == '登録期間')
+                      Builder(
+                        builder: (context) => FFButtonWidget(
+                          onPressed: () async {
+                            await showDialog(
+                              context: context,
+                              builder: (dialogContext) {
+                                return Dialog(
+                                  elevation: 0,
+                                  insetPadding: EdgeInsets.zero,
+                                  backgroundColor: Colors.transparent,
+                                  alignment: AlignmentDirectional(0.0, 0.0)
+                                      .resolve(Directionality.of(context)),
+                                  child: Container(
+                                    height: 600.0,
+                                    width: 400.0,
+                                    child: EndDatePickerDialogCompWidget(),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          text: '終了日を選択',
+                          options: FFButtonOptions(
+                            height: 40.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).primary,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  font: GoogleFonts.interTight(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
+                                ),
+                            elevation: 0.0,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
             ),
             Row(
               mainAxisSize: MainAxisSize.max,

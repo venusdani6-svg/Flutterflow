@@ -5,8 +5,14 @@ import 'package:flutter/material.dart';
 
 class GuestUserdetailsPageModel
     extends FlutterFlowModel<GuestUserdetailsPageWidget> {
+  ///  Local state fields for this page.
+
+  dynamic guestDetail;
+
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Custom Action - adminGetUsers] action in GuestUserdetailsPage widget.
+  dynamic userDetailResult;
   // Model for Main_Menu_Comp component.
   late MainMenuCompModel mainMenuCompModel;
   // State field(s) for TabBar widget.

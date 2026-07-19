@@ -14,3 +14,4 @@ export 'admin_get_reports.dart' show adminGetReports;
 export 'admin_resolve_report.dart' show adminResolveReport;
 export 'admin_get_affiliate_overview.dart' show adminGetAffiliateOverview;
 export 'admin_update_affiliate_rate.dart' show adminUpdateAffiliateRate;
+export 'export_guest_list_csv.dart' show exportGuestListCsv;

@@ -52,10 +52,10 @@ class AdminDashboardPageModel
 
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Custom Action - adminGetDashboardStats] action in AdminDashboardPage widget.
+  dynamic apiResult;
   // Model for Main_Menu_Comp component.
   late MainMenuCompModel mainMenuCompModel;
-  // Stores action output result for [Custom Action - adminGetDashboardStats] action in Button widget.
-  dynamic apiResult;
 
   @override
   void initState(BuildContext context) {

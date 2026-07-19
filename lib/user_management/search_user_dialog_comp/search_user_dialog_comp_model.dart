@@ -11,9 +11,23 @@ class SearchUserDialogCompModel
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
-  // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
+  // Stores action output result for [Custom Action - adminGetUsers] action in Button widget.
+  dynamic searchResult;
+  // State field(s) for FilterCategoryDropDown widget.
+  String? filterCategoryDropDownValue;
+  FormFieldController<String>? filterCategoryDropDownValueController;
+  // State field(s) for FrozenStatusDropDown widget.
+  String? frozenStatusDropDownValue;
+  FormFieldController<String>? frozenStatusDropDownValueController;
+  // State field(s) for KycStatusDropDown widget.
+  String? kycStatusDropDownValue;
+  FormFieldController<String>? kycStatusDropDownValueController;
+  // State field(s) for AccountTypeDropDown widget.
+  String? accountTypeDropDownValue;
+  FormFieldController<String>? accountTypeDropDownValueController;
+  // State field(s) for PrefectureDropDown widget.
+  String? prefectureDropDownValue;
+  FormFieldController<String>? prefectureDropDownValueController;
 
   @override
   void initState(BuildContext context) {}

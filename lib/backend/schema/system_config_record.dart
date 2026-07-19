@@ -26,8 +26,9 @@ class SystemConfigRecord extends FirestoreRecord {
   bool hasDefaultAffiliateRate() => _defaultAffiliateRate != null;
 
   // "features_enabled" field.
-  String? _featuresEnabled;
-  String get featuresEnabled => _featuresEnabled ?? '';
+  FeaturesEnabledStruct? _featuresEnabled;
+  FeaturesEnabledStruct get featuresEnabled =>
+      _featuresEnabled ?? FeaturesEnabledStruct();
   bool hasFeaturesEnabled() => _featuresEnabled != null;
 
   // "updated_at" field.
@@ -39,7 +40,9 @@ class SystemConfigRecord extends FirestoreRecord {
     _taxRate = castToType<double>(snapshotData['tax_rate']);
     _defaultAffiliateRate =
         castToType<double>(snapshotData['default_affiliate_rate']);
-    _featuresEnabled = snapshotData['features_enabled'] as String?;
+    _featuresEnabled = snapshotData['features_enabled'] is FeaturesEnabledStruct
+        ? snapshotData['features_enabled']
+        : FeaturesEnabledStruct.maybeFromMap(snapshotData['features_enabled']);
     _updatedAt = snapshotData['updated_at'] as DateTime?;
   }
 
@@ -80,17 +83,21 @@ class SystemConfigRecord extends FirestoreRecord {
 Map<String, dynamic> createSystemConfigRecordData({
   double? taxRate,
   double? defaultAffiliateRate,
-  String? featuresEnabled,
+  FeaturesEnabledStruct? featuresEnabled,
   DateTime? updatedAt,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'tax_rate': taxRate,
       'default_affiliate_rate': defaultAffiliateRate,
-      'features_enabled': featuresEnabled,
+      'features_enabled': FeaturesEnabledStruct().toMap(),
       'updated_at': updatedAt,
     }.withoutNulls,
   );
+
+  // Handle nested data for "features_enabled" field.
+  addFeaturesEnabledStructData(
+      firestoreData, featuresEnabled, 'features_enabled');
 
   return firestoreData;
 }
