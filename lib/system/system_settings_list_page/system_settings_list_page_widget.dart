@@ -40,6 +40,8 @@ class _SystemSettingsListPageWidgetState
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.systemConfigResult = await actions.adminGetSystemConfig();
+      _model.isConfigLoaded = true;
+      safeSetState(() {});
     });
 
     _model.tabBarController = TabController(
@@ -1597,10 +1599,7 @@ class _SystemSettingsListPageWidgetState
                                                                                           mainAxisSize: MainAxisSize.max,
                                                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                                                           children: [
-                                                                                            if (getJsonField(
-                                                                                              _model.systemConfigResult,
-                                                                                              r'''$.success''',
-                                                                                            ))
+                                                                                            if (_model.isConfigLoaded)
                                                                                               Expanded(
                                                                                                 child: Material(
                                                                                                   color: Colors.transparent,
@@ -1664,10 +1663,7 @@ class _SystemSettingsListPageWidgetState
                                                                                           mainAxisSize: MainAxisSize.max,
                                                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                                                           children: [
-                                                                                            if (getJsonField(
-                                                                                              _model.systemConfigResult,
-                                                                                              r'''$.success''',
-                                                                                            ))
+                                                                                            if (_model.isConfigLoaded)
                                                                                               Expanded(
                                                                                                 child: Material(
                                                                                                   color: Colors.transparent,
@@ -1731,10 +1727,7 @@ class _SystemSettingsListPageWidgetState
                                                                                           mainAxisSize: MainAxisSize.max,
                                                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                                                           children: [
-                                                                                            if (getJsonField(
-                                                                                              _model.systemConfigResult,
-                                                                                              r'''$.success''',
-                                                                                            ))
+                                                                                            if (_model.isConfigLoaded)
                                                                                               Expanded(
                                                                                                 child: Material(
                                                                                                   color: Colors.transparent,
@@ -1798,10 +1791,7 @@ class _SystemSettingsListPageWidgetState
                                                                                           mainAxisSize: MainAxisSize.max,
                                                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                                                           children: [
-                                                                                            if (getJsonField(
-                                                                                              _model.systemConfigResult,
-                                                                                              r'''$.success''',
-                                                                                            ))
+                                                                                            if (_model.isConfigLoaded)
                                                                                               Expanded(
                                                                                                 child: Material(
                                                                                                   color: Colors.transparent,
@@ -1951,10 +1941,7 @@ class _SystemSettingsListPageWidgetState
                                                                                           mainAxisSize: MainAxisSize.max,
                                                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                                                           children: [
-                                                                                            if (getJsonField(
-                                                                                              _model.systemConfigResult,
-                                                                                              r'''$.success''',
-                                                                                            ))
+                                                                                            if (_model.isConfigLoaded)
                                                                                               Expanded(
                                                                                                 child: Material(
                                                                                                   color: Colors.transparent,
@@ -2006,10 +1993,7 @@ class _SystemSettingsListPageWidgetState
                                                                                           mainAxisSize: MainAxisSize.max,
                                                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                                                           children: [
-                                                                                            if (getJsonField(
-                                                                                              _model.systemConfigResult,
-                                                                                              r'''$.success''',
-                                                                                            ))
+                                                                                            if (_model.isConfigLoaded)
                                                                                               Expanded(
                                                                                                 child: Material(
                                                                                                   color: Colors.transparent,
@@ -2061,10 +2045,7 @@ class _SystemSettingsListPageWidgetState
                                                                                           mainAxisSize: MainAxisSize.max,
                                                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                                                           children: [
-                                                                                            if (getJsonField(
-                                                                                              _model.systemConfigResult,
-                                                                                              r'''$.success''',
-                                                                                            ))
+                                                                                            if (_model.isConfigLoaded)
                                                                                               Expanded(
                                                                                                 child: Material(
                                                                                                   color: Colors.transparent,
@@ -2116,10 +2097,7 @@ class _SystemSettingsListPageWidgetState
                                                                                           mainAxisSize: MainAxisSize.max,
                                                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                                                           children: [
-                                                                                            if (getJsonField(
-                                                                                              _model.systemConfigResult,
-                                                                                              r'''$.success''',
-                                                                                            ))
+                                                                                            if (_model.isConfigLoaded)
                                                                                               Expanded(
                                                                                                 child: Material(
                                                                                                   color: Colors.transparent,
@@ -2171,10 +2149,7 @@ class _SystemSettingsListPageWidgetState
                                                                                           mainAxisSize: MainAxisSize.max,
                                                                                           crossAxisAlignment: CrossAxisAlignment.center,
                                                                                           children: [
-                                                                                            if (getJsonField(
-                                                                                              _model.systemConfigResult,
-                                                                                              r'''$.success''',
-                                                                                            ))
+                                                                                            if (_model.isConfigLoaded)
                                                                                               Expanded(
                                                                                                 child: Material(
                                                                                                   color: Colors.transparent,
