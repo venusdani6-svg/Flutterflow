@@ -10,6 +10,8 @@ class FilterKYCDialogCompModel
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
+  // Stores action output result for [Custom Action - adminGetUsersV2] action in IconButton widget.
+  dynamic kycFilterResult;
 
   @override
   void initState(BuildContext context) {}

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 class KYCReviewListPageModel extends FlutterFlowModel<KYCReviewListPageWidget> {
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Custom Action - adminGetUsers] action in KYCReviewListPage widget.
+  dynamic kycListResult;
   // Model for Main_Menu_Comp component.
   late MainMenuCompModel mainMenuCompModel;
 

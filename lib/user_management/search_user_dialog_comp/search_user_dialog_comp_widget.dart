@@ -233,6 +233,7 @@ class _SearchUserDialogCompWidgetState
                       50,
                       '',
                       '',
+                      false,
                     );
                     FFAppState().guestUserList = getJsonField(
                       _model.searchResult,

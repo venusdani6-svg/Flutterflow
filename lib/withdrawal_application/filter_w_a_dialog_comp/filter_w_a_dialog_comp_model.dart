@@ -10,6 +10,8 @@ class FilterWADialogCompModel
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
+  // Stores action output result for [Custom Action - adminGetPayoutRequests] action in IconButton widget.
+  dynamic payoutFilterResult;
 
   @override
   void initState(BuildContext context) {}

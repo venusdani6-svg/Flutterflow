@@ -9,8 +9,13 @@ class FilterLedgertDialogCompModel
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
+  String? dropDownValue1;
+  FormFieldController<String>? dropDownValueController1;
+  // Stores action output result for [Custom Action - adminGetLedger] action in IconButton widget.
+  dynamic ledgerFilterResult;
+  // State field(s) for DropDown widget.
+  String? dropDownValue2;
+  FormFieldController<String>? dropDownValueController2;
 
   @override
   void initState(BuildContext context) {}

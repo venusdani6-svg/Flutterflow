@@ -8,6 +8,8 @@ class ReservationListPageModel
     extends FlutterFlowModel<ReservationListPageWidget> {
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Custom Action - adminGetReservations] action in ReservationListPage widget.
+  dynamic reservationListResult;
   // Model for Main_Menu_Comp component.
   late MainMenuCompModel mainMenuCompModel;
 

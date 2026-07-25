@@ -9,15 +9,14 @@ class FilterStripelogDialogCompModel
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for DropDown widget.
-  String? dropDownValue1;
-  FormFieldController<String>? dropDownValueController1;
-  // State field(s) for DropDown widget.
-  String? dropDownValue2;
-  FormFieldController<String>? dropDownValueController2;
+  String? dropDownValue;
+  FormFieldController<String>? dropDownValueController;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
+  // Stores action output result for [Custom Action - adminGetStripeLogs] action in Button widget.
+  dynamic stripeLogFilterResult;
 
   @override
   void initState(BuildContext context) {}

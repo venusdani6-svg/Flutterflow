@@ -3,9 +3,12 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/custom_code/actions/index.dart' as actions;
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'filter_stripelog_dialog_comp_model.dart';
 export 'filter_stripelog_dialog_comp_model.dart';
 
@@ -45,6 +48,8 @@ class _FilterStripelogDialogCompWidgetState
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Align(
       alignment: AlignmentDirectional(0.0, 0.0),
       child: Container(
@@ -64,14 +69,40 @@ class _FilterStripelogDialogCompWidgetState
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FlutterFlowDropDown<String>(
-                  controller: _model.dropDownValueController1 ??=
-                      FormFieldController<String>(null),
-                  options: [
-                    'payment_intent.captured',
-                    'payment_intent.created'
+                  controller: _model.dropDownValueController ??=
+                      FormFieldController<String>(
+                    _model.dropDownValue ??= '1',
+                  ),
+                  options: List<String>.from([
+                    '1',
+                    'payment_intent.succeeded',
+                    'payment_intent.payment_failed',
+                    'payment_intent.canceled',
+                    'payment_intent.amount_capturable_updated',
+                    'transfer.created',
+                    'transfer.failed',
+                    'identity.verification_session.verified',
+                    'identity.verification_session.requires_input',
+                    'account.updated',
+                    'payout.paid',
+                    'payout.failed'
+                  ]),
+                  optionLabels: [
+                    'すべて',
+                    '決済成功',
+                    '決済失敗',
+                    '決済キャンセル',
+                    '与信確保更新',
+                    '送金作成',
+                    '送金失敗',
+                    '本人確認完了',
+                    '本人確認要入力\n',
+                    'アカウント更新',
+                    '出金完了',
+                    '出金失敗'
                   ],
                   onChanged: (val) =>
-                      safeSetState(() => _model.dropDownValue1 = val),
+                      safeSetState(() => _model.dropDownValue = val),
                   width: 700.0,
                   height: 40.0,
                   textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -110,47 +141,27 @@ class _FilterStripelogDialogCompWidgetState
             ),
             Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                FlutterFlowDropDown<String>(
-                  controller: _model.dropDownValueController2 ??=
-                      FormFieldController<String>(null),
-                  options: ['', '', '', ''],
-                  onChanged: (val) =>
-                      safeSetState(() => _model.dropDownValue2 = val),
-                  width: 700.0,
+                Container(
+                  width: 200.0,
                   height: 40.0,
-                  textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                        font: GoogleFonts.inter(
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                        ),
-                        fontSize: 12.0,
-                        letterSpacing: 0.0,
-                        fontWeight:
-                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                      ),
-                  hintText: '日付範囲で検索',
-                  icon: Icon(
-                    Icons.keyboard_arrow_down_rounded,
-                    color: FlutterFlowTheme.of(context).secondaryText,
-                    size: 24.0,
+                  child: custom_widgets.StripeLogDateFilterField(
+                    width: 200.0,
+                    height: 40.0,
+                    hintText: '開始日',
+                    isStartDate: true,
                   ),
-                  fillColor: FlutterFlowTheme.of(context).primaryBackground,
-                  elevation: 2.0,
-                  borderColor: FlutterFlowTheme.of(context).alternate,
-                  borderWidth: 0.0,
-                  borderRadius: 8.0,
-                  margin: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
-                  hidesUnderline: true,
-                  isOverButton: false,
-                  isSearchable: false,
-                  isMultiSelect: false,
+                ),
+                Container(
+                  width: 200.0,
+                  height: 40.0,
+                  child: custom_widgets.StripeLogDateFilterField(
+                    width: 200.0,
+                    height: 40.0,
+                    hintText: '終了日',
+                    isStartDate: false,
+                  ),
                 ),
               ].divide(SizedBox(width: 8.0)),
             ),
@@ -279,8 +290,32 @@ class _FilterStripelogDialogCompWidgetState
                   ),
                 ),
                 FFButtonWidget(
-                  onPressed: () {
-                    print('Button pressed ...');
+                  onPressed: () async {
+                    FFAppState().activeStripeLogEventTypeFilter =
+                        _model.dropDownValue!;
+                    safeSetState(() {});
+                    FFAppState().activeStripeLogResIdFilter =
+                        _model.textController.text;
+                    safeSetState(() {});
+                    _model.stripeLogFilterResult =
+                        await actions.adminGetStripeLogs(
+                      FFAppState().activeStripeLogResIdFilter,
+                      FFAppState().activeStripeLogEventTypeFilter,
+                      50,
+                      FFAppState().activeStripeLogCreatedAfter,
+                      FFAppState().activeStripeLogCreatedBefore,
+                    );
+                    FFAppState().stripeLogList = getJsonField(
+                      _model.stripeLogFilterResult,
+                      r'''$.logs''',
+                      true,
+                    )!
+                        .toList()
+                        .cast<dynamic>();
+                    safeSetState(() {});
+                    Navigator.pop(context);
+
+                    safeSetState(() {});
                   },
                   text: '検　索',
                   options: FFButtonOptions(

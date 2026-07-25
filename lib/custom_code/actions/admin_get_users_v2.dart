@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 
 import 'package:cloud_functions/cloud_functions.dart';
 
-Future<dynamic> adminGetUsers(
+Future<dynamic> adminGetUsersV2(
   String? accountType,
   String? approvalStatus,
   bool? isFrozen,
@@ -53,7 +53,7 @@ Future<dynamic> adminGetUsers(
       data['users'] = usersRaw.map((u) {
         if (u is! Map) return u;
         try {
-          return _normalizeUser(Map<String, dynamic>.from(u));
+          return _normalizeUserV2(Map<String, dynamic>.from(u));
         } catch (_) {
           return u;
         }
@@ -62,7 +62,7 @@ Future<dynamic> adminGetUsers(
     final userRaw = data['user'];
     if (userRaw is Map) {
       try {
-        data['user'] = _normalizeUser(Map<String, dynamic>.from(userRaw));
+        data['user'] = _normalizeUserV2(Map<String, dynamic>.from(userRaw));
       } catch (_) {}
     }
     return data;
@@ -71,26 +71,26 @@ Future<dynamic> adminGetUsers(
   }
 }
 
-Map<String, dynamic> _normalizeUser(Map<String, dynamic> user) {
-  final createdAt = _parseTimestamp(user['created_at']);
-  final lastLoginAt = _parseTimestamp(user['last_login_at']);
-  final birthDate = _parseTimestamp(user['birth_date']);
-  final updatedAt = _parseTimestamp(user['updated_at']);
+Map<String, dynamic> _normalizeUserV2(Map<String, dynamic> user) {
+  final createdAt = _parseTimestampV2(user['created_at']);
+  final lastLoginAt = _parseTimestampV2(user['last_login_at']);
+  final birthDate = _parseTimestampV2(user['birth_date']);
+  final updatedAt = _parseTimestampV2(user['updated_at']);
   if (createdAt != null) {
-    user['created_at'] = _formatDate(createdAt);
-    user['created_at_time'] = _formatTime(createdAt);
+    user['created_at'] = _formatDateV2(createdAt);
+    user['created_at_time'] = _formatTimeV2(createdAt);
   }
   if (lastLoginAt != null) {
-    user['last_login_at'] = _formatRelativeTime(lastLoginAt);
+    user['last_login_at'] = _formatRelativeTimeV2(lastLoginAt);
   }
   if (updatedAt != null) {
-    user['updated_at'] = _formatDate(updatedAt);
+    user['updated_at'] = _formatDateV2(updatedAt);
   }
   if (birthDate != null) {
-    user['birth_date'] = _formatDate(birthDate);
-    user['age'] = _calculateAge(birthDate);
+    user['birth_date'] = _formatDateV2(birthDate);
+    user['age'] = _calculateAgeV2(birthDate);
   }
-  user['kyc_status'] = _kycStatusLabel(user['kyc_status']);
+  user['kyc_status'] = _kycStatusLabelV2(user['kyc_status']);
   user['is_active'] = (user['is_active'] == true) ? '有効' : '無効';
   final foodTags = user['favorite_food_tags'];
   if (foodTags is List) {
@@ -99,7 +99,7 @@ Map<String, dynamic> _normalizeUser(Map<String, dynamic> user) {
   return user;
 }
 
-DateTime? _parseTimestamp(dynamic value) {
+DateTime? _parseTimestampV2(dynamic value) {
   if (value == null) return null;
   if (value is Map) {
     final seconds = value['_seconds'] ?? value['seconds'];
@@ -112,14 +112,14 @@ DateTime? _parseTimestamp(dynamic value) {
   return null;
 }
 
-String _formatDate(DateTime utc) {
+String _formatDateV2(DateTime utc) {
   final jst = utc.add(const Duration(hours: 9));
   final mm = jst.month.toString().padLeft(2, '0');
   final dd = jst.day.toString().padLeft(2, '0');
   return '${jst.year}. $mm. $dd';
 }
 
-String _formatRelativeTime(DateTime utc) {
+String _formatRelativeTimeV2(DateTime utc) {
   final diff = DateTime.now().toUtc().difference(utc);
   if (diff.inMinutes < 1) return 'たった今';
   if (diff.inMinutes < 60) return '${diff.inMinutes}分前';
@@ -128,14 +128,14 @@ String _formatRelativeTime(DateTime utc) {
   return '${diff.inDays ~/ 30}ヶ月前';
 }
 
-String _formatTime(DateTime utc) {
+String _formatTimeV2(DateTime utc) {
   final jst = utc.add(const Duration(hours: 9));
   final hh = jst.hour.toString().padLeft(2, '0');
   final mm = jst.minute.toString().padLeft(2, '0');
   return '$hh:$mm';
 }
 
-int _calculateAge(DateTime utcBirthDate) {
+int _calculateAgeV2(DateTime utcBirthDate) {
   final birth = utcBirthDate.add(const Duration(hours: 9));
   final today = DateTime.now().toUtc().add(const Duration(hours: 9));
   var age = today.year - birth.year;
@@ -146,7 +146,7 @@ int _calculateAge(DateTime utcBirthDate) {
   return age;
 }
 
-String _kycStatusLabel(dynamic status) {
+String _kycStatusLabelV2(dynamic status) {
   switch (status) {
     case 'approved':
       return '承認済';

@@ -7,8 +7,14 @@ import 'package:flutter/material.dart';
 
 class SystemSettingsListPageModel
     extends FlutterFlowModel<SystemSettingsListPageWidget> {
+  ///  Local state fields for this page.
+
+  bool isConfigLoaded = false;
+
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Custom Action - adminGetSystemConfig] action in SystemSettingsListPage widget.
+  dynamic systemConfigResult;
   // Model for Main_Menu_Comp component.
   late MainMenuCompModel mainMenuCompModel;
   // State field(s) for TabBar widget.
@@ -18,34 +24,39 @@ class SystemSettingsListPageModel
   int get tabBarPreviousIndex =>
       tabBarController != null ? tabBarController!.previousIndex : 0;
 
-  // State field(s) for CountController widget.
-  int? countControllerValue1;
-  // State field(s) for CountController widget.
-  int? countControllerValue2;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode1;
-  TextEditingController? textController1;
-  String? Function(BuildContext, String?)? textController1Validator;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode2;
-  TextEditingController? textController2;
-  String? Function(BuildContext, String?)? textController2Validator;
-  // State field(s) for CheckboxListTile widget.
-  bool? checkboxListTileValue1;
-  // State field(s) for CheckboxListTile widget.
-  bool? checkboxListTileValue2;
-  // State field(s) for CheckboxListTile widget.
-  bool? checkboxListTileValue3;
-  // State field(s) for CheckboxListTile widget.
-  bool? checkboxListTileValue4;
-  // State field(s) for SwitchListTile widget.
-  bool? switchListTileValue1;
-  // State field(s) for SwitchListTile widget.
-  bool? switchListTileValue2;
-  // State field(s) for SwitchListTile widget.
-  bool? switchListTileValue3;
-  // State field(s) for SwitchListTile widget.
-  bool? switchListTileValue4;
+  // State field(s) for ExtensionLimitCountController widget.
+  int? extensionLimitCountControllerValue;
+  // State field(s) for MaxTotalHoursController widget.
+  int? maxTotalHoursControllerValue;
+  // State field(s) for TaxRateField widget.
+  FocusNode? taxRateFieldFocusNode;
+  TextEditingController? taxRateFieldTextController;
+  String? Function(BuildContext, String?)? taxRateFieldTextControllerValidator;
+  // State field(s) for ChatCloseSecField widget.
+  FocusNode? chatCloseSecFieldFocusNode;
+  TextEditingController? chatCloseSecFieldTextController;
+  String? Function(BuildContext, String?)?
+      chatCloseSecFieldTextControllerValidator;
+  // State field(s) for NightSlot1Checkbox widget.
+  bool? nightSlot1CheckboxValue;
+  // State field(s) for NightSlot2Checkbox widget.
+  bool? nightSlot2CheckboxValue;
+  // State field(s) for NightSlot3Checkbox widget.
+  bool? nightSlot3CheckboxValue;
+  // State field(s) for NightSlot4Checkbox widget.
+  bool? nightSlot4CheckboxValue;
+  // State field(s) for SecurityStaffSwitch widget.
+  bool? securityStaffSwitchValue;
+  // State field(s) for TransportStaffSwitch widget.
+  bool? transportStaffSwitchValue;
+  // State field(s) for AffiliateSwitch widget.
+  bool? affiliateSwitchValue;
+  // State field(s) for CocotenSwitch widget.
+  bool? cocotenSwitchValue;
+  // State field(s) for WorkBoardSwitch widget.
+  bool? workBoardSwitchValue;
+  // Stores action output result for [Custom Action - adminUpdateBasicSettings] action in Button widget.
+  dynamic saveBasicSettingsResult;
   // State field(s) for DropDown widget.
   String? dropDownValue1;
   FormFieldController<String>? dropDownValueController1;
@@ -108,11 +119,11 @@ class SystemSettingsListPageModel
   // State field(s) for Switch widget.
   bool? switchValue11;
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode3;
+  FocusNode? textFieldFocusNode1;
   TextEditingController? textController3;
   String? Function(BuildContext, String?)? textController3Validator;
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode4;
+  FocusNode? textFieldFocusNode2;
   TextEditingController? textController4;
   String? Function(BuildContext, String?)? textController4Validator;
 
@@ -125,16 +136,16 @@ class SystemSettingsListPageModel
   void dispose() {
     mainMenuCompModel.dispose();
     tabBarController?.dispose();
+    taxRateFieldFocusNode?.dispose();
+    taxRateFieldTextController?.dispose();
+
+    chatCloseSecFieldFocusNode?.dispose();
+    chatCloseSecFieldTextController?.dispose();
+
     textFieldFocusNode1?.dispose();
-    textController1?.dispose();
-
-    textFieldFocusNode2?.dispose();
-    textController2?.dispose();
-
-    textFieldFocusNode3?.dispose();
     textController3?.dispose();
 
-    textFieldFocusNode4?.dispose();
+    textFieldFocusNode2?.dispose();
     textController4?.dispose();
   }
 }

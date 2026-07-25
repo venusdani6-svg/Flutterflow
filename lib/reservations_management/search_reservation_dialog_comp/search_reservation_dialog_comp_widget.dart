@@ -3,9 +3,12 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/custom_code/actions/index.dart' as actions;
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'search_reservation_dialog_comp_model.dart';
 export 'search_reservation_dialog_comp_model.dart';
 
@@ -45,6 +48,8 @@ class _SearchReservationDialogCompWidgetState
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Align(
       alignment: AlignmentDirectional(0.0, 0.0),
       child: Container(
@@ -57,7 +62,7 @@ class _SearchReservationDialogCompWidgetState
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Row(
               mainAxisSize: MainAxisSize.max,
@@ -184,8 +189,29 @@ class _SearchReservationDialogCompWidgetState
                   ),
                 ),
                 FFButtonWidget(
-                  onPressed: () {
-                    print('Button pressed ...');
+                  onPressed: () async {
+                    FFAppState().activeReservationStatusFilter =
+                        _model.dropDownValue!;
+                    safeSetState(() {});
+                    _model.reservationFilterResult =
+                        await actions.adminGetReservations(
+                      FFAppState().activeReservationStatusFilter,
+                      FFAppState().activeReservationScheduledAfter,
+                      FFAppState().activeReservationScheduledBefore,
+                      50,
+                      '',
+                    );
+                    FFAppState().reservationList = getJsonField(
+                      _model.reservationFilterResult,
+                      r'''$.reservations''',
+                      true,
+                    )!
+                        .toList()
+                        .cast<dynamic>();
+                    safeSetState(() {});
+                    Navigator.pop(context);
+
+                    safeSetState(() {});
                   },
                   text: '検　索',
                   options: FFButtonOptions(
@@ -221,8 +247,37 @@ class _SearchReservationDialogCompWidgetState
               children: [
                 FlutterFlowDropDown<String>(
                   controller: _model.dropDownValueController ??=
-                      FormFieldController<String>(null),
-                  options: ['ステータス', '期間', '決済状態', '地域'],
+                      FormFieldController<String>(
+                    _model.dropDownValue ??= 'request_pending',
+                  ),
+                  options: List<String>.from([
+                    '',
+                    'request_pending',
+                    'authorized',
+                    'cast_pending',
+                    'confirmed',
+                    'waiting',
+                    'in_progress',
+                    'completion_pending',
+                    'review_pending',
+                    'completed',
+                    'cancelled',
+                    'expired'
+                  ]),
+                  optionLabels: [
+                    'すべて ',
+                    'リクエスト中',
+                    '与信確保済み',
+                    'キャスト承諾待ち',
+                    '確定決済済',
+                    '合流待ち',
+                    '交流中',
+                    '完了報告待ち',
+                    ' 評価待ち',
+                    '完了',
+                    'キャンセル',
+                    '期限切れ'
+                  ],
                   onChanged: (val) =>
                       safeSetState(() => _model.dropDownValue = val),
                   width: 700.0,
@@ -242,7 +297,7 @@ class _SearchReservationDialogCompWidgetState
                         fontStyle:
                             FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                       ),
-                  hintText: 'フィルタを選択してください',
+                  hintText: 'ステータスで絞り込み',
                   icon: Icon(
                     Icons.keyboard_arrow_down_rounded,
                     color: FlutterFlowTheme.of(context).secondaryText,
@@ -260,6 +315,32 @@ class _SearchReservationDialogCompWidgetState
                   isMultiSelect: false,
                 ),
               ].divide(SizedBox(width: 8.0)),
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: 169.0,
+                  height: 40.0,
+                  child: custom_widgets.ReservationDateFilterField(
+                    width: 169.0,
+                    height: 40.0,
+                    hintText: '開始日',
+                    isStartDate: true,
+                  ),
+                ),
+                Container(
+                  width: 169.0,
+                  height: 40.0,
+                  child: custom_widgets.ReservationDateFilterField(
+                    width: 169.0,
+                    height: 40.0,
+                    hintText: '終了日',
+                    isStartDate: false,
+                  ),
+                ),
+              ],
             ),
             Row(
               mainAxisSize: MainAxisSize.max,

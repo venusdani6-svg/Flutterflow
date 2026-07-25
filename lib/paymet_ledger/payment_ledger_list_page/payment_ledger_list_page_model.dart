@@ -7,6 +7,12 @@ class PaymentLedgerListPageModel
     extends FlutterFlowModel<PaymentLedgerListPageWidget> {
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Custom Action - adminGetLedger] action in PaymentLedgerListPage widget.
+  dynamic ledgerFetchResult;
+  // Stores action output result for [Custom Action - adminGetReservations] action in PaymentLedgerListPage widget.
+  dynamic paymentFetchResult;
+  // Stores action output result for [Custom Action - adminGetStripeLogs] action in PaymentLedgerListPage widget.
+  dynamic stripeLogFetchResult;
   // Model for Main_Menu_Comp component.
   late MainMenuCompModel mainMenuCompModel;
   // State field(s) for TabBar widget.

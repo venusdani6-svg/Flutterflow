@@ -2,13 +2,20 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/user_management/search_user_dialog_comp/search_user_dialog_comp_widget.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'reservationdetails_page_model.dart';
 export 'reservationdetails_page_model.dart';
 
 class ReservationdetailsPageWidget extends StatefulWidget {
-  const ReservationdetailsPageWidget({super.key});
+  const ReservationdetailsPageWidget({
+    super.key,
+    required this.reservation,
+  });
+
+  final dynamic reservation;
 
   static String routeName = 'ReservationdetailsPage';
   static String routePath = '/reservationdetailsPage';
@@ -28,6 +35,21 @@ class _ReservationdetailsPageWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => ReservationdetailsPageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.tipFetchResult = await actions.adminGetTipsByReservation(
+        getJsonField(
+          widget.reservation,
+          r'''$.id''',
+        ).toString(),
+      );
+      _model.reservationTipResult = getJsonField(
+        _model.tipFetchResult,
+        r'''$''',
+      );
+      safeSetState(() {});
+    });
   }
 
   @override
@@ -820,7 +842,10 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    'ID 番号',
+                                                                                    getJsonField(
+                                                                                      widget.reservation,
+                                                                                      r'''$.id''',
+                                                                                    ).toString(),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -886,20 +911,10 @@ class _ReservationdetailsPageWidgetState
                                                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                                                   children: [
                                                                                     Text(
-                                                                                      '第 1 部',
-                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                            font: GoogleFonts.inter(
-                                                                                              fontWeight: FontWeight.w500,
-                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                            ),
-                                                                                            fontSize: 14.0,
-                                                                                            letterSpacing: 0.0,
-                                                                                            fontWeight: FontWeight.w500,
-                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                          ),
-                                                                                    ),
-                                                                                    Text(
-                                                                                      '17:00 ~ 20:00',
+                                                                                      getJsonField(
+                                                                                        widget.reservation,
+                                                                                        r'''$.time_slot''',
+                                                                                      ).toString(),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -971,7 +986,10 @@ class _ReservationdetailsPageWidgetState
                                                                                       size: 14.0,
                                                                                     ),
                                                                                     Text(
-                                                                                      '承認済',
+                                                                                      getJsonField(
+                                                                                        widget.reservation,
+                                                                                        r'''$.status_label''',
+                                                                                      ).toString(),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -1036,7 +1054,10 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    '2026. 05. 22 15:36',
+                                                                                    getJsonField(
+                                                                                      widget.reservation,
+                                                                                      r'''$.updated_at''',
+                                                                                    ).toString(),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -1129,7 +1150,10 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    '2026. 05. 22 15:36',
+                                                                                    getJsonField(
+                                                                                      widget.reservation,
+                                                                                      r'''$.scheduled_at''',
+                                                                                    ).toString(),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -1193,7 +1217,10 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    '60 分',
+                                                                                    getJsonField(
+                                                                                      widget.reservation,
+                                                                                      r'''$.duration_minutes''',
+                                                                                    ).toString(),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -1257,7 +1284,10 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    '2026. 05. 22 15:36',
+                                                                                    getJsonField(
+                                                                                      widget.reservation,
+                                                                                      r'''$.created_at''',
+                                                                                    ).toString(),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -1484,7 +1514,10 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    'アルク',
+                                                                                    getJsonField(
+                                                                                      widget.reservation,
+                                                                                      r'''$.guest_id''',
+                                                                                    ).toString(),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -1548,7 +1581,10 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    'ユーザーニックネーム',
+                                                                                    getJsonField(
+                                                                                      widget.reservation,
+                                                                                      r'''$.primary_staff_id''',
+                                                                                    ).toString(),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -1673,7 +1709,10 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    'ゆずき',
+                                                                                    getJsonField(
+                                                                                      widget.reservation,
+                                                                                      r'''$.primary_cast_id''',
+                                                                                    ).toString(),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -1737,7 +1776,10 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    'アリカ',
+                                                                                    getJsonField(
+                                                                                      widget.reservation,
+                                                                                      r'''$.secondary_cast_id''',
+                                                                                    ).toString(),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -1964,7 +2006,10 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    '名称',
+                                                                                    getJsonField(
+                                                                                      widget.reservation,
+                                                                                      r'''$.meeting_point''',
+                                                                                    ).toString(),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -2028,7 +2073,10 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    '住所',
+                                                                                    getJsonField(
+                                                                                      widget.reservation,
+                                                                                      r'''$.meeting_point_address''',
+                                                                                    ).toString(),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -2121,7 +2169,10 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    '名称',
+                                                                                    getJsonField(
+                                                                                      widget.reservation,
+                                                                                      r'''$.location''',
+                                                                                    ).toString(),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -2185,7 +2236,10 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    '住所',
+                                                                                    getJsonField(
+                                                                                      widget.reservation,
+                                                                                      r'''$.location_address''',
+                                                                                    ).toString(),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -2387,7 +2441,10 @@ class _ReservationdetailsPageWidgetState
                                                                                       size: 14.0,
                                                                                     ),
                                                                                     Text(
-                                                                                      '有　り',
+                                                                                      getJsonField(
+                                                                                        widget.reservation,
+                                                                                        r'''$.group_invite_label''',
+                                                                                      ).toString(),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -2481,7 +2538,10 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    '1　名',
+                                                                                    getJsonField(
+                                                                                      widget.reservation,
+                                                                                      r'''$.group_size''',
+                                                                                    ).toString(),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -2609,7 +2669,10 @@ class _ReservationdetailsPageWidgetState
                                                                             EdgeInsets.all(8.0),
                                                                         child:
                                                                             Text(
-                                                                          '詳細文\nああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ',
+                                                                          getJsonField(
+                                                                            widget.reservation,
+                                                                            r'''$.details''',
+                                                                          ).toString(),
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(
@@ -2801,7 +2864,10 @@ class _ReservationdetailsPageWidgetState
                                                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                                                   children: [
                                                                                     Text(
-                                                                                      '4,400',
+                                                                                      getJsonField(
+                                                                                        widget.reservation,
+                                                                                        r'''$.total_amount''',
+                                                                                      ).toString(),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -2881,7 +2947,10 @@ class _ReservationdetailsPageWidgetState
                                                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                                                   children: [
                                                                                     Text(
-                                                                                      '0',
+                                                                                      getJsonField(
+                                                                                        widget.reservation,
+                                                                                        r'''$.transport_fee''',
+                                                                                      ).toString(),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -2962,7 +3031,10 @@ class _ReservationdetailsPageWidgetState
                                                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                                                   children: [
                                                                                     Text(
-                                                                                      '0',
+                                                                                      getJsonField(
+                                                                                        widget.reservation,
+                                                                                        r'''$.extension_count''',
+                                                                                      ).toString(),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -3047,7 +3119,10 @@ class _ReservationdetailsPageWidgetState
                                                                                       size: 14.0,
                                                                                     ),
                                                                                     Text(
-                                                                                      '無　し',
+                                                                                      getJsonField(
+                                                                                        _model.reservationTipResult,
+                                                                                        r'''$.tipPresenceLabel''',
+                                                                                      ).toString(),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -3119,7 +3194,10 @@ class _ReservationdetailsPageWidgetState
                                                                                       size: 14.0,
                                                                                     ),
                                                                                     Text(
-                                                                                      '無　し',
+                                                                                      getJsonField(
+                                                                                        widget.reservation,
+                                                                                        r'''$.thirty_min_rule_applied_label''',
+                                                                                      ).toString(),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -3215,7 +3293,10 @@ class _ReservationdetailsPageWidgetState
                                                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                                                   children: [
                                                                                     Text(
-                                                                                      '4,400',
+                                                                                      getJsonField(
+                                                                                        widget.reservation,
+                                                                                        r'''$.base_amount''',
+                                                                                      ).toString(),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -3295,7 +3376,10 @@ class _ReservationdetailsPageWidgetState
                                                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                                                   children: [
                                                                                     Text(
-                                                                                      '0',
+                                                                                      getJsonField(
+                                                                                        widget.reservation,
+                                                                                        r'''$.staff_fee''',
+                                                                                      ).toString(),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -3377,7 +3461,10 @@ class _ReservationdetailsPageWidgetState
                                                                                     Align(
                                                                                       alignment: AlignmentDirectional(0.0, 0.0),
                                                                                       child: Text(
-                                                                                        '0',
+                                                                                        getJsonField(
+                                                                                          widget.reservation,
+                                                                                          r'''$.extension_minutes	''',
+                                                                                        ).toString(),
                                                                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                               font: GoogleFonts.inter(
                                                                                                 fontWeight: FontWeight.w500,
@@ -3461,7 +3548,10 @@ class _ReservationdetailsPageWidgetState
                                                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                                                   children: [
                                                                                     Text(
-                                                                                      '0',
+                                                                                      getJsonField(
+                                                                                        _model.reservationTipResult,
+                                                                                        r'''$.tipTotal''',
+                                                                                      ).toString(),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -3539,7 +3629,10 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    '2026. 05. 22 15:36',
+                                                                                    getJsonField(
+                                                                                      widget.reservation,
+                                                                                      r'''$.last_capture_at''',
+                                                                                    ).toString(),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -3734,7 +3827,10 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    'ゆずき',
+                                                                                    getJsonField(
+                                                                                      widget.reservation,
+                                                                                      r'''$.cancelled_by_label''',
+                                                                                    ).toString(),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -3798,7 +3894,10 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    '2026. 05. 22 15:36',
+                                                                                    getJsonField(
+                                                                                      widget.reservation,
+                                                                                      r'''$.updated_at''',
+                                                                                    ).toString(),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -3895,7 +3994,10 @@ class _ReservationdetailsPageWidgetState
                                                                                   child: Padding(
                                                                                     padding: EdgeInsets.all(8.0),
                                                                                     child: Text(
-                                                                                      'キャンセル理由\nあああああああああああああああああああああああああああああああああああああああ',
+                                                                                      getJsonField(
+                                                                                        widget.reservation,
+                                                                                        r'''$.cancel_reason''',
+                                                                                      ).toString(),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,

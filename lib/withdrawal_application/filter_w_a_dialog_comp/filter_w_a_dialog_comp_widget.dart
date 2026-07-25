@@ -1,9 +1,12 @@
 import '/flutter_flow/flutter_flow_drop_down.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'filter_w_a_dialog_comp_model.dart';
 export 'filter_w_a_dialog_comp_model.dart';
 
@@ -39,6 +42,8 @@ class _FilterWADialogCompWidgetState extends State<FilterWADialogCompWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Align(
       alignment: AlignmentDirectional(0.0, 0.0),
       child: Container(
@@ -59,8 +64,17 @@ class _FilterWADialogCompWidgetState extends State<FilterWADialogCompWidget> {
               children: [
                 FlutterFlowDropDown<String>(
                   controller: _model.dropDownValueController ??=
-                      FormFieldController<String>(null),
-                  options: ['申請中', '承認済', '保留中', '否認'],
+                      FormFieldController<String>(
+                    _model.dropDownValue ??= 'Option 1',
+                  ),
+                  options: List<String>.from([
+                    'Option 1',
+                    'pending',
+                    'approved',
+                    'on_hold',
+                    'rejected'
+                  ]),
+                  optionLabels: ['すべて', '申請中', '承認済', '保留中', '否認'],
                   onChanged: (val) =>
                       safeSetState(() => _model.dropDownValue = val),
                   width: 700.0,
@@ -96,6 +110,37 @@ class _FilterWADialogCompWidgetState extends State<FilterWADialogCompWidget> {
                   isOverButton: false,
                   isSearchable: false,
                   isMultiSelect: false,
+                ),
+                FlutterFlowIconButton(
+                  borderRadius: 8.0,
+                  buttonSize: 40.0,
+                  fillColor: FlutterFlowTheme.of(context).primary,
+                  icon: Icon(
+                    Icons.search,
+                    color: FlutterFlowTheme.of(context).info,
+                    size: 24.0,
+                  ),
+                  onPressed: () async {
+                    FFAppState().activePayoutStatusFilter =
+                        _model.dropDownValue!;
+                    safeSetState(() {});
+                    _model.payoutFilterResult =
+                        await actions.adminGetPayoutRequests(
+                      FFAppState().activePayoutStatusFilter,
+                      50,
+                    );
+                    FFAppState().payoutRequestList = getJsonField(
+                      _model.payoutFilterResult,
+                      r'''$.requests''',
+                      true,
+                    )!
+                        .toList()
+                        .cast<dynamic>();
+                    safeSetState(() {});
+                    Navigator.pop(context);
+
+                    safeSetState(() {});
+                  },
                 ),
               ].divide(SizedBox(width: 8.0)),
             ),

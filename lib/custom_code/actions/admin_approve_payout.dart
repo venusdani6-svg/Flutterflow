@@ -11,17 +11,19 @@ import 'package:flutter/material.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 
 /// FlutterFlow parameters:
-/// - userId (String) required
-/// - action (String?) optional — e.g. approve / on_hold / rejected (future)
+/// - requestId (String) required — the payout_requests document id.
+/// - action (String?) — 'approve' (default, pays out via Stripe and marks
+///   the request approved) / 'on_hold' / 'rejected' (both just update the
+///   request's status, no money moves).
 Future<dynamic> adminApprovePayout(
-  String userId,
+  String requestId,
   String? action,
 ) async {
   try {
     final functions = FirebaseFunctions.instanceFor(region: 'asia-northeast1');
     final callable = functions.httpsCallable('adminApprovePayout');
     final result = await callable.call({
-      'user_id': userId,
+      'requestId': requestId,
       'action': action ?? 'approve',
     });
     return result.data;
@@ -29,3 +31,6 @@ Future<dynamic> adminApprovePayout(
     return {'success': false, 'error': e.toString()};
   }
 }
+
+// Set your action name, define your arguments and return parameter,
+// and then add the boilerplate code using the `</>` button on the right!
