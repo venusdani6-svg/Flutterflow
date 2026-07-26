@@ -98,6 +98,8 @@ class SystemSettingsListPageModel
   // State field(s) for DropDown widget.
   String? dropDownValue13;
   FormFieldController<String>? dropDownValueController13;
+  // Stores action output result for [Custom Action - adminUpdateAffiliateSettings] action in Button widget.
+  dynamic saveAffiliateResult;
   // State field(s) for Switch widget.
   bool? switchValue1;
   // State field(s) for Switch widget.
@@ -120,6 +122,8 @@ class SystemSettingsListPageModel
   bool? switchValue10;
   // State field(s) for Switch widget.
   bool? switchValue11;
+  // Stores action output result for [Custom Action - adminUpdateServiceAreaSettings] action in Button widget.
+  dynamic saveServiceAreaResult;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode1;
   TextEditingController? textController3;

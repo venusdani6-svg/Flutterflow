@@ -28,6 +28,16 @@ Future<dynamic> adminGetSystemConfig() async {
     final cancelFeeRates = data['cancel_fee_rates'] is Map
         ? Map<String, dynamic>.from(data['cancel_fee_rates'] as Map)
         : <String, dynamic>{};
+    final serviceAreas = data['service_areas'] is List
+        ? List<dynamic>.from(data['service_areas'] as List)
+        : <dynamic>[];
+    bool areaActive(String prefecture) {
+      final match = serviceAreas.firstWhere(
+        (a) => a is Map && a['prefecture'] == prefecture,
+        orElse: () => null,
+      );
+      return match is Map ? (match['active'] == true) : false;
+    }
 
     return {
       'success': true,
@@ -41,6 +51,20 @@ Future<dynamic> adminGetSystemConfig() async {
       'transport_staff_fee_display': _fmtYen(data['transport_staff_fee']),
       'cancel_general_rate_display':
           _fmtPct(cancelFeeRates['cast_reward_rate']),
+      'default_affiliate_rate_display': _fmtPct(data['default_affiliate_rate']),
+      'affiliate_min_days_display': _fmtDay(data['affiliate_min_days']),
+      'affiliate_payment_day_display': _fmtDay(data['affiliate_payment_day']),
+      'area_tokyo_active': areaActive('東京都'),
+      'area_chiba_active': areaActive('千葉県'),
+      'area_kanagawa_active': areaActive('神奈川県'),
+      'area_gifu_active': areaActive('岐阜県'),
+      'area_aichi_active': areaActive('愛知県'),
+      'area_kyoto_active': areaActive('京都府'),
+      'area_osaka_active': areaActive('大阪府'),
+      'area_hyogo_active': areaActive('兵庫県'),
+      'area_okayama_active': areaActive('岡山県'),
+      'area_hiroshima_active': areaActive('広島県'),
+      'area_fukuoka_active': areaActive('福岡県'),
     };
   } catch (e) {
     return {'success': false, 'error': e.toString()};
@@ -50,6 +74,11 @@ Future<dynamic> adminGetSystemConfig() async {
 String? _fmtPct(dynamic raw) {
   if (raw is! num) return null;
   return '${(raw * 100).round()} %';
+}
+
+String? _fmtDay(dynamic raw) {
+  if (raw is! num) return null;
+  return '${raw.round()} 日';
 }
 
 String? _fmtYen(dynamic raw) {

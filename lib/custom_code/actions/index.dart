@@ -25,3 +25,6 @@ export 'admin_get_system_config.dart' show adminGetSystemConfig;
 export 'admin_update_basic_settings.dart' show adminUpdateBasicSettings;
 export 'admin_update_cast_reward_settings.dart'
     show adminUpdateCastRewardSettings;
+export 'admin_update_affiliate_settings.dart' show adminUpdateAffiliateSettings;
+export 'admin_update_service_area_settings.dart'
+    show adminUpdateServiceAreaSettings;
