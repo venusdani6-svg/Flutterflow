@@ -87,6 +87,8 @@ class SystemSettingsListPageModel
   // State field(s) for DropDown widget.
   String? dropDownValue10;
   FormFieldController<String>? dropDownValueController10;
+  // Stores action output result for [Custom Action - adminUpdateCastRewardSettings] action in Button widget.
+  dynamic saveCastRewardResult;
   // State field(s) for DropDown widget.
   String? dropDownValue11;
   FormFieldController<String>? dropDownValueController11;

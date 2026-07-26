@@ -51,17 +51,23 @@ class _SystemSettingsListPageWidgetState
     )..addListener(() => safeSetState(() {}));
 
     _model.taxRateFieldTextController ??= TextEditingController(
-        text: getJsonField(
-      _model.systemConfigResult,
-      r'''$.tax_rate''',
-    ).toString());
+        text: valueOrDefault<String>(
+      getJsonField(
+        _model.systemConfigResult,
+        r'''$.tax_rate''',
+      )?.toString(),
+      '0',
+    ));
     _model.taxRateFieldFocusNode ??= FocusNode();
 
     _model.chatCloseSecFieldTextController ??= TextEditingController(
-        text: getJsonField(
-      _model.systemConfigResult,
-      r'''$.chat_close_sec''',
-    ).toString());
+        text: valueOrDefault<String>(
+      getJsonField(
+        _model.systemConfigResult,
+        r'''$.chat_close_sec''',
+      )?.toString(),
+      '0',
+    ));
     _model.chatCloseSecFieldFocusNode ??= FocusNode();
 
     _model.switchValue1 = true;
@@ -725,7 +731,7 @@ class _SystemSettingsListPageWidgetState
                                                 Expanded(
                                                   child: Container(
                                                     width: 100.0,
-                                                    height: 800.0,
+                                                    height: 794.0,
                                                     decoration: BoxDecoration(
                                                       color: FlutterFlowTheme
                                                               .of(context)
@@ -807,7 +813,7 @@ class _SystemSettingsListPageWidgetState
                                                                 Color(
                                                                     0xFFABE1FF),
                                                             indicatorWeight:
-                                                                5.0,
+                                                                2.0,
                                                             tabs: [
                                                               Tab(
                                                                 text: '基本設定',
@@ -1847,7 +1853,7 @@ class _SystemSettingsListPageWidgetState
                                                                                   Expanded(
                                                                                     child: Container(
                                                                                       width: 250.0,
-                                                                                      height: 370.0,
+                                                                                      height: 367.0,
                                                                                       decoration: BoxDecoration(
                                                                                         color: FlutterFlowTheme.of(context).alternate,
                                                                                         borderRadius: BorderRadius.only(),
@@ -1876,7 +1882,7 @@ class _SystemSettingsListPageWidgetState
                                                                                   Expanded(
                                                                                     child: Container(
                                                                                       width: 250.0,
-                                                                                      height: 370.0,
+                                                                                      height: 369.0,
                                                                                       decoration: BoxDecoration(
                                                                                         color: FlutterFlowTheme.of(context).secondaryBackground,
                                                                                         borderRadius: BorderRadius.circular(0.0),
@@ -1891,7 +1897,7 @@ class _SystemSettingsListPageWidgetState
                                                                                           Expanded(
                                                                                             child: Container(
                                                                                               width: double.infinity,
-                                                                                              height: 35.0,
+                                                                                              height: 33.0,
                                                                                               decoration: BoxDecoration(
                                                                                                 color: FlutterFlowTheme.of(context).primary,
                                                                                               ),
@@ -2406,7 +2412,12 @@ class _SystemSettingsListPageWidgetState
                                                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                                                     children: [
                                                                                       FlutterFlowDropDown<String>(
-                                                                                        controller: _model.dropDownValueController1 ??= FormFieldController<String>(null),
+                                                                                        controller: _model.dropDownValueController1 ??= FormFieldController<String>(
+                                                                                          _model.dropDownValue1 ??= getJsonField(
+                                                                                            _model.systemConfigResult,
+                                                                                            r'''$.default_cast_rate_display''',
+                                                                                          ).toString(),
+                                                                                        ),
                                                                                         options: [
                                                                                           '50 %',
                                                                                           '55 %',
@@ -2507,7 +2518,12 @@ class _SystemSettingsListPageWidgetState
                                                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                                                     children: [
                                                                                       FlutterFlowDropDown<String>(
-                                                                                        controller: _model.dropDownValueController2 ??= FormFieldController<String>(null),
+                                                                                        controller: _model.dropDownValueController2 ??= FormFieldController<String>(
+                                                                                          _model.dropDownValue2 ??= getJsonField(
+                                                                                            _model.systemConfigResult,
+                                                                                            r'''$.security_staff_fee_display''',
+                                                                                          ).toString(),
+                                                                                        ),
                                                                                         options: [
                                                                                           '2,500円',
                                                                                           '2,750円',
@@ -2608,7 +2624,12 @@ class _SystemSettingsListPageWidgetState
                                                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                                                     children: [
                                                                                       FlutterFlowDropDown<String>(
-                                                                                        controller: _model.dropDownValueController3 ??= FormFieldController<String>(null),
+                                                                                        controller: _model.dropDownValueController3 ??= FormFieldController<String>(
+                                                                                          _model.dropDownValue3 ??= getJsonField(
+                                                                                            _model.systemConfigResult,
+                                                                                            r'''$.transport_staff_fee_display''',
+                                                                                          ).toString(),
+                                                                                        ),
                                                                                         options: [
                                                                                           '2,500円',
                                                                                           '2,750円',
@@ -2736,7 +2757,12 @@ class _SystemSettingsListPageWidgetState
                                                                                           mainAxisAlignment: MainAxisAlignment.center,
                                                                                           children: [
                                                                                             FlutterFlowDropDown<String>(
-                                                                                              controller: _model.dropDownValueController4 ??= FormFieldController<String>(null),
+                                                                                              controller: _model.dropDownValueController4 ??= FormFieldController<String>(
+                                                                                                _model.dropDownValue4 ??= getJsonField(
+                                                                                                  _model.systemConfigResult,
+                                                                                                  r'''$.cancel_general_rate_display''',
+                                                                                                ).toString(),
+                                                                                              ),
                                                                                               options: [
                                                                                                 '50 %',
                                                                                                 '45 %',
@@ -3123,8 +3149,33 @@ class _SystemSettingsListPageWidgetState
                                                                           child:
                                                                               FFButtonWidget(
                                                                             onPressed:
-                                                                                () {
-                                                                              print('Button pressed ...');
+                                                                                () async {
+                                                                              _model.saveCastRewardResult = await actions.adminUpdateCastRewardSettings(
+                                                                                _model.dropDownValue1!,
+                                                                                _model.dropDownValue2!,
+                                                                                _model.dropDownValue3!,
+                                                                                _model.dropDownValue4!,
+                                                                              );
+                                                                              await showDialog(
+                                                                                context: context,
+                                                                                builder: (alertDialogContext) {
+                                                                                  return AlertDialog(
+                                                                                    title: Text('キャスト報酬設定'),
+                                                                                    content: Text(getJsonField(
+                                                                                      _model.saveCastRewardResult,
+                                                                                      r'''$.success''',
+                                                                                    ).toString()),
+                                                                                    actions: [
+                                                                                      TextButton(
+                                                                                        onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                        child: Text('Ok'),
+                                                                                      ),
+                                                                                    ],
+                                                                                  );
+                                                                                },
+                                                                              );
+
+                                                                              safeSetState(() {});
                                                                             },
                                                                             text:
                                                                                 'キャスト報酬設定を保存する',

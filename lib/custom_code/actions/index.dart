@@ -23,3 +23,5 @@ export 'admin_get_payout_requests.dart' show adminGetPayoutRequests;
 export 'admin_approve_payout.dart' show adminApprovePayout;
 export 'admin_get_system_config.dart' show adminGetSystemConfig;
 export 'admin_update_basic_settings.dart' show adminUpdateBasicSettings;
+export 'admin_update_cast_reward_settings.dart'
+    show adminUpdateCastRewardSettings;

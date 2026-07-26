@@ -10,30 +10,6 @@ import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-/// Reads `system_config/settings` directly (no Cloud Function — this
-/// collection has an open `read: true` Firestore rule, see
-/// firebase/firestore.rules) and returns it as raw JSON.
-///
-/// This bypasses `SystemConfigRecord` (lib/backend/schema/
-/// system_config_record.dart) on purpose: that generated class only
-/// models 4 of the ~16 real fields on this document, and types
-/// `features_enabled` as a String when the live data is a Map — binding
-/// this page directly to a native Firestore document query would silently
-/// drop most fields and throw on that one. Use `$.` JSON paths against
-/// this action's output instead (matching every other read on this page's
-/// sibling admin pages), e.g. `$.tax_rate`, `$.chat_close_sec`,
-/// `$.features_enabled.affiliate`, `$.cancel_fee_rates.guest_cancel.before`,
-/// `$.service_areas[0].active`.
-///
-/// `night_time_slots` (e.g. `["3部","4部"]`) is pre-expanded into 4 plain
-/// booleans (`night_slot_1`..`night_slot_4`) instead of being left as an
-/// array: FlutterFlow's Conditional Value editor has no "list contains a
-/// value" comparison (its value-editor popup only offers "To Data Type" /
-/// "No Further Changes"), so checking array membership isn't buildable
-/// there. Doing the `.contains(...)` check here means each of the 4
-/// checkboxes on 基本設定 can just use a plain JSON Path binding
-/// (`$.night_slot_1`, etc.) — the same simple pattern as every other field
-/// on that tab, no Conditional Value needed.
 Future<dynamic> adminGetSystemConfig() async {
   try {
     final snap = await FirebaseFirestore.instance
@@ -49,6 +25,9 @@ Future<dynamic> adminGetSystemConfig() async {
     final nightSlots = data['night_time_slots'] is List
         ? List<String>.from(data['night_time_slots'] as List)
         : <String>[];
+    final cancelFeeRates = data['cancel_fee_rates'] is Map
+        ? Map<String, dynamic>.from(data['cancel_fee_rates'] as Map)
+        : <String, dynamic>{};
 
     return {
       'success': true,
@@ -57,8 +36,29 @@ Future<dynamic> adminGetSystemConfig() async {
       'night_slot_2': nightSlots.contains('2部'),
       'night_slot_3': nightSlots.contains('3部'),
       'night_slot_4': nightSlots.contains('4部'),
+      'default_cast_rate_display': _fmtPct(data['default_cast_rate']),
+      'security_staff_fee_display': _fmtYen(data['security_staff_fee']),
+      'transport_staff_fee_display': _fmtYen(data['transport_staff_fee']),
+      'cancel_general_rate_display':
+          _fmtPct(cancelFeeRates['cast_reward_rate']),
     };
   } catch (e) {
     return {'success': false, 'error': e.toString()};
   }
+}
+
+String? _fmtPct(dynamic raw) {
+  if (raw is! num) return null;
+  return '${(raw * 100).round()} %';
+}
+
+String? _fmtYen(dynamic raw) {
+  if (raw is! num) return null;
+  final s = raw.round().toString();
+  final buf = StringBuffer();
+  for (var i = 0; i < s.length; i++) {
+    if (i > 0 && (s.length - i) % 3 == 0) buf.write(',');
+    buf.write(s[i]);
+  }
+  return '$buf円';
 }
