@@ -11,6 +11,28 @@ class SystemSettingsListPageModel
 
   bool isConfigLoaded = false;
 
+  bool areaTokyoActive = false;
+
+  bool areaChibaActive = false;
+
+  bool areaKanagawaActive = false;
+
+  bool areaGifuActive = false;
+
+  bool areaAichiActive = false;
+
+  bool areaKyotoActive = false;
+
+  bool areaOsakaActive = false;
+
+  bool areaHyogoActive = false;
+
+  bool areaOkayamaActive = false;
+
+  bool areaHiroshimaActive = false;
+
+  bool areaFukuokaActive = false;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Custom Action - adminGetSystemConfig] action in SystemSettingsListPage widget.

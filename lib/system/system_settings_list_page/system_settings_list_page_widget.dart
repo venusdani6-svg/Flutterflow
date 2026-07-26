@@ -42,6 +42,61 @@ class _SystemSettingsListPageWidgetState
       _model.systemConfigResult = await actions.adminGetSystemConfig();
       _model.isConfigLoaded = true;
       safeSetState(() {});
+      _model.areaTokyoActive = getJsonField(
+        _model.systemConfigResult,
+        r'''$.area_tokyo_active''',
+      );
+      safeSetState(() {});
+      _model.areaChibaActive = getJsonField(
+        _model.systemConfigResult,
+        r'''$.area_chiba_active''',
+      );
+      safeSetState(() {});
+      _model.areaKanagawaActive = getJsonField(
+        _model.systemConfigResult,
+        r'''$.area_kanagawa_active''',
+      );
+      safeSetState(() {});
+      _model.areaKanagawaActive = getJsonField(
+        _model.systemConfigResult,
+        r'''$.area_gifu_active''',
+      );
+      safeSetState(() {});
+      _model.areaAichiActive = getJsonField(
+        _model.systemConfigResult,
+        r'''$.area_aichi_active''',
+      );
+      safeSetState(() {});
+      _model.areaKyotoActive = getJsonField(
+        _model.systemConfigResult,
+        r'''$.area_kyoto_active''',
+      );
+      safeSetState(() {});
+      _model.areaOsakaActive = getJsonField(
+        _model.systemConfigResult,
+        r'''$.area_osaka_active''',
+      );
+      safeSetState(() {});
+      _model.areaHyogoActive = getJsonField(
+        _model.systemConfigResult,
+        r'''$.area_hyogo_active''',
+      );
+      safeSetState(() {});
+      _model.areaOkayamaActive = getJsonField(
+        _model.systemConfigResult,
+        r'''$.area_okayama_active''',
+      );
+      safeSetState(() {});
+      _model.areaHiroshimaActive = getJsonField(
+        _model.systemConfigResult,
+        r'''$.area_hiroshima_active''',
+      );
+      safeSetState(() {});
+      _model.areaFukuokaActive = getJsonField(
+        _model.systemConfigResult,
+        r'''$.area_fukuoka_active''',
+      );
+      safeSetState(() {});
     });
 
     _model.tabBarController = TabController(
@@ -1004,35 +1059,6 @@ class _SystemSettingsListPageWidgetState
                                                                               child: Row(
                                                                                 mainAxisSize: MainAxisSize.max,
                                                                                 children: [
-                                                                                  Expanded(
-                                                                                    child: Container(
-                                                                                      width: 250.0,
-                                                                                      height: 50.0,
-                                                                                      decoration: BoxDecoration(
-                                                                                        color: FlutterFlowTheme.of(context).alternate,
-                                                                                        borderRadius: BorderRadius.only(),
-                                                                                        border: Border.all(
-                                                                                          color: FlutterFlowTheme.of(context).alternate,
-                                                                                        ),
-                                                                                      ),
-                                                                                      child: Align(
-                                                                                        alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                        child: Text(
-                                                                                          '延長上限回数設定',
-                                                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                font: GoogleFonts.inter(
-                                                                                                  fontWeight: FontWeight.w500,
-                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                ),
-                                                                                                fontSize: 14.0,
-                                                                                                letterSpacing: 0.0,
-                                                                                                fontWeight: FontWeight.w500,
-                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                              ),
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
                                                                                   Expanded(
                                                                                     child: Container(
                                                                                       width: 250.0,
@@ -2008,6 +2034,35 @@ class _SystemSettingsListPageWidgetState
                                                                                             mainAxisSize: MainAxisSize.max,
                                                                                             crossAxisAlignment: CrossAxisAlignment.center,
                                                                                             children: [
+                                                                                              Expanded(
+                                                                                                child: Container(
+                                                                                                  width: 250.0,
+                                                                                                  height: 50.0,
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    color: FlutterFlowTheme.of(context).alternate,
+                                                                                                    borderRadius: BorderRadius.only(),
+                                                                                                    border: Border.all(
+                                                                                                      color: FlutterFlowTheme.of(context).alternate,
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  child: Align(
+                                                                                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                                    child: Text(
+                                                                                                      '延長上限回数設定',
+                                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                            font: GoogleFonts.inter(
+                                                                                                              fontWeight: FontWeight.w500,
+                                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                            ),
+                                                                                                            fontSize: 14.0,
+                                                                                                            letterSpacing: 0.0,
+                                                                                                            fontWeight: FontWeight.w500,
+                                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                          ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
                                                                                               if (_model.isConfigLoaded)
                                                                                                 Expanded(
                                                                                                   child: Material(
