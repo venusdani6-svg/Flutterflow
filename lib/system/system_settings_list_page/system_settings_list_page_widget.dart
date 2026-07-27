@@ -125,50 +125,17 @@ class _SystemSettingsListPageWidgetState
     ));
     _model.chatCloseSecFieldFocusNode ??= FocusNode();
 
-    _model.switchValue1 = getJsonField(
-      _model.systemConfigResult,
-      r'''$.area_tokyo_active''',
-    );
-    _model.switchValue2 = getJsonField(
-      _model.systemConfigResult,
-      r'''$.area_chiba_active''',
-    );
-    _model.switchValue3 = getJsonField(
-      _model.systemConfigResult,
-      r'''$.area_kanagawa_active''',
-    );
-    _model.switchValue4 = getJsonField(
-      _model.systemConfigResult,
-      r'''$.area_gifu_active''',
-    );
-    _model.switchValue5 = getJsonField(
-      _model.systemConfigResult,
-      r'''$.area_aichi_active''',
-    );
-    _model.switchValue6 = getJsonField(
-      _model.systemConfigResult,
-      r'''$.area_kyoto_active''',
-    );
-    _model.switchValue7 = getJsonField(
-      _model.systemConfigResult,
-      r'''$.area_osaka_active''',
-    );
-    _model.switchValue8 = getJsonField(
-      _model.systemConfigResult,
-      r'''$.area_hyogo_active''',
-    );
-    _model.switchValue9 = getJsonField(
-      _model.systemConfigResult,
-      r'''$.area_okayama_active''',
-    );
-    _model.switchValue10 = getJsonField(
-      _model.systemConfigResult,
-      r'''$.area_hiroshima_active''',
-    );
-    _model.switchValue11 = getJsonField(
-      _model.systemConfigResult,
-      r'''$.area_fukuoka_active''',
-    );
+    _model.switchValue1 = _model.areaTokyoActive;
+    _model.switchValue2 = _model.areaChibaActive;
+    _model.switchValue3 = _model.areaKanagawaActive;
+    _model.switchValue4 = _model.areaGifuActive;
+    _model.switchValue5 = _model.areaAichiActive;
+    _model.switchValue6 = _model.areaKyotoActive;
+    _model.switchValue7 = _model.areaOsakaActive;
+    _model.switchValue8 = _model.areaHyogoActive;
+    _model.switchValue9 = _model.areaOkayamaActive;
+    _model.switchValue10 = _model.areaHiroshimaActive;
+    _model.switchValue11 = _model.areaFukuokaActive;
     _model.textController3 ??= TextEditingController();
     _model.textFieldFocusNode1 ??= FocusNode();
 
@@ -4754,17 +4721,17 @@ class _SystemSettingsListPageWidgetState
                                                                             onPressed:
                                                                                 () async {
                                                                               _model.saveServiceAreaResult = await actions.adminUpdateServiceAreaSettings(
-                                                                                _model.switchValue1!,
-                                                                                _model.switchValue2!,
-                                                                                _model.switchValue3!,
-                                                                                _model.switchValue4!,
-                                                                                _model.switchValue5!,
-                                                                                _model.switchValue6!,
-                                                                                _model.switchValue7!,
-                                                                                _model.switchValue8!,
-                                                                                _model.switchValue9!,
-                                                                                _model.switchValue10!,
-                                                                                _model.switchValue11!,
+                                                                                _model.areaTokyoActive,
+                                                                                _model.areaChibaActive,
+                                                                                _model.areaKanagawaActive,
+                                                                                _model.areaGifuActive,
+                                                                                _model.areaAichiActive,
+                                                                                _model.areaKyotoActive,
+                                                                                _model.areaOsakaActive,
+                                                                                _model.areaHyogoActive,
+                                                                                _model.areaOkayamaActive,
+                                                                                _model.areaHiroshimaActive,
+                                                                                _model.areaFukuokaActive,
                                                                               );
                                                                               if (getJsonField(
                                                                                 _model.saveServiceAreaResult,
