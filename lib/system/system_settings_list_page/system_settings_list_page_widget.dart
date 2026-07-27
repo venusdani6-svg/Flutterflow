@@ -57,7 +57,7 @@ class _SystemSettingsListPageWidgetState
         r'''$.area_kanagawa_active''',
       );
       safeSetState(() {});
-      _model.areaKanagawaActive = getJsonField(
+      _model.areaGifuActive = getJsonField(
         _model.systemConfigResult,
         r'''$.area_gifu_active''',
       );
