@@ -136,10 +136,18 @@ class _SystemSettingsListPageWidgetState
     _model.switchValue9 = _model.areaOkayamaActive;
     _model.switchValue10 = _model.areaHiroshimaActive;
     _model.switchValue11 = _model.areaFukuokaActive;
-    _model.textController3 ??= TextEditingController();
+    _model.textController3 ??= TextEditingController(
+        text: getJsonField(
+      _model.systemConfigResult,
+      r'''$.transport_fee_amount''',
+    ).toString());
     _model.textFieldFocusNode1 ??= FocusNode();
 
-    _model.textController4 ??= TextEditingController();
+    _model.textController4 ??= TextEditingController(
+        text: getJsonField(
+      _model.systemConfigResult,
+      r'''$.transport_fee_threshold_sec''',
+    ).toString());
     _model.textFieldFocusNode2 ??= FocusNode();
   }
 
