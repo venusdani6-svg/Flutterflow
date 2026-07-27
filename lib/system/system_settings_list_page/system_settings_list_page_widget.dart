@@ -4032,6 +4032,13 @@ class _SystemSettingsListPageWidgetState
                                                                                                                     value: _model.switchValue1!,
                                                                                                                     onChanged: (newValue) async {
                                                                                                                       safeSetState(() => _model.switchValue1 = newValue);
+                                                                                                                      if (newValue) {
+                                                                                                                        _model.areaTokyoActive = _model.switchValue1!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      } else {
+                                                                                                                        _model.areaTokyoActive = _model.switchValue1!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      }
                                                                                                                     },
                                                                                                                     activeColor: Color(0xFF06F705),
                                                                                                                     activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -4091,6 +4098,13 @@ class _SystemSettingsListPageWidgetState
                                                                                                                     value: _model.switchValue2!,
                                                                                                                     onChanged: (newValue) async {
                                                                                                                       safeSetState(() => _model.switchValue2 = newValue);
+                                                                                                                      if (newValue) {
+                                                                                                                        _model.areaChibaActive = _model.switchValue2!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      } else {
+                                                                                                                        _model.areaChibaActive = _model.switchValue2!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      }
                                                                                                                     },
                                                                                                                     activeColor: Color(0xFF06F705),
                                                                                                                     activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -4150,6 +4164,13 @@ class _SystemSettingsListPageWidgetState
                                                                                                                     value: _model.switchValue3!,
                                                                                                                     onChanged: (newValue) async {
                                                                                                                       safeSetState(() => _model.switchValue3 = newValue);
+                                                                                                                      if (newValue) {
+                                                                                                                        _model.areaKanagawaActive = _model.switchValue3!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      } else {
+                                                                                                                        _model.areaKanagawaActive = _model.switchValue3!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      }
                                                                                                                     },
                                                                                                                     activeColor: Color(0xFF06F705),
                                                                                                                     activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -4209,6 +4230,13 @@ class _SystemSettingsListPageWidgetState
                                                                                                                     value: _model.switchValue4!,
                                                                                                                     onChanged: (newValue) async {
                                                                                                                       safeSetState(() => _model.switchValue4 = newValue);
+                                                                                                                      if (newValue) {
+                                                                                                                        _model.areaGifuActive = _model.switchValue4!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      } else {
+                                                                                                                        _model.areaGifuActive = _model.switchValue4!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      }
                                                                                                                     },
                                                                                                                     activeColor: Color(0xFF06F705),
                                                                                                                     activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -4268,6 +4296,13 @@ class _SystemSettingsListPageWidgetState
                                                                                                                     value: _model.switchValue5!,
                                                                                                                     onChanged: (newValue) async {
                                                                                                                       safeSetState(() => _model.switchValue5 = newValue);
+                                                                                                                      if (newValue) {
+                                                                                                                        _model.areaAichiActive = _model.switchValue5!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      } else {
+                                                                                                                        _model.areaAichiActive = _model.switchValue5!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      }
                                                                                                                     },
                                                                                                                     activeColor: Color(0xFF06F705),
                                                                                                                     activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -4327,6 +4362,13 @@ class _SystemSettingsListPageWidgetState
                                                                                                                     value: _model.switchValue6!,
                                                                                                                     onChanged: (newValue) async {
                                                                                                                       safeSetState(() => _model.switchValue6 = newValue);
+                                                                                                                      if (newValue) {
+                                                                                                                        _model.areaKyotoActive = _model.switchValue6!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      } else {
+                                                                                                                        _model.areaKyotoActive = _model.switchValue6!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      }
                                                                                                                     },
                                                                                                                     activeColor: Color(0xFF06F705),
                                                                                                                     activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -4386,6 +4428,13 @@ class _SystemSettingsListPageWidgetState
                                                                                                                     value: _model.switchValue7!,
                                                                                                                     onChanged: (newValue) async {
                                                                                                                       safeSetState(() => _model.switchValue7 = newValue);
+                                                                                                                      if (newValue) {
+                                                                                                                        _model.areaOsakaActive = _model.switchValue7!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      } else {
+                                                                                                                        _model.areaOsakaActive = _model.switchValue7!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      }
                                                                                                                     },
                                                                                                                     activeColor: Color(0xFF06F705),
                                                                                                                     activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -4445,6 +4494,13 @@ class _SystemSettingsListPageWidgetState
                                                                                                                     value: _model.switchValue8!,
                                                                                                                     onChanged: (newValue) async {
                                                                                                                       safeSetState(() => _model.switchValue8 = newValue);
+                                                                                                                      if (newValue) {
+                                                                                                                        _model.areaHyogoActive = _model.switchValue8!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      } else {
+                                                                                                                        _model.areaHyogoActive = _model.switchValue8!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      }
                                                                                                                     },
                                                                                                                     activeColor: Color(0xFF06F705),
                                                                                                                     activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -4504,6 +4560,13 @@ class _SystemSettingsListPageWidgetState
                                                                                                                     value: _model.switchValue9!,
                                                                                                                     onChanged: (newValue) async {
                                                                                                                       safeSetState(() => _model.switchValue9 = newValue);
+                                                                                                                      if (newValue) {
+                                                                                                                        _model.areaOkayamaActive = _model.switchValue9!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      } else {
+                                                                                                                        _model.areaOkayamaActive = _model.switchValue9!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      }
                                                                                                                     },
                                                                                                                     activeColor: Color(0xFF06F705),
                                                                                                                     activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -4563,6 +4626,13 @@ class _SystemSettingsListPageWidgetState
                                                                                                                     value: _model.switchValue10!,
                                                                                                                     onChanged: (newValue) async {
                                                                                                                       safeSetState(() => _model.switchValue10 = newValue);
+                                                                                                                      if (newValue) {
+                                                                                                                        _model.areaHiroshimaActive = _model.switchValue10!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      } else {
+                                                                                                                        _model.areaHiroshimaActive = _model.switchValue10!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      }
                                                                                                                     },
                                                                                                                     activeColor: Color(0xFF06F705),
                                                                                                                     activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -4622,6 +4692,13 @@ class _SystemSettingsListPageWidgetState
                                                                                                                     value: _model.switchValue11!,
                                                                                                                     onChanged: (newValue) async {
                                                                                                                       safeSetState(() => _model.switchValue11 = newValue);
+                                                                                                                      if (newValue) {
+                                                                                                                        _model.areaFukuokaActive = _model.switchValue11!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      } else {
+                                                                                                                        _model.areaFukuokaActive = _model.switchValue11!;
+                                                                                                                        safeSetState(() {});
+                                                                                                                      }
                                                                                                                     },
                                                                                                                     activeColor: Color(0xFF06F705),
                                                                                                                     activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
