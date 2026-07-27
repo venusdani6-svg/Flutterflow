@@ -154,6 +154,8 @@ class SystemSettingsListPageModel
   FocusNode? textFieldFocusNode2;
   TextEditingController? textController4;
   String? Function(BuildContext, String?)? textController4Validator;
+  // Stores action output result for [Custom Action - adminUpdateTaxiSettings] action in Button widget.
+  dynamic saveTaxiResult;
 
   @override
   void initState(BuildContext context) {

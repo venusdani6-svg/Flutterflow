@@ -5288,8 +5288,51 @@ class _SystemSettingsListPageWidgetState
                                                                           child:
                                                                               FFButtonWidget(
                                                                             onPressed:
-                                                                                () {
-                                                                              print('Button pressed ...');
+                                                                                () async {
+                                                                              _model.saveTaxiResult = await actions.adminUpdateTaxiSettings(
+                                                                                _model.textController3.text,
+                                                                                _model.textController4.text,
+                                                                              );
+                                                                              if (getJsonField(
+                                                                                _model.saveTaxiResult,
+                                                                                r'''$.success''',
+                                                                              )
+                                                                                  ? true
+                                                                                  : false) {
+                                                                                await showDialog(
+                                                                                  context: context,
+                                                                                  builder: (alertDialogContext) {
+                                                                                    return AlertDialog(
+                                                                                      title: Text('タクシー代設定'),
+                                                                                      content: Text('保存しました。'),
+                                                                                      actions: [
+                                                                                        TextButton(
+                                                                                          onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                          child: Text('Ok'),
+                                                                                        ),
+                                                                                      ],
+                                                                                    );
+                                                                                  },
+                                                                                );
+                                                                              } else {
+                                                                                await showDialog(
+                                                                                  context: context,
+                                                                                  builder: (alertDialogContext) {
+                                                                                    return AlertDialog(
+                                                                                      title: Text('タクシー代設定'),
+                                                                                      content: Text('更新に失敗しました。'),
+                                                                                      actions: [
+                                                                                        TextButton(
+                                                                                          onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                          child: Text('Ok'),
+                                                                                        ),
+                                                                                      ],
+                                                                                    );
+                                                                                  },
+                                                                                );
+                                                                              }
+
+                                                                              safeSetState(() {});
                                                                             },
                                                                             text:
                                                                                 'タクシー代設定を保存する',

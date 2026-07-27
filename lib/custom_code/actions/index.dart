@@ -28,3 +28,4 @@ export 'admin_update_cast_reward_settings.dart'
 export 'admin_update_affiliate_settings.dart' show adminUpdateAffiliateSettings;
 export 'admin_update_service_area_settings.dart'
     show adminUpdateServiceAreaSettings;
+export 'admin_update_taxi_settings.dart' show adminUpdateTaxiSettings;
