@@ -1039,6 +1039,35 @@ class _SystemSettingsListPageWidgetState
                                                                                       width: 250.0,
                                                                                       height: 50.0,
                                                                                       decoration: BoxDecoration(
+                                                                                        color: FlutterFlowTheme.of(context).alternate,
+                                                                                        borderRadius: BorderRadius.only(),
+                                                                                        border: Border.all(
+                                                                                          color: FlutterFlowTheme.of(context).alternate,
+                                                                                        ),
+                                                                                      ),
+                                                                                      child: Align(
+                                                                                        alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                        child: Text(
+                                                                                          '延長上限回数設定',
+                                                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                font: GoogleFonts.inter(
+                                                                                                  fontWeight: FontWeight.w500,
+                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                ),
+                                                                                                fontSize: 14.0,
+                                                                                                letterSpacing: 0.0,
+                                                                                                fontWeight: FontWeight.w500,
+                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                              ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                  Expanded(
+                                                                                    child: Container(
+                                                                                      width: 250.0,
+                                                                                      height: 50.0,
+                                                                                      decoration: BoxDecoration(
                                                                                         color: FlutterFlowTheme.of(context).secondaryBackground,
                                                                                         borderRadius: BorderRadius.only(),
                                                                                         border: Border.all(
@@ -2009,35 +2038,6 @@ class _SystemSettingsListPageWidgetState
                                                                                             mainAxisSize: MainAxisSize.max,
                                                                                             crossAxisAlignment: CrossAxisAlignment.center,
                                                                                             children: [
-                                                                                              Expanded(
-                                                                                                child: Container(
-                                                                                                  width: 250.0,
-                                                                                                  height: 50.0,
-                                                                                                  decoration: BoxDecoration(
-                                                                                                    color: FlutterFlowTheme.of(context).alternate,
-                                                                                                    borderRadius: BorderRadius.only(),
-                                                                                                    border: Border.all(
-                                                                                                      color: FlutterFlowTheme.of(context).alternate,
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                  child: Align(
-                                                                                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                                    child: Text(
-                                                                                                      '延長上限回数設定',
-                                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                            font: GoogleFonts.inter(
-                                                                                                              fontWeight: FontWeight.w500,
-                                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                            ),
-                                                                                                            fontSize: 14.0,
-                                                                                                            letterSpacing: 0.0,
-                                                                                                            fontWeight: FontWeight.w500,
-                                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                          ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ),
                                                                                               if (_model.isConfigLoaded)
                                                                                                 Expanded(
                                                                                                   child: Material(
@@ -2260,10 +2260,10 @@ class _SystemSettingsListPageWidgetState
                                                                                 child: FFButtonWidget(
                                                                                   onPressed: () async {
                                                                                     _model.saveBasicSettingsResult = await actions.adminUpdateBasicSettings(
-                                                                                      int.parse(_model.chatCloseSecFieldTextController.text),
+                                                                                      _model.chatCloseSecFieldTextController.text,
                                                                                       _model.extensionLimitCountControllerValue!,
                                                                                       _model.maxTotalHoursControllerValue!,
-                                                                                      double.parse(_model.taxRateFieldTextController.text),
+                                                                                      _model.taxRateFieldTextController.text,
                                                                                       _model.nightSlot1CheckboxValue!,
                                                                                       _model.nightSlot2CheckboxValue!,
                                                                                       _model.nightSlot3CheckboxValue!,

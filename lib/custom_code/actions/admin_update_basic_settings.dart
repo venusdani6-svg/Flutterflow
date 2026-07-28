@@ -28,10 +28,11 @@ import 'package:cloud_functions/cloud_functions.dart';
 /// this same pattern, not a shared one.
 ///
 /// Params map 1:1 to 基本設定's fields:
-/// - chatCloseSec ← textController2（チャット閉鎖秒数設定）
+/// - chatCloseSecText ← textController2（チャット閉鎖秒数設定）, raw text —
+///   see note below on why this and taxRateText are String, not int/double.
 /// - extensionLimitCount ← countControllerValue1（延長上限回数設定）
 /// - maxTotalHours ← countControllerValue2（最大総時間設定）
-/// - taxRate ← textController1（消費税率設定）
+/// - taxRateText ← textController1（消費税率設定）, raw text
 /// - nightSlot1Enabled..nightSlot4Enabled ← checkboxListTileValue1-4
 ///   （第1部..第4部）→ written as `night_time_slots: ["1部","2部",...]`
 /// - featureAffiliateEnabled ← switchListTileValue3（アフィリエイト機能）
@@ -44,11 +45,23 @@ import 'package:cloud_functions/cloud_functions.dart';
 ///   the 2 granular keys `security_staff`/`transport_staff`, same
 ///   reasoning as the old action (schema.md only documents one `staff`
 ///   key, but this UI has 2 independent staff toggles).
+///
+/// chatCloseSecText/taxRateText are String, parsed here, instead of
+/// int/double — same fix as admin_update_taxi_settings.dart (§18.33).
+/// Both text fields' Initial Value is seeded via a `??=` inside
+/// initState() (before the async config load resolves), so on a fresh
+/// page load they show the literal text "null" until edited. The
+/// FlutterFlow-generated Save button previously did
+/// `int.parse(...)`/`double.parse(...)` inline with no error handling —
+/// clicking Save before editing those fields would throw an uncaught
+/// FormatException. Parsing here instead returns a clean
+/// {'success': false, 'error': ...} so a stray "null" can never crash the
+/// button or reach Firestore.
 Future<dynamic> adminUpdateBasicSettings(
-  int chatCloseSec,
+  String chatCloseSecText,
   int extensionLimitCount,
   int maxTotalHours,
-  double taxRate,
+  String taxRateText,
   bool nightSlot1Enabled,
   bool nightSlot2Enabled,
   bool nightSlot3Enabled,
@@ -60,6 +73,16 @@ Future<dynamic> adminUpdateBasicSettings(
   bool featureWorkBoardEnabled,
 ) async {
   try {
+    final chatCloseSec = int.tryParse(chatCloseSecText.trim());
+    final taxRate = double.tryParse(taxRateText.trim());
+    if (chatCloseSec == null || taxRate == null) {
+      return {
+        'success': false,
+        'error':
+            'チャット閉鎖秒数と消費税率は数値で入力してください。（現在の入力: "$chatCloseSecText" / "$taxRateText"）',
+      };
+    }
+
     final nightSlots = <String>[];
     if (nightSlot1Enabled) nightSlots.add('1部');
     if (nightSlot2Enabled) nightSlots.add('2部');
