@@ -921,7 +921,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                     safeSetState(() {});
                                                                                     _model.selectedAffiliatorNickname = getJsonField(
                                                                                       affiliateOverviewResult1Item,
-                                                                                      r'''$.nickname''',
+                                                                                      r'''$.affiliator_nickname''',
                                                                                     ).toString();
                                                                                     safeSetState(() {});
                                                                                   },
@@ -1007,7 +1007,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                               alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                               child: Text(
                                                                                                                 getJsonField(
-                                                                                                                  _model.affiliateOverviewResult1,
+                                                                                                                  affiliateOverviewResult1Item,
                                                                                                                   r'''$.month''',
                                                                                                                 ).toString(),
                                                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1071,7 +1071,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                               alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                               child: Text(
                                                                                                                 getJsonField(
-                                                                                                                  _model.affiliateOverviewResult1,
+                                                                                                                  affiliateOverviewResult1Item,
                                                                                                                   r'''$.affiliator_nickname''',
                                                                                                                 ).toString(),
                                                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1143,7 +1143,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                                   ),
                                                                                                                   Text(
                                                                                                                     getJsonField(
-                                                                                                                      _model.affiliateOverviewResult1,
+                                                                                                                      affiliateOverviewResult1Item,
                                                                                                                       r'''$.status_label''',
                                                                                                                     ).toString(),
                                                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1234,7 +1234,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                                 children: [
                                                                                                                   Text(
                                                                                                                     getJsonField(
-                                                                                                                      _model.affiliateOverviewResult1,
+                                                                                                                      affiliateOverviewResult1Item,
                                                                                                                       r'''$.reward_amount_display''',
                                                                                                                     ).toString(),
                                                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1313,7 +1313,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                               alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                               child: Text(
                                                                                                                 getJsonField(
-                                                                                                                  _model.affiliateOverviewResult1,
+                                                                                                                  affiliateOverviewResult1Item,
                                                                                                                   r'''$.referred_nickname''',
                                                                                                                 ).toString(),
                                                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1378,7 +1378,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                                 alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                                 child: Text(
                                                                                                                   getJsonField(
-                                                                                                                    _model.affiliateOverviewResult1,
+                                                                                                                    affiliateOverviewResult1Item,
                                                                                                                     r'''$.paid_at_display''',
                                                                                                                   ).toString(),
                                                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1613,7 +1613,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                               alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                               child: Text(
                                                                                                                 getJsonField(
-                                                                                                                  _model.affiliateOverviewResult1,
+                                                                                                                  affiliatorsItem,
                                                                                                                   r'''$.nickname''',
                                                                                                                 ).toString(),
                                                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1681,7 +1681,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                                 children: [
                                                                                                                   Text(
                                                                                                                     getJsonField(
-                                                                                                                      _model.affiliateOverviewResult1,
+                                                                                                                      affiliatorsItem,
                                                                                                                       r'''$.current_month_reward_display''',
                                                                                                                     ).toString(),
                                                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1763,7 +1763,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                                 children: [
                                                                                                                   Text(
                                                                                                                     getJsonField(
-                                                                                                                      _model.affiliateOverviewResult1,
+                                                                                                                      affiliatorsItem,
                                                                                                                       r'''$.affiliate_rate_display''',
                                                                                                                     ).toString(),
                                                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1867,7 +1867,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                                 children: [
                                                                                                                   Text(
                                                                                                                     getJsonField(
-                                                                                                                      _model.affiliateOverviewResult1,
+                                                                                                                      affiliatorsItem,
                                                                                                                       r'''$.referred_cast_count''',
                                                                                                                     ).toString(),
                                                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1950,7 +1950,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                                 children: [
                                                                                                                   Text(
                                                                                                                     getJsonField(
-                                                                                                                      _model.affiliateOverviewResult1,
+                                                                                                                      affiliatorsItem,
                                                                                                                       r'''$.cumulative_paid_display''',
                                                                                                                     ).toString(),
                                                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -2030,7 +2030,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                                 alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                                 child: Text(
                                                                                                                   getJsonField(
-                                                                                                                    _model.affiliateOverviewResult1,
+                                                                                                                    affiliatorsItem,
                                                                                                                     r'''$.created_at_display''',
                                                                                                                   ).toString(),
                                                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
