@@ -1521,8 +1521,13 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                   highlightColor: Colors.transparent,
                                                                                   onTap: () async {
                                                                                     _model.selectedAffiliatorUid = getJsonField(
-                                                                                      _model.affiliateOverviewResult1,
+                                                                                      affiliatorsItem,
                                                                                       r'''$.affiliator_uid''',
+                                                                                    ).toString();
+                                                                                    safeSetState(() {});
+                                                                                    _model.selectedAffiliatorNickname = getJsonField(
+                                                                                      affiliatorsItem,
+                                                                                      r'''$.nickname''',
                                                                                     ).toString();
                                                                                     safeSetState(() {});
                                                                                   },
