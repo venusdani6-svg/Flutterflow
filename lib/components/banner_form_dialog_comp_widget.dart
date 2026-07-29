@@ -45,17 +45,23 @@ class _BannerFormDialogCompWidgetState
     _model.textFieldFocusNode1 ??= FocusNode();
 
     _model.textController2 ??= TextEditingController(
-        text: getJsonField(
-      widget.existingBanner,
-      r'''$.link_url''',
-    ).toString());
+        text: valueOrDefault<String>(
+      getJsonField(
+        widget.existingBanner,
+        r'''$.link_url''',
+      )?.toString(),
+      '-',
+    ));
     _model.textFieldFocusNode2 ??= FocusNode();
 
     _model.textController3 ??= TextEditingController(
-        text: getJsonField(
-      widget.existingBanner,
-      r'''$.advertiser''',
-    ).toString());
+        text: valueOrDefault<String>(
+      getJsonField(
+        widget.existingBanner,
+        r'''$.advertiser''',
+      )?.toString(),
+      '-',
+    ));
     _model.textFieldFocusNode3 ??= FocusNode();
 
     _model.textController4 ??= TextEditingController(
