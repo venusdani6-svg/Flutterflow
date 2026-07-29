@@ -186,7 +186,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: ReportListPageWidget.routeName,
           path: ReportListPageWidget.routePath,
           requireAuth: true,
-          builder: (context, params) => ReportListPageWidget(),
+          builder: (context, params) => ReportListPageWidget(
+            filterStatus: params.getParam(
+              'filterStatus',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: PaymentLedgerManagementPageWidget.routeName,

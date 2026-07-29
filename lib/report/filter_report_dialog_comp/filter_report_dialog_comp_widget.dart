@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'filter_report_dialog_comp_model.dart';
@@ -60,10 +61,26 @@ class _FilterReportDialogCompWidgetState
               children: [
                 FlutterFlowDropDown<String>(
                   controller: _model.dropDownValueController ??=
-                      FormFieldController<String>(null),
-                  options: ['未対応', '対応中', '解決済'],
-                  onChanged: (val) =>
-                      safeSetState(() => _model.dropDownValue = val),
+                      FormFieldController<String>(
+                    _model.dropDownValue ??= '',
+                  ),
+                  options:
+                      List<String>.from(['pending', 'in_progress', 'resolved']),
+                  optionLabels: ['未対応', '対応中', '解決済'],
+                  onChanged: (val) async {
+                    safeSetState(() => _model.dropDownValue = val);
+                    Navigator.pop(context);
+
+                    context.pushNamed(
+                      ReportListPageWidget.routeName,
+                      queryParameters: {
+                        'filterStatus': serializeParam(
+                          _model.dropDownValue,
+                          ParamType.String,
+                        ),
+                      }.withoutNulls,
+                    );
+                  },
                   width: 700.0,
                   height: 40.0,
                   textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
