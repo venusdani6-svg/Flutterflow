@@ -4,8 +4,16 @@ import 'banner_list_page_widget.dart' show BannerListPageWidget;
 import 'package:flutter/material.dart';
 
 class BannerListPageModel extends FlutterFlowModel<BannerListPageWidget> {
+  ///  Local state fields for this page.
+
+  bool isBannersLoaded = false;
+
+  dynamic bannersResult1;
+
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Custom Action - adminGetBanners] action in BannerListPage widget.
+  dynamic bannersResult;
   // Model for Main_Menu_Comp component.
   late MainMenuCompModel mainMenuCompModel;
 

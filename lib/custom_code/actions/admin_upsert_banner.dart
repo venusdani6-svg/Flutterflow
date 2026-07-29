@@ -18,6 +18,18 @@ import 'package:cloud_functions/cloud_functions.dart';
 /// - page (String?) optional
 /// - displayOrder (int?) optional
 /// - active (bool?) optional
+/// - advertiser (String?) optional — 出稿主, informational only, not tied
+///   to any expiration logic (no source document specifies auto-expiry
+///   behavior for banners; see PROJECT_KNOWLEDGE.md §18.36)
+/// - displayDays (int?) optional — 掲載期間, raw day count entered
+///   directly by the admin, stored as-is (not computed from any date math)
+/// - startDate (DateTime?) optional — 掲載開始日, defaults server-side to
+///   now if omitted. Sent as `.toUtc().toIso8601String()` deliberately —
+///   a local-time ISO string (no `Z` suffix) would be misparsed by the
+///   Cloud Function's `new Date(start_date)` as UTC rather than JST, since
+///   Cloud Functions run in UTC regardless of deploy region (same class of
+///   bug already found once in this project for dashboard "today" math,
+///   see PROJECT_KNOWLEDGE.md §18.16).
 Future<dynamic> adminUpsertBanner(
   String? bannerId,
   String title,
@@ -26,6 +38,9 @@ Future<dynamic> adminUpsertBanner(
   String? page,
   int? displayOrder,
   bool? active,
+  String? advertiser,
+  int? displayDays,
+  DateTime? startDate,
 ) async {
   try {
     final functions = FirebaseFunctions.instanceFor(region: 'asia-northeast1');
@@ -38,6 +53,9 @@ Future<dynamic> adminUpsertBanner(
       'page': page ?? 'home',
       'display_order': displayOrder ?? 0,
       'active': active ?? true,
+      'advertiser': advertiser ?? '',
+      'display_days': displayDays ?? 0,
+      'start_date': (startDate ?? DateTime.now()).toUtc().toIso8601String(),
     });
     return result.data;
   } catch (e) {
