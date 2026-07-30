@@ -1,9 +1,11 @@
+import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
@@ -857,11 +859,72 @@ class _BannerFormDialogCompWidgetState
                 checkColor: FlutterFlowTheme.of(context).info,
               ),
             ),
-            Container(
-              width: 100.0,
-              height: 100.0,
-              decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).secondaryBackground,
+            FFButtonWidget(
+              onPressed: () async {
+                final selectedFiles = await selectFiles(
+                  multiFile: false,
+                );
+                if (selectedFiles != null) {
+                  safeSetState(
+                      () => _model.isDataUploading_uploadDataHq0 = true);
+                  var selectedUploadedFiles = <FFUploadedFile>[];
+
+                  var downloadUrls = <String>[];
+                  try {
+                    selectedUploadedFiles = selectedFiles
+                        .map((m) => FFUploadedFile(
+                              name: m.storagePath.split('/').last,
+                              bytes: m.bytes,
+                              originalFilename: m.originalFilename,
+                            ))
+                        .toList();
+
+                    downloadUrls = (await Future.wait(
+                      selectedFiles.map(
+                        (f) async => await uploadData(f.storagePath, f.bytes),
+                      ),
+                    ))
+                        .where((u) => u != null)
+                        .map((u) => u!)
+                        .toList();
+                  } finally {
+                    _model.isDataUploading_uploadDataHq0 = false;
+                  }
+                  if (selectedUploadedFiles.length == selectedFiles.length &&
+                      downloadUrls.length == selectedFiles.length) {
+                    safeSetState(() {
+                      _model.uploadedLocalFile_uploadDataHq0 =
+                          selectedUploadedFiles.first;
+                      _model.uploadedFileUrl_uploadDataHq0 = downloadUrls.first;
+                    });
+                  } else {
+                    safeSetState(() {});
+                    return;
+                  }
+                }
+              },
+              text: 'Button',
+              options: FFButtonOptions(
+                height: 40.0,
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                color: FlutterFlowTheme.of(context).primary,
+                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                      font: GoogleFonts.interTight(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                      ),
+                      color: Colors.white,
+                      letterSpacing: 0.0,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                    ),
+                elevation: 0.0,
+                borderRadius: BorderRadius.circular(8.0),
               ),
             ),
             Container(
@@ -918,13 +981,11 @@ class _BannerFormDialogCompWidgetState
                           r'''$.id''',
                         ).toString(),
                         _model.textController1.text,
-                        valueOrDefault<String>(
-                          getJsonField(
-                            widget.existingBanner,
-                            r'''$.image_url''',
-                          )?.toString(),
-                          '-',
-                        ),
+                        _model.uploadedFileUrl_uploadDataHq0,
+                        getJsonField(
+                          widget.existingBanner,
+                          r'''$.image_url''',
+                        ).toString(),
                         _model.textController2.text,
                         _model.dropDownValue,
                         int.tryParse(_model.textController4.text),

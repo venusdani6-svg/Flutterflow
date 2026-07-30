@@ -13,7 +13,16 @@ import 'package:cloud_functions/cloud_functions.dart';
 /// FlutterFlow parameters:
 /// - bannerId (String?) optional — null/empty = create, set = update
 /// - title (String) required
-/// - imageUrl (String) required
+/// - uploadedImageUrl (String?) optional — result of the "Upload file"
+///   action's own Widget State (Uploaded File URL_uploadDataHq0). Blank
+///   whenever the admin didn't pick a new file this session (always the
+///   case on an edit where the image isn't being changed).
+/// - existingImageUrl (String?) optional — existingBanner -> $.image_url,
+///   the banner's current image before this save. Used only as a fallback
+///   when uploadedImageUrl is blank, so editing a banner without touching
+///   its image doesn't wipe out the existing image_url. See the
+///   uploadedImageUrl/existingImageUrl resolution below and
+///   PROJECT_KNOWLEDGE.md §18.36.
 /// - linkUrl (String?) optional
 /// - page (String?) optional
 /// - displayOrder (int?) optional
@@ -33,7 +42,8 @@ import 'package:cloud_functions/cloud_functions.dart';
 Future<dynamic> adminUpsertBanner(
   String? bannerId,
   String title,
-  String imageUrl,
+  String? uploadedImageUrl,
+  String? existingImageUrl,
   String? linkUrl,
   String? page,
   int? displayOrder,
@@ -43,6 +53,14 @@ Future<dynamic> adminUpsertBanner(
   DateTime? startDate,
 ) async {
   try {
+    // Same '.toString()-on-null' class of bug as bannerId below: FlutterFlow's
+    // JSON Path bindings can render the literal text "null" instead of true
+    // absence, so guard for that string alongside real null/empty.
+    bool hasValue(String? s) => s != null && s.isNotEmpty && s != 'null';
+    final resolvedImageUrl = hasValue(uploadedImageUrl)
+        ? uploadedImageUrl!
+        : (hasValue(existingImageUrl) ? existingImageUrl! : '');
+
     final functions = FirebaseFunctions.instanceFor(region: 'asia-northeast1');
     final callable = functions.httpsCallable('adminUpsertBanner');
     final result = await callable.call({
@@ -57,7 +75,7 @@ Future<dynamic> adminUpsertBanner(
           ? null
           : bannerId,
       'title': title,
-      'image_url': imageUrl,
+      'image_url': resolvedImageUrl,
       'link_url': linkUrl ?? '',
       'page': page ?? 'home',
       'display_order': displayOrder ?? 0,
