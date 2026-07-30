@@ -4,6 +4,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/custom_code/actions/index.dart' as actions;
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'banner_form_dialog_comp_model.dart';
@@ -38,10 +40,13 @@ class _BannerFormDialogCompWidgetState
     _model = createModel(context, () => BannerFormDialogCompModel());
 
     _model.textController1 ??= TextEditingController(
-        text: getJsonField(
-      widget.existingBanner,
-      r'''$.title''',
-    ).toString());
+        text: valueOrDefault<String>(
+      getJsonField(
+        widget.existingBanner,
+        r'''$.title''',
+      )?.toString(),
+      '-',
+    ));
     _model.textFieldFocusNode1 ??= FocusNode();
 
     _model.textController2 ??= TextEditingController(
@@ -870,8 +875,8 @@ class _BannerFormDialogCompWidgetState
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   FFButtonWidget(
-                    onPressed: () {
-                      print('Button pressed ...');
+                    onPressed: () async {
+                      Navigator.pop(context);
                     },
                     text: 'キャンセル',
                     options: FFButtonOptions(
@@ -906,8 +911,76 @@ class _BannerFormDialogCompWidgetState
                     ),
                   ),
                   FFButtonWidget(
-                    onPressed: () {
-                      print('Button pressed ...');
+                    onPressed: () async {
+                      _model.bannerResult = await actions.adminUpsertBanner(
+                        getJsonField(
+                          widget.existingBanner,
+                          r'''$.id''',
+                        ).toString(),
+                        _model.textController1.text,
+                        valueOrDefault<String>(
+                          getJsonField(
+                            widget.existingBanner,
+                            r'''$.image_url''',
+                          )?.toString(),
+                          '-',
+                        ),
+                        _model.textController2.text,
+                        _model.dropDownValue,
+                        int.tryParse(_model.textController4.text),
+                        _model.checkboxValue,
+                        _model.textController3.text,
+                        int.tryParse(_model.textController5.text),
+                        _model.calendarSelectedDay?.start,
+                      );
+                      if (getJsonField(
+                        _model.bannerResult,
+                        r'''$.success''',
+                      )
+                          ? true
+                          : false) {
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return AlertDialog(
+                              content: Text('成功いたしました。'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(alertDialogContext),
+                                  child: Text('Ok'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        Navigator.pop(context);
+                        if (Navigator.of(context).canPop()) {
+                          context.pop();
+                        }
+                        context.pushNamed(BannerListPageWidget.routeName);
+                      } else {
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return AlertDialog(
+                              content: Text(getJsonField(
+                                _model.bannerResult,
+                                r'''$.error''',
+                              ).toString()),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(alertDialogContext),
+                                  child: Text('Ok'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
+
+                      safeSetState(() {});
                     },
                     text: '保存',
                     options: FFButtonOptions(

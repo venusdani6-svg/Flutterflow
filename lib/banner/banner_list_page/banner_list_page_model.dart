@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
+import '/index.dart';
 import 'banner_list_page_widget.dart' show BannerListPageWidget;
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,8 @@ class BannerListPageModel extends FlutterFlowModel<BannerListPageWidget> {
   dynamic bannersResult;
   // Model for Main_Menu_Comp component.
   late MainMenuCompModel mainMenuCompModel;
+  // Stores action output result for [Custom Action - adminDeleteBanner] action in IconButton widget.
+  dynamic deleteResult;
 
   @override
   void initState(BuildContext context) {

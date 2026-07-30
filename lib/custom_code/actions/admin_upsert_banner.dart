@@ -46,7 +46,16 @@ Future<dynamic> adminUpsertBanner(
     final functions = FirebaseFunctions.instanceFor(region: 'asia-northeast1');
     final callable = functions.httpsCallable('adminUpsertBanner');
     final result = await callable.call({
-      'banner_id': (bannerId == null || bannerId.isEmpty) ? null : bannerId,
+      // The 'null' string check guards against FlutterFlow's action-argument
+      // binding for bannerId (existingBanner -> $.id) resolving via a bare
+      // getJsonField(...).toString() with no null-safety wrapper when
+      // existingBanner has no `id` key (create mode) -- it renders the
+      // literal text "null" instead of true absence, which would otherwise
+      // be sent as banner_id and make the backend try to update a
+      // nonexistent doc. See PROJECT_KNOWLEDGE.md §18.36.
+      'banner_id': (bannerId == null || bannerId.isEmpty || bannerId == 'null')
+          ? null
+          : bannerId,
       'title': title,
       'image_url': imageUrl,
       'link_url': linkUrl ?? '',

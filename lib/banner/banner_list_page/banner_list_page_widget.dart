@@ -1,4 +1,5 @@
 import '/components/banner_form_dialog_comp_widget.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -836,6 +837,163 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                             mainAxisSize:
                                                                                 MainAxisSize.max,
                                                                             children: [
+                                                                              Container(
+                                                                                width: 1140.0,
+                                                                                height: 45.0,
+                                                                                decoration: BoxDecoration(
+                                                                                  color: FlutterFlowTheme.of(context).primary,
+                                                                                  border: Border.all(
+                                                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  ),
+                                                                                ),
+                                                                                child: Row(
+                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                                                                  children: [
+                                                                                    Builder(
+                                                                                      builder: (context) => Padding(
+                                                                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 6.0, 0.0),
+                                                                                        child: FlutterFlowIconButton(
+                                                                                          borderColor: Colors.white,
+                                                                                          borderRadius: 30.0,
+                                                                                          buttonSize: 35.0,
+                                                                                          fillColor: FlutterFlowTheme.of(context).success,
+                                                                                          icon: Icon(
+                                                                                            Icons.edit,
+                                                                                            color: FlutterFlowTheme.of(context).info,
+                                                                                            size: 19.0,
+                                                                                          ),
+                                                                                          onPressed: () async {
+                                                                                            await showDialog(
+                                                                                              context: context,
+                                                                                              builder: (dialogContext) {
+                                                                                                return Dialog(
+                                                                                                  elevation: 0,
+                                                                                                  insetPadding: EdgeInsets.zero,
+                                                                                                  backgroundColor: Colors.transparent,
+                                                                                                  alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                                                  child: GestureDetector(
+                                                                                                    onTap: () {
+                                                                                                      FocusScope.of(dialogContext).unfocus();
+                                                                                                      FocusManager.instance.primaryFocus?.unfocus();
+                                                                                                    },
+                                                                                                    child: BannerFormDialogCompWidget(
+                                                                                                      existingBanner: bannersItemItem,
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                );
+                                                                                              },
+                                                                                            );
+                                                                                          },
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Padding(
+                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 13.0, 0.0),
+                                                                                      child: FlutterFlowIconButton(
+                                                                                        borderColor: Colors.white,
+                                                                                        borderRadius: 30.0,
+                                                                                        buttonSize: 35.0,
+                                                                                        fillColor: FlutterFlowTheme.of(context).success,
+                                                                                        icon: Icon(
+                                                                                          Icons.delete,
+                                                                                          color: FlutterFlowTheme.of(context).info,
+                                                                                          size: 19.0,
+                                                                                        ),
+                                                                                        onPressed: () async {
+                                                                                          var confirmDialogResponse = await showDialog<bool>(
+                                                                                                context: context,
+                                                                                                builder: (alertDialogContext) {
+                                                                                                  return AlertDialog(
+                                                                                                    title: Text('ご確認ください。'),
+                                                                                                    content: Text('本当にその要素を削除しますか？'),
+                                                                                                    actions: [
+                                                                                                      TextButton(
+                                                                                                        onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                                        child: Text('いいえ'),
+                                                                                                      ),
+                                                                                                      TextButton(
+                                                                                                        onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                                        child: Text('はい'),
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  );
+                                                                                                },
+                                                                                              ) ??
+                                                                                              false;
+                                                                                          if (confirmDialogResponse) {
+                                                                                            _model.deleteResult = await actions.adminDeleteBanner(
+                                                                                              getJsonField(
+                                                                                                bannersItemItem,
+                                                                                                r'''$.id''',
+                                                                                              ).toString(),
+                                                                                            );
+                                                                                            if (getJsonField(
+                                                                                              _model.deleteResult,
+                                                                                              r'''$.success''',
+                                                                                            )) {
+                                                                                              await showDialog(
+                                                                                                context: context,
+                                                                                                builder: (alertDialogContext) {
+                                                                                                  return AlertDialog(
+                                                                                                    content: Text('作業は順調に進みました。'),
+                                                                                                    actions: [
+                                                                                                      TextButton(
+                                                                                                        onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                                        child: Text('Ok'),
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  );
+                                                                                                },
+                                                                                              );
+                                                                                              if (Navigator.of(context).canPop()) {
+                                                                                                context.pop();
+                                                                                              }
+                                                                                              context.pushNamed(BannerListPageWidget.routeName);
+                                                                                            } else {
+                                                                                              await showDialog(
+                                                                                                context: context,
+                                                                                                builder: (alertDialogContext) {
+                                                                                                  return AlertDialog(
+                                                                                                    content: Text(getJsonField(
+                                                                                                      _model.deleteResult,
+                                                                                                      r'''$.error''',
+                                                                                                    ).toString()),
+                                                                                                    actions: [
+                                                                                                      TextButton(
+                                                                                                        onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                                        child: Text('Ok'),
+                                                                                                      ),
+                                                                                                    ],
+                                                                                                  );
+                                                                                                },
+                                                                                              );
+                                                                                            }
+                                                                                          } else {
+                                                                                            await showDialog(
+                                                                                              context: context,
+                                                                                              builder: (alertDialogContext) {
+                                                                                                return AlertDialog(
+                                                                                                  content: Text('操作をキャンセルしました。'),
+                                                                                                  actions: [
+                                                                                                    TextButton(
+                                                                                                      onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                                      child: Text('Ok'),
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                );
+                                                                                              },
+                                                                                            );
+                                                                                          }
+
+                                                                                          safeSetState(() {});
+                                                                                        },
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
                                                                               Padding(
                                                                                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                                                                                 child: Row(

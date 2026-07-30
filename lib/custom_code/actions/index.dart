@@ -30,3 +30,4 @@ export 'admin_update_service_area_settings.dart'
     show adminUpdateServiceAreaSettings;
 export 'admin_update_taxi_settings.dart' show adminUpdateTaxiSettings;
 export 'admin_get_banners.dart' show adminGetBanners;
+export 'admin_delete_banner.dart' show adminDeleteBanner;

@@ -35,6 +35,8 @@ class BannerFormDialogCompModel
   DateTimeRange? calendarSelectedDay;
   // State field(s) for Checkbox widget.
   bool? checkboxValue;
+  // Stores action output result for [Custom Action - adminUpsertBanner] action in Button widget.
+  dynamic bannerResult;
 
   @override
   void initState(BuildContext context) {
