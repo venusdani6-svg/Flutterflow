@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -117,33 +118,15 @@ class _FilterKYCDialogCompWidgetState extends State<FilterKYCDialogCompWidget> {
                   onPressed: () async {
                     FFAppState().kycReviewActiveStatus = _model.dropDownValue!;
                     safeSetState(() {});
-                    _model.kycFilterResult = await actions.adminGetUsersV2(
-                      '',
-                      '',
-                      false,
+                    _model.kycFilterResultTyped =
+                        await actions.adminGetKycUsersList(
                       FFAppState().kycReviewActiveStatus,
-                      '',
-                      '',
-                      '',
-                      '',
-                      50,
-                      '',
-                      '',
-                      true,
                     );
-                    FFAppState().debugKycRaw = getJsonField(
-                      _model.kycFilterResult,
-                      r'''$''',
-                    ).toString();
-                    safeSetState(() {});
-                    FFAppState().kycUserList = getJsonField(
-                      _model.kycFilterResult,
-                      r'''$.users''',
-                      true,
-                    )!
+                    FFAppState().kycUserListStruct = _model
+                        .kycFilterResultTyped!
                         .toList()
-                        .cast<dynamic>();
-                    _model.updatePage(() {});
+                        .cast<KycUserItemStruct>();
+                    safeSetState(() {});
                     Navigator.pop(context);
 
                     safeSetState(() {});

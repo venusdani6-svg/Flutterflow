@@ -22,6 +22,10 @@ import 'package:cloud_functions/cloud_functions.dart';
 /// - limit (int?)
 /// - offset (String?) - cursor-based pagination; pass the last reservation
 ///   id from the previous page to continue.
+/// - guestId (String?) - filters to one guest's own reservations (used by
+///   GuestUserdetailsPage's 予約履歴/決済履歴 tabs). Only one of
+///   status/guestId should be supplied per call - combining both would need
+///   a status+guest_id+scheduled_at composite index that doesn't exist.
 ///
 /// Normalizes each reservation so list-page JSON Path bindings get
 /// display-ready values instead of raw Firestore Timestamp maps
@@ -35,12 +39,16 @@ import 'package:cloud_functions/cloud_functions.dart';
 /// Also adds `primary_cast_id`, the first entry of `cast_ids` (or null),
 /// since the row template shows one cast per row and binding directly to
 /// `cast_ids` renders the array's bracketed string form (e.g. "[abc123]").
+/// `primary_cast_nickname`/`secondary_cast_nickname` are the equivalent
+/// derived fields for the backend's `cast_nicknames` array (parallel to
+/// `cast_ids`, added server-side in `admin.ts`).
 Future<dynamic> adminGetReservations(
   String? status,
   String? scheduledAfter,
   String? scheduledBefore,
   int? limit,
   String? offset,
+  String? guestId,
 ) async {
   try {
     final functions = FirebaseFunctions.instanceFor(region: 'asia-northeast1');
@@ -51,6 +59,7 @@ Future<dynamic> adminGetReservations(
       'scheduled_before': scheduledBefore,
       'limit': limit ?? 50,
       'offset': offset,
+      'guest_id': guestId,
     });
 
     final raw = result.data;
@@ -80,6 +89,15 @@ Map<String, dynamic> _normalizeReservation(Map<String, dynamic> reservation) {
       (castIds is List && castIds.isNotEmpty) ? castIds.first.toString() : null;
   reservation['secondary_cast_id'] =
       (castIds is List && castIds.length > 1) ? castIds[1].toString() : null;
+  final castNicknames = reservation['cast_nicknames'];
+  reservation['primary_cast_nickname'] =
+      (castNicknames is List && castNicknames.isNotEmpty)
+          ? castNicknames.first.toString()
+          : null;
+  reservation['secondary_cast_nickname'] =
+      (castNicknames is List && castNicknames.length > 1)
+          ? castNicknames[1].toString()
+          : null;
   final staffIds = reservation['staff_ids'];
   reservation['primary_staff_id'] = (staffIds is List && staffIds.isNotEmpty)
       ? staffIds.first.toString()
@@ -101,6 +119,11 @@ Map<String, dynamic> _normalizeReservation(Map<String, dynamic> reservation) {
   final createdAt = _parseTimestamp(reservation['created_at']);
   final updatedAt = _parseTimestamp(reservation['updated_at']);
   final lastCaptureAt = _parseTimestamp(reservation['last_capture_at']);
+  // Guest detail page's 予約履歴 tab shows a 時間帯 (time_slot, e.g. "1部")
+  // alongside a derived clock-time range - there's no stored range field in
+  // schema.md, so it's computed from `date` (the reservation's start
+  // moment) + `duration_minutes`, both real stored fields.
+  reservation['time_range'] = _formatTimeRange(date, durationMinutes);
   if (date != null) {
     reservation['date'] = _formatDate(date);
     reservation['date_time'] = _formatTime(date);
@@ -111,14 +134,21 @@ Map<String, dynamic> _normalizeReservation(Map<String, dynamic> reservation) {
   }
   if (createdAt != null) {
     reservation['created_at'] = _formatDate(createdAt);
+    reservation['created_at_time'] = _formatTime(createdAt);
   }
   if (updatedAt != null) {
     reservation['updated_at'] = _formatDate(updatedAt);
   }
   if (lastCaptureAt != null) {
     reservation['last_capture_at'] = _formatDate(lastCaptureAt);
+    reservation['last_capture_at_time'] = _formatTime(lastCaptureAt);
   }
   reservation['status_label'] = _statusLabel(reservation['status']);
+  // Guest detail page's 決済履歴 tab shows a formatted "4,400円" style
+  // amount; comma-grouped here rather than fought over in the FlutterFlow
+  // builder's limited text-formatting options.
+  reservation['total_amount_display'] =
+      _formatCurrency(reservation['total_amount']);
   return reservation;
 }
 
@@ -157,6 +187,32 @@ String _formatTime(DateTime utc) {
   final hh = jst.hour.toString().padLeft(2, '0');
   final mm = jst.minute.toString().padLeft(2, '0');
   return '$hh:$mm';
+}
+
+/// "17:00 ~ 20:00" style, JST. Derived from the reservation's start moment
+/// plus its planned duration - there's no separate stored end-time field.
+String? _formatTimeRange(DateTime? utcStart, dynamic durationMinutes) {
+  if (utcStart == null || durationMinutes is! num) return null;
+  final startJst = utcStart.add(const Duration(hours: 9));
+  final endJst = startJst.add(Duration(minutes: durationMinutes.round()));
+  String fmt(DateTime t) =>
+      '${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}';
+  return '${fmt(startJst)} ~ ${fmt(endJst)}';
+}
+
+/// "4,400円" style. Returns null (rather than "0円") when the amount is
+/// missing/non-numeric so the UI can fall back to its own placeholder.
+String? _formatCurrency(dynamic amount) {
+  if (amount is! num) return null;
+  final intAmount = amount.round();
+  final digits = intAmount.abs().toString();
+  final buffer = StringBuffer();
+  for (var i = 0; i < digits.length; i++) {
+    if (i > 0 && (digits.length - i) % 3 == 0) buffer.write(',');
+    buffer.write(digits[i]);
+  }
+  final sign = intAmount < 0 ? '-' : '';
+  return '$sign${buffer.toString()}円';
 }
 
 /// Japanese labels for the 11 statuses documented in

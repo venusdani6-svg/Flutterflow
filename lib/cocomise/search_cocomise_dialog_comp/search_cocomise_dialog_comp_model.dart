@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'search_cocomise_dialog_comp_widget.dart'
@@ -12,6 +13,8 @@ class SearchCocomiseDialogCompModel
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
+  // Stores action output result for [Custom Action - adminGetCocotenShops] action in Button widget.
+  List<CocotenShopItemStruct>? cocomiseSearchResult;
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;

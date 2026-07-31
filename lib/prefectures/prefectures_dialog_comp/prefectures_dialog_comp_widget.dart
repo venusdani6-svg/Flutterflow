@@ -1,6 +1,9 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'prefectures_dialog_comp_model.dart';
 export 'prefectures_dialog_comp_model.dart';
@@ -28,53 +31,293 @@ class _PrefecturesDialogCompWidgetState
     super.initState();
     _model = createModel(context, () => PrefecturesDialogCompModel());
 
-    _model.switchValue1 = false;
-    _model.switchValue2 = false;
-    _model.switchValue3 = false;
-    _model.switchValue4 = false;
-    _model.switchValue5 = false;
-    _model.switchValue6 = false;
-    _model.switchValue7 = false;
-    _model.switchValue8 = false;
-    _model.switchValue9 = false;
-    _model.switchValue10 = false;
-    _model.switchValue11 = false;
-    _model.switchValue12 = true;
-    _model.switchValue13 = true;
-    _model.switchValue14 = true;
-    _model.switchValue15 = false;
-    _model.switchValue16 = false;
-    _model.switchValue17 = false;
-    _model.switchValue18 = false;
-    _model.switchValue19 = false;
-    _model.switchValue20 = false;
-    _model.switchValue21 = true;
-    _model.switchValue22 = false;
-    _model.switchValue23 = true;
-    _model.switchValue24 = false;
-    _model.switchValue25 = false;
-    _model.switchValue26 = true;
-    _model.switchValue27 = true;
-    _model.switchValue28 = true;
-    _model.switchValue29 = false;
-    _model.switchValue30 = false;
-    _model.switchValue31 = false;
-    _model.switchValue32 = false;
-    _model.switchValue33 = true;
-    _model.switchValue34 = true;
-    _model.switchValue35 = false;
-    _model.switchValue36 = false;
-    _model.switchValue37 = true;
-    _model.switchValue38 = false;
-    _model.switchValue39 = false;
-    _model.switchValue40 = true;
-    _model.switchValue41 = false;
-    _model.switchValue42 = false;
-    _model.switchValue43 = false;
-    _model.switchValue44 = false;
-    _model.switchValue45 = false;
-    _model.switchValue46 = false;
-    _model.switchValue47 = false;
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.prefDialogConfigInit = await actions.adminGetSystemConfig();
+      _model.hokkaidoActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_hokkaido_active''',
+      );
+      safeSetState(() {});
+      _model.aomoriActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_aomori_active''',
+      );
+      safeSetState(() {});
+      _model.iwateActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_iwate_active''',
+      );
+      safeSetState(() {});
+      _model.miyagiActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_miyagi_active''',
+      );
+      safeSetState(() {});
+      _model.akitaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_akita_active''',
+      );
+      safeSetState(() {});
+      _model.yamagataActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_yamagata_active''',
+      );
+      safeSetState(() {});
+      _model.fukushimaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_fukushima_active''',
+      );
+      safeSetState(() {});
+      _model.ibarakiActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_ibaraki_active''',
+      );
+      safeSetState(() {});
+      _model.tochigiActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_tochigi_active''',
+      );
+      safeSetState(() {});
+      _model.gunmaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_gunma_active''',
+      );
+      safeSetState(() {});
+      _model.saitamaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_saitama_active''',
+      );
+      safeSetState(() {});
+      _model.chibaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_chiba_active''',
+      );
+      safeSetState(() {});
+      _model.tokyoActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_tokyo_active''',
+      );
+      safeSetState(() {});
+      _model.kanagawaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_kanagawa_active''',
+      );
+      safeSetState(() {});
+      _model.niigataActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_niigata_active''',
+      );
+      safeSetState(() {});
+      _model.toyamaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_toyama_active''',
+      );
+      safeSetState(() {});
+      _model.ishikawaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_ishikawa_active''',
+      );
+      safeSetState(() {});
+      _model.fukuiActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_fukui_active''',
+      );
+      safeSetState(() {});
+      _model.yamanashiActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_yamanashi_active''',
+      );
+      safeSetState(() {});
+      _model.naganoActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_nagano_active''',
+      );
+      safeSetState(() {});
+      _model.gifuActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_gifu_active''',
+      );
+      safeSetState(() {});
+      _model.shizuokaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_shizuoka_active''',
+      );
+      safeSetState(() {});
+      _model.aichiActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_aichi_active''',
+      );
+      safeSetState(() {});
+      _model.mieActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_mie_active''',
+      );
+      safeSetState(() {});
+      _model.shigaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_shiga_active''',
+      );
+      safeSetState(() {});
+      _model.kyotoActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_kyoto_active''',
+      );
+      safeSetState(() {});
+      _model.osakaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_osaka_active''',
+      );
+      safeSetState(() {});
+      _model.hyogoActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_hyogo_active''',
+      );
+      safeSetState(() {});
+      _model.naraActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_nara_active''',
+      );
+      safeSetState(() {});
+      _model.wakayamaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_wakayama_active''',
+      );
+      safeSetState(() {});
+      _model.tottoriActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_tottori_active''',
+      );
+      safeSetState(() {});
+      _model.shimaneActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_shimane_active''',
+      );
+      safeSetState(() {});
+      _model.okayamaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_okayama_active''',
+      );
+      safeSetState(() {});
+      _model.hiroshimaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_hiroshima_active''',
+      );
+      safeSetState(() {});
+      _model.yamaguchiActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_yamaguchi_active''',
+      );
+      safeSetState(() {});
+      _model.tokushimaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_tokushima_active''',
+      );
+      safeSetState(() {});
+      _model.kagawaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_kagawa_active''',
+      );
+      safeSetState(() {});
+      _model.ehimeActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_ehime_active''',
+      );
+      safeSetState(() {});
+      _model.kochiActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_kochi_active''',
+      );
+      safeSetState(() {});
+      _model.fukuokaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_fukuoka_active''',
+      );
+      safeSetState(() {});
+      _model.sagaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_saga_active''',
+      );
+      safeSetState(() {});
+      _model.nagasakiActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_nagasaki_active''',
+      );
+      safeSetState(() {});
+      _model.kumamotoActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_kumamoto_active''',
+      );
+      safeSetState(() {});
+      _model.oitaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_oita_active''',
+      );
+      safeSetState(() {});
+      _model.miyazakiActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_miyazaki_active''',
+      );
+      safeSetState(() {});
+      _model.kagoshimaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_kagoshima_active''',
+      );
+      safeSetState(() {});
+      _model.okinawaActive = getJsonField(
+        _model.prefDialogConfigInit,
+        r'''$.area_okinawa_active''',
+      );
+      safeSetState(() {});
+    });
+
+    _model.switchValue1 = _model.hokkaidoActive!;
+    _model.switchValue2 = _model.aomoriActive!;
+    _model.switchValue3 = _model.iwateActive!;
+    _model.switchValue4 = _model.miyagiActive!;
+    _model.switchValue5 = _model.akitaActive!;
+    _model.switchValue6 = _model.yamagataActive!;
+    _model.switchValue7 = _model.fukushimaActive!;
+    _model.switchValue8 = _model.ibarakiActive!;
+    _model.switchValue9 = _model.tochigiActive!;
+    _model.switchValue10 = _model.gunmaActive!;
+    _model.switchValue11 = _model.saitamaActive!;
+    _model.switchValue12 = _model.chibaActive!;
+    _model.switchValue13 = _model.tokyoActive!;
+    _model.switchValue14 = _model.kanagawaActive!;
+    _model.switchValue15 = _model.niigataActive!;
+    _model.switchValue16 = _model.toyamaActive!;
+    _model.switchValue17 = _model.ishikawaActive!;
+    _model.switchValue18 = _model.fukuiActive!;
+    _model.switchValue19 = _model.yamanashiActive!;
+    _model.switchValue20 = _model.naganoActive!;
+    _model.switchValue21 = _model.gifuActive!;
+    _model.switchValue22 = _model.shizuokaActive!;
+    _model.switchValue23 = _model.aichiActive!;
+    _model.switchValue24 = _model.mieActive!;
+    _model.switchValue25 = _model.shigaActive!;
+    _model.switchValue26 = _model.kyotoActive!;
+    _model.switchValue27 = _model.osakaActive!;
+    _model.switchValue28 = _model.hyogoActive!;
+    _model.switchValue29 = _model.naraActive!;
+    _model.switchValue30 = _model.wakayamaActive!;
+    _model.switchValue31 = _model.tottoriActive!;
+    _model.switchValue32 = _model.shimaneActive!;
+    _model.switchValue33 = _model.okayamaActive!;
+    _model.switchValue34 = _model.hiroshimaActive!;
+    _model.switchValue35 = _model.yamaguchiActive!;
+    _model.switchValue36 = _model.tokushimaActive!;
+    _model.switchValue37 = _model.kagawaActive!;
+    _model.switchValue38 = _model.ehimeActive!;
+    _model.switchValue39 = _model.kochiActive!;
+    _model.switchValue40 = _model.fukuokaActive!;
+    _model.switchValue41 = _model.sagaActive!;
+    _model.switchValue42 = _model.nagasakiActive!;
+    _model.switchValue43 = _model.kumamotoActive!;
+    _model.switchValue44 = _model.oitaActive!;
+    _model.switchValue45 = _model.miyazakiActive!;
+    _model.switchValue46 = _model.kagoshimaActive!;
+    _model.switchValue47 = _model.okinawaActive!;
   }
 
   @override
@@ -134,6 +377,74 @@ class _PrefecturesDialogCompWidgetState
                           ),
                     ),
                   ),
+                ),
+              ),
+              FFButtonWidget(
+                onPressed: () async {
+                  _model.saveAllPrefecturesResult =
+                      await actions.adminUpdateAllPrefectures(
+                    _model.switchValue1,
+                    _model.switchValue2,
+                    _model.switchValue3,
+                    _model.switchValue4,
+                    _model.switchValue5,
+                    _model.switchValue6,
+                    _model.switchValue7,
+                    _model.switchValue8,
+                    _model.switchValue9,
+                    _model.switchValue10,
+                    _model.switchValue11,
+                    _model.switchValue12,
+                    _model.switchValue13,
+                    _model.switchValue14,
+                    _model.switchValue15,
+                    _model.switchValue16,
+                    _model.switchValue17,
+                    _model.switchValue18,
+                    _model.switchValue19,
+                    _model.switchValue20,
+                    _model.switchValue21,
+                    _model.switchValue22,
+                    _model.switchValue23,
+                    _model.switchValue24,
+                    _model.switchValue25,
+                    _model.switchValue26,
+                    _model.switchValue27,
+                    _model.switchValue28,
+                    _model.switchValue29,
+                    _model.switchValue30,
+                    _model.switchValue31,
+                    _model.switchValue32,
+                    _model.switchValue33,
+                    _model.switchValue34,
+                    _model.switchValue35,
+                    _model.switchValue36,
+                    _model.switchValue37,
+                    _model.switchValue38,
+                    _model.switchValue39,
+                    _model.switchValue40,
+                    _model.switchValue41,
+                    _model.switchValue42,
+                    _model.switchValue43,
+                    _model.switchValue44,
+                    _model.switchValue45,
+                    _model.switchValue46,
+                    _model.switchValue47,
+                  );
+                  Navigator.pop(context);
+
+                  safeSetState(() {});
+                },
+                text: '保存',
+                options: FFButtonOptions(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  iconPadding:
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: FlutterFlowTheme.of(context).primary,
+                  textStyle: TextStyle(
+                    color: FlutterFlowTheme.of(context).primaryBackground,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
               Padding(

@@ -40,6 +40,7 @@ class _ReservationListPageWidgetState extends State<ReservationListPageWidget> {
         FFAppState().activeReservationScheduledBefore,
         50,
         '',
+        '',
       );
       FFAppState().reservationList = getJsonField(
         _model.reservationListResult,
@@ -969,7 +970,7 @@ class _ReservationListPageWidgetState extends State<ReservationListPageWidget> {
                                                                                                     Text(
                                                                                                       getJsonField(
                                                                                                         reservationItem,
-                                                                                                        r'''$.primary_cast_id''',
+                                                                                                        r'''$.primary_cast_nickname''',
                                                                                                       ).toString(),
                                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                             font: GoogleFonts.inter(

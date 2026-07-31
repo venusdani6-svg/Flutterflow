@@ -40,6 +40,9 @@ class AdminLoginPageModel extends FlutterFlowModel<AdminLoginPageWidget> {
       return 'パスワードは８文字以上を入力してください';
     }
 
+    if (!RegExp('^[a-z0-9]+\$').hasMatch(val)) {
+      return 'パスワードは半角小文字と数字のみで入力してください';
+    }
     return null;
   }
 

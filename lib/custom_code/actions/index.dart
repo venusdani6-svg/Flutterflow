@@ -15,7 +15,6 @@ export 'admin_get_affiliate_overview.dart' show adminGetAffiliateOverview;
 export 'admin_update_affiliate_rate.dart' show adminUpdateAffiliateRate;
 export 'export_guest_list_csv.dart' show exportGuestListCsv;
 export 'admin_bulk_toggle_freeze.dart' show adminBulkToggleFreeze;
-export 'admin_get_users_v2.dart' show adminGetUsersV2;
 export 'admin_update_reservation_location.dart'
     show adminUpdateReservationLocation;
 export 'admin_get_tips_by_reservation.dart' show adminGetTipsByReservation;
@@ -31,3 +30,16 @@ export 'admin_update_service_area_settings.dart'
 export 'admin_update_taxi_settings.dart' show adminUpdateTaxiSettings;
 export 'admin_get_banners.dart' show adminGetBanners;
 export 'admin_delete_banner.dart' show adminDeleteBanner;
+export 'admin_get_guest_reservations_list.dart'
+    show adminGetGuestReservationsList;
+export 'admin_get_kyc_users_list.dart' show adminGetKycUsersList;
+export 'admin_get_user_list_items.dart' show adminGetUserListItems;
+export 'admin_get_audit_logs.dart' show adminGetAuditLogs;
+export 'admin_get_cocoten_shops.dart' show adminGetCocotenShops;
+export 'admin_upsert_cocoten_shop.dart' show adminUpsertCocotenShop;
+export 'admin_delete_cocoten_shop.dart' show adminDeleteCocotenShop;
+export 'admin_get_work_posts.dart' show adminGetWorkPosts;
+export 'admin_close_work_post.dart' show adminCloseWorkPost;
+export 'admin_update_all_prefectures.dart' show adminUpdateAllPrefectures;
+export 'admin_get_todays_registration_counts.dart'
+    show adminGetTodaysRegistrationCounts;

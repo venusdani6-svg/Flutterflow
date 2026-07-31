@@ -1,7 +1,9 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'filter_job_board_dialog_comp_model.dart';
@@ -61,7 +63,8 @@ class _FilterJobBoardDialogCompWidgetState
                 FlutterFlowDropDown<String>(
                   controller: _model.dropDownValueController ??=
                       FormFieldController<String>(null),
-                  options: ['ステータス', '期間'],
+                  options: List<String>.from(['', 'open', 'filled', 'closed']),
+                  optionLabels: ['すべて', '募集中', '採用済み', '終了'],
                   onChanged: (val) =>
                       safeSetState(() => _model.dropDownValue = val),
                   width: 700.0,
@@ -110,7 +113,18 @@ class _FilterJobBoardDialogCompWidgetState
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
+                    _model.workPostFilterResult =
+                        await actions.adminGetWorkPosts(
+                      _model.dropDownValue,
+                    );
+                    FFAppState().workPostListStruct = _model
+                        .workPostFilterResult!
+                        .toList()
+                        .cast<WorkPostItemStruct>();
+                    safeSetState(() {});
                     Navigator.pop(context);
+
+                    safeSetState(() {});
                   },
                   child: Container(
                     width: 50.0,

@@ -1,7 +1,9 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'filter_audit_log_dialog_comp_model.dart';
@@ -61,7 +63,40 @@ class _FilterAuditLogDialogCompWidgetState
                 FlutterFlowDropDown<String>(
                   controller: _model.dropDownValueController ??=
                       FormFieldController<String>(null),
-                  options: ['管理者', '操作内容', '対象タイプ', '期間'],
+                  options: List<String>.from([
+                    '',
+                    'approve_kyc',
+                    'reject_kyc',
+                    'freeze_account',
+                    'unfreeze_account',
+                    'force_delete',
+                    'force_cancel',
+                    'update_reservation_location',
+                    'update_affiliate_rate',
+                    'delete_banner',
+                    'update_system_config',
+                    'resolve_report',
+                    'payout_on_hold',
+                    'payout_rejected',
+                    'approve_payout'
+                  ]),
+                  optionLabels: [
+                    'すべて',
+                    'KYC承認',
+                    'KYC却下',
+                    'アカウント凍結',
+                    'アカウント凍結解除',
+                    '強制退会',
+                    '予約強制キャンセル',
+                    '予約場所変更',
+                    'アフィリエイト料率変更',
+                    'バナー削除',
+                    'システム設定変更',
+                    '通報対応',
+                    '出金保留',
+                    '出金否認',
+                    '出金承認'
+                  ],
                   onChanged: (val) =>
                       safeSetState(() => _model.dropDownValue = val),
                   width: 700.0,
@@ -110,7 +145,20 @@ class _FilterAuditLogDialogCompWidgetState
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
+                    _model.auditLogFilterResult =
+                        await actions.adminGetAuditLogs(
+                      _model.dropDownValue,
+                      '',
+                      '',
+                    );
+                    FFAppState().auditLogListStruct = _model
+                        .auditLogFilterResult!
+                        .toList()
+                        .cast<AuditLogItemStruct>();
+                    safeSetState(() {});
                     Navigator.pop(context);
+
+                    safeSetState(() {});
                   },
                   child: Container(
                     width: 50.0,

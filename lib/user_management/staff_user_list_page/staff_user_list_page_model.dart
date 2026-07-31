@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/index.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/material.dart';
 class StaffUserListPageModel extends FlutterFlowModel<StaffUserListPageWidget> {
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Custom Action - adminGetUserListItems] action in StaffUserListPage widget.
+  List<AdminUserListItemStruct>? staffListInitRaw;
   // Model for Main_Menu_Comp component.
   late MainMenuCompModel mainMenuCompModel;
 

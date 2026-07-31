@@ -200,6 +200,7 @@ class _SearchReservationDialogCompWidgetState
                       FFAppState().activeReservationScheduledBefore,
                       50,
                       '',
+                      '',
                     );
                     FFAppState().reservationList = getJsonField(
                       _model.reservationFilterResult,

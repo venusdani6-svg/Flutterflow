@@ -2,8 +2,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/info_dialog_comp/info_dialog_comp_widget.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'user_management_page_model.dart';
 export 'user_management_page_model.dart';
@@ -28,6 +30,19 @@ class _UserManagementPageWidgetState extends State<UserManagementPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => UserManagementPageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.regCounts = await actions.adminGetTodaysRegistrationCounts();
+      _model.guestRegCount = _model.regCounts?.guestCount;
+      safeSetState(() {});
+      _model.castRegCount = _model.regCounts?.castCount;
+      safeSetState(() {});
+      _model.staffRegCount = _model.regCounts?.staffCount;
+      safeSetState(() {});
+      _model.adminRegCount = _model.regCounts?.adminCount;
+      safeSetState(() {});
+    });
   }
 
   @override
@@ -856,7 +871,8 @@ class _UserManagementPageWidgetState extends State<UserManagementPageWidget> {
                                                                           ),
                                                                     ),
                                                                     Text(
-                                                                      '1234',
+                                                                      _model
+                                                                          .guestRegCount!,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -1064,7 +1080,8 @@ class _UserManagementPageWidgetState extends State<UserManagementPageWidget> {
                                                                         ),
                                                                   ),
                                                                   Text(
-                                                                    '1234',
+                                                                    _model
+                                                                        .castRegCount!,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -1303,7 +1320,8 @@ class _UserManagementPageWidgetState extends State<UserManagementPageWidget> {
                                                                           ),
                                                                     ),
                                                                     Text(
-                                                                      '123',
+                                                                      _model
+                                                                          .staffRegCount!,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -1542,7 +1560,8 @@ class _UserManagementPageWidgetState extends State<UserManagementPageWidget> {
                                                                           ),
                                                                     ),
                                                                     Text(
-                                                                      '10',
+                                                                      _model
+                                                                          .adminRegCount!,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -1591,81 +1610,6 @@ class _UserManagementPageWidgetState extends State<UserManagementPageWidget> {
                                                             ],
                                                           ),
                                                         ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Container(
-                                                      width: 250.0,
-                                                      height: 150.0,
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .primaryBackground,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(16.0),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Container(
-                                                      width: 250.0,
-                                                      height: 150.0,
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .primaryBackground,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(16.0),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ].divide(SizedBox(width: 8.0)),
-                                              ),
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Expanded(
-                                                    child: Container(
-                                                      width: 250.0,
-                                                      height: 150.0,
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .primaryBackground,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(16.0),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Container(
-                                                      width: 250.0,
-                                                      height: 150.0,
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .primaryBackground,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(16.0),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Container(
-                                                      width: 250.0,
-                                                      height: 150.0,
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .primaryBackground,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(16.0),
                                                       ),
                                                     ),
                                                   ),

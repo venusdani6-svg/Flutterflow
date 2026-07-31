@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'filter_k_y_c_dialog_comp_widget.dart' show FilterKYCDialogCompWidget;
@@ -10,8 +11,8 @@ class FilterKYCDialogCompModel
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
-  // Stores action output result for [Custom Action - adminGetUsersV2] action in IconButton widget.
-  dynamic kycFilterResult;
+  // Stores action output result for [Custom Action - adminGetKycUsersList] action in IconButton widget.
+  List<KycUserItemStruct>? kycFilterResultTyped;
 
   @override
   void initState(BuildContext context) {}

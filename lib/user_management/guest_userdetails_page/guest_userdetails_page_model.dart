@@ -1,3 +1,5 @@
+import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import 'guest_userdetails_page_widget.dart' show GuestUserdetailsPageWidget;
@@ -8,6 +10,22 @@ class GuestUserdetailsPageModel
   ///  Local state fields for this page.
 
   dynamic guestDetail;
+
+  List<ReservationHistoryItemStruct> reservationsList = [];
+  void addToReservationsList(ReservationHistoryItemStruct item) =>
+      reservationsList.add(item);
+  void removeFromReservationsList(ReservationHistoryItemStruct item) =>
+      reservationsList.remove(item);
+  void removeAtIndexFromReservationsList(int index) =>
+      reservationsList.removeAt(index);
+  void insertAtIndexInReservationsList(
+          int index, ReservationHistoryItemStruct item) =>
+      reservationsList.insert(index, item);
+  void updateReservationsListAtIndex(
+          int index, Function(ReservationHistoryItemStruct) updateFn) =>
+      reservationsList[index] = updateFn(reservationsList[index]);
+
+  bool? isReservationsLoaded = false;
 
   ///  State fields for stateful widgets in this page.
 
@@ -21,6 +39,9 @@ class GuestUserdetailsPageModel
       tabBarController != null ? tabBarController!.index : 0;
   int get tabBarPreviousIndex =>
       tabBarController != null ? tabBarController!.previousIndex : 0;
+
+  // Stores action output result for [Custom Action - adminGetGuestReservationsList] action in TabBar widget.
+  List<ReservationHistoryItemStruct>? reservationsRawList;
 
   @override
   void initState(BuildContext context) {
