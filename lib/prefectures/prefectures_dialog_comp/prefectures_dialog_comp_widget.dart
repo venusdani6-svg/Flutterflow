@@ -269,6 +269,8 @@ class _PrefecturesDialogCompWidgetState
         r'''$.area_okinawa_active''',
       );
       safeSetState(() {});
+      _model.prefConfigLoaded = true;
+      safeSetState(() {});
     });
 
     _model.switchValue1 = _model.hokkaidoActive!;
@@ -381,57 +383,59 @@ class _PrefecturesDialogCompWidgetState
               ),
               FFButtonWidget(
                 onPressed: () async {
-                  _model.saveAllPrefecturesResult =
-                      await actions.adminUpdateAllPrefectures(
-                    _model.switchValue1,
-                    _model.switchValue2,
-                    _model.switchValue3,
-                    _model.switchValue4,
-                    _model.switchValue5,
-                    _model.switchValue6,
-                    _model.switchValue7,
-                    _model.switchValue8,
-                    _model.switchValue9,
-                    _model.switchValue10,
-                    _model.switchValue11,
-                    _model.switchValue12,
-                    _model.switchValue13,
-                    _model.switchValue14,
-                    _model.switchValue15,
-                    _model.switchValue16,
-                    _model.switchValue17,
-                    _model.switchValue18,
-                    _model.switchValue19,
-                    _model.switchValue20,
-                    _model.switchValue21,
-                    _model.switchValue22,
-                    _model.switchValue23,
-                    _model.switchValue24,
-                    _model.switchValue25,
-                    _model.switchValue26,
-                    _model.switchValue27,
-                    _model.switchValue28,
-                    _model.switchValue29,
-                    _model.switchValue30,
-                    _model.switchValue31,
-                    _model.switchValue32,
-                    _model.switchValue33,
-                    _model.switchValue34,
-                    _model.switchValue35,
-                    _model.switchValue36,
-                    _model.switchValue37,
-                    _model.switchValue38,
-                    _model.switchValue39,
-                    _model.switchValue40,
-                    _model.switchValue41,
-                    _model.switchValue42,
-                    _model.switchValue43,
-                    _model.switchValue44,
-                    _model.switchValue45,
-                    _model.switchValue46,
-                    _model.switchValue47,
-                  );
-                  Navigator.pop(context);
+                  if (_model.prefConfigLoaded!) {
+                    _model.saveAllPrefecturesResult =
+                        await actions.adminUpdateAllPrefectures(
+                      _model.hokkaidoActive,
+                      _model.aomoriActive,
+                      _model.iwateActive,
+                      _model.miyagiActive,
+                      _model.akitaActive,
+                      _model.yamagataActive,
+                      _model.fukushimaActive,
+                      _model.ibarakiActive,
+                      _model.tochigiActive,
+                      _model.gunmaActive,
+                      _model.saitamaActive,
+                      _model.chibaActive,
+                      _model.tokyoActive,
+                      _model.kanagawaActive,
+                      _model.niigataActive,
+                      _model.toyamaActive,
+                      _model.ishikawaActive,
+                      _model.fukuiActive,
+                      _model.yamanashiActive,
+                      _model.naganoActive,
+                      _model.gifuActive,
+                      _model.shizuokaActive,
+                      _model.aichiActive,
+                      _model.mieActive,
+                      _model.shigaActive,
+                      _model.kyotoActive,
+                      _model.osakaActive,
+                      _model.hyogoActive,
+                      _model.naraActive,
+                      _model.wakayamaActive,
+                      _model.tottoriActive,
+                      _model.shimaneActive,
+                      _model.okayamaActive,
+                      _model.hiroshimaActive,
+                      _model.yamaguchiActive,
+                      _model.tokushimaActive,
+                      _model.kagawaActive,
+                      _model.ehimeActive,
+                      _model.kochiActive,
+                      _model.fukuokaActive,
+                      _model.sagaActive,
+                      _model.nagasakiActive,
+                      _model.kumamotoActive,
+                      _model.oitaActive,
+                      _model.miyazakiActive,
+                      _model.kagoshimaActive,
+                      _model.okinawaActive,
+                    );
+                    Navigator.pop(context);
+                  }
 
                   safeSetState(() {});
                 },
@@ -557,6 +561,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue1 = newValue);
+                                        if (newValue) {
+                                          _model.hokkaidoActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.hokkaidoActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -621,6 +632,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue2 = newValue);
+                                        if (newValue) {
+                                          _model.aomoriActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.aomoriActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -692,6 +710,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue3 = newValue);
+                                        if (newValue) {
+                                          _model.iwateActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.iwateActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -756,6 +781,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue4 = newValue);
+                                        if (newValue) {
+                                          _model.miyagiActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.miyagiActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -827,6 +859,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue5 = newValue);
+                                        if (newValue) {
+                                          _model.akitaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.akitaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -891,6 +930,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue6 = newValue);
+                                        if (newValue) {
+                                          _model.yamagataActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.yamagataActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -962,6 +1008,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue7 = newValue);
+                                        if (newValue) {
+                                          _model.fukushimaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.fukushimaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -1080,6 +1133,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue8 = newValue);
+                                        if (newValue) {
+                                          _model.ibarakiActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.ibarakiActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -1144,6 +1204,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue9 = newValue);
+                                        if (newValue) {
+                                          _model.tochigiActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.tochigiActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -1215,6 +1282,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue10 = newValue);
+                                        if (newValue) {
+                                          _model.gunmaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.gunmaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -1279,6 +1353,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue11 = newValue);
+                                        if (newValue) {
+                                          _model.saitamaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.saitamaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -1350,6 +1431,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue12 = newValue);
+                                        if (newValue) {
+                                          _model.chibaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.chibaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -1414,6 +1502,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue13 = newValue);
+                                        if (newValue) {
+                                          _model.tokyoActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.tokyoActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -1485,6 +1580,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue14 = newValue);
+                                        if (newValue) {
+                                          _model.kanagawaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.kanagawaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -1597,6 +1699,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue15 = newValue);
+                                        if (newValue) {
+                                          _model.niigataActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.niigataActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -1661,6 +1770,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue16 = newValue);
+                                        if (newValue) {
+                                          _model.toyamaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.toyamaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -1732,6 +1848,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue17 = newValue);
+                                        if (newValue) {
+                                          _model.ishikawaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.ishikawaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -1796,6 +1919,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue18 = newValue);
+                                        if (newValue) {
+                                          _model.fukuiActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.fukuiActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -1867,6 +1997,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue19 = newValue);
+                                        if (newValue) {
+                                          _model.yamanashiActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.yamanashiActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -1931,6 +2068,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue20 = newValue);
+                                        if (newValue) {
+                                          _model.naganoActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.naganoActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -2002,6 +2146,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue21 = newValue);
+                                        if (newValue) {
+                                          _model.gifuActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.gifuActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -2066,6 +2217,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue22 = newValue);
+                                        if (newValue) {
+                                          _model.shizuokaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.shizuokaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -2137,6 +2295,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue23 = newValue);
+                                        if (newValue) {
+                                          _model.aichiActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.aichiActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -2249,6 +2414,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue24 = newValue);
+                                        if (newValue) {
+                                          _model.mieActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.mieActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -2313,6 +2485,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue25 = newValue);
+                                        if (newValue) {
+                                          _model.shigaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.shigaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -2384,6 +2563,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue26 = newValue);
+                                        if (newValue) {
+                                          _model.kyotoActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.kyotoActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -2448,6 +2634,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue27 = newValue);
+                                        if (newValue) {
+                                          _model.osakaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.osakaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -2519,6 +2712,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue28 = newValue);
+                                        if (newValue) {
+                                          _model.hyogoActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.hyogoActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -2583,6 +2783,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue29 = newValue);
+                                        if (newValue) {
+                                          _model.naraActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.naraActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -2654,6 +2861,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue30 = newValue);
+                                        if (newValue) {
+                                          _model.wakayamaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.wakayamaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -2766,6 +2980,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue31 = newValue);
+                                        if (newValue) {
+                                          _model.tottoriActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.tottoriActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -2830,6 +3051,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue32 = newValue);
+                                        if (newValue) {
+                                          _model.shimaneActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.shimaneActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -2901,6 +3129,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue33 = newValue);
+                                        if (newValue) {
+                                          _model.okayamaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.okayamaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -2965,6 +3200,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue34 = newValue);
+                                        if (newValue) {
+                                          _model.hiroshimaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.hiroshimaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -3036,6 +3278,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue35 = newValue);
+                                        if (newValue) {
+                                          _model.yamaguchiActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.yamaguchiActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -3148,6 +3397,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue36 = newValue);
+                                        if (newValue) {
+                                          _model.tokushimaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.tokushimaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -3212,6 +3468,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue37 = newValue);
+                                        if (newValue) {
+                                          _model.kagawaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.kagawaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -3283,6 +3546,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue38 = newValue);
+                                        if (newValue) {
+                                          _model.ehimeActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.ehimeActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -3347,6 +3617,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue39 = newValue);
+                                        if (newValue) {
+                                          _model.kochiActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.kochiActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -3451,6 +3728,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue40 = newValue);
+                                        if (newValue) {
+                                          _model.fukuokaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.fukuokaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -3515,6 +3799,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue41 = newValue);
+                                        if (newValue) {
+                                          _model.sagaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.sagaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -3586,6 +3877,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue42 = newValue);
+                                        if (newValue) {
+                                          _model.nagasakiActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.nagasakiActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -3650,6 +3948,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue43 = newValue);
+                                        if (newValue) {
+                                          _model.kumamotoActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.kumamotoActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -3721,6 +4026,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue44 = newValue);
+                                        if (newValue) {
+                                          _model.oitaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.oitaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -3785,6 +4097,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue45 = newValue);
+                                        if (newValue) {
+                                          _model.miyazakiActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.miyazakiActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -3856,6 +4175,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue46 = newValue);
+                                        if (newValue) {
+                                          _model.kagoshimaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.kagoshimaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:
@@ -3920,6 +4246,13 @@ class _PrefecturesDialogCompWidgetState
                                       onChanged: (newValue) async {
                                         safeSetState(() =>
                                             _model.switchValue47 = newValue);
+                                        if (newValue) {
+                                          _model.okinawaActive = true;
+                                          safeSetState(() {});
+                                        } else {
+                                          _model.okinawaActive = false;
+                                          safeSetState(() {});
+                                        }
                                       },
                                       activeColor: Color(0xFF06F705),
                                       activeTrackColor:

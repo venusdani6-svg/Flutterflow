@@ -1,10 +1,15 @@
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/profile_edit_dialog_comp_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/info_dialog_comp/info_dialog_comp_widget.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/index.dart';
+import 'package:aligned_dialog/aligned_dialog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -87,6 +92,12 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
 
         safeSetState(() {});
       });
+
+    _model.forceDeleteUserReasonFieldTextController ??= TextEditingController();
+    _model.forceDeleteUserReasonFieldFocusNode ??= FocusNode();
+
+    _model.freezeUserReasonFieldTextController ??= TextEditingController();
+    _model.freezeUserReasonFieldFocusNode ??= FocusNode();
   }
 
   @override
@@ -458,11 +469,14 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                       child:
                                                                           Container(
                                                                         height:
-                                                                            250.0,
+                                                                            400.0,
                                                                         width:
                                                                             760.0,
                                                                         child:
-                                                                            InfoDialogCompWidget(),
+                                                                            InfoDialogCompWidget(
+                                                                          targetUserId:
+                                                                              widget.userId,
+                                                                        ),
                                                                       ),
                                                                     ),
                                                                   );
@@ -708,56 +722,6 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                   ),
                                                 ),
                                               ],
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: AlignmentDirectional(
-                                                -0.61, 0.93),
-                                            child: Container(
-                                              width: 250.0,
-                                              height: 35.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .alternate,
-                                                borderRadius:
-                                                    BorderRadius.only(),
-                                                border: Border.all(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .alternate,
-                                                ),
-                                              ),
-                                              child: Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: Text(
-                                                  '登録日時',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font: GoogleFonts.inter(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        fontSize: 14.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
-                                                ),
-                                              ),
                                             ),
                                           ),
                                         ],
@@ -1797,8 +1761,38 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                                   ),
                                                                                                   child: Row(
                                                                                                     mainAxisSize: MainAxisSize.max,
-                                                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                                                     children: [
+                                                                                                      Align(
+                                                                                                        alignment: AlignmentDirectional(-0.61, 0.93),
+                                                                                                        child: Container(
+                                                                                                          width: 285.0,
+                                                                                                          height: 35.0,
+                                                                                                          decoration: BoxDecoration(
+                                                                                                            color: FlutterFlowTheme.of(context).alternate,
+                                                                                                            borderRadius: BorderRadius.only(),
+                                                                                                            border: Border.all(
+                                                                                                              color: FlutterFlowTheme.of(context).alternate,
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                          child: Align(
+                                                                                                            alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                                            child: Text(
+                                                                                                              '登録日時',
+                                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                    font: GoogleFonts.inter(
+                                                                                                                      fontWeight: FontWeight.w500,
+                                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                    ),
+                                                                                                                    fontSize: 14.0,
+                                                                                                                    letterSpacing: 0.0,
+                                                                                                                    fontWeight: FontWeight.w500,
+                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                  ),
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
                                                                                                       Text(
                                                                                                         getJsonField(
                                                                                                           _model.guestDetail,
@@ -3207,6 +3201,456 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                 ],
                                                                               ),
                                                                             ),
+                                                                            Container(
+                                                                              decoration: BoxDecoration(
+                                                                                color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                borderRadius: BorderRadius.circular(16.0),
+                                                                                border: Border.all(
+                                                                                  color: FlutterFlowTheme.of(context).alternate,
+                                                                                  width: 1.0,
+                                                                                ),
+                                                                              ),
+                                                                              child: Padding(
+                                                                                padding: EdgeInsets.all(20.0),
+                                                                                child: Column(
+                                                                                  mainAxisSize: MainAxisSize.min,
+                                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                  children: [
+                                                                                    Row(
+                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                      children: [
+                                                                                        Icon(
+                                                                                          Icons.admin_panel_settings,
+                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                          size: 20.0,
+                                                                                        ),
+                                                                                        Text(
+                                                                                          '管理者操作',
+                                                                                          style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                                font: GoogleFonts.interTight(
+                                                                                                  fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                                  fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                                ),
+                                                                                                letterSpacing: 0.0,
+                                                                                                fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                                fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                              ),
+                                                                                        ),
+                                                                                      ].divide(SizedBox(width: 8.0)),
+                                                                                    ),
+                                                                                    Container(
+                                                                                      decoration: BoxDecoration(
+                                                                                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                        borderRadius: BorderRadius.circular(12.0),
+                                                                                      ),
+                                                                                      child: Padding(
+                                                                                        padding: EdgeInsets.all(16.0),
+                                                                                        child: Column(
+                                                                                          mainAxisSize: MainAxisSize.min,
+                                                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                          children: [
+                                                                                            Text(
+                                                                                              '強制退会',
+                                                                                              style: FlutterFlowTheme.of(context).titleSmall.override(
+                                                                                                    font: GoogleFonts.interTight(
+                                                                                                      fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                                                                                      fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                                    ),
+                                                                                                    color: FlutterFlowTheme.of(context).error,
+                                                                                                    letterSpacing: 0.0,
+                                                                                                    fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                                                                                    fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                                  ),
+                                                                                            ),
+                                                                                            TextFormField(
+                                                                                              controller: _model.forceDeleteUserReasonFieldTextController,
+                                                                                              focusNode: _model.forceDeleteUserReasonFieldFocusNode,
+                                                                                              obscureText: false,
+                                                                                              decoration: InputDecoration(
+                                                                                                labelText: '強制退会理由',
+                                                                                                hintText: '例：規約違反行為の繰り返しのため',
+                                                                                                enabledBorder: OutlineInputBorder(
+                                                                                                  borderSide: BorderSide(
+                                                                                                    color: Color(0x00000000),
+                                                                                                    width: 1.0,
+                                                                                                  ),
+                                                                                                  borderRadius: const BorderRadius.only(
+                                                                                                    topLeft: Radius.circular(4.0),
+                                                                                                    topRight: Radius.circular(4.0),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                focusedBorder: OutlineInputBorder(
+                                                                                                  borderSide: BorderSide(
+                                                                                                    color: Color(0x00000000),
+                                                                                                    width: 1.0,
+                                                                                                  ),
+                                                                                                  borderRadius: const BorderRadius.only(
+                                                                                                    topLeft: Radius.circular(4.0),
+                                                                                                    topRight: Radius.circular(4.0),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                errorBorder: OutlineInputBorder(
+                                                                                                  borderSide: BorderSide(
+                                                                                                    color: Color(0x00000000),
+                                                                                                    width: 1.0,
+                                                                                                  ),
+                                                                                                  borderRadius: const BorderRadius.only(
+                                                                                                    topLeft: Radius.circular(4.0),
+                                                                                                    topRight: Radius.circular(4.0),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                focusedErrorBorder: OutlineInputBorder(
+                                                                                                  borderSide: BorderSide(
+                                                                                                    color: Color(0x00000000),
+                                                                                                    width: 1.0,
+                                                                                                  ),
+                                                                                                  borderRadius: const BorderRadius.only(
+                                                                                                    topLeft: Radius.circular(4.0),
+                                                                                                    topRight: Radius.circular(4.0),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                filled: true,
+                                                                                              ),
+                                                                                              style: TextStyle(),
+                                                                                              maxLines: null,
+                                                                                              validator: _model.forceDeleteUserReasonFieldTextControllerValidator.asValidator(context),
+                                                                                            ),
+                                                                                            FFButtonWidget(
+                                                                                              onPressed: () async {
+                                                                                                var confirmDialogResponse = await showDialog<bool>(
+                                                                                                      context: context,
+                                                                                                      builder: (alertDialogContext) {
+                                                                                                        return AlertDialog(
+                                                                                                          title: Text('強制退会の最終確認'),
+                                                                                                          content: Text('このユーザーを強制的に退会させます。この操作は取り消せません。本当によろしいですか？'),
+                                                                                                          actions: [
+                                                                                                            TextButton(
+                                                                                                              onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                                              child: Text('キャンセル'),
+                                                                                                            ),
+                                                                                                            TextButton(
+                                                                                                              onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                                              child: Text('強制退会する'),
+                                                                                                            ),
+                                                                                                          ],
+                                                                                                        );
+                                                                                                      },
+                                                                                                    ) ??
+                                                                                                    false;
+                                                                                                if (confirmDialogResponse) {
+                                                                                                  _model.forceDeleteUserResult = await actions.adminForceDeleteUser(
+                                                                                                    widget.userId!,
+                                                                                                    _model.forceDeleteUserReasonFieldTextController.text,
+                                                                                                  );
+
+                                                                                                  context.pushNamed(GuestUserListPageWidget.routeName);
+                                                                                                }
+
+                                                                                                safeSetState(() {});
+                                                                                              },
+                                                                                              text: '強制退会',
+                                                                                              options: FFButtonOptions(
+                                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                                color: FlutterFlowTheme.of(context).error,
+                                                                                                textStyle: TextStyle(
+                                                                                                  color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                                ),
+                                                                                                borderRadius: BorderRadius.circular(8.0),
+                                                                                              ),
+                                                                                            ),
+                                                                                          ].divide(SizedBox(height: 8.0)),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Container(
+                                                                                      decoration: BoxDecoration(
+                                                                                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                        borderRadius: BorderRadius.circular(12.0),
+                                                                                      ),
+                                                                                      child: Padding(
+                                                                                        padding: EdgeInsets.all(16.0),
+                                                                                        child: Column(
+                                                                                          mainAxisSize: MainAxisSize.min,
+                                                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                          children: [
+                                                                                            Text(
+                                                                                              'アカウント凍結',
+                                                                                              style: FlutterFlowTheme.of(context).titleSmall.override(
+                                                                                                    font: GoogleFonts.interTight(
+                                                                                                      fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                                                                                      fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                                    ),
+                                                                                                    letterSpacing: 0.0,
+                                                                                                    fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                                                                                    fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                                  ),
+                                                                                            ),
+                                                                                            TextFormField(
+                                                                                              controller: _model.freezeUserReasonFieldTextController,
+                                                                                              focusNode: _model.freezeUserReasonFieldFocusNode,
+                                                                                              obscureText: false,
+                                                                                              decoration: InputDecoration(
+                                                                                                labelText: '凍結理由（任意）',
+                                                                                                hintText: '例：規約違反行為のため',
+                                                                                                enabledBorder: OutlineInputBorder(
+                                                                                                  borderSide: BorderSide(
+                                                                                                    color: Color(0x00000000),
+                                                                                                    width: 1.0,
+                                                                                                  ),
+                                                                                                  borderRadius: const BorderRadius.only(
+                                                                                                    topLeft: Radius.circular(4.0),
+                                                                                                    topRight: Radius.circular(4.0),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                focusedBorder: OutlineInputBorder(
+                                                                                                  borderSide: BorderSide(
+                                                                                                    color: Color(0x00000000),
+                                                                                                    width: 1.0,
+                                                                                                  ),
+                                                                                                  borderRadius: const BorderRadius.only(
+                                                                                                    topLeft: Radius.circular(4.0),
+                                                                                                    topRight: Radius.circular(4.0),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                errorBorder: OutlineInputBorder(
+                                                                                                  borderSide: BorderSide(
+                                                                                                    color: Color(0x00000000),
+                                                                                                    width: 1.0,
+                                                                                                  ),
+                                                                                                  borderRadius: const BorderRadius.only(
+                                                                                                    topLeft: Radius.circular(4.0),
+                                                                                                    topRight: Radius.circular(4.0),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                focusedErrorBorder: OutlineInputBorder(
+                                                                                                  borderSide: BorderSide(
+                                                                                                    color: Color(0x00000000),
+                                                                                                    width: 1.0,
+                                                                                                  ),
+                                                                                                  borderRadius: const BorderRadius.only(
+                                                                                                    topLeft: Radius.circular(4.0),
+                                                                                                    topRight: Radius.circular(4.0),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                filled: true,
+                                                                                              ),
+                                                                                              style: TextStyle(),
+                                                                                              maxLines: null,
+                                                                                              validator: _model.freezeUserReasonFieldTextControllerValidator.asValidator(context),
+                                                                                            ),
+                                                                                            Row(
+                                                                                              mainAxisSize: MainAxisSize.max,
+                                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                              children: [
+                                                                                                FFButtonWidget(
+                                                                                                  onPressed: () async {
+                                                                                                    var confirmDialogResponse = await showDialog<bool>(
+                                                                                                          context: context,
+                                                                                                          builder: (alertDialogContext) {
+                                                                                                            return AlertDialog(
+                                                                                                              title: Text('アカウント凍結の確認'),
+                                                                                                              content: Text('このユーザーを凍結します。ログインおよびマッチングができなくなります。よろしいですか？'),
+                                                                                                              actions: [
+                                                                                                                TextButton(
+                                                                                                                  onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                                                  child: Text('キャンセル'),
+                                                                                                                ),
+                                                                                                                TextButton(
+                                                                                                                  onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                                                  child: Text('凍結する'),
+                                                                                                                ),
+                                                                                                              ],
+                                                                                                            );
+                                                                                                          },
+                                                                                                        ) ??
+                                                                                                        false;
+                                                                                                    if (confirmDialogResponse) {
+                                                                                                      _model.freezeUserResult = await actions.adminToggleFreeze(
+                                                                                                        widget.userId!,
+                                                                                                        true,
+                                                                                                        _model.freezeUserReasonFieldTextController.text,
+                                                                                                      );
+                                                                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                        SnackBar(
+                                                                                                          content: Text(
+                                                                                                            'アカウントを凍結しました。',
+                                                                                                            style: TextStyle(),
+                                                                                                          ),
+                                                                                                          duration: Duration(milliseconds: 4000),
+                                                                                                        ),
+                                                                                                      );
+                                                                                                    }
+
+                                                                                                    safeSetState(() {});
+                                                                                                  },
+                                                                                                  text: '凍結する',
+                                                                                                  options: FFButtonOptions(
+                                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                                    iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                                    color: FlutterFlowTheme.of(context).warning,
+                                                                                                    textStyle: TextStyle(
+                                                                                                      color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                                    ),
+                                                                                                    borderRadius: BorderRadius.circular(8.0),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                FFButtonWidget(
+                                                                                                  onPressed: () async {
+                                                                                                    var confirmDialogResponse = await showDialog<bool>(
+                                                                                                          context: context,
+                                                                                                          builder: (alertDialogContext) {
+                                                                                                            return AlertDialog(
+                                                                                                              title: Text('凍結解除の確認'),
+                                                                                                              content: Text('このユーザーの凍結を解除します。よろしいですか？'),
+                                                                                                              actions: [
+                                                                                                                TextButton(
+                                                                                                                  onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                                                  child: Text('キャンセル'),
+                                                                                                                ),
+                                                                                                                TextButton(
+                                                                                                                  onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                                                  child: Text('解除する'),
+                                                                                                                ),
+                                                                                                              ],
+                                                                                                            );
+                                                                                                          },
+                                                                                                        ) ??
+                                                                                                        false;
+                                                                                                    if (confirmDialogResponse) {
+                                                                                                      _model.unfreezeUserResult = await actions.adminToggleFreeze(
+                                                                                                        widget.userId!,
+                                                                                                        false,
+                                                                                                        _model.freezeUserReasonFieldTextController.text,
+                                                                                                      );
+                                                                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                        SnackBar(
+                                                                                                          content: Text(
+                                                                                                            '凍結を解除しました。',
+                                                                                                            style: TextStyle(),
+                                                                                                          ),
+                                                                                                          duration: Duration(milliseconds: 4000),
+                                                                                                        ),
+                                                                                                      );
+                                                                                                    }
+
+                                                                                                    safeSetState(() {});
+                                                                                                  },
+                                                                                                  text: '凍結を解除する',
+                                                                                                  options: FFButtonOptions(
+                                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                                    iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                                    color: FlutterFlowTheme.of(context).secondary,
+                                                                                                    textStyle: TextStyle(
+                                                                                                      color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                                    ),
+                                                                                                    borderRadius: BorderRadius.circular(8.0),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ].divide(SizedBox(width: 8.0)),
+                                                                                            ),
+                                                                                          ].divide(SizedBox(height: 8.0)),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Container(
+                                                                                      decoration: BoxDecoration(
+                                                                                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                        borderRadius: BorderRadius.circular(12.0),
+                                                                                      ),
+                                                                                      child: Padding(
+                                                                                        padding: EdgeInsets.all(16.0),
+                                                                                        child: Column(
+                                                                                          mainAxisSize: MainAxisSize.min,
+                                                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                          children: [
+                                                                                            Text(
+                                                                                              'プロフィール画像・自己紹介文',
+                                                                                              style: FlutterFlowTheme.of(context).titleSmall.override(
+                                                                                                    font: GoogleFonts.interTight(
+                                                                                                      fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                                                                                      fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                                    ),
+                                                                                                    letterSpacing: 0.0,
+                                                                                                    fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                                                                                    fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                                  ),
+                                                                                            ),
+                                                                                            ClipRRect(
+                                                                                              borderRadius: BorderRadius.circular(60.0),
+                                                                                              child: CachedNetworkImage(
+                                                                                                fadeInDuration: Duration(milliseconds: 0),
+                                                                                                fadeOutDuration: Duration(milliseconds: 0),
+                                                                                                imageUrl: getJsonField(
+                                                                                                  _model.guestDetail,
+                                                                                                  r'''$.profile_image_url''',
+                                                                                                ).toString(),
+                                                                                                width: 120.0,
+                                                                                                height: 120.0,
+                                                                                                fit: BoxFit.cover,
+                                                                                              ),
+                                                                                            ),
+                                                                                            Builder(
+                                                                                              builder: (context) => FFButtonWidget(
+                                                                                                onPressed: () async {
+                                                                                                  await showAlignedDialog(
+                                                                                                    context: context,
+                                                                                                    isGlobal: false,
+                                                                                                    avoidOverflow: false,
+                                                                                                    targetAnchor: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                                                    followerAnchor: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                                                    builder: (dialogContext) {
+                                                                                                      return Material(
+                                                                                                        color: Colors.transparent,
+                                                                                                        child: GestureDetector(
+                                                                                                          onTap: () {
+                                                                                                            FocusScope.of(dialogContext).unfocus();
+                                                                                                            FocusManager.instance.primaryFocus?.unfocus();
+                                                                                                          },
+                                                                                                          child: ProfileEditDialogCompWidget(
+                                                                                                            userId: widget.userId,
+                                                                                                            currentSelfIntroduction: getJsonField(
+                                                                                                              _model.guestDetail,
+                                                                                                              r'''$.self_introduction''',
+                                                                                                            ).toString(),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      );
+                                                                                                    },
+                                                                                                  );
+                                                                                                },
+                                                                                                text: '自己紹介文を編集',
+                                                                                                options: FFButtonOptions(
+                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                                  iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                                  color: Colors.transparent,
+                                                                                                  textStyle: TextStyle(
+                                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                                  ),
+                                                                                                  elevation: 0.0,
+                                                                                                  borderSide: BorderSide(
+                                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                                    width: 1.0,
+                                                                                                  ),
+                                                                                                  borderRadius: BorderRadius.circular(8.0),
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                          ].divide(SizedBox(height: 8.0)),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ].divide(SizedBox(height: 20.0)),
+                                                                                ),
+                                                                              ),
+                                                                            ),
                                                                           ],
                                                                         ),
                                                                       ),
@@ -4078,7 +4522,7 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                                                 ),
                                                                                                                 alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                                 child: Text(
-                                                                                                                  'ゆずき',
+                                                                                                                  '-',
                                                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                         font: GoogleFonts.inter(
                                                                                                                           fontWeight: FontWeight.w500,
@@ -4616,7 +5060,7 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                                                 ),
                                                                                                                 alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                                 child: Text(
-                                                                                                                  'ゆずき',
+                                                                                                                  '-',
                                                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                         font: GoogleFonts.inter(
                                                                                                                           fontWeight: FontWeight.w500,

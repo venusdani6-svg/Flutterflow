@@ -1,9 +1,11 @@
+import '/components/report_chat_log_dialog_comp_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/report/filter_report_dialog_comp/filter_report_dialog_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
+import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -44,6 +46,10 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
       _model.isReportsLoaded = true;
       safeSetState(() {});
     });
+
+    _model.reportResolutionReasonFieldTextController ??=
+        TextEditingController();
+    _model.reportResolutionReasonFieldFocusNode ??= FocusNode();
   }
 
   @override
@@ -761,6 +767,103 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                               ),
                                                             ],
                                                           ),
+                                                          TextFormField(
+                                                            controller: _model
+                                                                .reportResolutionReasonFieldTextController,
+                                                            focusNode: _model
+                                                                .reportResolutionReasonFieldFocusNode,
+                                                            obscureText: false,
+                                                            decoration:
+                                                                InputDecoration(
+                                                              labelText:
+                                                                  '解決メモ（監査ログに記録されます）',
+                                                              hintText:
+                                                                  '例：対応済み。ユーザーへ警告済み',
+                                                              enabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  color: Color(
+                                                                      0x00000000),
+                                                                  width: 1.0,
+                                                                ),
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          4.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          4.0),
+                                                                ),
+                                                              ),
+                                                              focusedBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  color: Color(
+                                                                      0x00000000),
+                                                                  width: 1.0,
+                                                                ),
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          4.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          4.0),
+                                                                ),
+                                                              ),
+                                                              errorBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  color: Color(
+                                                                      0x00000000),
+                                                                  width: 1.0,
+                                                                ),
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          4.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          4.0),
+                                                                ),
+                                                              ),
+                                                              focusedErrorBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  color: Color(
+                                                                      0x00000000),
+                                                                  width: 1.0,
+                                                                ),
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          4.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          4.0),
+                                                                ),
+                                                              ),
+                                                              filled: true,
+                                                            ),
+                                                            style: TextStyle(),
+                                                            maxLines: null,
+                                                            validator: _model
+                                                                .reportResolutionReasonFieldTextControllerValidator
+                                                                .asValidator(
+                                                                    context),
+                                                          ),
                                                           if (_model
                                                               .isReportsLoaded)
                                                             Padding(
@@ -1284,7 +1387,7 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                                                       reportsResult1ItemItem,
                                                                                                       r'''$.id''',
                                                                                                     ).toString(),
-                                                                                                    '',
+                                                                                                    _model.reportResolutionReasonFieldTextController.text,
                                                                                                     'resolve',
                                                                                                   );
                                                                                                   if (getJsonField(
@@ -1305,6 +1408,16 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                                                         );
                                                                                                       },
                                                                                                     );
+                                                                                                    if (_model.freezeReportedUserCheckboxValueMap[reportsResult1ItemItem]!) {
+                                                                                                      _model.reportFreezeResult = await actions.adminToggleFreeze(
+                                                                                                        getJsonField(
+                                                                                                          reportsResult1ItemItem,
+                                                                                                          r'''$.reported_id''',
+                                                                                                        ).toString(),
+                                                                                                        true,
+                                                                                                        '通報解決に伴う凍結',
+                                                                                                      );
+                                                                                                    }
                                                                                                   } else {
                                                                                                     await showDialog(
                                                                                                       context: context,
@@ -1343,6 +1456,94 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                                                   elevation: 0.0,
                                                                                                   borderRadius: BorderRadius.circular(8.0),
                                                                                                 ),
+                                                                                              ),
+                                                                                              Row(
+                                                                                                mainAxisSize: MainAxisSize.min,
+                                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                                children: [
+                                                                                                  Theme(
+                                                                                                    data: ThemeData(
+                                                                                                      checkboxTheme: CheckboxThemeData(
+                                                                                                        shape: RoundedRectangleBorder(
+                                                                                                          borderRadius: BorderRadius.circular(4.0),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                      unselectedWidgetColor: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                    ),
+                                                                                                    child: Checkbox(
+                                                                                                      value: _model.freezeReportedUserCheckboxValueMap[reportsResult1ItemItem] ??= false,
+                                                                                                      onChanged: (newValue) async {
+                                                                                                        safeSetState(() => _model.freezeReportedUserCheckboxValueMap[reportsResult1ItemItem] = newValue!);
+                                                                                                      },
+                                                                                                      side: (FlutterFlowTheme.of(context).secondaryText != null)
+                                                                                                          ? BorderSide(
+                                                                                                              width: 2,
+                                                                                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                            )
+                                                                                                          : null,
+                                                                                                      activeColor: FlutterFlowTheme.of(context).primary,
+                                                                                                      checkColor: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  Builder(
+                                                                                                    builder: (context) => FFButtonWidget(
+                                                                                                      onPressed: () async {
+                                                                                                        _model.reportChatLogResult = await actions.adminGetReportChatLog(
+                                                                                                          getJsonField(
+                                                                                                            reportsResult1ItemItem,
+                                                                                                            r'''$.id''',
+                                                                                                          ).toString(),
+                                                                                                        );
+                                                                                                        await showAlignedDialog(
+                                                                                                          context: context,
+                                                                                                          isGlobal: false,
+                                                                                                          avoidOverflow: false,
+                                                                                                          targetAnchor: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                                                          followerAnchor: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                                                          builder: (dialogContext) {
+                                                                                                            return Material(
+                                                                                                              color: Colors.transparent,
+                                                                                                              child: GestureDetector(
+                                                                                                                onTap: () {
+                                                                                                                  FocusScope.of(dialogContext).unfocus();
+                                                                                                                  FocusManager.instance.primaryFocus?.unfocus();
+                                                                                                                },
+                                                                                                                child: ReportChatLogDialogCompWidget(
+                                                                                                                  messages: _model.reportChatLogResult?.messages,
+                                                                                                                  noChatReason: _model.reportChatLogResult?.noChatReason,
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                            );
+                                                                                                          },
+                                                                                                        );
+
+                                                                                                        safeSetState(() {});
+                                                                                                      },
+                                                                                                      text: 'チャットログを見る',
+                                                                                                      options: FFButtonOptions(
+                                                                                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                                        iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                                        color: Colors.transparent,
+                                                                                                        textStyle: TextStyle(
+                                                                                                          color: FlutterFlowTheme.of(context).primary,
+                                                                                                        ),
+                                                                                                        elevation: 0.0,
+                                                                                                        borderSide: BorderSide(
+                                                                                                          color: FlutterFlowTheme.of(context).primary,
+                                                                                                          width: 1.0,
+                                                                                                        ),
+                                                                                                        borderRadius: BorderRadius.circular(8.0),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  Container(
+                                                                                                    width: 8.0,
+                                                                                                  ),
+                                                                                                  Text(
+                                                                                                    'このユーザーを凍結する',
+                                                                                                    style: TextStyle(),
+                                                                                                  ),
+                                                                                                ],
                                                                                               ),
                                                                                             ].divide(SizedBox(height: 8.0)).addToEnd(SizedBox(height: 8.0)),
                                                                                           ),

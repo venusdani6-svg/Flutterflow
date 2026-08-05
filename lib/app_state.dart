@@ -666,4 +666,70 @@ class FFAppState extends ChangeNotifier {
   set prefectureSettingsAll(dynamic value) {
     _prefectureSettingsAll = value;
   }
+
+  /// DSL app state infoDialogActivityLog
+  List<AdminActivityLogItemStruct> _infoDialogActivityLog = [];
+  List<AdminActivityLogItemStruct> get infoDialogActivityLog =>
+      _infoDialogActivityLog;
+  set infoDialogActivityLog(List<AdminActivityLogItemStruct> value) {
+    _infoDialogActivityLog = value;
+  }
+
+  void addToInfoDialogActivityLog(AdminActivityLogItemStruct value) {
+    infoDialogActivityLog.add(value);
+  }
+
+  void removeFromInfoDialogActivityLog(AdminActivityLogItemStruct value) {
+    infoDialogActivityLog.remove(value);
+  }
+
+  void removeAtIndexFromInfoDialogActivityLog(int index) {
+    infoDialogActivityLog.removeAt(index);
+  }
+
+  void updateInfoDialogActivityLogAtIndex(
+    int index,
+    AdminActivityLogItemStruct Function(AdminActivityLogItemStruct) updateFn,
+  ) {
+    infoDialogActivityLog[index] = updateFn(_infoDialogActivityLog[index]);
+  }
+
+  void insertAtIndexInInfoDialogActivityLog(
+      int index, AdminActivityLogItemStruct value) {
+    infoDialogActivityLog.insert(index, value);
+  }
+
+  /// DSL app state infoDialogHasActivity
+  bool _infoDialogHasActivity = false;
+  bool get infoDialogHasActivity => _infoDialogHasActivity;
+  set infoDialogHasActivity(bool value) {
+    _infoDialogHasActivity = value;
+  }
+
+  /// True while CastUserListPage is showing a frozen-status-filtered search
+  /// result - mirrors Guest's activeIsFrozen, drives which of the
+  /// Freeze/Unfreeze bulk buttons is visible.
+  bool _castActiveIsFrozen = false;
+  bool get castActiveIsFrozen => _castActiveIsFrozen;
+  set castActiveIsFrozen(bool value) {
+    _castActiveIsFrozen = value;
+  }
+
+  /// True while StaffUserListPage is showing a frozen-status-filtered search
+  /// result - mirrors Guest's activeIsFrozen, drives which of the
+  /// Freeze/Unfreeze bulk buttons is visible.
+  bool _staffActiveIsFrozen = false;
+  bool get staffActiveIsFrozen => _staffActiveIsFrozen;
+  set staffActiveIsFrozen(bool value) {
+    _staffActiveIsFrozen = value;
+  }
+
+  /// True while AdministratorListPage is showing a frozen-status-filtered
+  /// search result - mirrors Guest's activeIsFrozen, drives which of the
+  /// Freeze/Unfreeze bulk buttons is visible.
+  bool _administratorActiveIsFrozen = false;
+  bool get administratorActiveIsFrozen => _administratorActiveIsFrozen;
+  set administratorActiveIsFrozen(bool value) {
+    _administratorActiveIsFrozen = value;
+  }
 }

@@ -8,6 +8,17 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+// Automatic FlutterFlow imports
+import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import 'index.dart'; // Imports other custom actions
+import 'package:flutter/material.dart';
+// Begin custom action code
+// DO NOT REMOVE OR MODIFY THE CODE ABOVE!
+
+import 'dart:convert';
 import 'package:cloud_functions/cloud_functions.dart';
 
 /// FlutterFlow parameters (all optional):
@@ -59,6 +70,21 @@ Map<String, dynamic> _normalizeStripeLog(Map<String, dynamic> log) {
   final createdAt = _parseTimestamp(log['created_at']);
   if (createdAt != null) {
     log['created_at'] = _formatDateTime(createdAt);
+  }
+  // Client Checklist Implementation Plan.md P1 item 8: raw_data is already
+  // delivered untouched by admin.ts - pretty-print it here the same way
+  // every other display field on this page is pre-formatted server-
+  // response-side, rather than fighting JSON formatting in the builder.
+  final rawData = log['raw_data'];
+  if (rawData != null) {
+    try {
+      log['raw_data_display'] =
+          const JsonEncoder.withIndent('  ').convert(rawData);
+    } catch (_) {
+      log['raw_data_display'] = rawData.toString();
+    }
+  } else {
+    log['raw_data_display'] = '(raw_dataなし)';
   }
   return log;
 }

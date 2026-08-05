@@ -260,12 +260,14 @@ class _KycReviewDialogCompWidgetState extends State<KycReviewDialogCompWidget> {
                             },
                           ) ??
                           false;
-                      _model.kycRejectResult = await actions.adminApproveKYC(
-                        widget.userId!,
-                        false,
-                        _model.rejectReasonFieldTextController.text,
-                      );
-                      Navigator.pop(context);
+                      if (confirmDialogResponse) {
+                        _model.kycRejectResult = await actions.adminApproveKYC(
+                          widget.userId!,
+                          false,
+                          _model.rejectReasonFieldTextController.text,
+                        );
+                        Navigator.pop(context);
+                      }
 
                       safeSetState(() {});
                     },
@@ -314,12 +316,14 @@ class _KycReviewDialogCompWidgetState extends State<KycReviewDialogCompWidget> {
                             },
                           ) ??
                           false;
-                      _model.kycApproveResult = await actions.adminApproveKYC(
-                        widget.userId!,
-                        true,
-                        '',
-                      );
-                      Navigator.pop(context);
+                      if (confirmDialogResponse) {
+                        _model.kycApproveResult = await actions.adminApproveKYC(
+                          widget.userId!,
+                          true,
+                          '',
+                        );
+                        Navigator.pop(context);
+                      }
 
                       safeSetState(() {});
                     },

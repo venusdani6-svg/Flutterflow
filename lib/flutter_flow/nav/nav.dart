@@ -145,13 +145,23 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: StaffUserdetailsPageWidget.routeName,
           path: StaffUserdetailsPageWidget.routePath,
           requireAuth: true,
-          builder: (context, params) => StaffUserdetailsPageWidget(),
+          builder: (context, params) => StaffUserdetailsPageWidget(
+            userId: params.getParam(
+              'userId',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: AdministratordetailsPageWidget.routeName,
           path: AdministratordetailsPageWidget.routePath,
           requireAuth: true,
-          builder: (context, params) => AdministratordetailsPageWidget(),
+          builder: (context, params) => AdministratordetailsPageWidget(
+            userId: params.getParam(
+              'userId',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: ReservationdetailsPageWidget.routeName,
@@ -294,7 +304,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: CastUserdetailsPageWidget.routeName,
           path: CastUserdetailsPageWidget.routePath,
           requireAuth: true,
-          builder: (context, params) => CastUserdetailsPageWidget(),
+          builder: (context, params) => CastUserdetailsPageWidget(
+            userId: params.getParam(
+              'userId',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: GuestUserdetailsPageWidget.routeName,

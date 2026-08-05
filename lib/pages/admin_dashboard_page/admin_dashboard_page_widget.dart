@@ -3485,7 +3485,7 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                                                 ),
                                                                                           ),
                                                                                           Text(
-                                                                                            'ゆずき',
+                                                                                            '-',
                                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                   font: GoogleFonts.inter(
                                                                                                     fontWeight: FontWeight.w500,
@@ -3606,7 +3606,7 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                                                 ),
                                                                                           ),
                                                                                           Text(
-                                                                                            'ゆずき',
+                                                                                            '-',
                                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                   font: GoogleFonts.inter(
                                                                                                     fontWeight: FontWeight.w500,
@@ -3727,7 +3727,7 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                                                 ),
                                                                                           ),
                                                                                           Text(
-                                                                                            'ゆずき',
+                                                                                            '-',
                                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                   font: GoogleFonts.inter(
                                                                                                     fontWeight: FontWeight.w500,

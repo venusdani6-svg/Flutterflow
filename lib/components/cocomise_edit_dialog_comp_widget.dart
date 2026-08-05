@@ -15,24 +15,31 @@ export 'cocomise_edit_dialog_comp_model.dart';
 class CocomiseEditDialogCompWidget extends StatefulWidget {
   const CocomiseEditDialogCompWidget({
     super.key,
-    this.shopId,
-    this.shopName,
-    this.genre,
-    this.prefecture,
-    this.city,
-    this.townBlock,
-    this.building,
-    this.active,
-  });
+    String? shopId,
+    String? shopName,
+    String? genre,
+    String? prefecture,
+    String? city,
+    String? townBlock,
+    String? building,
+    bool? active,
+  })  : this.shopId = shopId ?? '',
+        this.shopName = shopName ?? '',
+        this.genre = genre ?? '',
+        this.prefecture = prefecture ?? '',
+        this.city = city ?? '',
+        this.townBlock = townBlock ?? '',
+        this.building = building ?? '',
+        this.active = active ?? true;
 
-  final String? shopId;
-  final String? shopName;
-  final String? genre;
-  final String? prefecture;
-  final String? city;
-  final String? townBlock;
-  final String? building;
-  final bool? active;
+  final String shopId;
+  final String shopName;
+  final String genre;
+  final String prefecture;
+  final String city;
+  final String townBlock;
+  final String building;
+  final bool active;
 
   @override
   State<CocomiseEditDialogCompWidget> createState() =>
@@ -72,7 +79,7 @@ class _CocomiseEditDialogCompWidgetState
     _model.cocomiseBuildingFieldTextController ??= TextEditingController();
     _model.cocomiseBuildingFieldFocusNode ??= FocusNode();
 
-    _model.cocomiseActiveToggleValue = widget.active!;
+    _model.cocomiseActiveToggleValue = widget.active;
   }
 
   @override
@@ -112,27 +119,27 @@ class _CocomiseEditDialogCompWidgetState
                   ),
             ),
             Text(
-              widget.shopName!,
+              widget.shopName,
               style: TextStyle(),
             ),
             Text(
-              widget.genre!,
+              widget.genre,
               style: TextStyle(),
             ),
             Text(
-              widget.prefecture!,
+              widget.prefecture,
               style: TextStyle(),
             ),
             Text(
-              widget.city!,
+              widget.city,
               style: TextStyle(),
             ),
             Text(
-              widget.townBlock!,
+              widget.townBlock,
               style: TextStyle(),
             ),
             Text(
-              widget.building!,
+              widget.building,
               style: TextStyle(),
             ),
             TextFormField(

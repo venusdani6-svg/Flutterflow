@@ -8,9 +8,24 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+// Automatic FlutterFlow imports
+import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import 'index.dart'; // Imports other custom actions
+import 'package:flutter/material.dart';
+// Begin custom action code
+// DO NOT REMOVE OR MODIFY THE CODE ABOVE!
+
 Future<dynamic> adminGetUserListItems(
   String? accountType,
   String? nicknamePrefix,
+  bool? isFrozen,
+  String? kycStatus,
+  String? prefecture,
+  String? createdAfter,
+  String? createdBefore,
 ) async {
   try {
     dynamic result;
@@ -18,11 +33,11 @@ Future<dynamic> adminGetUserListItems(
       result = await adminGetUsers(
         '',
         '',
-        false,
-        '',
-        '',
-        '',
-        '',
+        isFrozen ?? false,
+        kycStatus ?? '',
+        prefecture ?? '',
+        createdAfter ?? '',
+        createdBefore ?? '',
         nicknamePrefix ?? '',
         300,
         '',
@@ -33,11 +48,11 @@ Future<dynamic> adminGetUserListItems(
       result = await adminGetUsers(
         'cast',
         '',
-        false,
-        '',
-        '',
-        '',
-        '',
+        isFrozen ?? false,
+        kycStatus ?? '',
+        prefecture ?? '',
+        createdAfter ?? '',
+        createdBefore ?? '',
         nicknamePrefix ?? '',
         200,
         '',

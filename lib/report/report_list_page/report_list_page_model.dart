@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import 'report_list_page_widget.dart' show ReportListPageWidget;
@@ -16,8 +17,25 @@ class ReportListPageModel extends FlutterFlowModel<ReportListPageWidget> {
   dynamic reportsResult1;
   // Model for Main_Menu_Comp component.
   late MainMenuCompModel mainMenuCompModel;
+  // State field(s) for ReportResolutionReasonField widget.
+  FocusNode? reportResolutionReasonFieldFocusNode;
+  TextEditingController? reportResolutionReasonFieldTextController;
+  String? Function(BuildContext, String?)?
+      reportResolutionReasonFieldTextControllerValidator;
   // Stores action output result for [Custom Action - adminResolveReport] action in Button widget.
   dynamic resolveResult1;
+  // Stores action output result for [Custom Action - adminToggleFreeze] action in Button widget.
+  dynamic reportFreezeResult;
+  // State field(s) for FreezeReportedUserCheckbox widget.
+  Map<dynamic, bool> freezeReportedUserCheckboxValueMap = {};
+  List<dynamic> get freezeReportedUserCheckboxCheckedItems =>
+      freezeReportedUserCheckboxValueMap.entries
+          .where((e) => e.value)
+          .map((e) => e.key)
+          .toList();
+
+  // Stores action output result for [Custom Action - adminGetReportChatLog] action in ViewChatLogButton widget.
+  ReportChatLogResultStruct? reportChatLogResult;
 
   @override
   void initState(BuildContext context) {
@@ -27,5 +45,7 @@ class ReportListPageModel extends FlutterFlowModel<ReportListPageWidget> {
   @override
   void dispose() {
     mainMenuCompModel.dispose();
+    reportResolutionReasonFieldFocusNode?.dispose();
+    reportResolutionReasonFieldTextController?.dispose();
   }
 }

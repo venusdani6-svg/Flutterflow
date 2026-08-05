@@ -58,6 +58,9 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
           .cast<dynamic>();
       safeSetState(() {});
     });
+
+    _model.bulkFreezeReasonFieldTextController ??= TextEditingController();
+    _model.bulkFreezeReasonFieldFocusNode ??= FocusNode();
   }
 
   @override
@@ -829,95 +832,174 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                 borderRadius: BorderRadius.circular(8.0),
                                                                               ),
                                                                             ),
-                                                                            FFButtonWidget(
-                                                                              onPressed: () async {
-                                                                                var confirmDialogResponse = await showDialog<bool>(
-                                                                                      context: context,
-                                                                                      builder: (alertDialogContext) {
-                                                                                        return AlertDialog(
-                                                                                          title: Text('確認'),
-                                                                                          content: Text('選択したユーザーを凍結しますか？'),
-                                                                                          actions: [
-                                                                                            TextButton(
-                                                                                              onPressed: () => Navigator.pop(alertDialogContext, false),
-                                                                                              child: Text('キャンセル'),
-                                                                                            ),
-                                                                                            TextButton(
-                                                                                              onPressed: () => Navigator.pop(alertDialogContext, true),
-                                                                                              child: Text('はい'),
-                                                                                            ),
-                                                                                          ],
-                                                                                        );
-                                                                                      },
-                                                                                    ) ??
-                                                                                    false;
-                                                                                _model.bulkFreezeResult = await actions.adminBulkToggleFreeze(
-                                                                                  _model.selectedIds.toList(),
-                                                                                  true,
-                                                                                );
-                                                                                _model.selectedIds = [];
-                                                                                safeSetState(() {});
-                                                                                _model.bulkReloadResult = await actions.adminGetUsers(
-                                                                                  FFAppState().activeAccountType,
-                                                                                  '',
-                                                                                  false,
-                                                                                  FFAppState().activeKycStatus,
-                                                                                  FFAppState().activePrefecture,
-                                                                                  FFAppState().activeCreatedAfter,
-                                                                                  FFAppState().activeCreatedBefore,
-                                                                                  FFAppState().activeNicknamePrefix,
-                                                                                  50,
-                                                                                  '',
-                                                                                  '',
-                                                                                  true,
-                                                                                );
+                                                                            if (!FFAppState().activeIsFrozen)
+                                                                              FFButtonWidget(
+                                                                                onPressed: () async {
+                                                                                  _model.freezeHasSelection = await actions.guestListHasSelection(
+                                                                                    _model.selectedIds.toList(),
+                                                                                  );
+                                                                                  if (_model.freezeHasSelection!) {
+                                                                                    var confirmDialogResponse = await showDialog<bool>(
+                                                                                          context: context,
+                                                                                          builder: (alertDialogContext) {
+                                                                                            return AlertDialog(
+                                                                                              title: Text('確認'),
+                                                                                              content: Text('選択したユーザーを凍結しますか？'),
+                                                                                              actions: [
+                                                                                                TextButton(
+                                                                                                  onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                                  child: Text('キャンセル'),
+                                                                                                ),
+                                                                                                TextButton(
+                                                                                                  onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                                  child: Text('はい'),
+                                                                                                ),
+                                                                                              ],
+                                                                                            );
+                                                                                          },
+                                                                                        ) ??
+                                                                                        false;
+                                                                                    _model.bulkFreezeResult = await actions.adminBulkToggleFreeze(
+                                                                                      _model.selectedIds.toList(),
+                                                                                      true,
+                                                                                      _model.bulkFreezeReasonFieldTextController.text,
+                                                                                    );
+                                                                                    _model.selectedIds = [];
+                                                                                    safeSetState(() {});
+                                                                                    _model.bulkReloadResult = await actions.adminGetUsers(
+                                                                                      FFAppState().activeAccountType,
+                                                                                      '',
+                                                                                      false,
+                                                                                      FFAppState().activeKycStatus,
+                                                                                      FFAppState().activePrefecture,
+                                                                                      FFAppState().activeCreatedAfter,
+                                                                                      FFAppState().activeCreatedBefore,
+                                                                                      FFAppState().activeNicknamePrefix,
+                                                                                      50,
+                                                                                      '',
+                                                                                      '',
+                                                                                      true,
+                                                                                    );
 
-                                                                                safeSetState(() {});
-                                                                              },
-                                                                              text: 'BulkFreeze',
-                                                                              options: FFButtonOptions(
-                                                                                height: 40.0,
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                                                                                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                                                                color: FlutterFlowTheme.of(context).primary,
-                                                                                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                                                                      font: GoogleFonts.interTight(
+                                                                                    context.pushNamed(GuestUserListPageWidget.routeName);
+                                                                                  } else {
+                                                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                                                      SnackBar(
+                                                                                        content: Text(
+                                                                                          '1件以上選択してください。',
+                                                                                          style: TextStyle(),
+                                                                                        ),
+                                                                                        duration: Duration(milliseconds: 4000),
+                                                                                      ),
+                                                                                    );
+                                                                                  }
+
+                                                                                  safeSetState(() {});
+                                                                                },
+                                                                                text: '一括凍結',
+                                                                                options: FFButtonOptions(
+                                                                                  height: 40.0,
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                                                                                  iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                  color: FlutterFlowTheme.of(context).error,
+                                                                                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                                                                                        font: GoogleFonts.interTight(
+                                                                                          fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                        ),
+                                                                                        color: Color(0xFFF9F9F9),
+                                                                                        letterSpacing: 0.0,
                                                                                         fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
                                                                                         fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                                                                                       ),
-                                                                                      color: Color(0xFFF20707),
-                                                                                      letterSpacing: 0.0,
-                                                                                      fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
-                                                                                      fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                                    ),
-                                                                                elevation: 0.0,
-                                                                                borderRadius: BorderRadius.circular(8.0),
+                                                                                  elevation: 0.0,
+                                                                                  borderRadius: BorderRadius.circular(8.0),
+                                                                                ),
                                                                               ),
-                                                                            ),
-                                                                            FFButtonWidget(
-                                                                              onPressed: () {
-                                                                                print('BulkUnfreeze pressed ...');
-                                                                              },
-                                                                              text: 'Bulk Unfreeze',
-                                                                              options: FFButtonOptions(
-                                                                                height: 40.0,
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                                                                                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                                                                color: FlutterFlowTheme.of(context).primary,
-                                                                                textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                                                                      font: GoogleFonts.interTight(
+                                                                            if (FFAppState().activeIsFrozen)
+                                                                              FFButtonWidget(
+                                                                                onPressed: () async {
+                                                                                  _model.unfreezeHasSelection = await actions.guestListHasSelection(
+                                                                                    _model.selectedIds.toList(),
+                                                                                  );
+                                                                                  if (_model.unfreezeHasSelection!) {
+                                                                                    var confirmDialogResponse = await showDialog<bool>(
+                                                                                          context: context,
+                                                                                          builder: (alertDialogContext) {
+                                                                                            return AlertDialog(
+                                                                                              title: Text('確認'),
+                                                                                              content: Text('選択したユーザーの凍結を解除しますか？'),
+                                                                                              actions: [
+                                                                                                TextButton(
+                                                                                                  onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                                  child: Text('キャンセル'),
+                                                                                                ),
+                                                                                                TextButton(
+                                                                                                  onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                                  child: Text('はい'),
+                                                                                                ),
+                                                                                              ],
+                                                                                            );
+                                                                                          },
+                                                                                        ) ??
+                                                                                        false;
+                                                                                    _model.bulkUnfreezeResult = await actions.adminBulkToggleFreeze(
+                                                                                      _model.selectedIds.toList(),
+                                                                                      false,
+                                                                                      _model.bulkFreezeReasonFieldTextController.text,
+                                                                                    );
+                                                                                    _model.selectedIds = [];
+                                                                                    safeSetState(() {});
+                                                                                    _model.bulkUnfreezeReloadResult = await actions.adminGetUsers(
+                                                                                      FFAppState().activeAccountType,
+                                                                                      '',
+                                                                                      false,
+                                                                                      FFAppState().activeKycStatus,
+                                                                                      FFAppState().activePrefecture,
+                                                                                      FFAppState().activeCreatedAfter,
+                                                                                      FFAppState().activeCreatedBefore,
+                                                                                      FFAppState().activeNicknamePrefix,
+                                                                                      50,
+                                                                                      '',
+                                                                                      '',
+                                                                                      true,
+                                                                                    );
+
+                                                                                    context.pushNamed(GuestUserListPageWidget.routeName);
+                                                                                  } else {
+                                                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                                                      SnackBar(
+                                                                                        content: Text(
+                                                                                          '1件以上選択してください。',
+                                                                                          style: TextStyle(),
+                                                                                        ),
+                                                                                        duration: Duration(milliseconds: 4000),
+                                                                                      ),
+                                                                                    );
+                                                                                  }
+
+                                                                                  safeSetState(() {});
+                                                                                },
+                                                                                text: '一括凍結解除',
+                                                                                options: FFButtonOptions(
+                                                                                  height: 40.0,
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                                                                                  iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                  color: FlutterFlowTheme.of(context).success,
+                                                                                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                                                                                        font: GoogleFonts.interTight(
+                                                                                          fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                        ),
+                                                                                        color: Color(0xFFF9F9F9),
+                                                                                        letterSpacing: 0.0,
                                                                                         fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
                                                                                         fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                                                                                       ),
-                                                                                      color: FlutterFlowTheme.of(context).secondary,
-                                                                                      letterSpacing: 0.0,
-                                                                                      fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
-                                                                                      fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                                    ),
-                                                                                elevation: 0.0,
-                                                                                borderRadius: BorderRadius.circular(8.0),
+                                                                                  elevation: 0.0,
+                                                                                  borderRadius: BorderRadius.circular(8.0),
+                                                                                ),
                                                                               ),
-                                                                            ),
                                                                           ],
                                                                         ),
                                                                       ),
@@ -928,6 +1010,103 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                 ),
                                                               ),
                                                             ],
+                                                          ),
+                                                          TextFormField(
+                                                            controller: _model
+                                                                .bulkFreezeReasonFieldTextController,
+                                                            focusNode: _model
+                                                                .bulkFreezeReasonFieldFocusNode,
+                                                            obscureText: false,
+                                                            decoration:
+                                                                InputDecoration(
+                                                              labelText:
+                                                                  '一括凍結理由',
+                                                              hintText:
+                                                                  '例：規約違反の通報が複数件確認されたため',
+                                                              enabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  color: Color(
+                                                                      0x00000000),
+                                                                  width: 1.0,
+                                                                ),
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          4.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          4.0),
+                                                                ),
+                                                              ),
+                                                              focusedBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  color: Color(
+                                                                      0x00000000),
+                                                                  width: 1.0,
+                                                                ),
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          4.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          4.0),
+                                                                ),
+                                                              ),
+                                                              errorBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  color: Color(
+                                                                      0x00000000),
+                                                                  width: 1.0,
+                                                                ),
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          4.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          4.0),
+                                                                ),
+                                                              ),
+                                                              focusedErrorBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  color: Color(
+                                                                      0x00000000),
+                                                                  width: 1.0,
+                                                                ),
+                                                                borderRadius:
+                                                                    const BorderRadius
+                                                                        .only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          4.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          4.0),
+                                                                ),
+                                                              ),
+                                                              filled: true,
+                                                            ),
+                                                            style: TextStyle(),
+                                                            maxLines: null,
+                                                            validator: _model
+                                                                .bulkFreezeReasonFieldTextControllerValidator
+                                                                .asValidator(
+                                                                    context),
                                                           ),
                                                           Padding(
                                                             padding:

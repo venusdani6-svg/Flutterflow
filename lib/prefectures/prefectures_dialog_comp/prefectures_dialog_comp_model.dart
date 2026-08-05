@@ -100,6 +100,8 @@ class PrefecturesDialogCompModel
 
   bool? okinawaActive = false;
 
+  bool? prefConfigLoaded = false;
+
   ///  State fields for stateful widgets in this component.
 
   // Stores action output result for [Custom Action - adminGetSystemConfig] action in Prefectures_DialogComp widget.

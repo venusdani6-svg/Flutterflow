@@ -1056,7 +1056,7 @@ class _WithdrawalApplicationListPageWidgetState
                                                                                                       children: [
                                                                                                         Icon(
                                                                                                           Icons.circle,
-                                                                                                          color: Color(0xFF06F705),
+                                                                                                          color: FlutterFlowTheme.of(context).success,
                                                                                                           size: 14.0,
                                                                                                         ),
                                                                                                         Text(
@@ -1234,7 +1234,7 @@ class _WithdrawalApplicationListPageWidgetState
                                                                                                       children: [
                                                                                                         Icon(
                                                                                                           Icons.circle,
-                                                                                                          color: Color(0xFF054BF7),
+                                                                                                          color: FlutterFlowTheme.of(context).secondary,
                                                                                                           size: 14.0,
                                                                                                         ),
                                                                                                         Text(

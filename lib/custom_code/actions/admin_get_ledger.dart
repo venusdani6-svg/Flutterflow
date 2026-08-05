@@ -8,6 +8,16 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+// Automatic FlutterFlow imports
+import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import 'index.dart'; // Imports other custom actions
+import 'package:flutter/material.dart';
+// Begin custom action code
+// DO NOT REMOVE OR MODIFY THE CODE ABOVE!
+
 import 'package:cloud_functions/cloud_functions.dart';
 
 /// FlutterFlow parameters (all optional):
@@ -59,10 +69,25 @@ Future<dynamic> adminGetLedger(
         }
       }).toList();
     }
+    // Client Checklist Implementation Plan.md P1 item 7: 決済総額/送金実額/
+    // 運営利益, computed server-side (admin.ts's computeLedgerSummary) over
+    // an unlimited pass across the same filters, not just this page's
+    // capped row list - pre-formatted here the same way every other
+    // display field on this page already is.
+    data['gross_total_display'] = _formatLedgerYen(data['gross_total']);
+    data['net_transfer_total_display'] =
+        _formatLedgerYen(data['net_transfer_total']);
+    data['platform_profit_total_display'] =
+        _formatLedgerYen(data['platform_profit_total']);
     return data;
   } catch (e) {
     return {'success': false, 'error': e.toString()};
   }
+}
+
+String _formatLedgerYen(dynamic value) {
+  final n = value is num ? value.toInt() : 0;
+  return '¥$n';
 }
 
 Map<String, dynamic> _normalizeLedgerEntry(Map<String, dynamic> entry) {

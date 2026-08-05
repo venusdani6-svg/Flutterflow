@@ -31,10 +31,23 @@ class GuestUserListPageModel extends FlutterFlowModel<GuestUserListPageWidget> {
   dynamic usersResult;
   // Model for Main_Menu_Comp component.
   late MainMenuCompModel mainMenuCompModel;
+  // Stores action output result for [Custom Action - guestListHasSelection] action in BulkFreeze widget.
+  bool? freezeHasSelection;
   // Stores action output result for [Custom Action - adminBulkToggleFreeze] action in BulkFreeze widget.
   dynamic bulkFreezeResult;
   // Stores action output result for [Custom Action - adminGetUsers] action in BulkFreeze widget.
   dynamic bulkReloadResult;
+  // Stores action output result for [Custom Action - guestListHasSelection] action in BulkUnfreeze widget.
+  bool? unfreezeHasSelection;
+  // Stores action output result for [Custom Action - adminBulkToggleFreeze] action in BulkUnfreeze widget.
+  dynamic bulkUnfreezeResult;
+  // Stores action output result for [Custom Action - adminGetUsers] action in BulkUnfreeze widget.
+  dynamic bulkUnfreezeReloadResult;
+  // State field(s) for BulkFreezeReasonField widget.
+  FocusNode? bulkFreezeReasonFieldFocusNode;
+  TextEditingController? bulkFreezeReasonFieldTextController;
+  String? Function(BuildContext, String?)?
+      bulkFreezeReasonFieldTextControllerValidator;
   // State field(s) for Checkbox widget.
   Map<dynamic, bool> checkboxValueMap = {};
   List<dynamic> get checkboxCheckedItems =>
@@ -53,5 +66,7 @@ class GuestUserListPageModel extends FlutterFlowModel<GuestUserListPageWidget> {
   @override
   void dispose() {
     mainMenuCompModel.dispose();
+    bulkFreezeReasonFieldFocusNode?.dispose();
+    bulkFreezeReasonFieldTextController?.dispose();
   }
 }

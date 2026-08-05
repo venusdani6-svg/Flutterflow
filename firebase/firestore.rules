@@ -16,78 +16,78 @@ service cloud.firestore {
     }
 
     match /ledger/{document} {
-      allow create: if true;
-      allow read: if true;
+      allow create: if false;
+      allow read: if request.auth.uid == resource.data.user_id;
       allow write: if false;
       allow delete: if false;
     }
 
     match /reservations/{document} {
-      allow create: if true;
-      allow read: if true;
+      allow create: if false;
+      allow read: if request.auth.uid == resource.data.guest_id;
       allow write: if false;
       allow delete: if false;
     }
 
     match /stripe_logs/{document} {
-      allow create: if true;
-      allow read: if true;
+      allow create: if false;
+      allow read: if false;
       allow write: if false;
       allow delete: if false;
     }
 
     match /payout_requests/{document} {
-      allow create: if true;
-      allow read: if true;
+      allow create: if request.auth.uid == request.resource.data.user_id;
+      allow read: if request.auth.uid == resource.data.user_id;
       allow write: if false;
       allow delete: if false;
     }
 
     match /banners/{document} {
-      allow create: if true;
+      allow create: if false;
       allow read: if true;
       allow write: if false;
       allow delete: if false;
     }
 
     match /system_config/{document} {
-      allow create: if true;
-      allow read: if true;
+      allow create: if false;
+      allow read: if false;
       allow write: if false;
       allow delete: if false;
     }
 
     match /audit_logs/{document} {
-      allow create: if true;
-      allow read: if true;
+      allow create: if false;
+      allow read: if false;
       allow write: if false;
       allow delete: if false;
     }
 
     match /reports/{document} {
-      allow create: if true;
-      allow read: if true;
+      allow create: if request.auth.uid == request.resource.data.reporter_id;
+      allow read: if false;
       allow write: if false;
       allow delete: if false;
     }
 
     match /chat_rooms/{document} {
-      allow create: if true;
-      allow read: if true;
+      allow create: if false;
+      allow read: if request.auth.uid == resource.data.res_id;
       allow write: if false;
       allow delete: if false;
     }
 
     match /cocoten_shops/{document} {
-      allow create: if true;
+      allow create: if false;
       allow read: if true;
       allow write: if false;
       allow delete: if false;
     }
 
     match /affiliate_rewards/{document} {
-      allow create: if true;
-      allow read: if true;
+      allow create: if false;
+      allow read: if request.auth.uid == resource.data.affiliator_uid;
       allow write: if false;
       allow delete: if false;
     }
