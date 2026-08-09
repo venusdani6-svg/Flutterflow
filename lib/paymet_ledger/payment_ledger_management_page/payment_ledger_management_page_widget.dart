@@ -1,9 +1,12 @@
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/info_dialog_comp/info_dialog_comp_widget.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'payment_ledger_management_page_model.dart';
 export 'payment_ledger_management_page_model.dart';
@@ -20,15 +23,41 @@ class PaymentLedgerManagementPageWidget extends StatefulWidget {
 }
 
 class _PaymentLedgerManagementPageWidgetState
-    extends State<PaymentLedgerManagementPageWidget> {
+    extends State<PaymentLedgerManagementPageWidget>
+    with TickerProviderStateMixin {
   late PaymentLedgerManagementPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => PaymentLedgerManagementPageModel());
+
+    animationsMap.addAll({
+      'containerOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -86,15 +115,16 @@ class _PaymentLedgerManagementPageWidgetState
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Color(0x1FF59E0B),
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/transparent.png',
+                                      child: SvgPicture.asset(
+                                        'assets/images/icoccha_logo_color.svg',
                                         width: 80.0,
                                         height: 80.0,
                                         fit: BoxFit.contain,
@@ -106,8 +136,15 @@ class _PaymentLedgerManagementPageWidgetState
                                       width: 100.0,
                                       height: 80.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFF59E0B),
+                                            Color(0xFFFBBF24)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 1.0),
+                                          end: AlignmentDirectional(-1.0, -1.0),
+                                        ),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -117,9 +154,17 @@ class _PaymentLedgerManagementPageWidgetState
                                               width: 250.0,
                                               height: 80.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFF59E0B),
+                                                    Color(0xFFFBBF24)
+                                                  ],
+                                                  stops: [0.0, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 1.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, -1.0),
+                                                ),
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
@@ -177,6 +222,8 @@ class _PaymentLedgerManagementPageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           14.0,
                                                                       letterSpacing:
@@ -205,6 +252,8 @@ class _PaymentLedgerManagementPageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           12.0,
                                                                       letterSpacing:
@@ -266,18 +315,17 @@ class _PaymentLedgerManagementPageWidgetState
                                                             height: 35.0,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
+                                                              color: Color(
+                                                                  0x33FFFFFF),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8.0),
+                                                                          12.0),
                                                               border:
                                                                   Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .alternate,
+                                                                color: Color(
+                                                                    0x4DFFFFFF),
+                                                                width: 1.0,
                                                               ),
                                                             ),
                                                             child: Builder(
@@ -296,8 +344,8 @@ class _PaymentLedgerManagementPageWidgetState
                                                                       Icon(
                                                                         FFIcons
                                                                             .ksun,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -310,6 +358,7 @@ class _PaymentLedgerManagementPageWidgetState
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -327,8 +376,8 @@ class _PaymentLedgerManagementPageWidgetState
                                                                       Icon(
                                                                         FFIcons
                                                                             .kstarAndCrescent,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -341,6 +390,7 @@ class _PaymentLedgerManagementPageWidgetState
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -383,7 +433,7 @@ class _PaymentLedgerManagementPageWidgetState
                                                                             .transparent,
                                                                     alignment: AlignmentDirectional(
                                                                             0.0,
-                                                                            -1.0)
+                                                                            0.0)
                                                                         .resolve(
                                                                             Directionality.of(context)),
                                                                     child:
@@ -416,18 +466,17 @@ class _PaymentLedgerManagementPageWidgetState
                                                               height: 35.0,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
+                                                                color: Color(
+                                                                    0x33FFFFFF),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            8.0),
+                                                                            12.0),
                                                                 border:
                                                                     Border.all(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
+                                                                  color: Color(
+                                                                      0x4DFFFFFF),
+                                                                  width: 1.0,
                                                                 ),
                                                               ),
                                                               child: Column(
@@ -441,9 +490,8 @@ class _PaymentLedgerManagementPageWidgetState
                                                                   Icon(
                                                                     FFIcons
                                                                         .kchatCenteredTextG,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                                    color: Colors
+                                                                        .white,
                                                                     size: 20.0,
                                                                   ),
                                                                   Text(
@@ -460,7 +508,7 @@ class _PaymentLedgerManagementPageWidgetState
                                                                                 FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               10.0,
                                                                           letterSpacing:
@@ -550,6 +598,7 @@ class _PaymentLedgerManagementPageWidgetState
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
+                                                            color: Colors.white,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -710,10 +759,27 @@ class _PaymentLedgerManagementPageWidgetState
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryBackground,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              blurRadius: 16.0,
+                                                              color: Color(
+                                                                  0x26D97706),
+                                                              offset: Offset(
+                                                                0.0,
+                                                                6.0,
+                                                              ),
+                                                              spreadRadius: 0.0,
+                                                            )
+                                                          ],
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      16.0),
+                                                                      20.0),
+                                                          border: Border.all(
+                                                            color: Color(
+                                                                0x1FD97706),
+                                                            width: 1.5,
+                                                          ),
                                                         ),
                                                         child: Padding(
                                                           padding:
@@ -738,18 +804,49 @@ class _PaymentLedgerManagementPageWidgetState
                                                                   height: 50.0,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color(
-                                                                        0xFF1BE305),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                        blurRadius:
+                                                                            14.0,
+                                                                        color: Color(
+                                                                            0x4DF59E0B),
+                                                                        offset:
+                                                                            Offset(
+                                                                          0.0,
+                                                                          4.0,
+                                                                        ),
+                                                                        spreadRadius:
+                                                                            0.0,
+                                                                      )
+                                                                    ],
+                                                                    gradient:
+                                                                        LinearGradient(
+                                                                      colors: [
+                                                                        Color(
+                                                                            0xFFF59E0B),
+                                                                        Color(
+                                                                            0xFFFBBF24)
+                                                                      ],
+                                                                      stops: [
+                                                                        0.0,
+                                                                        1.0
+                                                                      ],
+                                                                      begin: AlignmentDirectional(
+                                                                          1.0,
+                                                                          1.0),
+                                                                      end: AlignmentDirectional(
+                                                                          -1.0,
+                                                                          -1.0),
+                                                                    ),
                                                                     borderRadius:
                                                                         BorderRadius.circular(
-                                                                            8.0),
+                                                                            16.0),
                                                                   ),
                                                                   child: Icon(
                                                                     FFIcons
                                                                         .kcreditCard,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                                    color: Colors
+                                                                        .white,
                                                                     size: 32.0,
                                                                   ),
                                                                 ),
@@ -813,7 +910,9 @@ class _PaymentLedgerManagementPageWidgetState
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation']!),
                                                   ),
                                                 ].divide(SizedBox(width: 8.0)),
                                               ),

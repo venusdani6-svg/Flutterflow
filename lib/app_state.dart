@@ -732,4 +732,47 @@ class FFAppState extends ChangeNotifier {
   set administratorActiveIsFrozen(bool value) {
     _administratorActiveIsFrozen = value;
   }
+
+  /// The reservation object for whichever row was last tapped on
+  /// ReservationListPage - set immediately before navigating to
+  /// ReservationdetailsPage, which reads from this instead of its own
+  /// now-unreliable JSON page param (see the blank-screen fix above).
+  dynamic _selectedReservation;
+  dynamic get selectedReservation => _selectedReservation;
+  set selectedReservation(dynamic value) {
+    _selectedReservation = value;
+  }
+
+  /// DSL app state processedEventsListStruct
+  List<ProcessedEventItemStruct> _processedEventsListStruct = [];
+  List<ProcessedEventItemStruct> get processedEventsListStruct =>
+      _processedEventsListStruct;
+  set processedEventsListStruct(List<ProcessedEventItemStruct> value) {
+    _processedEventsListStruct = value;
+  }
+
+  void addToProcessedEventsListStruct(ProcessedEventItemStruct value) {
+    processedEventsListStruct.add(value);
+  }
+
+  void removeFromProcessedEventsListStruct(ProcessedEventItemStruct value) {
+    processedEventsListStruct.remove(value);
+  }
+
+  void removeAtIndexFromProcessedEventsListStruct(int index) {
+    processedEventsListStruct.removeAt(index);
+  }
+
+  void updateProcessedEventsListStructAtIndex(
+    int index,
+    ProcessedEventItemStruct Function(ProcessedEventItemStruct) updateFn,
+  ) {
+    processedEventsListStruct[index] =
+        updateFn(_processedEventsListStruct[index]);
+  }
+
+  void insertAtIndexInProcessedEventsListStruct(
+      int index, ProcessedEventItemStruct value) {
+    processedEventsListStruct.insert(index, value);
+  }
 }

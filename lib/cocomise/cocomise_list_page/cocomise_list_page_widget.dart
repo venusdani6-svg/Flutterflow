@@ -1,13 +1,15 @@
 import '/backend/schema/structs/index.dart';
 import '/cocomise/search_cocomise_dialog_comp/search_cocomise_dialog_comp_widget.dart';
-import '/components/cocomise_edit_dialog_comp_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
-import 'package:aligned_dialog/aligned_dialog.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'cocomise_list_page_model.dart';
@@ -23,10 +25,13 @@ class CocomiseListPageWidget extends StatefulWidget {
   State<CocomiseListPageWidget> createState() => _CocomiseListPageWidgetState();
 }
 
-class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
+class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget>
+    with TickerProviderStateMixin {
   late CocomiseListPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -41,6 +46,29 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
       FFAppState().cocomiseShopListStruct =
           _model.cocomiseListInitRaw!.toList().cast<CocotenShopItemStruct>();
       safeSetState(() {});
+    });
+
+    animationsMap.addAll({
+      'containerOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 20.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
     });
   }
 
@@ -101,15 +129,16 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Color(0x1FF59E0B),
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/transparent.png',
+                                      child: SvgPicture.asset(
+                                        'assets/images/icoccha_logo_color.svg',
                                         width: 80.0,
                                         height: 80.0,
                                         fit: BoxFit.contain,
@@ -121,8 +150,15 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                       width: 100.0,
                                       height: 80.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFF59E0B),
+                                            Color(0xFFFBBF24)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 1.0),
+                                          end: AlignmentDirectional(-1.0, -1.0),
+                                        ),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -132,9 +168,17 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                               width: 250.0,
                                               height: 80.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFF59E0B),
+                                                    Color(0xFFFBBF24)
+                                                  ],
+                                                  stops: [0.0, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 1.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, -1.0),
+                                                ),
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
@@ -192,6 +236,8 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           14.0,
                                                                       letterSpacing:
@@ -220,6 +266,8 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           12.0,
                                                                       letterSpacing:
@@ -281,18 +329,17 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                                             height: 35.0,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
+                                                              color: Color(
+                                                                  0x33FFFFFF),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8.0),
+                                                                          12.0),
                                                               border:
                                                                   Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .alternate,
+                                                                color: Color(
+                                                                    0x4DFFFFFF),
+                                                                width: 1.0,
                                                               ),
                                                             ),
                                                             child: Builder(
@@ -311,8 +358,8 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                                                       Icon(
                                                                         FFIcons
                                                                             .ksun,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -325,6 +372,7 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -342,8 +390,8 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                                                       Icon(
                                                                         FFIcons
                                                                             .kstarAndCrescent,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -356,6 +404,7 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -398,7 +447,7 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                                                             .transparent,
                                                                     alignment: AlignmentDirectional(
                                                                             0.0,
-                                                                            -1.0)
+                                                                            0.0)
                                                                         .resolve(
                                                                             Directionality.of(context)),
                                                                     child:
@@ -431,18 +480,17 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                                               height: 35.0,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
+                                                                color: Color(
+                                                                    0x33FFFFFF),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            8.0),
+                                                                            12.0),
                                                                 border:
                                                                     Border.all(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
+                                                                  color: Color(
+                                                                      0x4DFFFFFF),
+                                                                  width: 1.0,
                                                                 ),
                                                               ),
                                                               child: Column(
@@ -456,9 +504,8 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                                                   Icon(
                                                                     FFIcons
                                                                         .k15ListMagnifyingGlass,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                                    color: Colors
+                                                                        .white,
                                                                     size: 20.0,
                                                                   ),
                                                                   Text(
@@ -475,7 +522,7 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                                                                 FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               10.0,
                                                                           letterSpacing:
@@ -493,74 +540,41 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                                             ),
                                                           ),
                                                         ),
-                                                        Builder(
-                                                          builder: (context) =>
-                                                              InkWell(
-                                                            splashColor: Colors
-                                                                .transparent,
-                                                            focusColor: Colors
-                                                                .transparent,
-                                                            hoverColor: Colors
-                                                                .transparent,
-                                                            highlightColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            onTap: () async {
-                                                              await showAlignedDialog(
-                                                                context:
-                                                                    context,
-                                                                isGlobal: false,
-                                                                avoidOverflow:
-                                                                    false,
-                                                                targetAnchor:
-                                                                    AlignmentDirectional(
-                                                                            0.0,
-                                                                            0.0)
-                                                                        .resolve(
-                                                                            Directionality.of(context)),
-                                                                followerAnchor:
-                                                                    AlignmentDirectional(
-                                                                            0.0,
-                                                                            0.0)
-                                                                        .resolve(
-                                                                            Directionality.of(context)),
-                                                                builder:
-                                                                    (dialogContext) {
-                                                                  return Material(
-                                                                    color: Colors
-                                                                        .transparent,
-                                                                    child:
-                                                                        GestureDetector(
-                                                                      onTap:
-                                                                          () {
-                                                                        FocusScope.of(dialogContext)
-                                                                            .unfocus();
-                                                                        FocusManager
-                                                                            .instance
-                                                                            .primaryFocus
-                                                                            ?.unfocus();
-                                                                      },
-                                                                      child:
-                                                                          CocomiseEditDialogCompWidget(),
-                                                                    ),
-                                                                  );
-                                                                },
-                                                              );
-                                                            },
-                                                            child: Container(
-                                                              child: Padding(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(
-                                                                            8.0),
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .add_circle_outline,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  size: 28.0,
-                                                                ),
+                                                        InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            await actions
+                                                                .openCocomiseEditDialog(
+                                                              context,
+                                                              '',
+                                                              '',
+                                                              '',
+                                                              '',
+                                                              '',
+                                                              '',
+                                                              '',
+                                                              true,
+                                                            );
+                                                          },
+                                                          child: Container(
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Icon(
+                                                                Icons
+                                                                    .add_circle_outline,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                                size: 28.0,
                                                               ),
                                                             ),
                                                           ),
@@ -637,6 +651,7 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
+                                                            color: Colors.white,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -793,9 +808,25 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                                                   height: 35.0,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
+                                                                    gradient:
+                                                                        LinearGradient(
+                                                                      colors: [
+                                                                        Color(
+                                                                            0xFFFBBF24),
+                                                                        Color(
+                                                                            0xFFFCD34D)
+                                                                      ],
+                                                                      stops: [
+                                                                        0.0,
+                                                                        1.0
+                                                                      ],
+                                                                      begin: AlignmentDirectional(
+                                                                          1.0,
+                                                                          1.0),
+                                                                      end: AlignmentDirectional(
+                                                                          -1.0,
+                                                                          -1.0),
+                                                                    ),
                                                                   ),
                                                                   child: Row(
                                                                     mainAxisSize:
@@ -808,8 +839,8 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                                                       Icon(
                                                                         FFIcons
                                                                             .k4StorefrontFill,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             24.0,
                                                                       ),
@@ -822,6 +853,7 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                                                                 fontWeight: FontWeight.w600,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FontWeight.w600,
                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -848,6 +880,8 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                                                     EdgeInsets
                                                                         .zero,
                                                                 primary: false,
+                                                                shrinkWrap:
+                                                                    true,
                                                                 scrollDirection:
                                                                     Axis.vertical,
                                                                 itemCount:
@@ -863,311 +897,438 @@ class _CocomiseListPageWidgetState extends State<CocomiseListPageWidget> {
                                                                   final itemItem =
                                                                       item[
                                                                           itemIndex];
-                                                                  return Builder(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            InkWell(
-                                                                      splashColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      focusColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      hoverColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      highlightColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      onTap:
-                                                                          () async {
-                                                                        await showAlignedDialog(
-                                                                          context:
-                                                                              context,
-                                                                          isGlobal:
-                                                                              false,
-                                                                          avoidOverflow:
-                                                                              false,
-                                                                          targetAnchor:
-                                                                              AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                          followerAnchor:
-                                                                              AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                          builder:
-                                                                              (dialogContext) {
-                                                                            return Material(
-                                                                              color: Colors.transparent,
-                                                                              child: GestureDetector(
-                                                                                onTap: () {
-                                                                                  FocusScope.of(dialogContext).unfocus();
-                                                                                  FocusManager.instance.primaryFocus?.unfocus();
-                                                                                },
-                                                                                child: CocomiseEditDialogCompWidget(
-                                                                                  shopId: itemItem.id,
-                                                                                  shopName: itemItem.name,
-                                                                                  genre: itemItem.genre,
-                                                                                  prefecture: itemItem.prefecture,
-                                                                                  city: itemItem.city,
-                                                                                  townBlock: itemItem.townBlock,
-                                                                                  building: itemItem.building,
-                                                                                  active: itemItem.active,
-                                                                                ),
-                                                                              ),
-                                                                            );
-                                                                          },
-                                                                        );
-                                                                      },
-                                                                      child:
-                                                                          Container(
-                                                                        decoration:
-                                                                            BoxDecoration(
+                                                                  return InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
+                                                                      await actions
+                                                                          .openCocomiseEditDialog(
+                                                                        context,
+                                                                        itemItem
+                                                                            .id,
+                                                                        itemItem
+                                                                            .name,
+                                                                        itemItem
+                                                                            .genre,
+                                                                        itemItem
+                                                                            .prefecture,
+                                                                        itemItem
+                                                                            .city,
+                                                                        itemItem
+                                                                            .townBlock,
+                                                                        itemItem
+                                                                            .building,
+                                                                        itemItem
+                                                                            .active,
+                                                                      );
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryBackground,
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            blurRadius:
+                                                                                16.0,
+                                                                            color:
+                                                                                Color(0x26D97706),
+                                                                            offset:
+                                                                                Offset(
+                                                                              0.0,
+                                                                              6.0,
+                                                                            ),
+                                                                            spreadRadius:
+                                                                                0.0,
+                                                                          )
+                                                                        ],
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(20.0),
+                                                                        border:
+                                                                            Border.all(
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).secondaryBackground,
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(12.0),
+                                                                              Color(0x1FD97706),
+                                                                          width:
+                                                                              1.5,
                                                                         ),
+                                                                      ),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding:
+                                                                            EdgeInsets.all(16.0),
                                                                         child:
-                                                                            Padding(
-                                                                          padding:
-                                                                              EdgeInsets.all(16.0),
-                                                                          child:
-                                                                              Column(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.min,
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.start,
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
-                                                                            children:
-                                                                                [
-                                                                              Text(
-                                                                                itemItem.name,
-                                                                                style: FlutterFlowTheme.of(context).titleMedium.override(
-                                                                                      font: GoogleFonts.interTight(
-                                                                                        fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                                                                                        fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                                      ),
-                                                                                      letterSpacing: 0.0,
-                                                                                      fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                                                                                      fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                                    ),
-                                                                              ),
-                                                                              Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                children: [
-                                                                                  Text(
-                                                                                    'お店ジャンル',
-                                                                                    style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                          font: GoogleFonts.inter(
-                                                                                            fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                            fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
-                                                                                          ),
-                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                          letterSpacing: 0.0,
-                                                                                          fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                          fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                            Column(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.min,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.start,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children:
+                                                                              [
+                                                                            Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                                              children: [
+                                                                                Container(
+                                                                                  width: 44.0,
+                                                                                  height: 44.0,
+                                                                                  decoration: BoxDecoration(
+                                                                                    boxShadow: [
+                                                                                      BoxShadow(
+                                                                                        blurRadius: 10.0,
+                                                                                        color: Color(0x4DF59E0B),
+                                                                                        offset: Offset(
+                                                                                          0.0,
+                                                                                          3.0,
                                                                                         ),
+                                                                                        spreadRadius: 0.0,
+                                                                                      )
+                                                                                    ],
+                                                                                    gradient: LinearGradient(
+                                                                                      colors: [
+                                                                                        Color(0xFFF59E0B),
+                                                                                        Color(0xFFFBBF24)
+                                                                                      ],
+                                                                                      stops: [
+                                                                                        0.0,
+                                                                                        1.0
+                                                                                      ],
+                                                                                      begin: AlignmentDirectional(1.0, 1.0),
+                                                                                      end: AlignmentDirectional(-1.0, -1.0),
+                                                                                    ),
+                                                                                    borderRadius: BorderRadius.circular(22.0),
                                                                                   ),
-                                                                                  Row(
-                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                  child: Icon(
+                                                                                    Icons.storefront,
+                                                                                    color: Colors.white,
+                                                                                    size: 22.0,
+                                                                                  ),
+                                                                                ),
+                                                                                Expanded(
+                                                                                  flex: 1,
+                                                                                  child: Column(
+                                                                                    mainAxisSize: MainAxisSize.min,
                                                                                     mainAxisAlignment: MainAxisAlignment.start,
-                                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
                                                                                     children: [
+                                                                                      Text(
+                                                                                        itemItem.name,
+                                                                                        style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                              font: GoogleFonts.interTight(
+                                                                                                fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                                fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                              ),
+                                                                                              letterSpacing: 0.0,
+                                                                                              fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                              fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                            ),
+                                                                                      ),
                                                                                       Text(
                                                                                         itemItem.genre,
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        style: FlutterFlowTheme.of(context).bodySmall.override(
                                                                                               font: GoogleFonts.inter(
-                                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                                fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
                                                                                               ),
+                                                                                              color: FlutterFlowTheme.of(context).secondaryText,
                                                                                               letterSpacing: 0.0,
+                                                                                              fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                              fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                            ),
+                                                                                      ),
+                                                                                    ].divide(SizedBox(height: 2.0)),
+                                                                                  ),
+                                                                                ),
+                                                                                Row(
+                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                  children: [
+                                                                                    Icon(
+                                                                                      Icons.circle,
+                                                                                      color: functions.activeStatusDotColor(itemItem.activeLabel),
+                                                                                      size: 14.0,
+                                                                                    ),
+                                                                                    Text(
+                                                                                      itemItem.activeLabel,
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            font: GoogleFonts.inter(
                                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                             ),
-                                                                                      ),
-                                                                                    ].divide(SizedBox(width: 4.0)),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                              Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                children: [
-                                                                                  Text(
-                                                                                    '有効状態',
-                                                                                    style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                          font: GoogleFonts.inter(
-                                                                                            fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                            fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                            letterSpacing: 0.0,
+                                                                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                           ),
-                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                          letterSpacing: 0.0,
-                                                                                          fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                          fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
-                                                                                        ),
-                                                                                  ),
-                                                                                  Row(
+                                                                                    ),
+                                                                                  ].divide(SizedBox(width: 8.0)),
+                                                                                ),
+                                                                              ].divide(SizedBox(width: 12.0)),
+                                                                            ),
+                                                                            Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                                              children: [
+                                                                                Expanded(
+                                                                                  flex: 1,
+                                                                                  child: Row(
                                                                                     mainAxisSize: MainAxisSize.max,
                                                                                     mainAxisAlignment: MainAxisAlignment.start,
                                                                                     crossAxisAlignment: CrossAxisAlignment.center,
                                                                                     children: [
-                                                                                      Text(
-                                                                                        itemItem.activeLabel,
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              font: GoogleFonts.inter(
-                                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                              ),
-                                                                                              letterSpacing: 0.0,
-                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                            ),
-                                                                                      ),
-                                                                                    ].divide(SizedBox(width: 4.0)),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                              Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                children: [
-                                                                                  Text(
-                                                                                    '都道府県',
-                                                                                    style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                          font: GoogleFonts.inter(
-                                                                                            fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                            fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                      Expanded(
+                                                                                        flex: 1,
+                                                                                        child: Container(
+                                                                                          height: 100.0,
+                                                                                          decoration: BoxDecoration(
+                                                                                            color: FlutterFlowTheme.of(context).alternate,
                                                                                           ),
-                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                          letterSpacing: 0.0,
-                                                                                          fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                          fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                          child: Padding(
+                                                                                            padding: EdgeInsets.all(8.0),
+                                                                                            child: Column(
+                                                                                              mainAxisSize: MainAxisSize.max,
+                                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                              children: [
+                                                                                                Text(
+                                                                                                  '都道府県',
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        font: GoogleFonts.inter(
+                                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                        ),
+                                                                                                        letterSpacing: 0.0,
+                                                                                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                      ),
+                                                                                                ),
+                                                                                                Text(
+                                                                                                  '市区町村',
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        font: GoogleFonts.inter(
+                                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                        ),
+                                                                                                        letterSpacing: 0.0,
+                                                                                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                      ),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                          ),
                                                                                         ),
+                                                                                      ),
+                                                                                      Expanded(
+                                                                                        flex: 1,
+                                                                                        child: Container(
+                                                                                          height: 100.0,
+                                                                                          decoration: BoxDecoration(
+                                                                                            color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                            border: Border.all(
+                                                                                              color: FlutterFlowTheme.of(context).alternate,
+                                                                                              width: 1.0,
+                                                                                            ),
+                                                                                          ),
+                                                                                          child: Padding(
+                                                                                            padding: EdgeInsets.all(8.0),
+                                                                                            child: Column(
+                                                                                              mainAxisSize: MainAxisSize.max,
+                                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                              children: [
+                                                                                                Text(
+                                                                                                  itemItem.prefecture,
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        font: GoogleFonts.inter(
+                                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                        ),
+                                                                                                        letterSpacing: 0.0,
+                                                                                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                      ),
+                                                                                                ),
+                                                                                                Text(
+                                                                                                  itemItem.city,
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        font: GoogleFonts.inter(
+                                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                        ),
+                                                                                                        letterSpacing: 0.0,
+                                                                                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                      ),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
                                                                                   ),
-                                                                                  Row(
+                                                                                ),
+                                                                                Expanded(
+                                                                                  flex: 1,
+                                                                                  child: Row(
                                                                                     mainAxisSize: MainAxisSize.max,
                                                                                     mainAxisAlignment: MainAxisAlignment.start,
                                                                                     crossAxisAlignment: CrossAxisAlignment.center,
                                                                                     children: [
-                                                                                      Text(
-                                                                                        itemItem.prefecture,
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              font: GoogleFonts.inter(
-                                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                              ),
-                                                                                              letterSpacing: 0.0,
-                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                            ),
-                                                                                      ),
-                                                                                      Text(
-                                                                                        itemItem.city,
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              font: GoogleFonts.inter(
-                                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                              ),
-                                                                                              letterSpacing: 0.0,
-                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                            ),
-                                                                                      ),
-                                                                                    ].divide(SizedBox(width: 4.0)),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                              Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                children: [
-                                                                                  Text(
-                                                                                    '町村番地',
-                                                                                    style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                          font: GoogleFonts.inter(
-                                                                                            fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                            fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                      Expanded(
+                                                                                        flex: 1,
+                                                                                        child: Container(
+                                                                                          height: 100.0,
+                                                                                          decoration: BoxDecoration(
+                                                                                            color: FlutterFlowTheme.of(context).alternate,
                                                                                           ),
-                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                          letterSpacing: 0.0,
-                                                                                          fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                          fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
-                                                                                        ),
-                                                                                  ),
-                                                                                  Row(
-                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                    children: [
-                                                                                      Text(
-                                                                                        itemItem.townBlock,
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              font: GoogleFonts.inter(
-                                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                              ),
-                                                                                              letterSpacing: 0.0,
-                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                          child: Padding(
+                                                                                            padding: EdgeInsets.all(8.0),
+                                                                                            child: Column(
+                                                                                              mainAxisSize: MainAxisSize.max,
+                                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                              children: [
+                                                                                                Text(
+                                                                                                  '町村番地',
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        font: GoogleFonts.inter(
+                                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                        ),
+                                                                                                        letterSpacing: 0.0,
+                                                                                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                      ),
+                                                                                                ),
+                                                                                                Text(
+                                                                                                  '建物名',
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        font: GoogleFonts.inter(
+                                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                        ),
+                                                                                                        letterSpacing: 0.0,
+                                                                                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                      ),
+                                                                                                ),
+                                                                                              ],
                                                                                             ),
-                                                                                      ),
-                                                                                    ].divide(SizedBox(width: 4.0)),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                              Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                children: [
-                                                                                  Text(
-                                                                                    '建物名',
-                                                                                    style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                          font: GoogleFonts.inter(
-                                                                                            fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                            fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
                                                                                           ),
-                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                          letterSpacing: 0.0,
-                                                                                          fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                          fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
                                                                                         ),
-                                                                                  ),
-                                                                                  Row(
-                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                    children: [
-                                                                                      Text(
-                                                                                        itemItem.building,
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              font: GoogleFonts.inter(
-                                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                              ),
-                                                                                              letterSpacing: 0.0,
-                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                            ),
                                                                                       ),
-                                                                                    ].divide(SizedBox(width: 4.0)),
+                                                                                      Expanded(
+                                                                                        flex: 1,
+                                                                                        child: Container(
+                                                                                          height: 100.0,
+                                                                                          decoration: BoxDecoration(
+                                                                                            color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                            border: Border.all(
+                                                                                              color: FlutterFlowTheme.of(context).alternate,
+                                                                                              width: 1.0,
+                                                                                            ),
+                                                                                          ),
+                                                                                          child: Padding(
+                                                                                            padding: EdgeInsets.all(8.0),
+                                                                                            child: Column(
+                                                                                              mainAxisSize: MainAxisSize.max,
+                                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                              children: [
+                                                                                                Text(
+                                                                                                  itemItem.townBlock,
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        font: GoogleFonts.inter(
+                                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                        ),
+                                                                                                        letterSpacing: 0.0,
+                                                                                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                      ),
+                                                                                                ),
+                                                                                                Text(
+                                                                                                  itemItem.building,
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        font: GoogleFonts.inter(
+                                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                        ),
+                                                                                                        letterSpacing: 0.0,
+                                                                                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                      ),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
                                                                                   ),
-                                                                                ],
-                                                                              ),
-                                                                            ].divide(SizedBox(height: 8.0)),
-                                                                          ),
+                                                                                ),
+                                                                              ].divide(SizedBox(width: 16.0)),
+                                                                            ),
+                                                                          ].divide(SizedBox(height: 12.0)),
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                  );
+                                                                  ).animateOnPageLoad(
+                                                                      animationsMap[
+                                                                          'containerOnPageLoadAnimation']!);
                                                                 },
                                                               );
                                                             },
                                                           ),
+                                                          if (!(FFAppState()
+                                                              .cocomiseShopListStruct
+                                                              .isNotEmpty))
+                                                            Text(
+                                                              '該当するココ店舗が見つかりませんでした\n',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .inter(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                            ),
                                                         ],
                                                       ),
                                                     ),

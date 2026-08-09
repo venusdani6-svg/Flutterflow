@@ -415,7 +415,7 @@ class _AdminLoginPageWidgetState extends State<AdminLoginPageWidget> {
                                 16.0, 0.0, 16.0, 0.0),
                             iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
-                            color: Color(0xFF93E1F7),
+                            color: FlutterFlowTheme.of(context).primary,
                             textStyle: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
@@ -480,7 +480,7 @@ class _AdminLoginPageWidgetState extends State<AdminLoginPageWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                                  color: Color(0xFF0602F1),
+                                  color: FlutterFlowTheme.of(context).primary,
                                   fontSize: 12.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,

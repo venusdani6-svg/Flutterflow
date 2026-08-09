@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -272,54 +273,6 @@ class _PrefecturesDialogCompWidgetState
       _model.prefConfigLoaded = true;
       safeSetState(() {});
     });
-
-    _model.switchValue1 = _model.hokkaidoActive!;
-    _model.switchValue2 = _model.aomoriActive!;
-    _model.switchValue3 = _model.iwateActive!;
-    _model.switchValue4 = _model.miyagiActive!;
-    _model.switchValue5 = _model.akitaActive!;
-    _model.switchValue6 = _model.yamagataActive!;
-    _model.switchValue7 = _model.fukushimaActive!;
-    _model.switchValue8 = _model.ibarakiActive!;
-    _model.switchValue9 = _model.tochigiActive!;
-    _model.switchValue10 = _model.gunmaActive!;
-    _model.switchValue11 = _model.saitamaActive!;
-    _model.switchValue12 = _model.chibaActive!;
-    _model.switchValue13 = _model.tokyoActive!;
-    _model.switchValue14 = _model.kanagawaActive!;
-    _model.switchValue15 = _model.niigataActive!;
-    _model.switchValue16 = _model.toyamaActive!;
-    _model.switchValue17 = _model.ishikawaActive!;
-    _model.switchValue18 = _model.fukuiActive!;
-    _model.switchValue19 = _model.yamanashiActive!;
-    _model.switchValue20 = _model.naganoActive!;
-    _model.switchValue21 = _model.gifuActive!;
-    _model.switchValue22 = _model.shizuokaActive!;
-    _model.switchValue23 = _model.aichiActive!;
-    _model.switchValue24 = _model.mieActive!;
-    _model.switchValue25 = _model.shigaActive!;
-    _model.switchValue26 = _model.kyotoActive!;
-    _model.switchValue27 = _model.osakaActive!;
-    _model.switchValue28 = _model.hyogoActive!;
-    _model.switchValue29 = _model.naraActive!;
-    _model.switchValue30 = _model.wakayamaActive!;
-    _model.switchValue31 = _model.tottoriActive!;
-    _model.switchValue32 = _model.shimaneActive!;
-    _model.switchValue33 = _model.okayamaActive!;
-    _model.switchValue34 = _model.hiroshimaActive!;
-    _model.switchValue35 = _model.yamaguchiActive!;
-    _model.switchValue36 = _model.tokushimaActive!;
-    _model.switchValue37 = _model.kagawaActive!;
-    _model.switchValue38 = _model.ehimeActive!;
-    _model.switchValue39 = _model.kochiActive!;
-    _model.switchValue40 = _model.fukuokaActive!;
-    _model.switchValue41 = _model.sagaActive!;
-    _model.switchValue42 = _model.nagasakiActive!;
-    _model.switchValue43 = _model.kumamotoActive!;
-    _model.switchValue44 = _model.oitaActive!;
-    _model.switchValue45 = _model.miyazakiActive!;
-    _model.switchValue46 = _model.kagoshimaActive!;
-    _model.switchValue47 = _model.okinawaActive!;
   }
 
   @override
@@ -381,94 +334,26 @@ class _PrefecturesDialogCompWidgetState
                   ),
                 ),
               ),
-              FFButtonWidget(
-                onPressed: () async {
-                  if (_model.prefConfigLoaded!) {
-                    _model.saveAllPrefecturesResult =
-                        await actions.adminUpdateAllPrefectures(
-                      _model.hokkaidoActive,
-                      _model.aomoriActive,
-                      _model.iwateActive,
-                      _model.miyagiActive,
-                      _model.akitaActive,
-                      _model.yamagataActive,
-                      _model.fukushimaActive,
-                      _model.ibarakiActive,
-                      _model.tochigiActive,
-                      _model.gunmaActive,
-                      _model.saitamaActive,
-                      _model.chibaActive,
-                      _model.tokyoActive,
-                      _model.kanagawaActive,
-                      _model.niigataActive,
-                      _model.toyamaActive,
-                      _model.ishikawaActive,
-                      _model.fukuiActive,
-                      _model.yamanashiActive,
-                      _model.naganoActive,
-                      _model.gifuActive,
-                      _model.shizuokaActive,
-                      _model.aichiActive,
-                      _model.mieActive,
-                      _model.shigaActive,
-                      _model.kyotoActive,
-                      _model.osakaActive,
-                      _model.hyogoActive,
-                      _model.naraActive,
-                      _model.wakayamaActive,
-                      _model.tottoriActive,
-                      _model.shimaneActive,
-                      _model.okayamaActive,
-                      _model.hiroshimaActive,
-                      _model.yamaguchiActive,
-                      _model.tokushimaActive,
-                      _model.kagawaActive,
-                      _model.ehimeActive,
-                      _model.kochiActive,
-                      _model.fukuokaActive,
-                      _model.sagaActive,
-                      _model.nagasakiActive,
-                      _model.kumamotoActive,
-                      _model.oitaActive,
-                      _model.miyazakiActive,
-                      _model.kagoshimaActive,
-                      _model.okinawaActive,
-                    );
-                    Navigator.pop(context);
-                  }
-
-                  safeSetState(() {});
-                },
-                text: '保存',
-                options: FFButtonOptions(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  iconPadding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: FlutterFlowTheme.of(context).primary,
-                  textStyle: TextStyle(
-                    color: FlutterFlowTheme.of(context).primaryBackground,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    width: 40.0,
-                    height: 40.0,
-                    decoration: BoxDecoration(),
-                    child: Icon(
-                      Icons.close_sharp,
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      size: 20.0,
+              Container(
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      width: 40.0,
+                      height: 40.0,
+                      decoration: BoxDecoration(),
+                      child: Icon(
+                        Icons.close_sharp,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        size: 20.0,
+                      ),
                     ),
                   ),
                 ),
@@ -556,27 +441,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue1!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue1 = newValue);
-                                        if (newValue) {
-                                          _model.hokkaidoActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.hokkaidoActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.hokkaidoActive =
+                                            !(_model.hokkaidoActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.hokkaidoActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -627,27 +511,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue2!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue2 = newValue);
-                                        if (newValue) {
-                                          _model.aomoriActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.aomoriActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.aomoriActive =
+                                            !(_model.aomoriActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.aomoriActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -705,27 +588,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue3!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue3 = newValue);
-                                        if (newValue) {
-                                          _model.iwateActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.iwateActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.iwateActive =
+                                            !(_model.iwateActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.iwateActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -776,27 +658,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue4!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue4 = newValue);
-                                        if (newValue) {
-                                          _model.miyagiActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.miyagiActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.miyagiActive =
+                                            !(_model.miyagiActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.miyagiActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -854,27 +735,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue5!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue5 = newValue);
-                                        if (newValue) {
-                                          _model.akitaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.akitaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.akitaActive =
+                                            !(_model.akitaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.akitaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -925,27 +805,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue6!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue6 = newValue);
-                                        if (newValue) {
-                                          _model.yamagataActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.yamagataActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.yamagataActive =
+                                            !(_model.yamagataActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.yamagataActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1003,27 +882,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue7!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue7 = newValue);
-                                        if (newValue) {
-                                          _model.fukushimaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.fukushimaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.fukushimaActive =
+                                            !(_model.fukushimaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.fukushimaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1128,27 +1006,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue8!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue8 = newValue);
-                                        if (newValue) {
-                                          _model.ibarakiActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.ibarakiActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.ibarakiActive =
+                                            !(_model.ibarakiActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.ibarakiActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1199,27 +1076,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue9!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue9 = newValue);
-                                        if (newValue) {
-                                          _model.tochigiActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.tochigiActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.tochigiActive =
+                                            !(_model.tochigiActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.tochigiActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1277,27 +1153,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue10!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue10 = newValue);
-                                        if (newValue) {
-                                          _model.gunmaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.gunmaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.gunmaActive =
+                                            !(_model.gunmaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.gunmaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1348,27 +1223,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue11!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue11 = newValue);
-                                        if (newValue) {
-                                          _model.saitamaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.saitamaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.saitamaActive =
+                                            !(_model.saitamaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.saitamaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1426,27 +1300,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue12!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue12 = newValue);
-                                        if (newValue) {
-                                          _model.chibaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.chibaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.chibaActive =
+                                            !(_model.chibaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.chibaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1497,27 +1370,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue13!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue13 = newValue);
-                                        if (newValue) {
-                                          _model.tokyoActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.tokyoActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.tokyoActive =
+                                            !(_model.tokyoActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.tokyoActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1575,27 +1447,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue14!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue14 = newValue);
-                                        if (newValue) {
-                                          _model.kanagawaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.kanagawaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.kanagawaActive =
+                                            !(_model.kanagawaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.kanagawaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1694,27 +1565,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue15!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue15 = newValue);
-                                        if (newValue) {
-                                          _model.niigataActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.niigataActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.niigataActive =
+                                            !(_model.niigataActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.niigataActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1765,27 +1635,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue16!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue16 = newValue);
-                                        if (newValue) {
-                                          _model.toyamaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.toyamaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.toyamaActive =
+                                            !(_model.toyamaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.toyamaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1843,27 +1712,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue17!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue17 = newValue);
-                                        if (newValue) {
-                                          _model.ishikawaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.ishikawaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.ishikawaActive =
+                                            !(_model.ishikawaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.ishikawaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1914,27 +1782,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue18!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue18 = newValue);
-                                        if (newValue) {
-                                          _model.fukuiActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.fukuiActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.fukuiActive =
+                                            !(_model.fukuiActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.fukuiActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1992,27 +1859,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue19!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue19 = newValue);
-                                        if (newValue) {
-                                          _model.yamanashiActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.yamanashiActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.yamanashiActive =
+                                            !(_model.yamanashiActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.yamanashiActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -2063,27 +1929,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue20!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue20 = newValue);
-                                        if (newValue) {
-                                          _model.naganoActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.naganoActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.naganoActive =
+                                            !(_model.naganoActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.naganoActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -2141,27 +2006,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue21!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue21 = newValue);
-                                        if (newValue) {
-                                          _model.gifuActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.gifuActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.gifuActive =
+                                            !(_model.gifuActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.gifuActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -2212,27 +2076,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue22!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue22 = newValue);
-                                        if (newValue) {
-                                          _model.shizuokaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.shizuokaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.shizuokaActive =
+                                            !(_model.shizuokaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.shizuokaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -2290,27 +2153,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue23!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue23 = newValue);
-                                        if (newValue) {
-                                          _model.aichiActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.aichiActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.aichiActive =
+                                            !(_model.aichiActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.aichiActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -2409,27 +2271,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue24!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue24 = newValue);
-                                        if (newValue) {
-                                          _model.mieActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.mieActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.mieActive =
+                                            !(_model.mieActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.mieActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -2480,27 +2341,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue25!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue25 = newValue);
-                                        if (newValue) {
-                                          _model.shigaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.shigaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.shigaActive =
+                                            !(_model.shigaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.shigaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -2558,27 +2418,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue26!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue26 = newValue);
-                                        if (newValue) {
-                                          _model.kyotoActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.kyotoActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.kyotoActive =
+                                            !(_model.kyotoActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.kyotoActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -2629,27 +2488,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue27!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue27 = newValue);
-                                        if (newValue) {
-                                          _model.osakaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.osakaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.osakaActive =
+                                            !(_model.osakaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.osakaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -2707,27 +2565,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue28!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue28 = newValue);
-                                        if (newValue) {
-                                          _model.hyogoActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.hyogoActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.hyogoActive =
+                                            !(_model.hyogoActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.hyogoActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -2778,27 +2635,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue29!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue29 = newValue);
-                                        if (newValue) {
-                                          _model.naraActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.naraActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.naraActive =
+                                            !(_model.naraActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.naraActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -2856,27 +2712,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue30!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue30 = newValue);
-                                        if (newValue) {
-                                          _model.wakayamaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.wakayamaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.wakayamaActive =
+                                            !(_model.wakayamaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.wakayamaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -2975,27 +2830,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue31!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue31 = newValue);
-                                        if (newValue) {
-                                          _model.tottoriActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.tottoriActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.tottoriActive =
+                                            !(_model.tottoriActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.tottoriActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -3046,27 +2900,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue32!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue32 = newValue);
-                                        if (newValue) {
-                                          _model.shimaneActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.shimaneActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.shimaneActive =
+                                            !(_model.shimaneActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.shimaneActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -3124,27 +2977,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue33!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue33 = newValue);
-                                        if (newValue) {
-                                          _model.okayamaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.okayamaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.okayamaActive =
+                                            !(_model.okayamaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.okayamaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -3195,27 +3047,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue34!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue34 = newValue);
-                                        if (newValue) {
-                                          _model.hiroshimaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.hiroshimaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.hiroshimaActive =
+                                            !(_model.hiroshimaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.hiroshimaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -3273,27 +3124,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue35!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue35 = newValue);
-                                        if (newValue) {
-                                          _model.yamaguchiActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.yamaguchiActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.yamaguchiActive =
+                                            !(_model.yamaguchiActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.yamaguchiActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -3392,27 +3242,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue36!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue36 = newValue);
-                                        if (newValue) {
-                                          _model.tokushimaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.tokushimaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.tokushimaActive =
+                                            !(_model.tokushimaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.tokushimaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -3463,27 +3312,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue37!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue37 = newValue);
-                                        if (newValue) {
-                                          _model.kagawaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.kagawaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.kagawaActive =
+                                            !(_model.kagawaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.kagawaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -3541,27 +3389,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue38!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue38 = newValue);
-                                        if (newValue) {
-                                          _model.ehimeActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.ehimeActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.ehimeActive =
+                                            !(_model.ehimeActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.ehimeActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -3612,27 +3459,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue39!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue39 = newValue);
-                                        if (newValue) {
-                                          _model.kochiActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.kochiActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.kochiActive =
+                                            !(_model.kochiActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.kochiActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -3723,27 +3569,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue40!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue40 = newValue);
-                                        if (newValue) {
-                                          _model.fukuokaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.fukuokaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.fukuokaActive =
+                                            !(_model.fukuokaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.fukuokaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -3794,27 +3639,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue41!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue41 = newValue);
-                                        if (newValue) {
-                                          _model.sagaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.sagaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.sagaActive =
+                                            !(_model.sagaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.sagaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -3872,27 +3716,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue42!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue42 = newValue);
-                                        if (newValue) {
-                                          _model.nagasakiActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.nagasakiActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.nagasakiActive =
+                                            !(_model.nagasakiActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.nagasakiActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -3943,27 +3786,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue43!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue43 = newValue);
-                                        if (newValue) {
-                                          _model.kumamotoActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.kumamotoActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.kumamotoActive =
+                                            !(_model.kumamotoActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.kumamotoActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -4021,27 +3863,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue44!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue44 = newValue);
-                                        if (newValue) {
-                                          _model.oitaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.oitaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.oitaActive =
+                                            !(_model.oitaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.oitaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -4092,27 +3933,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue45!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue45 = newValue);
-                                        if (newValue) {
-                                          _model.miyazakiActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.miyazakiActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.miyazakiActive =
+                                            !(_model.miyazakiActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.miyazakiActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -4170,27 +4010,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue46!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue46 = newValue);
-                                        if (newValue) {
-                                          _model.kagoshimaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.kagoshimaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.kagoshimaActive =
+                                            !(_model.kagoshimaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.kagoshimaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -4241,27 +4080,26 @@ class _PrefecturesDialogCompWidgetState
                                                     .fontStyle,
                                           ),
                                     ),
-                                    Switch.adaptive(
-                                      value: _model.switchValue47!,
-                                      onChanged: (newValue) async {
-                                        safeSetState(() =>
-                                            _model.switchValue47 = newValue);
-                                        if (newValue) {
-                                          _model.okinawaActive = true;
-                                          safeSetState(() {});
-                                        } else {
-                                          _model.okinawaActive = false;
-                                          safeSetState(() {});
-                                        }
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        _model.okinawaActive =
+                                            !(_model.okinawaActive ?? true);
+                                        safeSetState(() {});
                                       },
-                                      activeColor: Color(0xFF06F705),
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                      inactiveTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                      inactiveThumbColor: Color(0xFFF70505),
+                                      child: Container(
+                                        width: 28.0,
+                                        height: 28.0,
+                                        decoration: BoxDecoration(
+                                          color: functions.areaActiveDotColor(
+                                              _model.okinawaActive),
+                                          borderRadius:
+                                              BorderRadius.circular(14.0),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -4275,6 +4113,90 @@ class _PrefecturesDialogCompWidgetState
                     ),
                   ].divide(SizedBox(height: 8.0)).around(SizedBox(height: 8.0)),
                 ),
+              ),
+            ),
+          ),
+          Container(
+            child: FFButtonWidget(
+              onPressed: () async {
+                if (getJsonField(
+                  _model.prefDialogConfigInit,
+                  r'''$.success''',
+                )) {
+                  _model.saveAllPrefecturesResult =
+                      await actions.adminUpdateAllPrefectures(
+                    _model.hokkaidoActive,
+                    _model.aomoriActive,
+                    _model.iwateActive,
+                    _model.miyagiActive,
+                    _model.akitaActive,
+                    _model.yamagataActive,
+                    _model.fukushimaActive,
+                    _model.ibarakiActive,
+                    _model.tochigiActive,
+                    _model.gunmaActive,
+                    _model.saitamaActive,
+                    _model.chibaActive,
+                    _model.tokyoActive,
+                    _model.kanagawaActive,
+                    _model.niigataActive,
+                    _model.toyamaActive,
+                    _model.ishikawaActive,
+                    _model.fukuiActive,
+                    _model.yamanashiActive,
+                    _model.naganoActive,
+                    _model.gifuActive,
+                    _model.shizuokaActive,
+                    _model.aichiActive,
+                    _model.mieActive,
+                    _model.shigaActive,
+                    _model.kyotoActive,
+                    _model.osakaActive,
+                    _model.hyogoActive,
+                    _model.naraActive,
+                    _model.wakayamaActive,
+                    _model.tottoriActive,
+                    _model.shimaneActive,
+                    _model.okayamaActive,
+                    _model.hiroshimaActive,
+                    _model.yamaguchiActive,
+                    _model.tokushimaActive,
+                    _model.kagawaActive,
+                    _model.ehimeActive,
+                    _model.kochiActive,
+                    _model.fukuokaActive,
+                    _model.sagaActive,
+                    _model.nagasakiActive,
+                    _model.kumamotoActive,
+                    _model.oitaActive,
+                    _model.miyazakiActive,
+                    _model.kagoshimaActive,
+                    _model.okinawaActive,
+                  );
+                  Navigator.pop(context);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        '設定の読み込みに失敗しました。ダイアログを閉じて再度お試しください。',
+                        style: TextStyle(),
+                      ),
+                      duration: Duration(milliseconds: 4000),
+                    ),
+                  );
+                }
+
+                safeSetState(() {});
+              },
+              text: '保存',
+              options: FFButtonOptions(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                color: FlutterFlowTheme.of(context).primary,
+                textStyle: TextStyle(
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                ),
+                borderRadius: BorderRadius.circular(8.0),
               ),
             ),
           ),

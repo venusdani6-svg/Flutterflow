@@ -78,7 +78,15 @@ class _FilterAuditLogDialogCompWidgetState
                     'resolve_report',
                     'payout_on_hold',
                     'payout_rejected',
-                    'approve_payout'
+                    'approve_payout',
+                    'create_cocomise',
+                    'update_cocomise',
+                    'delete_cocomise',
+                    'close_work_post',
+                    'manual_refund',
+                    'update_profile',
+                    'create_banner',
+                    'update_banner'
                   ]),
                   optionLabels: [
                     'すべて',
@@ -95,7 +103,15 @@ class _FilterAuditLogDialogCompWidgetState
                     '通報対応',
                     '出金保留',
                     '出金否認',
-                    '出金承認'
+                    '出金承認',
+                    'ココ店新規登録',
+                    'ココ店情報変更',
+                    'ココ店削除',
+                    'お仕事掲示板投稿終了',
+                    '手動返金',
+                    'プロフィール編集',
+                    'バナー新規作成',
+                    'バナー情報変更'
                   ],
                   onChanged: (val) =>
                       safeSetState(() => _model.dropDownValue = val),

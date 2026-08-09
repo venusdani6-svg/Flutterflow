@@ -271,22 +271,46 @@ class _ProfileEditDialogCompWidgetState
                 ),
                 FFButtonWidget(
                   onPressed: () async {
-                    _model.updateProfileResult =
-                        await actions.adminUpdateUserProfile(
-                      widget.userId,
+                    _model.profileEditHasChangesResult =
+                        await actions.profileEditHasChanges(
+                      widget.currentSelfIntroduction,
                       _model.selfIntroductionFieldTextController.text,
                       _model.profileEditReasonFieldTextController.text,
                     );
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          '保存しました。',
-                          style: TextStyle(),
+                    if (_model.profileEditHasChangesResult!) {
+                      _model.updateProfileResult =
+                          await actions.adminUpdateUserProfile(
+                        widget.userId,
+                        _model.selfIntroductionFieldTextController.text,
+                        _model.profileEditReasonFieldTextController.text,
+                      );
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            '保存しました。',
+                            style: TextStyle(),
+                          ),
+                          duration: Duration(milliseconds: 4000),
                         ),
-                        duration: Duration(milliseconds: 4000),
-                      ),
-                    );
+                      );
+                    } else {
+                      await showDialog(
+                        context: context,
+                        builder: (alertDialogContext) {
+                          return AlertDialog(
+                            content: Text('変更内容または編集理由を入力してください。'),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(alertDialogContext),
+                                child: Text('Ok'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
 
                     safeSetState(() {});
                   },

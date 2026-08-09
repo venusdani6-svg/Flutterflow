@@ -1,15 +1,18 @@
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/kyc_review_dialog_comp_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/kyc/filter_k_y_c_dialog_comp/filter_k_y_c_dialog_comp_widget.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
-import 'package:aligned_dialog/aligned_dialog.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'k_y_c_review_list_page_model.dart';
@@ -26,10 +29,13 @@ class KYCReviewListPageWidget extends StatefulWidget {
       _KYCReviewListPageWidgetState();
 }
 
-class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
+class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget>
+    with TickerProviderStateMixin {
   late KYCReviewListPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -44,6 +50,29 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
       FFAppState().kycUserListStruct =
           _model.kycListTypedInitRaw!.toList().cast<KycUserItemStruct>();
       safeSetState(() {});
+    });
+
+    animationsMap.addAll({
+      'containerOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 20.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
     });
   }
 
@@ -104,15 +133,16 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Color(0x1FF59E0B),
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/transparent.png',
+                                      child: SvgPicture.asset(
+                                        'assets/images/icoccha_logo_color.svg',
                                         width: 80.0,
                                         height: 80.0,
                                         fit: BoxFit.contain,
@@ -124,8 +154,15 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                       width: 100.0,
                                       height: 80.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFF59E0B),
+                                            Color(0xFFFBBF24)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 1.0),
+                                          end: AlignmentDirectional(-1.0, -1.0),
+                                        ),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -135,9 +172,17 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                               width: 250.0,
                                               height: 80.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFF59E0B),
+                                                    Color(0xFFFBBF24)
+                                                  ],
+                                                  stops: [0.0, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 1.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, -1.0),
+                                                ),
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
@@ -195,6 +240,8 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           14.0,
                                                                       letterSpacing:
@@ -223,6 +270,8 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           12.0,
                                                                       letterSpacing:
@@ -284,18 +333,17 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                             height: 35.0,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
+                                                              color: Color(
+                                                                  0x33FFFFFF),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8.0),
+                                                                          12.0),
                                                               border:
                                                                   Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .alternate,
+                                                                color: Color(
+                                                                    0x4DFFFFFF),
+                                                                width: 1.0,
                                                               ),
                                                             ),
                                                             child: Builder(
@@ -314,8 +362,8 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                       Icon(
                                                                         FFIcons
                                                                             .ksun,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -328,6 +376,7 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -345,8 +394,8 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                       Icon(
                                                                         FFIcons
                                                                             .kstarAndCrescent,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -359,6 +408,7 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -401,7 +451,7 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                             .transparent,
                                                                     alignment: AlignmentDirectional(
                                                                             0.0,
-                                                                            -1.0)
+                                                                            0.0)
                                                                         .resolve(
                                                                             Directionality.of(context)),
                                                                     child:
@@ -434,18 +484,17 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                               height: 35.0,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
+                                                                color: Color(
+                                                                    0x33FFFFFF),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            8.0),
+                                                                            12.0),
                                                                 border:
                                                                     Border.all(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
+                                                                  color: Color(
+                                                                      0x4DFFFFFF),
+                                                                  width: 1.0,
                                                                 ),
                                                               ),
                                                               child: Column(
@@ -459,9 +508,8 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                   Icon(
                                                                     FFIcons
                                                                         .karticleG,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                                    color: Colors
+                                                                        .white,
                                                                     size: 20.0,
                                                                   ),
                                                                   Text(
@@ -478,7 +526,7 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                                 FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               10.0,
                                                                           letterSpacing:
@@ -568,6 +616,7 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
+                                                            color: Colors.white,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -724,9 +773,25 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                   height: 35.0,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
+                                                                    gradient:
+                                                                        LinearGradient(
+                                                                      colors: [
+                                                                        Color(
+                                                                            0xFFFBBF24),
+                                                                        Color(
+                                                                            0xFFFCD34D)
+                                                                      ],
+                                                                      stops: [
+                                                                        0.0,
+                                                                        1.0
+                                                                      ],
+                                                                      begin: AlignmentDirectional(
+                                                                          1.0,
+                                                                          1.0),
+                                                                      end: AlignmentDirectional(
+                                                                          -1.0,
+                                                                          -1.0),
+                                                                    ),
                                                                   ),
                                                                   child: Row(
                                                                     mainAxisSize:
@@ -739,8 +804,8 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                       Icon(
                                                                         FFIcons
                                                                             .kuserCircleCheckFill,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             24.0,
                                                                       ),
@@ -753,6 +818,7 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                                 fontWeight: FontWeight.w600,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FontWeight.w600,
                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -779,6 +845,8 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                     EdgeInsets
                                                                         .zero,
                                                                 primary: false,
+                                                                shrinkWrap:
+                                                                    true,
                                                                 scrollDirection:
                                                                     Axis.vertical,
                                                                 itemCount:
@@ -795,9 +863,8 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                       item[
                                                                           itemIndex];
                                                                   return Builder(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            InkWell(
+                                                                    builder: (context) =>
+                                                                        InkWell(
                                                                       splashColor:
                                                                           Colors
                                                                               .transparent,
@@ -812,21 +879,16 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                               .transparent,
                                                                       onTap:
                                                                           () async {
-                                                                        await showAlignedDialog(
+                                                                        await showDialog(
                                                                           context:
                                                                               context,
-                                                                          isGlobal:
-                                                                              false,
-                                                                          avoidOverflow:
-                                                                              false,
-                                                                          targetAnchor:
-                                                                              AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                          followerAnchor:
-                                                                              AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
                                                                           builder:
                                                                               (dialogContext) {
-                                                                            return Material(
-                                                                              color: Colors.transparent,
+                                                                            return Dialog(
+                                                                              elevation: 0,
+                                                                              insetPadding: EdgeInsets.zero,
+                                                                              backgroundColor: Colors.transparent,
+                                                                              alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
                                                                               child: GestureDetector(
                                                                                 onTap: () {
                                                                                   FocusScope.of(dialogContext).unfocus();
@@ -848,14 +910,32 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                         decoration:
                                                                             BoxDecoration(
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).secondaryBackground,
+                                                                              FlutterFlowTheme.of(context).primaryBackground,
+                                                                          boxShadow: [
+                                                                            BoxShadow(
+                                                                              blurRadius: 16.0,
+                                                                              color: Color(0x26D97706),
+                                                                              offset: Offset(
+                                                                                0.0,
+                                                                                6.0,
+                                                                              ),
+                                                                              spreadRadius: 0.0,
+                                                                            )
+                                                                          ],
                                                                           borderRadius:
-                                                                              BorderRadius.circular(12.0),
+                                                                              BorderRadius.circular(20.0),
+                                                                          border:
+                                                                              Border.all(
+                                                                            color:
+                                                                                Color(0x1FD97706),
+                                                                            width:
+                                                                                1.5,
+                                                                          ),
                                                                         ),
                                                                         child:
                                                                             Padding(
                                                                           padding:
-                                                                              EdgeInsets.all(16.0),
+                                                                              EdgeInsets.all(8.0),
                                                                           child:
                                                                               Row(
                                                                             mainAxisSize:
@@ -866,132 +946,32 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                                 CrossAxisAlignment.center,
                                                                             children:
                                                                                 [
-                                                                              Expanded(
-                                                                                flex: 1,
-                                                                                child: Column(
-                                                                                  mainAxisSize: MainAxisSize.min,
-                                                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                  children: [
-                                                                                    Row(
-                                                                                      mainAxisSize: MainAxisSize.max,
-                                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                      children: [
-                                                                                        Text(
-                                                                                          '審査申請者',
-                                                                                          style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                                font: GoogleFonts.inter(
-                                                                                                  fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
-                                                                                                ),
-                                                                                                color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                                letterSpacing: 0.0,
-                                                                                                fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                                fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
-                                                                                              ),
-                                                                                        ),
-                                                                                        Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          mainAxisAlignment: MainAxisAlignment.start,
-                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                          children: [
-                                                                                            Text(
-                                                                                              itemItem.nickname,
-                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                    font: GoogleFonts.inter(
-                                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                    ),
-                                                                                                    letterSpacing: 0.0,
-                                                                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                  ),
-                                                                                            ),
-                                                                                          ].divide(SizedBox(width: 4.0)),
-                                                                                        ),
-                                                                                      ],
+                                                                              Column(
+                                                                                mainAxisSize: MainAxisSize.min,
+                                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                children: [
+                                                                                  Container(
+                                                                                    width: 50.0,
+                                                                                    height: 50.0,
+                                                                                    decoration: BoxDecoration(
+                                                                                      color: FlutterFlowTheme.of(context).alternate,
+                                                                                      borderRadius: BorderRadius.circular(25.0),
                                                                                     ),
-                                                                                    Row(
-                                                                                      mainAxisSize: MainAxisSize.max,
-                                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                      children: [
-                                                                                        Text(
-                                                                                          'ステータス',
-                                                                                          style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                                font: GoogleFonts.inter(
-                                                                                                  fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
-                                                                                                ),
-                                                                                                color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                                letterSpacing: 0.0,
-                                                                                                fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                                fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
-                                                                                              ),
+                                                                                  ),
+                                                                                  Text(
+                                                                                    itemItem.nickname,
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          font: GoogleFonts.inter(
+                                                                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                          ),
+                                                                                          letterSpacing: 0.0,
+                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                         ),
-                                                                                        Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          mainAxisAlignment: MainAxisAlignment.start,
-                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                          children: [
-                                                                                            Text(
-                                                                                              itemItem.kycStatus,
-                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                    font: GoogleFonts.inter(
-                                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                    ),
-                                                                                                    letterSpacing: 0.0,
-                                                                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                  ),
-                                                                                            ),
-                                                                                          ].divide(SizedBox(width: 4.0)),
-                                                                                        ),
-                                                                                      ],
-                                                                                    ),
-                                                                                    Row(
-                                                                                      mainAxisSize: MainAxisSize.max,
-                                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                      children: [
-                                                                                        Text(
-                                                                                          '必要書類提出日',
-                                                                                          style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                                font: GoogleFonts.inter(
-                                                                                                  fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
-                                                                                                ),
-                                                                                                color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                                letterSpacing: 0.0,
-                                                                                                fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                                fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
-                                                                                              ),
-                                                                                        ),
-                                                                                        Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          mainAxisAlignment: MainAxisAlignment.start,
-                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                          children: [
-                                                                                            Text(
-                                                                                              itemItem.updatedAt,
-                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                    font: GoogleFonts.inter(
-                                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                    ),
-                                                                                                    letterSpacing: 0.0,
-                                                                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                  ),
-                                                                                            ),
-                                                                                          ].divide(SizedBox(width: 4.0)),
-                                                                                        ),
-                                                                                      ],
-                                                                                    ),
-                                                                                  ].divide(SizedBox(height: 4.0)),
-                                                                                ),
+                                                                                  ),
+                                                                                ].divide(SizedBox(height: 8.0)),
                                                                               ),
                                                                               Expanded(
                                                                                 flex: 1,
@@ -1002,83 +982,251 @@ class _KYCReviewListPageWidgetState extends State<KYCReviewListPageWidget> {
                                                                                   children: [
                                                                                     Expanded(
                                                                                       flex: 1,
-                                                                                      child: Column(
-                                                                                        mainAxisSize: MainAxisSize.min,
+                                                                                      child: Row(
+                                                                                        mainAxisSize: MainAxisSize.max,
                                                                                         mainAxisAlignment: MainAxisAlignment.start,
                                                                                         crossAxisAlignment: CrossAxisAlignment.center,
                                                                                         children: [
-                                                                                          Text(
-                                                                                            '本人確認書類画像',
-                                                                                            style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                                  font: GoogleFonts.inter(
-                                                                                                    fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
-                                                                                                  ),
-                                                                                                  color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                                  letterSpacing: 0.0,
-                                                                                                  fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                          Expanded(
+                                                                                            flex: 1,
+                                                                                            child: Container(
+                                                                                              height: 100.0,
+                                                                                              decoration: BoxDecoration(
+                                                                                                color: FlutterFlowTheme.of(context).alternate,
+                                                                                              ),
+                                                                                              child: Padding(
+                                                                                                padding: EdgeInsets.all(8.0),
+                                                                                                child: Column(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                  children: [
+                                                                                                    Text(
+                                                                                                      'ステータス',
+                                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                            font: GoogleFonts.inter(
+                                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                            ),
+                                                                                                            letterSpacing: 0.0,
+                                                                                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                          ),
+                                                                                                    ),
+                                                                                                    Text(
+                                                                                                      '必要書類提出日',
+                                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                            font: GoogleFonts.inter(
+                                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                            ),
+                                                                                                            letterSpacing: 0.0,
+                                                                                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                          ),
+                                                                                                    ),
+                                                                                                  ],
                                                                                                 ),
-                                                                                          ),
-                                                                                          ClipRRect(
-                                                                                            borderRadius: BorderRadius.circular(8.0),
-                                                                                            child: CachedNetworkImage(
-                                                                                              fadeInDuration: Duration(milliseconds: 0),
-                                                                                              fadeOutDuration: Duration(milliseconds: 0),
-                                                                                              imageUrl: itemItem.kycDocUrl,
-                                                                                              height: 80.0,
-                                                                                              fit: BoxFit.cover,
+                                                                                              ),
                                                                                             ),
                                                                                           ),
-                                                                                        ].divide(SizedBox(height: 4.0)),
+                                                                                          Expanded(
+                                                                                            flex: 1,
+                                                                                            child: Container(
+                                                                                              height: 100.0,
+                                                                                              decoration: BoxDecoration(
+                                                                                                color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                border: Border.all(
+                                                                                                  color: FlutterFlowTheme.of(context).alternate,
+                                                                                                  width: 1.0,
+                                                                                                ),
+                                                                                              ),
+                                                                                              child: Padding(
+                                                                                                padding: EdgeInsets.all(8.0),
+                                                                                                child: Column(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                  children: [
+                                                                                                    Row(
+                                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                                      children: [
+                                                                                                        Icon(
+                                                                                                          Icons.circle,
+                                                                                                          color: functions.kycStatusDotColor(itemItem.kycStatus),
+                                                                                                          size: 14.0,
+                                                                                                        ),
+                                                                                                        Text(
+                                                                                                          itemItem.kycStatus,
+                                                                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                font: GoogleFonts.inter(
+                                                                                                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                ),
+                                                                                                                letterSpacing: 0.0,
+                                                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                              ),
+                                                                                                        ),
+                                                                                                      ].divide(SizedBox(width: 8.0)),
+                                                                                                    ),
+                                                                                                    Text(
+                                                                                                      itemItem.updatedAt,
+                                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                            font: GoogleFonts.inter(
+                                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                            ),
+                                                                                                            letterSpacing: 0.0,
+                                                                                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                          ),
+                                                                                                    ),
+                                                                                                  ],
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ],
                                                                                       ),
                                                                                     ),
                                                                                     Expanded(
                                                                                       flex: 1,
-                                                                                      child: Column(
-                                                                                        mainAxisSize: MainAxisSize.min,
-                                                                                        mainAxisAlignment: MainAxisAlignment.start,
-                                                                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                        children: [
-                                                                                          Text(
-                                                                                            '本人顔写真',
-                                                                                            style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                                  font: GoogleFonts.inter(
-                                                                                                    fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
-                                                                                                  ),
-                                                                                                  color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                                  letterSpacing: 0.0,
-                                                                                                  fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                      child: Container(
+                                                                                        height: 100.0,
+                                                                                        decoration: BoxDecoration(
+                                                                                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                          border: Border.all(
+                                                                                            color: FlutterFlowTheme.of(context).alternate,
+                                                                                            width: 1.0,
+                                                                                          ),
+                                                                                        ),
+                                                                                        child: Padding(
+                                                                                          padding: EdgeInsets.all(8.0),
+                                                                                          child: Row(
+                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                            children: [
+                                                                                              Expanded(
+                                                                                                flex: 1,
+                                                                                                child: Column(
+                                                                                                  mainAxisSize: MainAxisSize.min,
+                                                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                  children: [
+                                                                                                    Text(
+                                                                                                      '本人確認書類画像',
+                                                                                                      style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                                            font: GoogleFonts.inter(
+                                                                                                              fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                                              fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                                            ),
+                                                                                                            color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                            letterSpacing: 0.0,
+                                                                                                            fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                                            fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                                          ),
+                                                                                                    ),
+                                                                                                    ClipRRect(
+                                                                                                      borderRadius: BorderRadius.circular(8.0),
+                                                                                                      child: CachedNetworkImage(
+                                                                                                        fadeInDuration: Duration(milliseconds: 0),
+                                                                                                        fadeOutDuration: Duration(milliseconds: 0),
+                                                                                                        imageUrl: itemItem.kycDocUrl,
+                                                                                                        height: 50.0,
+                                                                                                        fit: BoxFit.cover,
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ].divide(SizedBox(height: 4.0)),
                                                                                                 ),
+                                                                                              ),
+                                                                                              Expanded(
+                                                                                                flex: 1,
+                                                                                                child: Column(
+                                                                                                  mainAxisSize: MainAxisSize.min,
+                                                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                  children: [
+                                                                                                    Text(
+                                                                                                      '本人顔写真',
+                                                                                                      style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                                            font: GoogleFonts.inter(
+                                                                                                              fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                                              fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                                            ),
+                                                                                                            color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                            letterSpacing: 0.0,
+                                                                                                            fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                                            fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                                          ),
+                                                                                                    ),
+                                                                                                    ClipRRect(
+                                                                                                      borderRadius: BorderRadius.circular(8.0),
+                                                                                                      child: CachedNetworkImage(
+                                                                                                        fadeInDuration: Duration(milliseconds: 0),
+                                                                                                        fadeOutDuration: Duration(milliseconds: 0),
+                                                                                                        imageUrl: itemItem.kycSelfieUrl,
+                                                                                                        height: 50.0,
+                                                                                                        fit: BoxFit.cover,
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ].divide(SizedBox(height: 4.0)),
+                                                                                                ),
+                                                                                              ),
+                                                                                            ].divide(SizedBox(width: 8.0)),
                                                                                           ),
-                                                                                          ClipRRect(
-                                                                                            borderRadius: BorderRadius.circular(8.0),
-                                                                                            child: CachedNetworkImage(
-                                                                                              fadeInDuration: Duration(milliseconds: 0),
-                                                                                              fadeOutDuration: Duration(milliseconds: 0),
-                                                                                              imageUrl: itemItem.kycSelfieUrl,
-                                                                                              height: 80.0,
-                                                                                              fit: BoxFit.cover,
-                                                                                            ),
-                                                                                          ),
-                                                                                        ].divide(SizedBox(height: 4.0)),
+                                                                                        ),
                                                                                       ),
                                                                                     ),
-                                                                                  ].divide(SizedBox(width: 8.0)),
+                                                                                  ].divide(SizedBox(width: 16.0)),
                                                                                 ),
                                                                               ),
-                                                                            ].divide(SizedBox(width: 12.0)),
+                                                                            ].divide(SizedBox(width: 16.0)),
                                                                           ),
                                                                         ),
                                                                       ),
-                                                                    ),
+                                                                    ).animateOnPageLoad(
+                                                                            animationsMap['containerOnPageLoadAnimation']!),
                                                                   );
                                                                 },
                                                               );
                                                             },
                                                           ),
+                                                          if (!(FFAppState()
+                                                              .kycUserListStruct
+                                                              .isNotEmpty))
+                                                            Text(
+                                                              '審査待ちのKYC申請はありません\n',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .inter(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                            ),
                                                         ],
                                                       ),
                                                     ),

@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -175,7 +174,7 @@ class _SearchAdministratorDialogCompWidgetState
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   iconPadding:
                       EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: Color(0xFF3829FE),
+                  color: FlutterFlowTheme.of(context).primary,
                   textStyle: TextStyle(
                     color: Colors.white,
                   ),
@@ -341,17 +340,15 @@ class _SearchAdministratorDialogCompWidgetState
                   Builder(
                     builder: (context) => FFButtonWidget(
                       onPressed: () async {
-                        await showAlignedDialog(
+                        await showDialog(
                           context: context,
-                          isGlobal: false,
-                          avoidOverflow: false,
-                          targetAnchor: AlignmentDirectional(0.0, 0.0)
-                              .resolve(Directionality.of(context)),
-                          followerAnchor: AlignmentDirectional(0.0, 0.0)
-                              .resolve(Directionality.of(context)),
                           builder: (dialogContext) {
-                            return Material(
-                              color: Colors.transparent,
+                            return Dialog(
+                              elevation: 0,
+                              insetPadding: EdgeInsets.zero,
+                              backgroundColor: Colors.transparent,
+                              alignment: AlignmentDirectional(0.0, 0.0)
+                                  .resolve(Directionality.of(context)),
                               child: Container(
                                 height: 600.0,
                                 width: 400.0,
@@ -379,17 +376,15 @@ class _SearchAdministratorDialogCompWidgetState
                   Builder(
                     builder: (context) => FFButtonWidget(
                       onPressed: () async {
-                        await showAlignedDialog(
+                        await showDialog(
                           context: context,
-                          isGlobal: false,
-                          avoidOverflow: false,
-                          targetAnchor: AlignmentDirectional(0.0, 0.0)
-                              .resolve(Directionality.of(context)),
-                          followerAnchor: AlignmentDirectional(0.0, 0.0)
-                              .resolve(Directionality.of(context)),
                           builder: (dialogContext) {
-                            return Material(
-                              color: Colors.transparent,
+                            return Dialog(
+                              elevation: 0,
+                              insetPadding: EdgeInsets.zero,
+                              backgroundColor: Colors.transparent,
+                              alignment: AlignmentDirectional(0.0, 0.0)
+                                  .resolve(Directionality.of(context)),
                               child: Container(
                                 height: 600.0,
                                 width: 400.0,

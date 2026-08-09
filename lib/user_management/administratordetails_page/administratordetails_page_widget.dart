@@ -6,6 +6,7 @@ import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'administratordetails_page_model.dart';
 export 'administratordetails_page_model.dart';
@@ -99,15 +100,16 @@ class _AdministratordetailsPageWidgetState
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Color(0x1FF59E0B),
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/transparent.png',
+                                      child: SvgPicture.asset(
+                                        'assets/images/icoccha_logo_color.svg',
                                         width: 80.0,
                                         height: 80.0,
                                         fit: BoxFit.contain,
@@ -119,8 +121,15 @@ class _AdministratordetailsPageWidgetState
                                       width: 100.0,
                                       height: 80.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFF59E0B),
+                                            Color(0xFFFBBF24)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 1.0),
+                                          end: AlignmentDirectional(-1.0, -1.0),
+                                        ),
                                       ),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -173,6 +182,8 @@ class _AdministratordetailsPageWidgetState
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                               ),
+                                                              color:
+                                                                  Colors.white,
                                                               fontSize: 14.0,
                                                               letterSpacing:
                                                                   0.0,
@@ -203,6 +214,8 @@ class _AdministratordetailsPageWidgetState
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                               ),
+                                                              color:
+                                                                  Colors.white,
                                                               fontSize: 12.0,
                                                               letterSpacing:
                                                                   0.0,
@@ -256,17 +269,14 @@ class _AdministratordetailsPageWidgetState
                                                     width: 35.0,
                                                     height: 35.0,
                                                     decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryBackground,
+                                                      color: Color(0x33FFFFFF),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              8.0),
+                                                              12.0),
                                                       border: Border.all(
                                                         color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .alternate,
+                                                            Color(0x4DFFFFFF),
+                                                        width: 1.0,
                                                       ),
                                                     ),
                                                     child: Builder(
@@ -283,9 +293,8 @@ class _AdministratordetailsPageWidgetState
                                                             children: [
                                                               Icon(
                                                                 FFIcons.ksun,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
+                                                                color: Colors
+                                                                    .white,
                                                                 size: 20.0,
                                                               ),
                                                               Text(
@@ -303,6 +312,8 @@ class _AdministratordetailsPageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           10.0,
                                                                       letterSpacing:
@@ -328,9 +339,8 @@ class _AdministratordetailsPageWidgetState
                                                               Icon(
                                                                 FFIcons
                                                                     .kstarAndCrescent,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
+                                                                color: Colors
+                                                                    .white,
                                                                 size: 20.0,
                                                               ),
                                                               Text(
@@ -348,6 +358,8 @@ class _AdministratordetailsPageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           10.0,
                                                                       letterSpacing:
@@ -392,7 +404,7 @@ class _AdministratordetailsPageWidgetState
                                                                 Colors
                                                                     .transparent,
                                                             alignment: AlignmentDirectional(
-                                                                    0.0, -1.0)
+                                                                    0.0, 0.0)
                                                                 .resolve(
                                                                     Directionality.of(
                                                                         context)),
@@ -426,16 +438,15 @@ class _AdministratordetailsPageWidgetState
                                                       width: 35.0,
                                                       height: 35.0,
                                                       decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .primaryBackground,
+                                                        color:
+                                                            Color(0x33FFFFFF),
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(8.0),
+                                                                .circular(12.0),
                                                         border: Border.all(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .alternate,
+                                                          color:
+                                                              Color(0x4DFFFFFF),
+                                                          width: 1.0,
                                                         ),
                                                       ),
                                                       child: Column(
@@ -448,9 +459,7 @@ class _AdministratordetailsPageWidgetState
                                                           Icon(
                                                             FFIcons
                                                                 .kchatCenteredTextG,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryText,
+                                                            color: Colors.white,
                                                             size: 20.0,
                                                           ),
                                                           Text(
@@ -471,9 +480,8 @@ class _AdministratordetailsPageWidgetState
                                                                         .bodyMedium
                                                                         .fontStyle,
                                                                   ),
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
+                                                                  color: Colors
+                                                                      .white,
                                                                   fontSize:
                                                                       10.0,
                                                                   letterSpacing:
@@ -560,6 +568,7 @@ class _AdministratordetailsPageWidgetState
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
+                                                            color: Colors.white,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -1862,6 +1871,16 @@ class _AdministratordetailsPageWidgetState
                                                                                 );
 
                                                                                 context.pushNamed(AdministratorListPageWidget.routeName);
+                                                                              } else {
+                                                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                                                  SnackBar(
+                                                                                    content: Text(
+                                                                                      '操作をキャンセルしました。',
+                                                                                      style: TextStyle(),
+                                                                                    ),
+                                                                                    duration: Duration(milliseconds: 4000),
+                                                                                  ),
+                                                                                );
                                                                               }
 
                                                                               safeSetState(() {});
@@ -2026,6 +2045,16 @@ class _AdministratordetailsPageWidgetState
                                                                                         duration: Duration(milliseconds: 4000),
                                                                                       ),
                                                                                     );
+                                                                                  } else {
+                                                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                                                      SnackBar(
+                                                                                        content: Text(
+                                                                                          '操作をキャンセルしました。',
+                                                                                          style: TextStyle(),
+                                                                                        ),
+                                                                                        duration: Duration(milliseconds: 4000),
+                                                                                      ),
+                                                                                    );
                                                                                   }
 
                                                                                   safeSetState(() {});
@@ -2073,6 +2102,16 @@ class _AdministratordetailsPageWidgetState
                                                                                       SnackBar(
                                                                                         content: Text(
                                                                                           '凍結を解除しました。',
+                                                                                          style: TextStyle(),
+                                                                                        ),
+                                                                                        duration: Duration(milliseconds: 4000),
+                                                                                      ),
+                                                                                    );
+                                                                                  } else {
+                                                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                                                      SnackBar(
+                                                                                        content: Text(
+                                                                                          '操作をキャンセルしました。',
                                                                                           style: TextStyle(),
                                                                                         ),
                                                                                         duration: Duration(milliseconds: 4000),

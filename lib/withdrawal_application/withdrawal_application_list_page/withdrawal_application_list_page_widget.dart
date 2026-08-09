@@ -1,11 +1,15 @@
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/withdrawal_application/filter_w_a_dialog_comp/filter_w_a_dialog_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'withdrawal_application_list_page_model.dart';
@@ -23,10 +27,13 @@ class WithdrawalApplicationListPageWidget extends StatefulWidget {
 }
 
 class _WithdrawalApplicationListPageWidgetState
-    extends State<WithdrawalApplicationListPageWidget> {
+    extends State<WithdrawalApplicationListPageWidget>
+    with TickerProviderStateMixin {
   late WithdrawalApplicationListPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -47,6 +54,29 @@ class _WithdrawalApplicationListPageWidgetState
           .toList()
           .cast<dynamic>();
       safeSetState(() {});
+    });
+
+    animationsMap.addAll({
+      'containerOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 20.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
     });
   }
 
@@ -107,15 +137,16 @@ class _WithdrawalApplicationListPageWidgetState
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Color(0x1FF59E0B),
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/transparent.png',
+                                      child: SvgPicture.asset(
+                                        'assets/images/icoccha_logo_color.svg',
                                         width: 80.0,
                                         height: 80.0,
                                         fit: BoxFit.contain,
@@ -127,8 +158,15 @@ class _WithdrawalApplicationListPageWidgetState
                                       width: 100.0,
                                       height: 80.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFF59E0B),
+                                            Color(0xFFFBBF24)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 1.0),
+                                          end: AlignmentDirectional(-1.0, -1.0),
+                                        ),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -138,9 +176,17 @@ class _WithdrawalApplicationListPageWidgetState
                                               width: 250.0,
                                               height: 80.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFF59E0B),
+                                                    Color(0xFFFBBF24)
+                                                  ],
+                                                  stops: [0.0, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 1.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, -1.0),
+                                                ),
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
@@ -198,6 +244,8 @@ class _WithdrawalApplicationListPageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           14.0,
                                                                       letterSpacing:
@@ -226,6 +274,8 @@ class _WithdrawalApplicationListPageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           12.0,
                                                                       letterSpacing:
@@ -287,18 +337,17 @@ class _WithdrawalApplicationListPageWidgetState
                                                             height: 35.0,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
+                                                              color: Color(
+                                                                  0x33FFFFFF),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8.0),
+                                                                          12.0),
                                                               border:
                                                                   Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .alternate,
+                                                                color: Color(
+                                                                    0x4DFFFFFF),
+                                                                width: 1.0,
                                                               ),
                                                             ),
                                                             child: Builder(
@@ -317,8 +366,8 @@ class _WithdrawalApplicationListPageWidgetState
                                                                       Icon(
                                                                         FFIcons
                                                                             .ksun,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -331,6 +380,7 @@ class _WithdrawalApplicationListPageWidgetState
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -348,8 +398,8 @@ class _WithdrawalApplicationListPageWidgetState
                                                                       Icon(
                                                                         FFIcons
                                                                             .kstarAndCrescent,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -362,6 +412,7 @@ class _WithdrawalApplicationListPageWidgetState
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -404,7 +455,7 @@ class _WithdrawalApplicationListPageWidgetState
                                                                             .transparent,
                                                                     alignment: AlignmentDirectional(
                                                                             0.0,
-                                                                            -1.0)
+                                                                            0.0)
                                                                         .resolve(
                                                                             Directionality.of(context)),
                                                                     child:
@@ -437,18 +488,17 @@ class _WithdrawalApplicationListPageWidgetState
                                                               height: 35.0,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
+                                                                color: Color(
+                                                                    0x33FFFFFF),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            8.0),
+                                                                            12.0),
                                                                 border:
                                                                     Border.all(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
+                                                                  color: Color(
+                                                                      0x4DFFFFFF),
+                                                                  width: 1.0,
                                                                 ),
                                                               ),
                                                               child: Column(
@@ -462,9 +512,8 @@ class _WithdrawalApplicationListPageWidgetState
                                                                   Icon(
                                                                     FFIcons
                                                                         .karticleG,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                                    color: Colors
+                                                                        .white,
                                                                     size: 20.0,
                                                                   ),
                                                                   Text(
@@ -481,7 +530,7 @@ class _WithdrawalApplicationListPageWidgetState
                                                                                 FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               10.0,
                                                                           letterSpacing:
@@ -571,6 +620,7 @@ class _WithdrawalApplicationListPageWidgetState
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
+                                                            color: Colors.white,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -727,9 +777,25 @@ class _WithdrawalApplicationListPageWidgetState
                                                                   height: 35.0,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
+                                                                    gradient:
+                                                                        LinearGradient(
+                                                                      colors: [
+                                                                        Color(
+                                                                            0xFFFBBF24),
+                                                                        Color(
+                                                                            0xFFFCD34D)
+                                                                      ],
+                                                                      stops: [
+                                                                        0.0,
+                                                                        1.0
+                                                                      ],
+                                                                      begin: AlignmentDirectional(
+                                                                          1.0,
+                                                                          1.0),
+                                                                      end: AlignmentDirectional(
+                                                                          -1.0,
+                                                                          -1.0),
+                                                                    ),
                                                                   ),
                                                                   child: Row(
                                                                     mainAxisSize:
@@ -742,8 +808,8 @@ class _WithdrawalApplicationListPageWidgetState
                                                                       Icon(
                                                                         FFIcons
                                                                             .kmoneyFill1,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             24.0,
                                                                       ),
@@ -756,6 +822,7 @@ class _WithdrawalApplicationListPageWidgetState
                                                                                 fontWeight: FontWeight.w600,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FontWeight.w600,
                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -816,7 +883,7 @@ class _WithdrawalApplicationListPageWidgetState
                                                                       shape:
                                                                           RoundedRectangleBorder(
                                                                         borderRadius:
-                                                                            BorderRadius.circular(8.0),
+                                                                            BorderRadius.circular(20.0),
                                                                       ),
                                                                       child:
                                                                           Container(
@@ -826,12 +893,25 @@ class _WithdrawalApplicationListPageWidgetState
                                                                             BoxDecoration(
                                                                           color:
                                                                               FlutterFlowTheme.of(context).primaryBackground,
+                                                                          boxShadow: [
+                                                                            BoxShadow(
+                                                                              blurRadius: 16.0,
+                                                                              color: Color(0x26D97706),
+                                                                              offset: Offset(
+                                                                                0.0,
+                                                                                6.0,
+                                                                              ),
+                                                                              spreadRadius: 0.0,
+                                                                            )
+                                                                          ],
                                                                           borderRadius:
-                                                                              BorderRadius.circular(8.0),
+                                                                              BorderRadius.circular(20.0),
                                                                           border:
                                                                               Border.all(
                                                                             color:
-                                                                                FlutterFlowTheme.of(context).alternate,
+                                                                                Color(0x1FD97706),
+                                                                            width:
+                                                                                1.5,
                                                                           ),
                                                                         ),
                                                                         child:
@@ -905,10 +985,13 @@ class _WithdrawalApplicationListPageWidgetState
                                                                                                     ),
                                                                                                     alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                     child: Text(
-                                                                                                      getJsonField(
-                                                                                                        payoutRequestItem,
-                                                                                                        r'''$.user_id''',
-                                                                                                      ).toString(),
+                                                                                                      valueOrDefault<String>(
+                                                                                                        getJsonField(
+                                                                                                          payoutRequestItem,
+                                                                                                          r'''$.user_id''',
+                                                                                                        )?.toString(),
+                                                                                                        '-',
+                                                                                                      ),
                                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                             font: GoogleFonts.inter(
                                                                                                               fontWeight: FontWeight.w500,
@@ -973,10 +1056,13 @@ class _WithdrawalApplicationListPageWidgetState
                                                                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                                                                       children: [
                                                                                                         Text(
-                                                                                                          getJsonField(
-                                                                                                            payoutRequestItem,
-                                                                                                            r'''$.stripe_balance''',
-                                                                                                          ).toString(),
+                                                                                                          valueOrDefault<String>(
+                                                                                                            getJsonField(
+                                                                                                              payoutRequestItem,
+                                                                                                              r'''$.stripe_balance''',
+                                                                                                            )?.toString(),
+                                                                                                            '-',
+                                                                                                          ),
                                                                                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                 font: GoogleFonts.inter(
                                                                                                                   fontWeight: FontWeight.w500,
@@ -1056,14 +1142,23 @@ class _WithdrawalApplicationListPageWidgetState
                                                                                                       children: [
                                                                                                         Icon(
                                                                                                           Icons.circle,
-                                                                                                          color: FlutterFlowTheme.of(context).success,
+                                                                                                          color: functions.payoutStatusDotColor(valueOrDefault<String>(
+                                                                                                            getJsonField(
+                                                                                                              payoutRequestItem,
+                                                                                                              r'''$.status_label''',
+                                                                                                            )?.toString(),
+                                                                                                            '-',
+                                                                                                          )),
                                                                                                           size: 14.0,
                                                                                                         ),
                                                                                                         Text(
-                                                                                                          getJsonField(
-                                                                                                            payoutRequestItem,
-                                                                                                            r'''$.status_label''',
-                                                                                                          ).toString(),
+                                                                                                          valueOrDefault<String>(
+                                                                                                            getJsonField(
+                                                                                                              payoutRequestItem,
+                                                                                                              r'''$.status_label''',
+                                                                                                            )?.toString(),
+                                                                                                            '-',
+                                                                                                          ),
                                                                                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                 font: GoogleFonts.inter(
                                                                                                                   fontWeight: FontWeight.w500,
@@ -1151,10 +1246,13 @@ class _WithdrawalApplicationListPageWidgetState
                                                                                                       mainAxisAlignment: MainAxisAlignment.center,
                                                                                                       children: [
                                                                                                         Text(
-                                                                                                          getJsonField(
-                                                                                                            payoutRequestItem,
-                                                                                                            r'''$.amount''',
-                                                                                                          ).toString(),
+                                                                                                          valueOrDefault<String>(
+                                                                                                            getJsonField(
+                                                                                                              payoutRequestItem,
+                                                                                                              r'''$.amount''',
+                                                                                                            )?.toString(),
+                                                                                                            '-',
+                                                                                                          ),
                                                                                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                 font: GoogleFonts.inter(
                                                                                                                   fontWeight: FontWeight.w500,
@@ -1238,10 +1336,13 @@ class _WithdrawalApplicationListPageWidgetState
                                                                                                           size: 14.0,
                                                                                                         ),
                                                                                                         Text(
-                                                                                                          getJsonField(
-                                                                                                            payoutRequestItem,
-                                                                                                            r'''$.debt_total''',
-                                                                                                          ).toString(),
+                                                                                                          valueOrDefault<String>(
+                                                                                                            getJsonField(
+                                                                                                              payoutRequestItem,
+                                                                                                              r'''$.debt_total''',
+                                                                                                            )?.toString(),
+                                                                                                            '-',
+                                                                                                          ),
                                                                                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                 font: GoogleFonts.inter(
                                                                                                                   fontWeight: FontWeight.w500,
@@ -1318,10 +1419,13 @@ class _WithdrawalApplicationListPageWidgetState
                                                                                                     child: Align(
                                                                                                       alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                       child: Text(
-                                                                                                        getJsonField(
-                                                                                                          payoutRequestItem,
-                                                                                                          r'''$.created_at''',
-                                                                                                        ).toString(),
+                                                                                                        valueOrDefault<String>(
+                                                                                                          getJsonField(
+                                                                                                            payoutRequestItem,
+                                                                                                            r'''$.created_at''',
+                                                                                                          )?.toString(),
+                                                                                                          '-',
+                                                                                                        ),
                                                                                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                               font: GoogleFonts.inter(
                                                                                                                 fontWeight: FontWeight.w500,
@@ -1415,6 +1519,16 @@ class _WithdrawalApplicationListPageWidgetState
                                                                                           .toList()
                                                                                           .cast<dynamic>();
                                                                                       safeSetState(() {});
+                                                                                    } else {
+                                                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                                                        SnackBar(
+                                                                                          content: Text(
+                                                                                            '操作をキャンセルしました。',
+                                                                                            style: TextStyle(),
+                                                                                          ),
+                                                                                          duration: Duration(milliseconds: 4000),
+                                                                                        ),
+                                                                                      );
                                                                                     }
 
                                                                                     safeSetState(() {});
@@ -1504,6 +1618,16 @@ class _WithdrawalApplicationListPageWidgetState
                                                                                           .toList()
                                                                                           .cast<dynamic>();
                                                                                       safeSetState(() {});
+                                                                                    } else {
+                                                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                                                        SnackBar(
+                                                                                          content: Text(
+                                                                                            '操作をキャンセルしました。',
+                                                                                            style: TextStyle(),
+                                                                                          ),
+                                                                                          duration: Duration(milliseconds: 4000),
+                                                                                        ),
+                                                                                      );
                                                                                     }
 
                                                                                     safeSetState(() {});
@@ -1593,6 +1717,16 @@ class _WithdrawalApplicationListPageWidgetState
                                                                                           .toList()
                                                                                           .cast<dynamic>();
                                                                                       safeSetState(() {});
+                                                                                    } else {
+                                                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                                                        SnackBar(
+                                                                                          content: Text(
+                                                                                            '操作をキャンセルしました。',
+                                                                                            style: TextStyle(),
+                                                                                          ),
+                                                                                          duration: Duration(milliseconds: 4000),
+                                                                                        ),
+                                                                                      );
                                                                                     }
 
                                                                                     safeSetState(() {});
@@ -1622,12 +1756,46 @@ class _WithdrawalApplicationListPageWidgetState
                                                                           ],
                                                                         ),
                                                                       ),
-                                                                    );
+                                                                    ).animateOnPageLoad(
+                                                                        animationsMap[
+                                                                            'containerOnPageLoadAnimation']!);
                                                                   }),
                                                                 );
                                                               },
                                                             ),
                                                           ),
+                                                          if (!(FFAppState()
+                                                              .payoutRequestList
+                                                              .isNotEmpty))
+                                                            Text(
+                                                              '該当する出金申請が見つかりませんでした\n',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .inter(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                            ),
                                                         ],
                                                       ),
                                                     ),

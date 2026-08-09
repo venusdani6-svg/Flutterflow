@@ -4,6 +4,7 @@ import '/pages/info_dialog_comp/info_dialog_comp_widget.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'audit_log_management_page_model.dart';
 export 'audit_log_management_page_model.dart';
@@ -86,15 +87,16 @@ class _AuditLogManagementPageWidgetState
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Color(0x1FF59E0B),
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/transparent.png',
+                                      child: SvgPicture.asset(
+                                        'assets/images/icoccha_logo_color.svg',
                                         width: 80.0,
                                         height: 80.0,
                                         fit: BoxFit.contain,
@@ -106,8 +108,15 @@ class _AuditLogManagementPageWidgetState
                                       width: 100.0,
                                       height: 80.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFF59E0B),
+                                            Color(0xFFFBBF24)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 1.0),
+                                          end: AlignmentDirectional(-1.0, -1.0),
+                                        ),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -117,9 +126,17 @@ class _AuditLogManagementPageWidgetState
                                               width: 250.0,
                                               height: 80.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFF59E0B),
+                                                    Color(0xFFFBBF24)
+                                                  ],
+                                                  stops: [0.0, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 1.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, -1.0),
+                                                ),
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
@@ -177,6 +194,8 @@ class _AuditLogManagementPageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           14.0,
                                                                       letterSpacing:
@@ -205,6 +224,8 @@ class _AuditLogManagementPageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           12.0,
                                                                       letterSpacing:
@@ -266,18 +287,17 @@ class _AuditLogManagementPageWidgetState
                                                             height: 35.0,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
+                                                              color: Color(
+                                                                  0x33FFFFFF),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8.0),
+                                                                          12.0),
                                                               border:
                                                                   Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .alternate,
+                                                                color: Color(
+                                                                    0x4DFFFFFF),
+                                                                width: 1.0,
                                                               ),
                                                             ),
                                                             child: Builder(
@@ -296,8 +316,8 @@ class _AuditLogManagementPageWidgetState
                                                                       Icon(
                                                                         FFIcons
                                                                             .ksun,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -310,6 +330,7 @@ class _AuditLogManagementPageWidgetState
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -327,8 +348,8 @@ class _AuditLogManagementPageWidgetState
                                                                       Icon(
                                                                         FFIcons
                                                                             .kstarAndCrescent,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -341,6 +362,7 @@ class _AuditLogManagementPageWidgetState
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -383,7 +405,7 @@ class _AuditLogManagementPageWidgetState
                                                                             .transparent,
                                                                     alignment: AlignmentDirectional(
                                                                             0.0,
-                                                                            -1.0)
+                                                                            0.0)
                                                                         .resolve(
                                                                             Directionality.of(context)),
                                                                     child:
@@ -416,18 +438,17 @@ class _AuditLogManagementPageWidgetState
                                                               height: 35.0,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
+                                                                color: Color(
+                                                                    0x33FFFFFF),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            8.0),
+                                                                            12.0),
                                                                 border:
                                                                     Border.all(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
+                                                                  color: Color(
+                                                                      0x4DFFFFFF),
+                                                                  width: 1.0,
                                                                 ),
                                                               ),
                                                               child: Column(
@@ -441,9 +462,8 @@ class _AuditLogManagementPageWidgetState
                                                                   Icon(
                                                                     FFIcons
                                                                         .kchatCenteredTextG,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                                    color: Colors
+                                                                        .white,
                                                                     size: 20.0,
                                                                   ),
                                                                   Text(
@@ -460,7 +480,7 @@ class _AuditLogManagementPageWidgetState
                                                                                 FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               10.0,
                                                                           letterSpacing:
@@ -550,6 +570,7 @@ class _AuditLogManagementPageWidgetState
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
+                                                            color: Colors.white,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -783,6 +804,122 @@ class _AuditLogManagementPageWidgetState
                                                                               FontWeight.w600,
                                                                           fontStyle: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
+                                                                              .fontStyle,
+                                                                        ),
+                                                                  ),
+                                                                ].divide(SizedBox(
+                                                                    width:
+                                                                        16.0)),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        context.pushNamed(
+                                                            ProcessedEventsListPageWidget
+                                                                .routeName);
+                                                      },
+                                                      child: Container(
+                                                        width: 250.0,
+                                                        height: 150.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      16.0),
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .start,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Container(
+                                                                    width: 50.0,
+                                                                    height:
+                                                                        50.0,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .success,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8.0),
+                                                                    ),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding:
+                                                                          EdgeInsets.all(
+                                                                              8.0),
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .verified,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryText,
+                                                                        size:
+                                                                            32.0,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Text(
+                                                                    '処理済みイベント一覧',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmall
+                                                                        .override(
+                                                                          font:
+                                                                              GoogleFonts.interTight(
+                                                                            fontWeight:
+                                                                                FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                                                            fontStyle:
+                                                                                FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                          ),
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight: FlutterFlowTheme.of(context)
+                                                                              .titleSmall
+                                                                              .fontWeight,
+                                                                          fontStyle: FlutterFlowTheme.of(context)
+                                                                              .titleSmall
                                                                               .fontStyle,
                                                                         ),
                                                                   ),

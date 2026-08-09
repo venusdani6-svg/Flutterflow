@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
 
+import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 /// Display-ready row fields for JobBoardListPage.
@@ -35,6 +36,12 @@ class WorkPostItemStruct extends FFFirebaseStruct {
 
     /// WorkPostItem.status
     String? status,
+
+    /// Raw type value (partner_recruit/security/transport).
+    String? type,
+
+    /// Resolved (id, nickname) applicants for this post.
+    List<WorkPostApplicantStruct>? applicants,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _id = id,
         _posterNickname = posterNickname,
@@ -45,6 +52,8 @@ class WorkPostItemStruct extends FFFirebaseStruct {
         _applicantCount = applicantCount,
         _statusLabel = statusLabel,
         _status = status,
+        _type = type,
+        _applicants = applicants,
         super(firestoreUtilData);
 
   // "id" field.
@@ -110,6 +119,24 @@ class WorkPostItemStruct extends FFFirebaseStruct {
 
   bool hasStatus() => _status != null;
 
+  // "type" field.
+  String? _type;
+  String get type => _type ?? '';
+  set type(String? val) => _type = val;
+
+  bool hasType() => _type != null;
+
+  // "applicants" field.
+  List<WorkPostApplicantStruct>? _applicants;
+  List<WorkPostApplicantStruct> get applicants => _applicants ?? const [];
+  set applicants(List<WorkPostApplicantStruct>? val) => _applicants = val;
+
+  void updateApplicants(Function(List<WorkPostApplicantStruct>) updateFn) {
+    updateFn(_applicants ??= []);
+  }
+
+  bool hasApplicants() => _applicants != null;
+
   static WorkPostItemStruct fromMap(Map<String, dynamic> data) =>
       WorkPostItemStruct(
         id: data['id'] as String?,
@@ -121,6 +148,11 @@ class WorkPostItemStruct extends FFFirebaseStruct {
         applicantCount: data['applicant_count'] as String?,
         statusLabel: data['status_label'] as String?,
         status: data['status'] as String?,
+        type: data['type'] as String?,
+        applicants: getStructList(
+          data['applicants'],
+          WorkPostApplicantStruct.fromMap,
+        ),
       );
 
   static WorkPostItemStruct? maybeFromMap(dynamic data) => data is Map
@@ -137,6 +169,8 @@ class WorkPostItemStruct extends FFFirebaseStruct {
         'applicant_count': _applicantCount,
         'status_label': _statusLabel,
         'status': _status,
+        'type': _type,
+        'applicants': _applicants?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
@@ -176,6 +210,15 @@ class WorkPostItemStruct extends FFFirebaseStruct {
         'status': serializeParam(
           _status,
           ParamType.String,
+        ),
+        'type': serializeParam(
+          _type,
+          ParamType.String,
+        ),
+        'applicants': serializeParam(
+          _applicants,
+          ParamType.DataStruct,
+          isList: true,
         ),
       }.withoutNulls;
 
@@ -226,6 +269,17 @@ class WorkPostItemStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
+        type: deserializeParam(
+          data['type'],
+          ParamType.String,
+          false,
+        ),
+        applicants: deserializeStructParam<WorkPostApplicantStruct>(
+          data['applicants'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: WorkPostApplicantStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -233,6 +287,7 @@ class WorkPostItemStruct extends FFFirebaseStruct {
 
   @override
   bool operator ==(Object other) {
+    const listEquality = ListEquality();
     return other is WorkPostItemStruct &&
         id == other.id &&
         posterNickname == other.posterNickname &&
@@ -242,7 +297,9 @@ class WorkPostItemStruct extends FFFirebaseStruct {
         createdAt == other.createdAt &&
         applicantCount == other.applicantCount &&
         statusLabel == other.statusLabel &&
-        status == other.status;
+        status == other.status &&
+        type == other.type &&
+        listEquality.equals(applicants, other.applicants);
   }
 
   @override
@@ -255,7 +312,9 @@ class WorkPostItemStruct extends FFFirebaseStruct {
         createdAt,
         applicantCount,
         statusLabel,
-        status
+        status,
+        type,
+        applicants
       ]);
 }
 
@@ -269,6 +328,7 @@ WorkPostItemStruct createWorkPostItemStruct({
   String? applicantCount,
   String? statusLabel,
   String? status,
+  String? type,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -284,6 +344,7 @@ WorkPostItemStruct createWorkPostItemStruct({
       applicantCount: applicantCount,
       statusLabel: statusLabel,
       status: status,
+      type: type,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

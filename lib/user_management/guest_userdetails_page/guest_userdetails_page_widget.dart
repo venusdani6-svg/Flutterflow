@@ -7,11 +7,12 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/info_dialog_comp/info_dialog_comp_widget.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'guest_userdetails_page_model.dart';
 export 'guest_userdetails_page_model.dart';
@@ -155,15 +156,16 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Color(0x1FF59E0B),
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/transparent.png',
+                                      child: SvgPicture.asset(
+                                        'assets/images/icoccha_logo_color.svg',
                                         width: 80.0,
                                         height: 80.0,
                                         fit: BoxFit.contain,
@@ -175,8 +177,15 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                       width: 100.0,
                                       height: 80.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFF59E0B),
+                                            Color(0xFFFBBF24)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 1.0),
+                                          end: AlignmentDirectional(-1.0, -1.0),
+                                        ),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -186,9 +195,17 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                               width: 250.0,
                                               height: 80.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFF59E0B),
+                                                    Color(0xFFFBBF24)
+                                                  ],
+                                                  stops: [0.0, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 1.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, -1.0),
+                                                ),
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
@@ -246,6 +263,8 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           14.0,
                                                                       letterSpacing:
@@ -274,6 +293,8 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           12.0,
                                                                       letterSpacing:
@@ -335,18 +356,17 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                             height: 35.0,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
+                                                              color: Color(
+                                                                  0x33FFFFFF),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8.0),
+                                                                          12.0),
                                                               border:
                                                                   Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .alternate,
+                                                                color: Color(
+                                                                    0x4DFFFFFF),
+                                                                width: 1.0,
                                                               ),
                                                             ),
                                                             child: Builder(
@@ -365,8 +385,8 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                       Icon(
                                                                         FFIcons
                                                                             .ksun,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -379,6 +399,7 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -396,8 +417,8 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                       Icon(
                                                                         FFIcons
                                                                             .kstarAndCrescent,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -410,6 +431,7 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -452,7 +474,7 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                             .transparent,
                                                                     alignment: AlignmentDirectional(
                                                                             0.0,
-                                                                            -1.0)
+                                                                            0.0)
                                                                         .resolve(
                                                                             Directionality.of(context)),
                                                                     child:
@@ -488,18 +510,17 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                               height: 35.0,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
+                                                                color: Color(
+                                                                    0x33FFFFFF),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            8.0),
+                                                                            12.0),
                                                                 border:
                                                                     Border.all(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
+                                                                  color: Color(
+                                                                      0x4DFFFFFF),
+                                                                  width: 1.0,
                                                                 ),
                                                               ),
                                                               child: Column(
@@ -513,9 +534,8 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                   Icon(
                                                                     FFIcons
                                                                         .kchatCenteredTextG,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                                    color: Colors
+                                                                        .white,
                                                                     size: 20.0,
                                                                   ),
                                                                   Text(
@@ -532,7 +552,7 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                 FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               10.0,
                                                                           letterSpacing:
@@ -622,6 +642,7 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
+                                                            color: Colors.white,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -920,7 +941,15 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                         width: 100.0,
                                                                                         height: 35.0,
                                                                                         decoration: BoxDecoration(
-                                                                                          color: FlutterFlowTheme.of(context).primary,
+                                                                                          gradient: LinearGradient(
+                                                                                            colors: [
+                                                                                              Color(0xFFFBBF24),
+                                                                                              Color(0xFFFCD34D)
+                                                                                            ],
+                                                                                            stops: [0.0, 1.0],
+                                                                                            begin: AlignmentDirectional(1.0, 1.0),
+                                                                                            end: AlignmentDirectional(-1.0, -1.0),
+                                                                                          ),
                                                                                         ),
                                                                                         child: Row(
                                                                                           mainAxisSize: MainAxisSize.max,
@@ -928,7 +957,7 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                           children: [
                                                                                             Icon(
                                                                                               FFIcons.kuserListFill1G,
-                                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                                              color: Colors.white,
                                                                                               size: 24.0,
                                                                                             ),
                                                                                             Text(
@@ -938,6 +967,7 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                                       fontWeight: FontWeight.w600,
                                                                                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                     ),
+                                                                                                    color: Colors.white,
                                                                                                     letterSpacing: 0.0,
                                                                                                     fontWeight: FontWeight.w600,
                                                                                                     fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -1373,7 +1403,13 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                                     children: [
                                                                                                       Icon(
                                                                                                         Icons.circle,
-                                                                                                        color: Color(0xFF06F705),
+                                                                                                        color: functions.kycStatusDotColor(valueOrDefault<String>(
+                                                                                                          getJsonField(
+                                                                                                            _model.guestDetail,
+                                                                                                            r'''$.kyc_status''',
+                                                                                                          )?.toString(),
+                                                                                                          '-',
+                                                                                                        )),
                                                                                                         size: 14.0,
                                                                                                       ),
                                                                                                       Align(
@@ -1794,10 +1830,13 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                                         ),
                                                                                                       ),
                                                                                                       Text(
-                                                                                                        getJsonField(
-                                                                                                          _model.guestDetail,
-                                                                                                          r'''$.created_at''',
-                                                                                                        ).toString(),
+                                                                                                        valueOrDefault<String>(
+                                                                                                          getJsonField(
+                                                                                                            _model.guestDetail,
+                                                                                                            r'''$.created_at''',
+                                                                                                          )?.toString(),
+                                                                                                          '-',
+                                                                                                        ),
                                                                                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                               font: GoogleFonts.inter(
                                                                                                                 fontWeight: FontWeight.w500,
@@ -1810,10 +1849,13 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                                             ),
                                                                                                       ),
                                                                                                       Text(
-                                                                                                        getJsonField(
-                                                                                                          _model.guestDetail,
-                                                                                                          r'''$.created_at_time''',
-                                                                                                        ).toString(),
+                                                                                                        valueOrDefault<String>(
+                                                                                                          getJsonField(
+                                                                                                            _model.guestDetail,
+                                                                                                            r'''$.created_at_time''',
+                                                                                                          )?.toString(),
+                                                                                                          '-',
+                                                                                                        ),
                                                                                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                               font: GoogleFonts.inter(
                                                                                                                 fontWeight: FontWeight.w500,
@@ -1880,7 +1922,13 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                                     children: [
                                                                                                       Icon(
                                                                                                         Icons.circle,
-                                                                                                        color: Color(0xFF06F705),
+                                                                                                        color: functions.activeStatusDotColor(valueOrDefault<String>(
+                                                                                                          getJsonField(
+                                                                                                            _model.guestDetail,
+                                                                                                            r'''$.is_active''',
+                                                                                                          )?.toString(),
+                                                                                                          '-',
+                                                                                                        )),
                                                                                                         size: 14.0,
                                                                                                       ),
                                                                                                       Align(
@@ -3348,6 +3396,16 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                                   );
 
                                                                                                   context.pushNamed(GuestUserListPageWidget.routeName);
+                                                                                                } else {
+                                                                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                    SnackBar(
+                                                                                                      content: Text(
+                                                                                                        '操作をキャンセルしました。',
+                                                                                                        style: TextStyle(),
+                                                                                                      ),
+                                                                                                      duration: Duration(milliseconds: 4000),
+                                                                                                    ),
+                                                                                                  );
                                                                                                 }
 
                                                                                                 safeSetState(() {});
@@ -3486,6 +3544,16 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                                           duration: Duration(milliseconds: 4000),
                                                                                                         ),
                                                                                                       );
+                                                                                                    } else {
+                                                                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                        SnackBar(
+                                                                                                          content: Text(
+                                                                                                            '操作をキャンセルしました。',
+                                                                                                            style: TextStyle(),
+                                                                                                          ),
+                                                                                                          duration: Duration(milliseconds: 4000),
+                                                                                                        ),
+                                                                                                      );
                                                                                                     }
 
                                                                                                     safeSetState(() {});
@@ -3533,6 +3601,16 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                                         SnackBar(
                                                                                                           content: Text(
                                                                                                             '凍結を解除しました。',
+                                                                                                            style: TextStyle(),
+                                                                                                          ),
+                                                                                                          duration: Duration(milliseconds: 4000),
+                                                                                                        ),
+                                                                                                      );
+                                                                                                    } else {
+                                                                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                        SnackBar(
+                                                                                                          content: Text(
+                                                                                                            '操作をキャンセルしました。',
                                                                                                             style: TextStyle(),
                                                                                                           ),
                                                                                                           duration: Duration(milliseconds: 4000),
@@ -3600,15 +3678,14 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                             Builder(
                                                                                               builder: (context) => FFButtonWidget(
                                                                                                 onPressed: () async {
-                                                                                                  await showAlignedDialog(
+                                                                                                  await showDialog(
                                                                                                     context: context,
-                                                                                                    isGlobal: false,
-                                                                                                    avoidOverflow: false,
-                                                                                                    targetAnchor: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                                                    followerAnchor: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
                                                                                                     builder: (dialogContext) {
-                                                                                                      return Material(
-                                                                                                        color: Colors.transparent,
+                                                                                                      return Dialog(
+                                                                                                        elevation: 0,
+                                                                                                        insetPadding: EdgeInsets.zero,
+                                                                                                        backgroundColor: Colors.transparent,
+                                                                                                        alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
                                                                                                         child: GestureDetector(
                                                                                                           onTap: () {
                                                                                                             FocusScope.of(dialogContext).unfocus();
@@ -3695,7 +3772,15 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                         width: 100.0,
                                                                                         height: 35.0,
                                                                                         decoration: BoxDecoration(
-                                                                                          color: FlutterFlowTheme.of(context).primary,
+                                                                                          gradient: LinearGradient(
+                                                                                            colors: [
+                                                                                              Color(0xFFFBBF24),
+                                                                                              Color(0xFFFCD34D)
+                                                                                            ],
+                                                                                            stops: [0.0, 1.0],
+                                                                                            begin: AlignmentDirectional(1.0, 1.0),
+                                                                                            end: AlignmentDirectional(-1.0, -1.0),
+                                                                                          ),
                                                                                         ),
                                                                                         child: Row(
                                                                                           mainAxisSize: MainAxisSize.max,
@@ -3703,7 +3788,7 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                           children: [
                                                                                             Icon(
                                                                                               FFIcons.kcalendarCheckFillG,
-                                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                                              color: Colors.white,
                                                                                               size: 24.0,
                                                                                             ),
                                                                                             Text(
@@ -3713,6 +3798,7 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                                       fontWeight: FontWeight.w600,
                                                                                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                     ),
+                                                                                                    color: Colors.white,
                                                                                                     letterSpacing: 0.0,
                                                                                                     fontWeight: FontWeight.w600,
                                                                                                     fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -4070,6 +4156,23 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                         );
                                                                       },
                                                                     ),
+                                                                    if (!(_model
+                                                                        .reservationsList
+                                                                        .isNotEmpty))
+                                                                      Text(
+                                                                        '予約履歴はありません\n',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              font: GoogleFonts.inter(
+                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                              ),
+                                                                              letterSpacing: 0.0,
+                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                            ),
+                                                                      ),
                                                                   ],
                                                                 ),
                                                                 Column(
@@ -4094,7 +4197,18 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                 35.0,
                                                                             decoration:
                                                                                 BoxDecoration(
-                                                                              color: FlutterFlowTheme.of(context).primary,
+                                                                              gradient: LinearGradient(
+                                                                                colors: [
+                                                                                  Color(0xFFFBBF24),
+                                                                                  Color(0xFFFCD34D)
+                                                                                ],
+                                                                                stops: [
+                                                                                  0.0,
+                                                                                  1.0
+                                                                                ],
+                                                                                begin: AlignmentDirectional(1.0, 1.0),
+                                                                                end: AlignmentDirectional(-1.0, -1.0),
+                                                                              ),
                                                                             ),
                                                                             child:
                                                                                 Row(
@@ -4103,7 +4217,7 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                               children: [
                                                                                 Icon(
                                                                                   FFIcons.kcreditCardFill,
-                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  color: Colors.white,
                                                                                   size: 24.0,
                                                                                 ),
                                                                                 Text(
@@ -4113,6 +4227,7 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                           fontWeight: FontWeight.w600,
                                                                                           fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                         ),
+                                                                                        color: Colors.white,
                                                                                         letterSpacing: 0.0,
                                                                                         fontWeight: FontWeight.w600,
                                                                                         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -4374,6 +4489,23 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                         );
                                                                       },
                                                                     ),
+                                                                    if (!(_model
+                                                                        .reservationsList
+                                                                        .isNotEmpty))
+                                                                      Text(
+                                                                        '決済履歴はありません\n',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              font: GoogleFonts.inter(
+                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                              ),
+                                                                              letterSpacing: 0.0,
+                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                            ),
+                                                                      ),
                                                                   ],
                                                                 ),
                                                                 Column(
@@ -4398,7 +4530,18 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                 35.0,
                                                                             decoration:
                                                                                 BoxDecoration(
-                                                                              color: FlutterFlowTheme.of(context).primary,
+                                                                              gradient: LinearGradient(
+                                                                                colors: [
+                                                                                  Color(0xFFFBBF24),
+                                                                                  Color(0xFFFCD34D)
+                                                                                ],
+                                                                                stops: [
+                                                                                  0.0,
+                                                                                  1.0
+                                                                                ],
+                                                                                begin: AlignmentDirectional(1.0, 1.0),
+                                                                                end: AlignmentDirectional(-1.0, -1.0),
+                                                                              ),
                                                                             ),
                                                                             child:
                                                                                 Row(
@@ -4407,7 +4550,7 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                               children: [
                                                                                 Icon(
                                                                                   FFIcons.knotePencilFill,
-                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  color: Colors.white,
                                                                                   size: 24.0,
                                                                                 ),
                                                                                 Text(
@@ -4417,6 +4560,7 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                           fontWeight: FontWeight.w600,
                                                                                           fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                         ),
+                                                                                        color: Colors.white,
                                                                                         letterSpacing: 0.0,
                                                                                         fontWeight: FontWeight.w600,
                                                                                         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -4936,7 +5080,18 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                 35.0,
                                                                             decoration:
                                                                                 BoxDecoration(
-                                                                              color: FlutterFlowTheme.of(context).primary,
+                                                                              gradient: LinearGradient(
+                                                                                colors: [
+                                                                                  Color(0xFFFBBF24),
+                                                                                  Color(0xFFFCD34D)
+                                                                                ],
+                                                                                stops: [
+                                                                                  0.0,
+                                                                                  1.0
+                                                                                ],
+                                                                                begin: AlignmentDirectional(1.0, 1.0),
+                                                                                end: AlignmentDirectional(-1.0, -1.0),
+                                                                              ),
                                                                             ),
                                                                             child:
                                                                                 Row(
@@ -4945,7 +5100,7 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                               children: [
                                                                                 Icon(
                                                                                   FFIcons.ksirenFill,
-                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  color: Colors.white,
                                                                                   size: 24.0,
                                                                                 ),
                                                                                 Text(
@@ -4955,6 +5110,7 @@ class _GuestUserdetailsPageWidgetState extends State<GuestUserdetailsPageWidget>
                                                                                           fontWeight: FontWeight.w600,
                                                                                           fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                         ),
+                                                                                        color: Colors.white,
                                                                                         letterSpacing: 0.0,
                                                                                         fontWeight: FontWeight.w600,
                                                                                         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,

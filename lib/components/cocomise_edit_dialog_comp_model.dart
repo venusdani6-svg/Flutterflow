@@ -1,4 +1,3 @@
-import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'cocomise_edit_dialog_comp_widget.dart'
     show CocomiseEditDialogCompWidget;
@@ -40,14 +39,12 @@ class CocomiseEditDialogCompModel
       cocomiseBuildingFieldTextControllerValidator;
   // State field(s) for CocomiseActiveToggle widget.
   bool? cocomiseActiveToggleValue;
-  // Stores action output result for [Custom Action - adminDeleteCocotenShop] action in CocomiseDeleteButton widget.
-  dynamic cocomiseDeleteResult;
-  // Stores action output result for [Custom Action - adminGetCocotenShops] action in CocomiseDeleteButton widget.
-  List<CocotenShopItemStruct>? cocomiseDeleteRefetch;
-  // Stores action output result for [Custom Action - adminUpsertCocotenShop] action in CocomiseSaveButton widget.
-  dynamic cocomiseSaveResult;
-  // Stores action output result for [Custom Action - adminGetCocotenShops] action in CocomiseSaveButton widget.
-  List<CocotenShopItemStruct>? cocomiseSaveRefetch;
+  // Stores action output result for [Custom Action - deleteCocotenShopAndRefresh] action in CocomiseDeleteButton widget.
+  bool? cocomiseDeleteOutcome;
+  // Stores action output result for [Custom Action - cocomiseNameFilled] action in CocomiseSaveButton widget.
+  bool? cocomiseNameFilledCheck;
+  // Stores action output result for [Custom Action - upsertCocotenShopAndRefresh] action in CocomiseSaveButton widget.
+  bool? cocomiseSaveOutcome;
 
   @override
   void initState(BuildContext context) {}

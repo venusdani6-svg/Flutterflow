@@ -1,12 +1,16 @@
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/user_management/search_user_dialog_comp/search_user_dialog_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'guest_user_list_page_model.dart';
@@ -23,10 +27,13 @@ class GuestUserListPageWidget extends StatefulWidget {
       _GuestUserListPageWidgetState();
 }
 
-class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
+class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget>
+    with TickerProviderStateMixin {
   late GuestUserListPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -61,6 +68,29 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
 
     _model.bulkFreezeReasonFieldTextController ??= TextEditingController();
     _model.bulkFreezeReasonFieldFocusNode ??= FocusNode();
+
+    animationsMap.addAll({
+      'containerOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 20.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -120,15 +150,16 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Color(0x1FF59E0B),
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/transparent.png',
+                                      child: SvgPicture.asset(
+                                        'assets/images/icoccha_logo_color.svg',
                                         width: 80.0,
                                         height: 80.0,
                                         fit: BoxFit.contain,
@@ -140,8 +171,15 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                       width: 100.0,
                                       height: 80.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFF59E0B),
+                                            Color(0xFFFBBF24)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 1.0),
+                                          end: AlignmentDirectional(-1.0, -1.0),
+                                        ),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -151,9 +189,17 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                               width: 250.0,
                                               height: 80.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFF59E0B),
+                                                    Color(0xFFFBBF24)
+                                                  ],
+                                                  stops: [0.0, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 1.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, -1.0),
+                                                ),
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
@@ -211,6 +257,8 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           14.0,
                                                                       letterSpacing:
@@ -239,6 +287,8 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           12.0,
                                                                       letterSpacing:
@@ -300,18 +350,17 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                             height: 35.0,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
+                                                              color: Color(
+                                                                  0x33FFFFFF),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8.0),
+                                                                          12.0),
                                                               border:
                                                                   Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .alternate,
+                                                                color: Color(
+                                                                    0x4DFFFFFF),
+                                                                width: 1.0,
                                                               ),
                                                             ),
                                                             child: Builder(
@@ -330,8 +379,8 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                       Icon(
                                                                         FFIcons
                                                                             .ksun,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -344,6 +393,7 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -361,8 +411,8 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                       Icon(
                                                                         FFIcons
                                                                             .kstarAndCrescent,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -375,6 +425,7 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -417,7 +468,7 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                             .transparent,
                                                                     alignment: AlignmentDirectional(
                                                                             0.0,
-                                                                            -1.0)
+                                                                            0.0)
                                                                         .resolve(
                                                                             Directionality.of(context)),
                                                                     child:
@@ -450,18 +501,17 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                               height: 35.0,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
+                                                                color: Color(
+                                                                    0x33FFFFFF),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            8.0),
+                                                                            12.0),
                                                                 border:
                                                                     Border.all(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
+                                                                  color: Color(
+                                                                      0x4DFFFFFF),
+                                                                  width: 1.0,
                                                                 ),
                                                               ),
                                                               child: Column(
@@ -475,9 +525,8 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                   Icon(
                                                                     FFIcons
                                                                         .k15ListMagnifyingGlass,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                                    color: Colors
+                                                                        .white,
                                                                     size: 20.0,
                                                                   ),
                                                                   Text(
@@ -494,7 +543,7 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                 FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               10.0,
                                                                           letterSpacing:
@@ -584,6 +633,7 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
+                                                            color: Colors.white,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -740,9 +790,25 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                   height: 35.0,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
+                                                                    gradient:
+                                                                        LinearGradient(
+                                                                      colors: [
+                                                                        Color(
+                                                                            0xFFFBBF24),
+                                                                        Color(
+                                                                            0xFFFCD34D)
+                                                                      ],
+                                                                      stops: [
+                                                                        0.0,
+                                                                        1.0
+                                                                      ],
+                                                                      begin: AlignmentDirectional(
+                                                                          1.0,
+                                                                          1.0),
+                                                                      end: AlignmentDirectional(
+                                                                          -1.0,
+                                                                          -1.0),
+                                                                    ),
                                                                   ),
                                                                   child: Row(
                                                                     mainAxisSize:
@@ -759,8 +825,21 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                             100.0,
                                                                         decoration:
                                                                             BoxDecoration(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primary,
+                                                                          gradient:
+                                                                              LinearGradient(
+                                                                            colors: [
+                                                                              Color(0xFFFBBF24),
+                                                                              Color(0xFFFCD34D)
+                                                                            ],
+                                                                            stops: [
+                                                                              0.0,
+                                                                              1.0
+                                                                            ],
+                                                                            begin:
+                                                                                AlignmentDirectional(1.0, 1.0),
+                                                                            end:
+                                                                                AlignmentDirectional(-1.0, -1.0),
+                                                                          ),
                                                                         ),
                                                                         child:
                                                                             Row(
@@ -771,7 +850,7 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                           children: [
                                                                             Icon(
                                                                               FFIcons.k10UserCircleFill,
-                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                              color: Colors.white,
                                                                               size: 24.0,
                                                                             ),
                                                                             Text(
@@ -781,6 +860,7 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                       fontWeight: FontWeight.w600,
                                                                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                     ),
+                                                                                    color: Colors.white,
                                                                                     letterSpacing: 0.0,
                                                                                     fontWeight: FontWeight.w600,
                                                                                     fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -796,8 +876,21 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                             100.0,
                                                                         decoration:
                                                                             BoxDecoration(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primary,
+                                                                          gradient:
+                                                                              LinearGradient(
+                                                                            colors: [
+                                                                              Color(0xFFFBBF24),
+                                                                              Color(0xFFFCD34D)
+                                                                            ],
+                                                                            stops: [
+                                                                              0.0,
+                                                                              1.0
+                                                                            ],
+                                                                            begin:
+                                                                                AlignmentDirectional(1.0, 1.0),
+                                                                            end:
+                                                                                AlignmentDirectional(-1.0, -1.0),
+                                                                          ),
                                                                         ),
                                                                         child:
                                                                             Row(
@@ -817,19 +910,19 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                 height: 40.0,
                                                                                 padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                                                                                 iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                                                                color: FlutterFlowTheme.of(context).primary,
+                                                                                color: Colors.white,
                                                                                 textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                                                                       font: GoogleFonts.interTight(
                                                                                         fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
                                                                                         fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                                                                                       ),
-                                                                                      color: Color(0xFFF9F9F9),
+                                                                                      color: Color(0xFF92400E),
                                                                                       letterSpacing: 0.0,
                                                                                       fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
                                                                                       fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                                                                                     ),
                                                                                 elevation: 0.0,
-                                                                                borderRadius: BorderRadius.circular(8.0),
+                                                                                borderRadius: BorderRadius.circular(10.0),
                                                                               ),
                                                                             ),
                                                                             if (!FFAppState().activeIsFrozen)
@@ -859,29 +952,41 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                           },
                                                                                         ) ??
                                                                                         false;
-                                                                                    _model.bulkFreezeResult = await actions.adminBulkToggleFreeze(
-                                                                                      _model.selectedIds.toList(),
-                                                                                      true,
-                                                                                      _model.bulkFreezeReasonFieldTextController.text,
-                                                                                    );
-                                                                                    _model.selectedIds = [];
-                                                                                    safeSetState(() {});
-                                                                                    _model.bulkReloadResult = await actions.adminGetUsers(
-                                                                                      FFAppState().activeAccountType,
-                                                                                      '',
-                                                                                      false,
-                                                                                      FFAppState().activeKycStatus,
-                                                                                      FFAppState().activePrefecture,
-                                                                                      FFAppState().activeCreatedAfter,
-                                                                                      FFAppState().activeCreatedBefore,
-                                                                                      FFAppState().activeNicknamePrefix,
-                                                                                      50,
-                                                                                      '',
-                                                                                      '',
-                                                                                      true,
-                                                                                    );
+                                                                                    if (confirmDialogResponse) {
+                                                                                      _model.bulkFreezeResult = await actions.adminBulkToggleFreeze(
+                                                                                        _model.selectedIds.toList(),
+                                                                                        true,
+                                                                                        _model.bulkFreezeReasonFieldTextController.text,
+                                                                                      );
+                                                                                      _model.selectedIds = [];
+                                                                                      safeSetState(() {});
+                                                                                      _model.bulkReloadResult = await actions.adminGetUsers(
+                                                                                        FFAppState().activeAccountType,
+                                                                                        '',
+                                                                                        false,
+                                                                                        FFAppState().activeKycStatus,
+                                                                                        FFAppState().activePrefecture,
+                                                                                        FFAppState().activeCreatedAfter,
+                                                                                        FFAppState().activeCreatedBefore,
+                                                                                        FFAppState().activeNicknamePrefix,
+                                                                                        50,
+                                                                                        '',
+                                                                                        '',
+                                                                                        true,
+                                                                                      );
 
-                                                                                    context.pushNamed(GuestUserListPageWidget.routeName);
+                                                                                      context.pushNamed(GuestUserListPageWidget.routeName);
+                                                                                    } else {
+                                                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                                                        SnackBar(
+                                                                                          content: Text(
+                                                                                            '操作をキャンセルしました。',
+                                                                                            style: TextStyle(),
+                                                                                          ),
+                                                                                          duration: Duration(milliseconds: 4000),
+                                                                                        ),
+                                                                                      );
+                                                                                    }
                                                                                   } else {
                                                                                     ScaffoldMessenger.of(context).showSnackBar(
                                                                                       SnackBar(
@@ -943,29 +1048,41 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                           },
                                                                                         ) ??
                                                                                         false;
-                                                                                    _model.bulkUnfreezeResult = await actions.adminBulkToggleFreeze(
-                                                                                      _model.selectedIds.toList(),
-                                                                                      false,
-                                                                                      _model.bulkFreezeReasonFieldTextController.text,
-                                                                                    );
-                                                                                    _model.selectedIds = [];
-                                                                                    safeSetState(() {});
-                                                                                    _model.bulkUnfreezeReloadResult = await actions.adminGetUsers(
-                                                                                      FFAppState().activeAccountType,
-                                                                                      '',
-                                                                                      false,
-                                                                                      FFAppState().activeKycStatus,
-                                                                                      FFAppState().activePrefecture,
-                                                                                      FFAppState().activeCreatedAfter,
-                                                                                      FFAppState().activeCreatedBefore,
-                                                                                      FFAppState().activeNicknamePrefix,
-                                                                                      50,
-                                                                                      '',
-                                                                                      '',
-                                                                                      true,
-                                                                                    );
+                                                                                    if (confirmDialogResponse) {
+                                                                                      _model.bulkUnfreezeResult = await actions.adminBulkToggleFreeze(
+                                                                                        _model.selectedIds.toList(),
+                                                                                        false,
+                                                                                        _model.bulkFreezeReasonFieldTextController.text,
+                                                                                      );
+                                                                                      _model.selectedIds = [];
+                                                                                      safeSetState(() {});
+                                                                                      _model.bulkUnfreezeReloadResult = await actions.adminGetUsers(
+                                                                                        FFAppState().activeAccountType,
+                                                                                        '',
+                                                                                        false,
+                                                                                        FFAppState().activeKycStatus,
+                                                                                        FFAppState().activePrefecture,
+                                                                                        FFAppState().activeCreatedAfter,
+                                                                                        FFAppState().activeCreatedBefore,
+                                                                                        FFAppState().activeNicknamePrefix,
+                                                                                        50,
+                                                                                        '',
+                                                                                        '',
+                                                                                        true,
+                                                                                      );
 
-                                                                                    context.pushNamed(GuestUserListPageWidget.routeName);
+                                                                                      context.pushNamed(GuestUserListPageWidget.routeName);
+                                                                                    } else {
+                                                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                                                        SnackBar(
+                                                                                          content: Text(
+                                                                                            '操作をキャンセルしました。',
+                                                                                            style: TextStyle(),
+                                                                                          ),
+                                                                                          duration: Duration(milliseconds: 4000),
+                                                                                        ),
+                                                                                      );
+                                                                                    }
                                                                                   } else {
                                                                                     ScaffoldMessenger.of(context).showSnackBar(
                                                                                       SnackBar(
@@ -1174,7 +1291,22 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                               width: MediaQuery.sizeOf(context).width * 0.72,
                                                                               decoration: BoxDecoration(
                                                                                 color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                borderRadius: BorderRadius.circular(8.0),
+                                                                                boxShadow: [
+                                                                                  BoxShadow(
+                                                                                    blurRadius: 16.0,
+                                                                                    color: Color(0x26D97706),
+                                                                                    offset: Offset(
+                                                                                      0.0,
+                                                                                      6.0,
+                                                                                    ),
+                                                                                    spreadRadius: 0.0,
+                                                                                  )
+                                                                                ],
+                                                                                borderRadius: BorderRadius.circular(16.0),
+                                                                                border: Border.all(
+                                                                                  color: Color(0x1FD97706),
+                                                                                  width: 1.5,
+                                                                                ),
                                                                               ),
                                                                               child: Stack(
                                                                                 children: [
@@ -1204,10 +1336,13 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                               ),
                                                                                             ),
                                                                                             Text(
-                                                                                              getJsonField(
-                                                                                                userItem,
-                                                                                                r'''$.nickname''',
-                                                                                              ).toString(),
+                                                                                              valueOrDefault<String>(
+                                                                                                getJsonField(
+                                                                                                  userItem,
+                                                                                                  r'''$.nickname''',
+                                                                                                )?.toString(),
+                                                                                                '-',
+                                                                                              ),
                                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                     font: GoogleFonts.inter(
                                                                                                       fontWeight: FontWeight.w600,
@@ -1230,8 +1365,8 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                                   width: 100.0,
                                                                                                   height: 100.0,
                                                                                                   decoration: BoxDecoration(
-                                                                                                    color: FlutterFlowTheme.of(context).alternate,
-                                                                                                    borderRadius: BorderRadius.circular(0.0),
+                                                                                                    color: Color(0x14D97706),
+                                                                                                    borderRadius: BorderRadius.circular(12.0),
                                                                                                   ),
                                                                                                   child: Padding(
                                                                                                     padding: EdgeInsets.all(8.0),
@@ -1277,9 +1412,10 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                                   height: 100.0,
                                                                                                   decoration: BoxDecoration(
                                                                                                     color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                    borderRadius: BorderRadius.circular(0.0),
+                                                                                                    borderRadius: BorderRadius.circular(12.0),
                                                                                                     border: Border.all(
-                                                                                                      color: FlutterFlowTheme.of(context).alternate,
+                                                                                                      color: Color(0x1FD97706),
+                                                                                                      width: 1.0,
                                                                                                     ),
                                                                                                   ),
                                                                                                   child: Padding(
@@ -1303,10 +1439,13 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                                               ),
                                                                                                         ),
                                                                                                         Text(
-                                                                                                          getJsonField(
-                                                                                                            userItem,
-                                                                                                            r'''$.created_at''',
-                                                                                                          ).toString(),
+                                                                                                          valueOrDefault<String>(
+                                                                                                            getJsonField(
+                                                                                                              userItem,
+                                                                                                              r'''$.created_at''',
+                                                                                                            )?.toString(),
+                                                                                                            '-',
+                                                                                                          ),
                                                                                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                 font: GoogleFonts.inter(
                                                                                                                   fontWeight: FontWeight.w500,
@@ -1335,8 +1474,8 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                                   width: 100.0,
                                                                                                   height: 100.0,
                                                                                                   decoration: BoxDecoration(
-                                                                                                    color: FlutterFlowTheme.of(context).alternate,
-                                                                                                    borderRadius: BorderRadius.circular(0.0),
+                                                                                                    color: Color(0x14D97706),
+                                                                                                    borderRadius: BorderRadius.circular(12.0),
                                                                                                   ),
                                                                                                   child: Padding(
                                                                                                     padding: EdgeInsets.all(8.0),
@@ -1382,9 +1521,10 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                                   height: 100.0,
                                                                                                   decoration: BoxDecoration(
                                                                                                     color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                    borderRadius: BorderRadius.circular(0.0),
+                                                                                                    borderRadius: BorderRadius.circular(12.0),
                                                                                                     border: Border.all(
-                                                                                                      color: FlutterFlowTheme.of(context).alternate,
+                                                                                                      color: Color(0x1FD97706),
+                                                                                                      width: 1.0,
                                                                                                     ),
                                                                                                   ),
                                                                                                   child: Padding(
@@ -1399,14 +1539,23 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                                           children: [
                                                                                                             Icon(
                                                                                                               Icons.circle,
-                                                                                                              color: Color(0xFF06F705),
+                                                                                                              color: functions.kycStatusDotColor(valueOrDefault<String>(
+                                                                                                                getJsonField(
+                                                                                                                  userItem,
+                                                                                                                  r'''$.kyc_status''',
+                                                                                                                )?.toString(),
+                                                                                                                '-',
+                                                                                                              )),
                                                                                                               size: 14.0,
                                                                                                             ),
                                                                                                             Text(
-                                                                                                              getJsonField(
-                                                                                                                userItem,
-                                                                                                                r'''$.kyc_status''',
-                                                                                                              ).toString(),
+                                                                                                              valueOrDefault<String>(
+                                                                                                                getJsonField(
+                                                                                                                  userItem,
+                                                                                                                  r'''$.kyc_status''',
+                                                                                                                )?.toString(),
+                                                                                                                '-',
+                                                                                                              ),
                                                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                     font: GoogleFonts.inter(
                                                                                                                       fontWeight: FontWeight.w500,
@@ -1425,14 +1574,23 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                                           children: [
                                                                                                             Icon(
                                                                                                               Icons.circle,
-                                                                                                              color: Color(0xFF06F705),
+                                                                                                              color: functions.activeStatusDotColor(valueOrDefault<String>(
+                                                                                                                getJsonField(
+                                                                                                                  userItem,
+                                                                                                                  r'''$.is_active''',
+                                                                                                                )?.toString(),
+                                                                                                                '-',
+                                                                                                              )),
                                                                                                               size: 14.0,
                                                                                                             ),
                                                                                                             Text(
-                                                                                                              getJsonField(
-                                                                                                                userItem,
-                                                                                                                r'''$.is_active''',
-                                                                                                              ).toString(),
+                                                                                                              valueOrDefault<String>(
+                                                                                                                getJsonField(
+                                                                                                                  userItem,
+                                                                                                                  r'''$.is_active''',
+                                                                                                                )?.toString(),
+                                                                                                                '-',
+                                                                                                              ),
                                                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                     font: GoogleFonts.inter(
                                                                                                                       fontWeight: FontWeight.w500,
@@ -1463,8 +1621,8 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                                   width: 100.0,
                                                                                                   height: 100.0,
                                                                                                   decoration: BoxDecoration(
-                                                                                                    color: FlutterFlowTheme.of(context).alternate,
-                                                                                                    borderRadius: BorderRadius.circular(0.0),
+                                                                                                    color: Color(0x14D97706),
+                                                                                                    borderRadius: BorderRadius.circular(12.0),
                                                                                                   ),
                                                                                                   child: Padding(
                                                                                                     padding: EdgeInsets.all(8.0),
@@ -1510,9 +1668,10 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                                   height: 100.0,
                                                                                                   decoration: BoxDecoration(
                                                                                                     color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                    borderRadius: BorderRadius.circular(0.0),
+                                                                                                    borderRadius: BorderRadius.circular(12.0),
                                                                                                     border: Border.all(
-                                                                                                      color: FlutterFlowTheme.of(context).alternate,
+                                                                                                      color: Color(0x1FD97706),
+                                                                                                      width: 1.0,
                                                                                                     ),
                                                                                                   ),
                                                                                                   child: Padding(
@@ -1531,10 +1690,13 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                                               size: 14.0,
                                                                                                             ),
                                                                                                             Text(
-                                                                                                              getJsonField(
-                                                                                                                userItem,
-                                                                                                                r'''$.logical_debt''',
-                                                                                                              ).toString(),
+                                                                                                              valueOrDefault<String>(
+                                                                                                                getJsonField(
+                                                                                                                  userItem,
+                                                                                                                  r'''$.logical_debt''',
+                                                                                                                )?.toString(),
+                                                                                                                '-',
+                                                                                                              ),
                                                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                     font: GoogleFonts.inter(
                                                                                                                       fontWeight: FontWeight.w500,
@@ -1570,10 +1732,13 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                                               size: 14.0,
                                                                                                             ),
                                                                                                             Text(
-                                                                                                              getJsonField(
-                                                                                                                userItem,
-                                                                                                                r'''$.last_login_at''',
-                                                                                                              ).toString(),
+                                                                                                              valueOrDefault<String>(
+                                                                                                                getJsonField(
+                                                                                                                  userItem,
+                                                                                                                  r'''$.last_login_at''',
+                                                                                                                )?.toString(),
+                                                                                                                '-',
+                                                                                                              ),
                                                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                     font: GoogleFonts.inter(
                                                                                                                       fontWeight: FontWeight.w500,
@@ -1640,7 +1805,7 @@ class _GuestUserListPageWidgetState extends State<GuestUserListPageWidget> {
                                                                                 ],
                                                                               ),
                                                                             ),
-                                                                          ),
+                                                                          ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation']!),
                                                                         ),
                                                                       ],
                                                                     );

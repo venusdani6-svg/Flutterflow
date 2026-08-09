@@ -5,9 +5,11 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'cast_user_list_page_model.dart';
@@ -110,15 +112,16 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Color(0x1FF59E0B),
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/transparent.png',
+                                      child: SvgPicture.asset(
+                                        'assets/images/icoccha_logo_color.svg',
                                         width: 80.0,
                                         height: 80.0,
                                         fit: BoxFit.contain,
@@ -130,8 +133,15 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                       width: 100.0,
                                       height: 80.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFF59E0B),
+                                            Color(0xFFFBBF24)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 1.0),
+                                          end: AlignmentDirectional(-1.0, -1.0),
+                                        ),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -141,9 +151,17 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                               width: 250.0,
                                               height: 80.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFF59E0B),
+                                                    Color(0xFFFBBF24)
+                                                  ],
+                                                  stops: [0.0, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 1.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, -1.0),
+                                                ),
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
@@ -201,6 +219,8 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           14.0,
                                                                       letterSpacing:
@@ -229,6 +249,8 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           12.0,
                                                                       letterSpacing:
@@ -290,18 +312,17 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                                             height: 35.0,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
+                                                              color: Color(
+                                                                  0x33FFFFFF),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8.0),
+                                                                          12.0),
                                                               border:
                                                                   Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .alternate,
+                                                                color: Color(
+                                                                    0x4DFFFFFF),
+                                                                width: 1.0,
                                                               ),
                                                             ),
                                                             child: Builder(
@@ -320,8 +341,8 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                                                       Icon(
                                                                         FFIcons
                                                                             .ksun,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -334,6 +355,7 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -351,8 +373,8 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                                                       Icon(
                                                                         FFIcons
                                                                             .kstarAndCrescent,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -365,6 +387,7 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -407,7 +430,7 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                                                             .transparent,
                                                                     alignment: AlignmentDirectional(
                                                                             0.0,
-                                                                            -1.0)
+                                                                            0.0)
                                                                         .resolve(
                                                                             Directionality.of(context)),
                                                                     child:
@@ -440,18 +463,17 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                                               height: 35.0,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
+                                                                color: Color(
+                                                                    0x33FFFFFF),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            8.0),
+                                                                            12.0),
                                                                 border:
                                                                     Border.all(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
+                                                                  color: Color(
+                                                                      0x4DFFFFFF),
+                                                                  width: 1.0,
                                                                 ),
                                                               ),
                                                               child: Column(
@@ -465,9 +487,8 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                                                   Icon(
                                                                     FFIcons
                                                                         .k15ListMagnifyingGlass,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                                    color: Colors
+                                                                        .white,
                                                                     size: 20.0,
                                                                   ),
                                                                   Text(
@@ -484,7 +505,7 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                                                                 FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               10.0,
                                                                           letterSpacing:
@@ -574,6 +595,7 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
+                                                            color: Colors.white,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -825,15 +847,27 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                                                                     },
                                                                                   ) ??
                                                                                   false;
-                                                                              _model.bulkFreezeResult = await actions.adminBulkToggleFreeze(
-                                                                                _model.selectedIds.toList(),
-                                                                                true,
-                                                                                _model.castBulkFreezeReasonFieldTextController.text,
-                                                                              );
-                                                                              _model.selectedIds = [];
-                                                                              safeSetState(() {});
+                                                                              if (confirmDialogResponse) {
+                                                                                _model.bulkFreezeResult = await actions.adminBulkToggleFreeze(
+                                                                                  _model.selectedIds.toList(),
+                                                                                  true,
+                                                                                  _model.castBulkFreezeReasonFieldTextController.text,
+                                                                                );
+                                                                                _model.selectedIds = [];
+                                                                                safeSetState(() {});
 
-                                                                              context.pushNamed(CastUserListPageWidget.routeName);
+                                                                                context.pushNamed(CastUserListPageWidget.routeName);
+                                                                              } else {
+                                                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                                                  SnackBar(
+                                                                                    content: Text(
+                                                                                      '操作をキャンセルしました。',
+                                                                                      style: TextStyle(),
+                                                                                    ),
+                                                                                    duration: Duration(milliseconds: 4000),
+                                                                                  ),
+                                                                                );
+                                                                              }
                                                                             } else {
                                                                               ScaffoldMessenger.of(context).showSnackBar(
                                                                                 SnackBar(
@@ -912,15 +946,27 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                                                                     },
                                                                                   ) ??
                                                                                   false;
-                                                                              _model.bulkUnfreezeResult = await actions.adminBulkToggleFreeze(
-                                                                                _model.selectedIds.toList(),
-                                                                                false,
-                                                                                _model.castBulkFreezeReasonFieldTextController.text,
-                                                                              );
-                                                                              _model.selectedIds = [];
-                                                                              safeSetState(() {});
+                                                                              if (confirmDialogResponse) {
+                                                                                _model.bulkUnfreezeResult = await actions.adminBulkToggleFreeze(
+                                                                                  _model.selectedIds.toList(),
+                                                                                  false,
+                                                                                  _model.castBulkFreezeReasonFieldTextController.text,
+                                                                                );
+                                                                                _model.selectedIds = [];
+                                                                                safeSetState(() {});
 
-                                                                              context.pushNamed(CastUserListPageWidget.routeName);
+                                                                                context.pushNamed(CastUserListPageWidget.routeName);
+                                                                              } else {
+                                                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                                                  SnackBar(
+                                                                                    content: Text(
+                                                                                      '操作をキャンセルしました。',
+                                                                                      style: TextStyle(),
+                                                                                    ),
+                                                                                    duration: Duration(milliseconds: 4000),
+                                                                                  ),
+                                                                                );
+                                                                              }
                                                                             } else {
                                                                               ScaffoldMessenger.of(context).showSnackBar(
                                                                                 SnackBar(
@@ -1309,7 +1355,7 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                                                                                           children: [
                                                                                                             Icon(
                                                                                                               Icons.circle,
-                                                                                                              color: Color(0xFF06F705),
+                                                                                                              color: functions.kycStatusDotColor(itemItem.kycStatus),
                                                                                                               size: 14.0,
                                                                                                             ),
                                                                                                             Text(
@@ -1333,7 +1379,7 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                                                                                           children: [
                                                                                                             Icon(
                                                                                                               Icons.circle,
-                                                                                                              color: Color(0xFF06F705),
+                                                                                                              color: functions.activeStatusDotColor(itemItem.isActive),
                                                                                                               size: 14.0,
                                                                                                             ),
                                                                                                             Text(
@@ -1511,6 +1557,38 @@ class _CastUserListPageWidgetState extends State<CastUserListPageWidget> {
                                                               );
                                                             },
                                                           ),
+                                                          if (!(FFAppState()
+                                                              .castUserListStruct
+                                                              .isNotEmpty))
+                                                            Text(
+                                                              '該当するキャストユーザーが見つかりませんでした\n',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .inter(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                            ),
                                                           TextFormField(
                                                             controller: _model
                                                                 .castBulkFreezeReasonFieldTextController,

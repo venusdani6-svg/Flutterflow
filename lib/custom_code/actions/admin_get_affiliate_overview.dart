@@ -4,6 +4,7 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'index.dart'; // Imports other custom actions
+import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
@@ -51,7 +52,7 @@ Future<dynamic> adminGetAffiliateOverview(String? month) async {
         ...a,
         'current_month_reward_display': _fmtYen(currentMonth),
         'cumulative_paid_display': _fmtYen(cumulative),
-        'affiliate_rate_display': '${(rate * 100).round()} %',
+        'affiliate_rate_display': '${(rate * 100).round()}',
         'created_at_display': _fmtDate(a['created_at'] as String?),
       };
     }).toList();

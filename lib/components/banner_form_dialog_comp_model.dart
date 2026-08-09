@@ -40,6 +40,8 @@ class BannerFormDialogCompModel
       FFUploadedFile(bytes: Uint8List.fromList([]), originalFilename: '');
   String uploadedFileUrl_uploadDataHq0 = '';
 
+  // Stores action output result for [Custom Action - bannerTitleFilled] action in Button widget.
+  bool? bannerTitleFilledResult;
   // Stores action output result for [Custom Action - adminUpsertBanner] action in Button widget.
   dynamic bannerResult;
 

@@ -1,6 +1,7 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
+import '/index.dart';
 import 'report_list_page_widget.dart' show ReportListPageWidget;
 import 'package:flutter/material.dart';
 
@@ -23,9 +24,13 @@ class ReportListPageModel extends FlutterFlowModel<ReportListPageWidget> {
   String? Function(BuildContext, String?)?
       reportResolutionReasonFieldTextControllerValidator;
   // Stores action output result for [Custom Action - adminResolveReport] action in Button widget.
-  dynamic resolveResult1;
+  dynamic resolveResult1Checked;
   // Stores action output result for [Custom Action - adminToggleFreeze] action in Button widget.
-  dynamic reportFreezeResult;
+  dynamic reportFreezeResultChecked;
+  // Stores action output result for [Custom Action - adminResolveReport] action in Button widget.
+  dynamic resolveResult1Unchecked;
+  // Stores action output result for [Custom Action - adminToggleFreeze] action in Button widget.
+  dynamic reportFreezeResultUnchecked;
   // State field(s) for FreezeReportedUserCheckbox widget.
   Map<dynamic, bool> freezeReportedUserCheckboxValueMap = {};
   List<dynamic> get freezeReportedUserCheckboxCheckedItems =>

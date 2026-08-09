@@ -42,7 +42,12 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
       width: 250.0,
       height: MediaQuery.sizeOf(context).height * 1.0,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).primary,
+        gradient: LinearGradient(
+          colors: [Color(0xFF92400E), Color(0xFFD97706)],
+          stops: [0.0, 1.0],
+          begin: AlignmentDirectional(1.0, 1.0),
+          end: AlignmentDirectional(-1.0, -1.0),
+        ),
       ),
       child: Padding(
         padding: EdgeInsets.all(16.0),
@@ -66,7 +71,8 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                             width: 100.0,
                             height: 30.0,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: Color(0x33FFFFFF),
+                              borderRadius: BorderRadius.circular(6.0),
                             ),
                           ),
                         ],
@@ -78,7 +84,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
             ),
             Divider(
               thickness: 0.5,
-              color: FlutterFlowTheme.of(context).secondaryBackground,
+              color: Color(0x33FFFFFF),
             ),
             Expanded(
               flex: 1,
@@ -111,7 +117,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                         children: [
                           Icon(
                             FFIcons.kpresentation,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: Colors.white,
                             size: 20.0,
                           ),
                           Text(
@@ -125,6 +131,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  color: Colors.white,
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -161,7 +168,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                         children: [
                           Icon(
                             FFIcons.kuserGearG,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: Colors.white,
                             size: 20.0,
                           ),
                           Text(
@@ -175,6 +182,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  color: Colors.white,
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -211,7 +219,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                         children: [
                           Icon(
                             FFIcons.kcalendarCheckG,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: Colors.white,
                             size: 20.0,
                           ),
                           Text(
@@ -225,6 +233,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  color: Colors.white,
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -261,12 +270,12 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                         children: [
                           Icon(
                             FFIcons.kcreditCard,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: Colors.white,
                             size: 20.0,
                           ),
                           Icon(
                             FFIcons.knotebook,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: Colors.white,
                             size: 20.0,
                           ),
                           Text(
@@ -280,6 +289,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  color: Colors.white,
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -316,7 +326,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                         children: [
                           Icon(
                             FFIcons.kmoney1,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: Colors.white,
                             size: 20.0,
                           ),
                           Text(
@@ -330,6 +340,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  color: Colors.white,
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -366,7 +377,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                         children: [
                           Icon(
                             FFIcons.kuserCircleCheck,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: Colors.white,
                             size: 20.0,
                           ),
                           Text(
@@ -380,6 +391,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  color: Colors.white,
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -416,7 +428,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                         children: [
                           Icon(
                             FFIcons.ksiren,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: Colors.white,
                             size: 20.0,
                           ),
                           Text(
@@ -430,6 +442,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  color: Colors.white,
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -466,7 +479,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                         children: [
                           Icon(
                             FFIcons.kusersFourG,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: Colors.white,
                             size: 20.0,
                           ),
                           Text(
@@ -480,6 +493,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  color: Colors.white,
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -516,7 +530,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                         children: [
                           Icon(
                             FFIcons.k3Storefront,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: Colors.white,
                             size: 20.0,
                           ),
                           Text(
@@ -530,6 +544,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  color: Colors.white,
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -566,7 +581,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                         children: [
                           Icon(
                             FFIcons.k7ForkKnife,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: Colors.white,
                             size: 20.0,
                           ),
                           Text(
@@ -580,6 +595,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  color: Colors.white,
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -616,7 +632,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                         children: [
                           Icon(
                             FFIcons.kchatCenteredG,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: Colors.white,
                             size: 20.0,
                           ),
                           Text(
@@ -630,6 +646,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  color: Colors.white,
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -666,7 +683,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                         children: [
                           Icon(
                             FFIcons.kappWindow,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: Colors.white,
                             size: 20.0,
                           ),
                           Text(
@@ -680,6 +697,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  color: Colors.white,
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -716,7 +734,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                         children: [
                           Icon(
                             FFIcons.klistChecks,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: Colors.white,
                             size: 20.0,
                           ),
                           Text(
@@ -730,6 +748,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  color: Colors.white,
                                   fontSize: 14.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
@@ -743,7 +762,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                             .around(SizedBox(width: 8.0)),
                       ),
                     ),
-                  ].divide(SizedBox(height: 16.0)),
+                  ].divide(SizedBox(height: 4.0)),
                 ),
               ),
             ),
@@ -754,7 +773,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
               children: [
                 Divider(
                   thickness: 0.5,
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                  color: Color(0x33FFFFFF),
                 ),
                 InkWell(
                   splashColor: Colors.transparent,
@@ -804,7 +823,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                       children: [
                         Icon(
                           FFIcons.ksignOutG,
-                          color: FlutterFlowTheme.of(context).primaryText,
+                          color: Colors.white,
                           size: 20.0,
                         ),
                         Text(
@@ -817,6 +836,7 @@ class _MainMenuCompWidgetState extends State<MainMenuCompWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
+                                    color: Colors.white,
                                     fontSize: 14.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,

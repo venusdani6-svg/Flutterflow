@@ -4,6 +4,7 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'index.dart'; // Imports other custom actions
+import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
@@ -83,9 +84,6 @@ String _formatAuditDateTime(DateTime utc) {
   return '${jst.year}. $mm. $dd $hh:$min';
 }
 
-/// Every value taken directly from a real `createAuditLog(...)` call site
-/// in admin.ts (grepped, not guessed) - falls back to the raw value for
-/// anything unrecognized rather than masking a future new action type.
 String _auditActionLabel(dynamic action) {
   switch (action) {
     case 'approve_kyc':
@@ -116,6 +114,22 @@ String _auditActionLabel(dynamic action) {
       return '出金否認';
     case 'approve_payout':
       return '出金承認';
+    case 'create_cocomise':
+      return 'ココ店新規登録';
+    case 'update_cocomise':
+      return 'ココ店情報変更';
+    case 'delete_cocomise':
+      return 'ココ店削除';
+    case 'close_work_post':
+      return 'お仕事掲示板投稿終了';
+    case 'manual_refund':
+      return '手動返金';
+    case 'update_profile':
+      return 'プロフィール編集';
+    case 'create_banner':
+      return 'バナー新規作成';
+    case 'update_banner':
+      return 'バナー情報変更';
     default:
       return action?.toString() ?? '不明';
   }
@@ -135,6 +149,10 @@ String _auditTargetTypeLabel(dynamic type) {
       return '通報';
     case 'payout_request':
       return '出金申請';
+    case 'cocomise':
+      return 'ココ店';
+    case 'work_post':
+      return 'お仕事掲示板投稿';
     default:
       return type?.toString() ?? '不明';
   }

@@ -4,6 +4,7 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'index.dart'; // Imports other custom actions
+import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
@@ -36,14 +37,34 @@ WorkPostItemStruct _toWorkPostItem(Map<String, dynamic> p) {
   final applicants = p['applicants'];
   final applicantCount = applicants is List ? applicants.length : 0;
   final status = p['status']?.toString() ?? '';
+  final type = p['type']?.toString() ?? '';
+  // `applicants_resolved` ({id, nickname} pairs) is the new field
+  // `adminGetWorkPosts` now returns alongside the raw `applicants` id
+  // array - resolved server-side via the same batched users-lookup already
+  // used for `poster_nickname`, so HireApplicantDialogComp can show WHO
+  // applied, not just `applicant_count`.
+  final applicantsResolvedRaw = p['applicants_resolved'];
+  final applicantsResolved = applicantsResolvedRaw is List
+      ? applicantsResolvedRaw
+          .whereType<Map>()
+          .map(
+            (a) => WorkPostApplicantStruct.fromMap({
+              'id': a['id']?.toString() ?? '',
+              'nickname': a['nickname']?.toString() ?? '',
+            }),
+          )
+          .toList()
+      : <WorkPostApplicantStruct>[];
   return WorkPostItemStruct.fromMap({
     'id': p['id']?.toString() ?? '',
     'poster_nickname': p['poster_nickname']?.toString() ?? '',
-    'type_label': _workPostTypeLabel(p['type']),
+    'type': type,
+    'type_label': _workPostTypeLabel(type),
     'description': p['description']?.toString() ?? '',
     'work_date': workDate != null ? _formatWorkPostDateTime(workDate) : '',
     'created_at': createdAt != null ? _formatWorkPostDateTime(createdAt) : '',
     'applicant_count': '$applicantCount',
+    'applicants': applicantsResolved,
     'status_label': _workPostStatusLabel(status),
     'status': status,
   });

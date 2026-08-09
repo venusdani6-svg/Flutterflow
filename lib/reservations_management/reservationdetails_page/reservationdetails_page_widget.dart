@@ -1,22 +1,20 @@
+import '/components/reservation_info_dialog_comp_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
-import '/user_management/search_user_dialog_comp/search_user_dialog_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'reservationdetails_page_model.dart';
 export 'reservationdetails_page_model.dart';
 
 class ReservationdetailsPageWidget extends StatefulWidget {
-  const ReservationdetailsPageWidget({
-    super.key,
-    this.reservation,
-  });
-
-  final dynamic reservation;
+  const ReservationdetailsPageWidget({super.key});
 
   static String routeName = 'ReservationdetailsPage';
   static String routePath = '/reservationdetailsPage';
@@ -41,7 +39,7 @@ class _ReservationdetailsPageWidgetState
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.reservationExtrasInit = await actions.adminGetReservationExtras(
         getJsonField(
-          widget.reservation,
+          FFAppState().selectedReservation,
           r'''$.id''',
         ).toString(),
       );
@@ -65,6 +63,8 @@ class _ReservationdetailsPageWidgetState
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -110,18 +110,20 @@ class _ReservationdetailsPageWidgetState
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Color(0x1FF59E0B),
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/transparent.png',
+                                      child: SvgPicture.asset(
+                                        'assets/images/icoccha_logo_color.svg',
                                         width: 80.0,
                                         height: 80.0,
                                         fit: BoxFit.contain,
+                                        alignment: Alignment(0.0, 0.0),
                                       ),
                                     ),
                                   ),
@@ -130,8 +132,15 @@ class _ReservationdetailsPageWidgetState
                                       width: 100.0,
                                       height: 80.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFF59E0B),
+                                            Color(0xFFFBBF24)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 1.0),
+                                          end: AlignmentDirectional(-1.0, -1.0),
+                                        ),
                                       ),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -184,6 +193,8 @@ class _ReservationdetailsPageWidgetState
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                               ),
+                                                              color:
+                                                                  Colors.white,
                                                               fontSize: 14.0,
                                                               letterSpacing:
                                                                   0.0,
@@ -214,6 +225,8 @@ class _ReservationdetailsPageWidgetState
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                               ),
+                                                              color:
+                                                                  Colors.white,
                                                               fontSize: 12.0,
                                                               letterSpacing:
                                                                   0.0,
@@ -267,17 +280,14 @@ class _ReservationdetailsPageWidgetState
                                                     width: 35.0,
                                                     height: 35.0,
                                                     decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryBackground,
+                                                      color: Color(0x33FFFFFF),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              8.0),
+                                                              12.0),
                                                       border: Border.all(
                                                         color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .alternate,
+                                                            Color(0x4DFFFFFF),
+                                                        width: 1.0,
                                                       ),
                                                     ),
                                                     child: Builder(
@@ -294,9 +304,8 @@ class _ReservationdetailsPageWidgetState
                                                             children: [
                                                               Icon(
                                                                 FFIcons.ksun,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
+                                                                color: Colors
+                                                                    .white,
                                                                 size: 20.0,
                                                               ),
                                                               Text(
@@ -314,6 +323,8 @@ class _ReservationdetailsPageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           10.0,
                                                                       letterSpacing:
@@ -339,9 +350,8 @@ class _ReservationdetailsPageWidgetState
                                                               Icon(
                                                                 FFIcons
                                                                     .kstarAndCrescent,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
+                                                                color: Colors
+                                                                    .white,
                                                                 size: 20.0,
                                                               ),
                                                               Text(
@@ -359,6 +369,8 @@ class _ReservationdetailsPageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           10.0,
                                                                       letterSpacing:
@@ -403,7 +415,7 @@ class _ReservationdetailsPageWidgetState
                                                                 Colors
                                                                     .transparent,
                                                             alignment: AlignmentDirectional(
-                                                                    0.0, -1.0)
+                                                                    0.0, 0.0)
                                                                 .resolve(
                                                                     Directionality.of(
                                                                         context)),
@@ -419,10 +431,10 @@ class _ReservationdetailsPageWidgetState
                                                                     ?.unfocus();
                                                               },
                                                               child: Container(
-                                                                height: 250.0,
-                                                                width: 760.0,
+                                                                height: 580.0,
+                                                                width: 520.0,
                                                                 child:
-                                                                    SearchUserDialogCompWidget(),
+                                                                    ReservationInfoDialogCompWidget(),
                                                               ),
                                                             ),
                                                           );
@@ -433,16 +445,15 @@ class _ReservationdetailsPageWidgetState
                                                       width: 35.0,
                                                       height: 35.0,
                                                       decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .primaryBackground,
+                                                        color:
+                                                            Color(0x33FFFFFF),
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(8.0),
+                                                                .circular(12.0),
                                                         border: Border.all(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .alternate,
+                                                          color:
+                                                              Color(0x4DFFFFFF),
+                                                          width: 1.0,
                                                         ),
                                                       ),
                                                       child: Column(
@@ -454,14 +465,12 @@ class _ReservationdetailsPageWidgetState
                                                         children: [
                                                           Icon(
                                                             FFIcons
-                                                                .k15ListMagnifyingGlass,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryText,
+                                                                .kchatCenteredTextG,
+                                                            color: Colors.white,
                                                             size: 20.0,
                                                           ),
                                                           Text(
-                                                            'search',
+                                                            'info',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyMedium
@@ -478,9 +487,8 @@ class _ReservationdetailsPageWidgetState
                                                                         .bodyMedium
                                                                         .fontStyle,
                                                                   ),
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
+                                                                  color: Colors
+                                                                      .white,
                                                                   fontSize:
                                                                       10.0,
                                                                   letterSpacing:
@@ -567,6 +575,7 @@ class _ReservationdetailsPageWidgetState
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
+                                                            color: Colors.white,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -846,10 +855,13 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    getJsonField(
-                                                                                      widget.reservation,
-                                                                                      r'''$.id''',
-                                                                                    ).toString(),
+                                                                                    valueOrDefault<String>(
+                                                                                      getJsonField(
+                                                                                        FFAppState().selectedReservation,
+                                                                                        r'''$.id''',
+                                                                                      )?.toString(),
+                                                                                      '-',
+                                                                                    ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -915,10 +927,13 @@ class _ReservationdetailsPageWidgetState
                                                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                                                   children: [
                                                                                     Text(
-                                                                                      getJsonField(
-                                                                                        widget.reservation,
-                                                                                        r'''$.time_slot''',
-                                                                                      ).toString(),
+                                                                                      valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          FFAppState().selectedReservation,
+                                                                                          r'''$.time_slot''',
+                                                                                        )?.toString(),
+                                                                                        '-',
+                                                                                      ),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -986,14 +1001,23 @@ class _ReservationdetailsPageWidgetState
                                                                                   children: [
                                                                                     Icon(
                                                                                       Icons.circle,
-                                                                                      color: Color(0xFF06F705),
+                                                                                      color: functions.reservationStatusDotColor(valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          FFAppState().selectedReservation,
+                                                                                          r'''$.status_label''',
+                                                                                        )?.toString(),
+                                                                                        '-',
+                                                                                      )),
                                                                                       size: 14.0,
                                                                                     ),
                                                                                     Text(
-                                                                                      getJsonField(
-                                                                                        widget.reservation,
-                                                                                        r'''$.status_label''',
-                                                                                      ).toString(),
+                                                                                      valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          FFAppState().selectedReservation,
+                                                                                          r'''$.status_label''',
+                                                                                        )?.toString(),
+                                                                                        '-',
+                                                                                      ),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -1058,10 +1082,13 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    getJsonField(
-                                                                                      widget.reservation,
-                                                                                      r'''$.updated_at''',
-                                                                                    ).toString(),
+                                                                                    valueOrDefault<String>(
+                                                                                      getJsonField(
+                                                                                        FFAppState().selectedReservation,
+                                                                                        r'''$.updated_at''',
+                                                                                      )?.toString(),
+                                                                                      '-',
+                                                                                    ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -1154,10 +1181,13 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    getJsonField(
-                                                                                      widget.reservation,
-                                                                                      r'''$.scheduled_at''',
-                                                                                    ).toString(),
+                                                                                    valueOrDefault<String>(
+                                                                                      getJsonField(
+                                                                                        FFAppState().selectedReservation,
+                                                                                        r'''$.scheduled_at''',
+                                                                                      )?.toString(),
+                                                                                      '-',
+                                                                                    ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -1221,10 +1251,13 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    getJsonField(
-                                                                                      widget.reservation,
-                                                                                      r'''$.duration_minutes''',
-                                                                                    ).toString(),
+                                                                                    valueOrDefault<String>(
+                                                                                      getJsonField(
+                                                                                        FFAppState().selectedReservation,
+                                                                                        r'''$.duration_minutes''',
+                                                                                      )?.toString(),
+                                                                                      '-',
+                                                                                    ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -1288,10 +1321,13 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    getJsonField(
-                                                                                      widget.reservation,
-                                                                                      r'''$.created_at''',
-                                                                                    ).toString(),
+                                                                                    valueOrDefault<String>(
+                                                                                      getJsonField(
+                                                                                        FFAppState().selectedReservation,
+                                                                                        r'''$.created_at''',
+                                                                                      )?.toString(),
+                                                                                      '-',
+                                                                                    ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -1518,10 +1554,13 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    getJsonField(
-                                                                                      widget.reservation,
-                                                                                      r'''$.guest_id''',
-                                                                                    ).toString(),
+                                                                                    valueOrDefault<String>(
+                                                                                      getJsonField(
+                                                                                        FFAppState().selectedReservation,
+                                                                                        r'''$.guest_id''',
+                                                                                      )?.toString(),
+                                                                                      '-',
+                                                                                    ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -1585,10 +1624,13 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    getJsonField(
-                                                                                      widget.reservation,
-                                                                                      r'''$.primary_staff_id''',
-                                                                                    ).toString(),
+                                                                                    valueOrDefault<String>(
+                                                                                      getJsonField(
+                                                                                        FFAppState().selectedReservation,
+                                                                                        r'''$.primary_staff_id''',
+                                                                                      )?.toString(),
+                                                                                      '-',
+                                                                                    ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -1713,10 +1755,13 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    getJsonField(
-                                                                                      widget.reservation,
-                                                                                      r'''$.primary_cast_id''',
-                                                                                    ).toString(),
+                                                                                    valueOrDefault<String>(
+                                                                                      getJsonField(
+                                                                                        FFAppState().selectedReservation,
+                                                                                        r'''$.primary_cast_id''',
+                                                                                      )?.toString(),
+                                                                                      '-',
+                                                                                    ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -1780,10 +1825,13 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    getJsonField(
-                                                                                      widget.reservation,
-                                                                                      r'''$.secondary_cast_id''',
-                                                                                    ).toString(),
+                                                                                    valueOrDefault<String>(
+                                                                                      getJsonField(
+                                                                                        FFAppState().selectedReservation,
+                                                                                        r'''$.secondary_cast_id''',
+                                                                                      )?.toString(),
+                                                                                      '-',
+                                                                                    ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -2010,10 +2058,13 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    getJsonField(
-                                                                                      widget.reservation,
-                                                                                      r'''$.meeting_point''',
-                                                                                    ).toString(),
+                                                                                    valueOrDefault<String>(
+                                                                                      getJsonField(
+                                                                                        FFAppState().selectedReservation,
+                                                                                        r'''$.meeting_point''',
+                                                                                      )?.toString(),
+                                                                                      '-',
+                                                                                    ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -2077,10 +2128,13 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    getJsonField(
-                                                                                      widget.reservation,
-                                                                                      r'''$.meeting_point_address''',
-                                                                                    ).toString(),
+                                                                                    valueOrDefault<String>(
+                                                                                      getJsonField(
+                                                                                        FFAppState().selectedReservation,
+                                                                                        r'''$.meeting_point_address''',
+                                                                                      )?.toString(),
+                                                                                      '-',
+                                                                                    ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -2173,10 +2227,13 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    getJsonField(
-                                                                                      widget.reservation,
-                                                                                      r'''$.location''',
-                                                                                    ).toString(),
+                                                                                    valueOrDefault<String>(
+                                                                                      getJsonField(
+                                                                                        FFAppState().selectedReservation,
+                                                                                        r'''$.location''',
+                                                                                      )?.toString(),
+                                                                                      '-',
+                                                                                    ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -2240,10 +2297,13 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    getJsonField(
-                                                                                      widget.reservation,
-                                                                                      r'''$.location_address''',
-                                                                                    ).toString(),
+                                                                                    valueOrDefault<String>(
+                                                                                      getJsonField(
+                                                                                        FFAppState().selectedReservation,
+                                                                                        r'''$.location_address''',
+                                                                                      )?.toString(),
+                                                                                      '-',
+                                                                                    ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -2441,14 +2501,23 @@ class _ReservationdetailsPageWidgetState
                                                                                   children: [
                                                                                     Icon(
                                                                                       Icons.circle,
-                                                                                      color: Color(0xFF06F705),
+                                                                                      color: functions.presenceStatusDotColor(valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          FFAppState().selectedReservation,
+                                                                                          r'''$.group_invite_label''',
+                                                                                        )?.toString(),
+                                                                                        '-',
+                                                                                      )),
                                                                                       size: 14.0,
                                                                                     ),
                                                                                     Text(
-                                                                                      getJsonField(
-                                                                                        widget.reservation,
-                                                                                        r'''$.group_invite_label''',
-                                                                                      ).toString(),
+                                                                                      valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          FFAppState().selectedReservation,
+                                                                                          r'''$.group_invite_label''',
+                                                                                        )?.toString(),
+                                                                                        '-',
+                                                                                      ),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -2542,10 +2611,13 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    getJsonField(
-                                                                                      widget.reservation,
-                                                                                      r'''$.group_size''',
-                                                                                    ).toString(),
+                                                                                    valueOrDefault<String>(
+                                                                                      getJsonField(
+                                                                                        FFAppState().selectedReservation,
+                                                                                        r'''$.group_size''',
+                                                                                      )?.toString(),
+                                                                                      '-',
+                                                                                    ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -2673,10 +2745,14 @@ class _ReservationdetailsPageWidgetState
                                                                             EdgeInsets.all(8.0),
                                                                         child:
                                                                             Text(
-                                                                          getJsonField(
-                                                                            widget.reservation,
-                                                                            r'''$.details''',
-                                                                          ).toString(),
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                            getJsonField(
+                                                                              FFAppState().selectedReservation,
+                                                                              r'''$.details''',
+                                                                            )?.toString(),
+                                                                            '-',
+                                                                          ),
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(
@@ -2868,10 +2944,13 @@ class _ReservationdetailsPageWidgetState
                                                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                                                   children: [
                                                                                     Text(
-                                                                                      getJsonField(
-                                                                                        widget.reservation,
-                                                                                        r'''$.total_amount''',
-                                                                                      ).toString(),
+                                                                                      valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          FFAppState().selectedReservation,
+                                                                                          r'''$.total_amount''',
+                                                                                        )?.toString(),
+                                                                                        '-',
+                                                                                      ),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -2951,10 +3030,13 @@ class _ReservationdetailsPageWidgetState
                                                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                                                   children: [
                                                                                     Text(
-                                                                                      getJsonField(
-                                                                                        widget.reservation,
-                                                                                        r'''$.transport_fee''',
-                                                                                      ).toString(),
+                                                                                      valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          FFAppState().selectedReservation,
+                                                                                          r'''$.transport_fee''',
+                                                                                        )?.toString(),
+                                                                                        '-',
+                                                                                      ),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -3035,10 +3117,13 @@ class _ReservationdetailsPageWidgetState
                                                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                                                   children: [
                                                                                     Text(
-                                                                                      getJsonField(
-                                                                                        widget.reservation,
-                                                                                        r'''$.extension_count''',
-                                                                                      ).toString(),
+                                                                                      valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          FFAppState().selectedReservation,
+                                                                                          r'''$.extension_count''',
+                                                                                        )?.toString(),
+                                                                                        '-',
+                                                                                      ),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -3119,14 +3204,23 @@ class _ReservationdetailsPageWidgetState
                                                                                   children: [
                                                                                     Icon(
                                                                                       Icons.circle,
-                                                                                      color: Color(0xFFF70505),
+                                                                                      color: functions.presenceStatusDotColor(valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          _model.reservationTipResult,
+                                                                                          r'''$.tipPresenceLabel''',
+                                                                                        )?.toString(),
+                                                                                        '-',
+                                                                                      )),
                                                                                       size: 14.0,
                                                                                     ),
                                                                                     Text(
-                                                                                      getJsonField(
-                                                                                        _model.reservationTipResult,
-                                                                                        r'''$.tipPresenceLabel''',
-                                                                                      ).toString(),
+                                                                                      valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          _model.reservationTipResult,
+                                                                                          r'''$.tipPresenceLabel''',
+                                                                                        )?.toString(),
+                                                                                        '-',
+                                                                                      ),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -3194,14 +3288,23 @@ class _ReservationdetailsPageWidgetState
                                                                                   children: [
                                                                                     Icon(
                                                                                       Icons.circle,
-                                                                                      color: Color(0xFFF70505),
+                                                                                      color: functions.presenceStatusDotColor(valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          FFAppState().selectedReservation,
+                                                                                          r'''$.thirty_min_rule_applied_label''',
+                                                                                        )?.toString(),
+                                                                                        '-',
+                                                                                      )),
                                                                                       size: 14.0,
                                                                                     ),
                                                                                     Text(
-                                                                                      getJsonField(
-                                                                                        widget.reservation,
-                                                                                        r'''$.thirty_min_rule_applied_label''',
-                                                                                      ).toString(),
+                                                                                      valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          FFAppState().selectedReservation,
+                                                                                          r'''$.thirty_min_rule_applied_label''',
+                                                                                        )?.toString(),
+                                                                                        '-',
+                                                                                      ),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -3297,10 +3400,13 @@ class _ReservationdetailsPageWidgetState
                                                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                                                   children: [
                                                                                     Text(
-                                                                                      getJsonField(
-                                                                                        widget.reservation,
-                                                                                        r'''$.base_amount''',
-                                                                                      ).toString(),
+                                                                                      valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          FFAppState().selectedReservation,
+                                                                                          r'''$.base_amount''',
+                                                                                        )?.toString(),
+                                                                                        '-',
+                                                                                      ),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -3380,10 +3486,13 @@ class _ReservationdetailsPageWidgetState
                                                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                                                   children: [
                                                                                     Text(
-                                                                                      getJsonField(
-                                                                                        widget.reservation,
-                                                                                        r'''$.staff_fee''',
-                                                                                      ).toString(),
+                                                                                      valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          FFAppState().selectedReservation,
+                                                                                          r'''$.staff_fee''',
+                                                                                        )?.toString(),
+                                                                                        '-',
+                                                                                      ),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -3465,10 +3574,13 @@ class _ReservationdetailsPageWidgetState
                                                                                     Align(
                                                                                       alignment: AlignmentDirectional(0.0, 0.0),
                                                                                       child: Text(
-                                                                                        getJsonField(
-                                                                                          widget.reservation,
-                                                                                          r'''$.extension_minutes	''',
-                                                                                        ).toString(),
+                                                                                        valueOrDefault<String>(
+                                                                                          getJsonField(
+                                                                                            FFAppState().selectedReservation,
+                                                                                            r'''$.extension_minutes	''',
+                                                                                          )?.toString(),
+                                                                                          '-',
+                                                                                        ),
                                                                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                               font: GoogleFonts.inter(
                                                                                                 fontWeight: FontWeight.w500,
@@ -3552,10 +3664,13 @@ class _ReservationdetailsPageWidgetState
                                                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                                                   children: [
                                                                                     Text(
-                                                                                      getJsonField(
-                                                                                        _model.reservationTipResult,
-                                                                                        r'''$.tipTotal''',
-                                                                                      ).toString(),
+                                                                                      valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          _model.reservationTipResult,
+                                                                                          r'''$.tipTotal''',
+                                                                                        )?.toString(),
+                                                                                        '-',
+                                                                                      ),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -3633,10 +3748,13 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    getJsonField(
-                                                                                      widget.reservation,
-                                                                                      r'''$.last_capture_at''',
-                                                                                    ).toString(),
+                                                                                    valueOrDefault<String>(
+                                                                                      getJsonField(
+                                                                                        FFAppState().selectedReservation,
+                                                                                        r'''$.last_capture_at''',
+                                                                                      )?.toString(),
+                                                                                      '-',
+                                                                                    ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -3831,10 +3949,13 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    getJsonField(
-                                                                                      widget.reservation,
-                                                                                      r'''$.cancelled_by_label''',
-                                                                                    ).toString(),
+                                                                                    valueOrDefault<String>(
+                                                                                      getJsonField(
+                                                                                        FFAppState().selectedReservation,
+                                                                                        r'''$.cancelled_by_label''',
+                                                                                      )?.toString(),
+                                                                                      '-',
+                                                                                    ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -3898,10 +4019,13 @@ class _ReservationdetailsPageWidgetState
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    getJsonField(
-                                                                                      widget.reservation,
-                                                                                      r'''$.updated_at''',
-                                                                                    ).toString(),
+                                                                                    valueOrDefault<String>(
+                                                                                      getJsonField(
+                                                                                        FFAppState().selectedReservation,
+                                                                                        r'''$.updated_at''',
+                                                                                      )?.toString(),
+                                                                                      '-',
+                                                                                    ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: GoogleFonts.inter(
                                                                                             fontWeight: FontWeight.w500,
@@ -3998,10 +4122,13 @@ class _ReservationdetailsPageWidgetState
                                                                                   child: Padding(
                                                                                     padding: EdgeInsets.all(8.0),
                                                                                     child: Text(
-                                                                                      getJsonField(
-                                                                                        widget.reservation,
-                                                                                        r'''$.cancel_reason''',
-                                                                                      ).toString(),
+                                                                                      valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          FFAppState().selectedReservation,
+                                                                                          r'''$.cancel_reason''',
+                                                                                        )?.toString(),
+                                                                                        '-',
+                                                                                      ),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             font: GoogleFonts.inter(
                                                                                               fontWeight: FontWeight.w500,
@@ -4034,1042 +4161,1074 @@ class _ReservationdetailsPageWidgetState
                                                   ),
                                                 ],
                                               ),
+                                              Container(
+                                                width: double.infinity,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  border: Border.all(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .alternate,
+                                                    width: 1.0,
+                                                  ),
+                                                ),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      width: double.infinity,
+                                                      height: 35.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                      ),
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.0, 0.0),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.settings,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                            size: 24.0,
+                                                          ),
+                                                          Text(
+                                                            '予約操作',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .titleSmall
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .interTight(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmall
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmall
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .fontStyle,
+                                                                ),
+                                                          ),
+                                                        ].divide(SizedBox(
+                                                            width: 8.0)),
+                                                      ),
+                                                    ),
+                                                    Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  16.0),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              TextFormField(
+                                                                controller: _model
+                                                                    .forceCancelReasonFieldTextController,
+                                                                focusNode: _model
+                                                                    .forceCancelReasonFieldFocusNode,
+                                                                obscureText:
+                                                                    false,
+                                                                decoration:
+                                                                    InputDecoration(
+                                                                  labelText:
+                                                                      'キャンセル理由',
+                                                                  hintText:
+                                                                      '例：ユーザーからの申し出により',
+                                                                  enabledBorder:
+                                                                      OutlineInputBorder(
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: Color(
+                                                                          0x00000000),
+                                                                      width:
+                                                                          1.0,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        const BorderRadius
+                                                                            .only(
+                                                                      topLeft: Radius
+                                                                          .circular(
+                                                                              4.0),
+                                                                      topRight:
+                                                                          Radius.circular(
+                                                                              4.0),
+                                                                    ),
+                                                                  ),
+                                                                  focusedBorder:
+                                                                      OutlineInputBorder(
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: Color(
+                                                                          0x00000000),
+                                                                      width:
+                                                                          1.0,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        const BorderRadius
+                                                                            .only(
+                                                                      topLeft: Radius
+                                                                          .circular(
+                                                                              4.0),
+                                                                      topRight:
+                                                                          Radius.circular(
+                                                                              4.0),
+                                                                    ),
+                                                                  ),
+                                                                  errorBorder:
+                                                                      OutlineInputBorder(
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: Color(
+                                                                          0x00000000),
+                                                                      width:
+                                                                          1.0,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        const BorderRadius
+                                                                            .only(
+                                                                      topLeft: Radius
+                                                                          .circular(
+                                                                              4.0),
+                                                                      topRight:
+                                                                          Radius.circular(
+                                                                              4.0),
+                                                                    ),
+                                                                  ),
+                                                                  focusedErrorBorder:
+                                                                      OutlineInputBorder(
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: Color(
+                                                                          0x00000000),
+                                                                      width:
+                                                                          1.0,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        const BorderRadius
+                                                                            .only(
+                                                                      topLeft: Radius
+                                                                          .circular(
+                                                                              4.0),
+                                                                      topRight:
+                                                                          Radius.circular(
+                                                                              4.0),
+                                                                    ),
+                                                                  ),
+                                                                  filled: true,
+                                                                ),
+                                                                style:
+                                                                    TextStyle(),
+                                                                maxLines: null,
+                                                                validator: _model
+                                                                    .forceCancelReasonFieldTextControllerValidator
+                                                                    .asValidator(
+                                                                        context),
+                                                              ),
+                                                              FFButtonWidget(
+                                                                onPressed:
+                                                                    () async {
+                                                                  var confirmDialogResponse =
+                                                                      await showDialog<
+                                                                              bool>(
+                                                                            context:
+                                                                                context,
+                                                                            builder:
+                                                                                (alertDialogContext) {
+                                                                              return AlertDialog(
+                                                                                title: Text('強制キャンセル確認'),
+                                                                                content: Text('このご予約を強制的にキャンセルします。この操作は取り消せません。'),
+                                                                                actions: [
+                                                                                  TextButton(
+                                                                                    onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                    child: Text('キャンセル'),
+                                                                                  ),
+                                                                                  TextButton(
+                                                                                    onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                    child: Text('強制キャンセルする'),
+                                                                                  ),
+                                                                                ],
+                                                                              );
+                                                                            },
+                                                                          ) ??
+                                                                          false;
+                                                                  if (confirmDialogResponse) {
+                                                                    _model.forceCancelResult =
+                                                                        await actions
+                                                                            .adminForceCancel(
+                                                                      getJsonField(
+                                                                        FFAppState()
+                                                                            .selectedReservation,
+                                                                        r'''$.id''',
+                                                                      ).toString(),
+                                                                      _model
+                                                                          .forceCancelReasonFieldTextController
+                                                                          .text,
+                                                                      0,
+                                                                    );
+                                                                    context
+                                                                        .pop();
+                                                                  } else {
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .showSnackBar(
+                                                                      SnackBar(
+                                                                        content:
+                                                                            Text(
+                                                                          '操作をキャンセルしました。',
+                                                                          style:
+                                                                              TextStyle(),
+                                                                        ),
+                                                                        duration:
+                                                                            Duration(milliseconds: 4000),
+                                                                      ),
+                                                                    );
+                                                                  }
+
+                                                                  safeSetState(
+                                                                      () {});
+                                                                },
+                                                                text: '強制キャンセル',
+                                                                options:
+                                                                    FFButtonOptions(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  iconPadding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .error,
+                                                                  textStyle:
+                                                                      TextStyle(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryBackground,
+                                                                  ),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8.0),
+                                                                ),
+                                                              ),
+                                                            ].divide(SizedBox(
+                                                                height: 8.0)),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  16.0),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              TextFormField(
+                                                                controller: _model
+                                                                    .manualRefundReasonFieldTextController,
+                                                                focusNode: _model
+                                                                    .manualRefundReasonFieldFocusNode,
+                                                                obscureText:
+                                                                    false,
+                                                                decoration:
+                                                                    InputDecoration(
+                                                                  labelText:
+                                                                      '返金理由',
+                                                                  hintText:
+                                                                      '例：サービス未提供のため全額返金',
+                                                                  enabledBorder:
+                                                                      OutlineInputBorder(
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: Color(
+                                                                          0x00000000),
+                                                                      width:
+                                                                          1.0,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        const BorderRadius
+                                                                            .only(
+                                                                      topLeft: Radius
+                                                                          .circular(
+                                                                              4.0),
+                                                                      topRight:
+                                                                          Radius.circular(
+                                                                              4.0),
+                                                                    ),
+                                                                  ),
+                                                                  focusedBorder:
+                                                                      OutlineInputBorder(
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: Color(
+                                                                          0x00000000),
+                                                                      width:
+                                                                          1.0,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        const BorderRadius
+                                                                            .only(
+                                                                      topLeft: Radius
+                                                                          .circular(
+                                                                              4.0),
+                                                                      topRight:
+                                                                          Radius.circular(
+                                                                              4.0),
+                                                                    ),
+                                                                  ),
+                                                                  errorBorder:
+                                                                      OutlineInputBorder(
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: Color(
+                                                                          0x00000000),
+                                                                      width:
+                                                                          1.0,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        const BorderRadius
+                                                                            .only(
+                                                                      topLeft: Radius
+                                                                          .circular(
+                                                                              4.0),
+                                                                      topRight:
+                                                                          Radius.circular(
+                                                                              4.0),
+                                                                    ),
+                                                                  ),
+                                                                  focusedErrorBorder:
+                                                                      OutlineInputBorder(
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: Color(
+                                                                          0x00000000),
+                                                                      width:
+                                                                          1.0,
+                                                                    ),
+                                                                    borderRadius:
+                                                                        const BorderRadius
+                                                                            .only(
+                                                                      topLeft: Radius
+                                                                          .circular(
+                                                                              4.0),
+                                                                      topRight:
+                                                                          Radius.circular(
+                                                                              4.0),
+                                                                    ),
+                                                                  ),
+                                                                  filled: true,
+                                                                ),
+                                                                style:
+                                                                    TextStyle(),
+                                                                maxLines: null,
+                                                                validator: _model
+                                                                    .manualRefundReasonFieldTextControllerValidator
+                                                                    .asValidator(
+                                                                        context),
+                                                              ),
+                                                              FFButtonWidget(
+                                                                onPressed:
+                                                                    () async {
+                                                                  var confirmDialogResponse =
+                                                                      await showDialog<
+                                                                              bool>(
+                                                                            context:
+                                                                                context,
+                                                                            builder:
+                                                                                (alertDialogContext) {
+                                                                              return AlertDialog(
+                                                                                title: Text('返金確認'),
+                                                                                content: Text('この予約の決済を返金します。この操作は取り消せません。'),
+                                                                                actions: [
+                                                                                  TextButton(
+                                                                                    onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                    child: Text('キャンセル'),
+                                                                                  ),
+                                                                                  TextButton(
+                                                                                    onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                    child: Text('返金する'),
+                                                                                  ),
+                                                                                ],
+                                                                              );
+                                                                            },
+                                                                          ) ??
+                                                                          false;
+                                                                  if (confirmDialogResponse) {
+                                                                    _model.manualRefundResult =
+                                                                        await actions
+                                                                            .adminManualRefund(
+                                                                      getJsonField(
+                                                                        FFAppState()
+                                                                            .selectedReservation,
+                                                                        r'''$.id''',
+                                                                      ).toString(),
+                                                                      0,
+                                                                      _model
+                                                                          .manualRefundReasonFieldTextController
+                                                                          .text,
+                                                                    );
+                                                                    context
+                                                                        .pop();
+                                                                  } else {
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .showSnackBar(
+                                                                      SnackBar(
+                                                                        content:
+                                                                            Text(
+                                                                          '操作をキャンセルしました。',
+                                                                          style:
+                                                                              TextStyle(),
+                                                                        ),
+                                                                        duration:
+                                                                            Duration(milliseconds: 4000),
+                                                                      ),
+                                                                    );
+                                                                  }
+
+                                                                  safeSetState(
+                                                                      () {});
+                                                                },
+                                                                text: '返金',
+                                                                options:
+                                                                    FFButtonOptions(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  iconPadding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .warning,
+                                                                  textStyle:
+                                                                      TextStyle(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryBackground,
+                                                                  ),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8.0),
+                                                                ),
+                                                              ),
+                                                            ].divide(SizedBox(
+                                                                height: 8.0)),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  16.0),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                '延長決済履歴',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .override(
+                                                                      font: GoogleFonts
+                                                                          .interTight(
+                                                                        fontWeight: FlutterFlowTheme.of(context)
+                                                                            .titleSmall
+                                                                            .fontWeight,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .titleSmall
+                                                                            .fontStyle,
+                                                                      ),
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleSmall
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleSmall
+                                                                          .fontStyle,
+                                                                    ),
+                                                              ),
+                                                              Builder(
+                                                                builder:
+                                                                    (context) {
+                                                                  final item = _model
+                                                                          .reservationExtrasList
+                                                                          ?.extensions
+                                                                          .toList() ??
+                                                                      [];
+
+                                                                  return ListView
+                                                                      .separated(
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .zero,
+                                                                    primary:
+                                                                        false,
+                                                                    shrinkWrap:
+                                                                        true,
+                                                                    scrollDirection:
+                                                                        Axis.vertical,
+                                                                    itemCount: item
+                                                                        .length,
+                                                                    separatorBuilder: (_,
+                                                                            __) =>
+                                                                        SizedBox(
+                                                                            height:
+                                                                                8.0),
+                                                                    itemBuilder:
+                                                                        (context,
+                                                                            itemIndex) {
+                                                                      final itemItem =
+                                                                          item[
+                                                                              itemIndex];
+                                                                      return Container(
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryBackground,
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(12.0),
+                                                                        ),
+                                                                        child:
+                                                                            Padding(
+                                                                          padding:
+                                                                              EdgeInsets.all(16.0),
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.min,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.start,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.center,
+                                                                            children:
+                                                                                [
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    '金額',
+                                                                                    style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                          font: GoogleFonts.inter(
+                                                                                            fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                            fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                          ),
+                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                          letterSpacing: 0.0,
+                                                                                          fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                        ),
+                                                                                  ),
+                                                                                  Row(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                    children: [
+                                                                                      Text(
+                                                                                        itemItem.amountDisplay,
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              font: GoogleFonts.inter(
+                                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                              ),
+                                                                                              letterSpacing: 0.0,
+                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                            ),
+                                                                                      ),
+                                                                                    ].divide(SizedBox(width: 4.0)),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    '延長時間',
+                                                                                    style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                          font: GoogleFonts.inter(
+                                                                                            fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                            fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                          ),
+                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                          letterSpacing: 0.0,
+                                                                                          fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                        ),
+                                                                                  ),
+                                                                                  Row(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                    children: [
+                                                                                      Text(
+                                                                                        itemItem.durationMinutesDisplay,
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              font: GoogleFonts.inter(
+                                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                              ),
+                                                                                              letterSpacing: 0.0,
+                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                            ),
+                                                                                      ),
+                                                                                    ].divide(SizedBox(width: 4.0)),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    'ステータス',
+                                                                                    style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                          font: GoogleFonts.inter(
+                                                                                            fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                            fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                          ),
+                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                          letterSpacing: 0.0,
+                                                                                          fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                        ),
+                                                                                  ),
+                                                                                  Row(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                    children: [
+                                                                                      Text(
+                                                                                        itemItem.statusLabel,
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              font: GoogleFonts.inter(
+                                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                              ),
+                                                                                              letterSpacing: 0.0,
+                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                            ),
+                                                                                      ),
+                                                                                    ].divide(SizedBox(width: 4.0)),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    '決済日時',
+                                                                                    style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                          font: GoogleFonts.inter(
+                                                                                            fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                            fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                          ),
+                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                          letterSpacing: 0.0,
+                                                                                          fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                        ),
+                                                                                  ),
+                                                                                  Row(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                    children: [
+                                                                                      Text(
+                                                                                        itemItem.createdAtDisplay,
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              font: GoogleFonts.inter(
+                                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                              ),
+                                                                                              letterSpacing: 0.0,
+                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                            ),
+                                                                                      ),
+                                                                                    ].divide(SizedBox(width: 4.0)),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ].divide(SizedBox(height: 8.0)),
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                },
+                                                              ),
+                                                              if (!(_model
+                                                                  .reservationExtrasList!
+                                                                  .extensions
+                                                                  .isNotEmpty))
+                                                                Text(
+                                                                  '延長履歴はありません\n',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        font: GoogleFonts
+                                                                            .inter(
+                                                                          fontWeight: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .fontWeight,
+                                                                          fontStyle: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .fontStyle,
+                                                                        ),
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontWeight,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontStyle,
+                                                                      ),
+                                                                ),
+                                                              Text(
+                                                                'キャスト別報酬内訳',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .override(
+                                                                      font: GoogleFonts
+                                                                          .interTight(
+                                                                        fontWeight: FlutterFlowTheme.of(context)
+                                                                            .titleSmall
+                                                                            .fontWeight,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .titleSmall
+                                                                            .fontStyle,
+                                                                      ),
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleSmall
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleSmall
+                                                                          .fontStyle,
+                                                                    ),
+                                                              ),
+                                                              if (!(_model
+                                                                  .reservationExtrasList!
+                                                                  .rewards
+                                                                  .isNotEmpty))
+                                                                Text(
+                                                                  '報酬履歴はありません\n',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        font: GoogleFonts
+                                                                            .inter(
+                                                                          fontWeight: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .fontWeight,
+                                                                          fontStyle: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .fontStyle,
+                                                                        ),
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontWeight,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontStyle,
+                                                                      ),
+                                                                ),
+                                                              Builder(
+                                                                builder:
+                                                                    (context) {
+                                                                  final item = _model
+                                                                          .reservationExtrasList
+                                                                          ?.rewards
+                                                                          .toList() ??
+                                                                      [];
+
+                                                                  return ListView
+                                                                      .separated(
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .zero,
+                                                                    primary:
+                                                                        false,
+                                                                    shrinkWrap:
+                                                                        true,
+                                                                    scrollDirection:
+                                                                        Axis.vertical,
+                                                                    itemCount: item
+                                                                        .length,
+                                                                    separatorBuilder: (_,
+                                                                            __) =>
+                                                                        SizedBox(
+                                                                            height:
+                                                                                8.0),
+                                                                    itemBuilder:
+                                                                        (context,
+                                                                            itemIndex) {
+                                                                      final itemItem =
+                                                                          item[
+                                                                              itemIndex];
+                                                                      return Container(
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryBackground,
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(12.0),
+                                                                        ),
+                                                                        child:
+                                                                            Padding(
+                                                                          padding:
+                                                                              EdgeInsets.all(16.0),
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.min,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.start,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.center,
+                                                                            children:
+                                                                                [
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    'キャストニックネーム',
+                                                                                    style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                          font: GoogleFonts.inter(
+                                                                                            fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                            fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                          ),
+                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                          letterSpacing: 0.0,
+                                                                                          fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                        ),
+                                                                                  ),
+                                                                                  Row(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                    children: [
+                                                                                      Text(
+                                                                                        itemItem.castNickname,
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              font: GoogleFonts.inter(
+                                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                              ),
+                                                                                              letterSpacing: 0.0,
+                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                            ),
+                                                                                      ),
+                                                                                    ].divide(SizedBox(width: 4.0)),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    '報酬額',
+                                                                                    style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                          font: GoogleFonts.inter(
+                                                                                            fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                            fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                          ),
+                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                          letterSpacing: 0.0,
+                                                                                          fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                        ),
+                                                                                  ),
+                                                                                  Row(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                    children: [
+                                                                                      Text(
+                                                                                        itemItem.amountDisplay,
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              font: GoogleFonts.inter(
+                                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                              ),
+                                                                                              letterSpacing: 0.0,
+                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                            ),
+                                                                                      ),
+                                                                                    ].divide(SizedBox(width: 4.0)),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    'ステータス',
+                                                                                    style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                          font: GoogleFonts.inter(
+                                                                                            fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                            fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                          ),
+                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                          letterSpacing: 0.0,
+                                                                                          fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                        ),
+                                                                                  ),
+                                                                                  Row(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                    children: [
+                                                                                      Text(
+                                                                                        itemItem.statusLabel,
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              font: GoogleFonts.inter(
+                                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                              ),
+                                                                                              letterSpacing: 0.0,
+                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                            ),
+                                                                                      ),
+                                                                                    ].divide(SizedBox(width: 4.0)),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ].divide(SizedBox(height: 8.0)),
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                },
+                                                              ),
+                                                            ].divide(SizedBox(
+                                                                height: 12.0)),
+                                                          ),
+                                                        ),
+                                                      ].divide(SizedBox(
+                                                          height: 16.0)),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
                                             ].divide(SizedBox(height: 16.0)),
                                           ),
                                         ),
                                       ),
                                     ),
                                   ].divide(SizedBox(width: 8.0)),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(16.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    TextFormField(
-                                      controller: _model
-                                          .forceCancelReasonFieldTextController,
-                                      focusNode: _model
-                                          .forceCancelReasonFieldFocusNode,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: 'キャンセル理由',
-                                        hintText: '例：ユーザーからの申し出により',
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
-                                        filled: true,
-                                      ),
-                                      style: TextStyle(),
-                                      maxLines: null,
-                                      validator: _model
-                                          .forceCancelReasonFieldTextControllerValidator
-                                          .asValidator(context),
-                                    ),
-                                    FFButtonWidget(
-                                      onPressed: () async {
-                                        var confirmDialogResponse =
-                                            await showDialog<bool>(
-                                                  context: context,
-                                                  builder:
-                                                      (alertDialogContext) {
-                                                    return AlertDialog(
-                                                      title: Text('強制キャンセル確認'),
-                                                      content: Text(
-                                                          'このご予約を強制的にキャンセルします。この操作は取り消せません。'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext,
-                                                                  false),
-                                                          child: Text('キャンセル'),
-                                                        ),
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext,
-                                                                  true),
-                                                          child:
-                                                              Text('強制キャンセルする'),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                ) ??
-                                                false;
-                                        if (confirmDialogResponse) {
-                                          _model.forceCancelResult =
-                                              await actions.adminForceCancel(
-                                            getJsonField(
-                                              widget.reservation,
-                                              r'''$.id''',
-                                            ).toString(),
-                                            _model
-                                                .forceCancelReasonFieldTextController
-                                                .text,
-                                            0,
-                                          );
-                                          context.pop();
-                                        }
-
-                                        safeSetState(() {});
-                                      },
-                                      text: '強制キャンセル',
-                                      options: FFButtonOptions(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 0.0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        textStyle: TextStyle(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                    ),
-                                  ].divide(SizedBox(height: 8.0)),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(16.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    TextFormField(
-                                      controller: _model
-                                          .manualRefundReasonFieldTextController,
-                                      focusNode: _model
-                                          .manualRefundReasonFieldFocusNode,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: '返金理由',
-                                        hintText: '例：サービス未提供のため全額返金',
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1.0,
-                                          ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
-                                        ),
-                                        filled: true,
-                                      ),
-                                      style: TextStyle(),
-                                      maxLines: null,
-                                      validator: _model
-                                          .manualRefundReasonFieldTextControllerValidator
-                                          .asValidator(context),
-                                    ),
-                                    FFButtonWidget(
-                                      onPressed: () async {
-                                        var confirmDialogResponse =
-                                            await showDialog<bool>(
-                                                  context: context,
-                                                  builder:
-                                                      (alertDialogContext) {
-                                                    return AlertDialog(
-                                                      title: Text('返金確認'),
-                                                      content: Text(
-                                                          'この予約の決済を返金します。この操作は取り消せません。'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext,
-                                                                  false),
-                                                          child: Text('キャンセル'),
-                                                        ),
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext,
-                                                                  true),
-                                                          child: Text('返金する'),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                ) ??
-                                                false;
-                                        if (confirmDialogResponse) {
-                                          _model.manualRefundResult =
-                                              await actions.adminManualRefund(
-                                            getJsonField(
-                                              widget.reservation,
-                                              r'''$.id''',
-                                            ).toString(),
-                                            0,
-                                            _model
-                                                .manualRefundReasonFieldTextController
-                                                .text,
-                                          );
-                                          context.pop();
-                                        }
-
-                                        safeSetState(() {});
-                                      },
-                                      text: '返金',
-                                      options: FFButtonOptions(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 0.0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color: FlutterFlowTheme.of(context)
-                                            .warning,
-                                        textStyle: TextStyle(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                    ),
-                                  ].divide(SizedBox(height: 8.0)),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(16.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      '延長決済履歴',
-                                      style: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            font: GoogleFonts.interTight(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .fontStyle,
-                                            ),
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .fontStyle,
-                                          ),
-                                    ),
-                                    Builder(
-                                      builder: (context) {
-                                        final item = _model
-                                                .reservationExtrasList
-                                                ?.extensions
-                                                .toList() ??
-                                            [];
-
-                                        return ListView.separated(
-                                          padding: EdgeInsets.zero,
-                                          primary: false,
-                                          scrollDirection: Axis.vertical,
-                                          itemCount: item.length,
-                                          separatorBuilder: (_, __) =>
-                                              SizedBox(height: 8.0),
-                                          itemBuilder: (context, itemIndex) {
-                                            final itemItem = item[itemIndex];
-                                            return Container(
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsets.all(16.0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          '金額',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodySmall
-                                                              .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .inter(
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontStyle,
-                                                                ),
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodySmall
-                                                                    .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodySmall
-                                                                    .fontStyle,
-                                                              ),
-                                                        ),
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              itemItem
-                                                                  .amountDisplay,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    font: GoogleFonts
-                                                                        .inter(
-                                                                      fontWeight: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontWeight,
-                                                                      fontStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontStyle,
-                                                                    ),
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                            ),
-                                                          ].divide(SizedBox(
-                                                              width: 4.0)),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          '延長時間',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodySmall
-                                                              .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .inter(
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontStyle,
-                                                                ),
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodySmall
-                                                                    .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodySmall
-                                                                    .fontStyle,
-                                                              ),
-                                                        ),
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              itemItem
-                                                                  .durationMinutesDisplay,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    font: GoogleFonts
-                                                                        .inter(
-                                                                      fontWeight: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontWeight,
-                                                                      fontStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontStyle,
-                                                                    ),
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                            ),
-                                                          ].divide(SizedBox(
-                                                              width: 4.0)),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          'ステータス',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodySmall
-                                                              .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .inter(
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontStyle,
-                                                                ),
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodySmall
-                                                                    .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodySmall
-                                                                    .fontStyle,
-                                                              ),
-                                                        ),
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              itemItem
-                                                                  .statusLabel,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    font: GoogleFonts
-                                                                        .inter(
-                                                                      fontWeight: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontWeight,
-                                                                      fontStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontStyle,
-                                                                    ),
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                            ),
-                                                          ].divide(SizedBox(
-                                                              width: 4.0)),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          '決済日時',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodySmall
-                                                              .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .inter(
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontStyle,
-                                                                ),
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodySmall
-                                                                    .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodySmall
-                                                                    .fontStyle,
-                                                              ),
-                                                        ),
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              itemItem
-                                                                  .createdAtDisplay,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    font: GoogleFonts
-                                                                        .inter(
-                                                                      fontWeight: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontWeight,
-                                                                      fontStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontStyle,
-                                                                    ),
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                            ),
-                                                          ].divide(SizedBox(
-                                                              width: 4.0)),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ].divide(
-                                                      SizedBox(height: 8.0)),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                    ),
-                                    Text(
-                                      'キャスト別報酬内訳',
-                                      style: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            font: GoogleFonts.interTight(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .fontStyle,
-                                            ),
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmall
-                                                    .fontStyle,
-                                          ),
-                                    ),
-                                    Builder(
-                                      builder: (context) {
-                                        final item = _model
-                                                .reservationExtrasList?.rewards
-                                                .toList() ??
-                                            [];
-
-                                        return ListView.separated(
-                                          padding: EdgeInsets.zero,
-                                          primary: false,
-                                          scrollDirection: Axis.vertical,
-                                          itemCount: item.length,
-                                          separatorBuilder: (_, __) =>
-                                              SizedBox(height: 8.0),
-                                          itemBuilder: (context, itemIndex) {
-                                            final itemItem = item[itemIndex];
-                                            return Container(
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsets.all(16.0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          'キャストニックネーム',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodySmall
-                                                              .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .inter(
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontStyle,
-                                                                ),
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodySmall
-                                                                    .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodySmall
-                                                                    .fontStyle,
-                                                              ),
-                                                        ),
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              itemItem
-                                                                  .castNickname,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    font: GoogleFonts
-                                                                        .inter(
-                                                                      fontWeight: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontWeight,
-                                                                      fontStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontStyle,
-                                                                    ),
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                            ),
-                                                          ].divide(SizedBox(
-                                                              width: 4.0)),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          '報酬額',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodySmall
-                                                              .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .inter(
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontStyle,
-                                                                ),
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodySmall
-                                                                    .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodySmall
-                                                                    .fontStyle,
-                                                              ),
-                                                        ),
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              itemItem
-                                                                  .amountDisplay,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    font: GoogleFonts
-                                                                        .inter(
-                                                                      fontWeight: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontWeight,
-                                                                      fontStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontStyle,
-                                                                    ),
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                            ),
-                                                          ].divide(SizedBox(
-                                                              width: 4.0)),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          'ステータス',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodySmall
-                                                              .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .inter(
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodySmall
-                                                                      .fontStyle,
-                                                                ),
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodySmall
-                                                                    .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodySmall
-                                                                    .fontStyle,
-                                                              ),
-                                                        ),
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              itemItem
-                                                                  .statusLabel,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    font: GoogleFonts
-                                                                        .inter(
-                                                                      fontWeight: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontWeight,
-                                                                      fontStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .fontStyle,
-                                                                    ),
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                            ),
-                                                          ].divide(SizedBox(
-                                                              width: 4.0)),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ].divide(
-                                                      SizedBox(height: 8.0)),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                    ),
-                                  ].divide(SizedBox(height: 12.0)),
                                 ),
                               ),
                             ].divide(SizedBox(height: 8.0)),

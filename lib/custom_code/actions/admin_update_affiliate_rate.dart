@@ -4,26 +4,13 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'index.dart'; // Imports other custom actions
+import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'package:cloud_functions/cloud_functions.dart';
 
-/// FlutterFlow parameters:
-/// - userId (String) required — the affiliator's uid, from 報酬率設定 tab's
-///   selected-affiliator Page State (set by tapping a row on アフィリエイター一覧).
-/// - newRateOption (String) required — the raw dropdown option text, e.g.
-///   '5　％' (note: full-width space + full-width '％', not '%' — this
-///   project's タクシー代設定/基本設定 tabs already established the pattern of
-///   parsing raw field text in the Dart action rather than trusting
-///   FlutterFlow's implicit cast; same reasoning here, plus the full-width
-///   characters wouldn't survive a naive `.replaceAll('%', '')` anyway).
-/// Validates both before calling — an empty userId (nothing selected on the
-/// picker tab) or an unparseable rate returns a clean error instead of
-/// either crashing or silently calling the Cloud Function with bad data;
-/// the Cloud Function itself re-validates the 5%-30%-in-5%-steps range
-/// server-side regardless.
 Future<dynamic> adminUpdateAffiliateRate(
   String userId,
   String newRateOption,
@@ -49,7 +36,14 @@ Future<dynamic> adminUpdateAffiliateRate(
       'user_id': userId,
       'new_rate': newRate,
     });
-    return result.data;
+    final data = result.data;
+    if (data is Map && data['success'] == true) {
+      return {
+        ...Map<String, dynamic>.from(data),
+        'updatedRateDisplay': '${(newRate * 100).round()}',
+      };
+    }
+    return data;
   } catch (e) {
     return {'success': false, 'error': e.toString()};
   }

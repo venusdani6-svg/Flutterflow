@@ -1,3 +1,4 @@
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -6,8 +7,12 @@ import '/flutter_flow/form_field_controller.dart';
 import '/pages/info_dialog_comp/info_dialog_comp_widget.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'affiliate_list_page_model.dart';
 export 'affiliate_list_page_model.dart';
@@ -29,6 +34,8 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final animationsMap = <String, AnimationInfo>{};
+
   @override
   void initState() {
     super.initState();
@@ -48,6 +55,52 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
       length: 3,
       initialIndex: 0,
     )..addListener(() => safeSetState(() {}));
+
+    _model.affiliateSearchField3TextController ??= TextEditingController();
+    _model.affiliateSearchField3FocusNode ??= FocusNode();
+
+    animationsMap.addAll({
+      'containerOnPageLoadAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 20.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 20.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -105,15 +158,16 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Color(0x1FF59E0B),
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/transparent.png',
+                                      child: SvgPicture.asset(
+                                        'assets/images/icoccha_logo_color.svg',
                                         width: 80.0,
                                         height: 80.0,
                                         fit: BoxFit.contain,
@@ -125,8 +179,15 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                       width: 100.0,
                                       height: 80.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFF59E0B),
+                                            Color(0xFFFBBF24)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 1.0),
+                                          end: AlignmentDirectional(-1.0, -1.0),
+                                        ),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -136,9 +197,17 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                               width: 250.0,
                                               height: 80.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFF59E0B),
+                                                    Color(0xFFFBBF24)
+                                                  ],
+                                                  stops: [0.0, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 1.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, -1.0),
+                                                ),
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
@@ -196,6 +265,8 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           14.0,
                                                                       letterSpacing:
@@ -224,6 +295,8 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           12.0,
                                                                       letterSpacing:
@@ -285,18 +358,17 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                             height: 35.0,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
+                                                              color: Color(
+                                                                  0x33FFFFFF),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8.0),
+                                                                          12.0),
                                                               border:
                                                                   Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .alternate,
+                                                                color: Color(
+                                                                    0x4DFFFFFF),
+                                                                width: 1.0,
                                                               ),
                                                             ),
                                                             child: Builder(
@@ -315,8 +387,8 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                       Icon(
                                                                         FFIcons
                                                                             .ksun,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -329,6 +401,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -346,8 +419,8 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                       Icon(
                                                                         FFIcons
                                                                             .kstarAndCrescent,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -360,6 +433,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -402,7 +476,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                             .transparent,
                                                                     alignment: AlignmentDirectional(
                                                                             0.0,
-                                                                            -1.0)
+                                                                            0.0)
                                                                         .resolve(
                                                                             Directionality.of(context)),
                                                                     child:
@@ -435,18 +509,17 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                               height: 35.0,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
+                                                                color: Color(
+                                                                    0x33FFFFFF),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            8.0),
+                                                                            12.0),
                                                                 border:
                                                                     Border.all(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
+                                                                  color: Color(
+                                                                      0x4DFFFFFF),
+                                                                  width: 1.0,
                                                                 ),
                                                               ),
                                                               child: Column(
@@ -460,9 +533,8 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                   Icon(
                                                                     FFIcons
                                                                         .kchatCenteredTextG,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                                    color: Colors
+                                                                        .white,
                                                                     size: 20.0,
                                                                   ),
                                                                   Text(
@@ -479,7 +551,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                 FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               10.0,
                                                                           letterSpacing:
@@ -569,6 +641,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
+                                                            color: Colors.white,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -694,7 +767,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                   Expanded(
                                                     child: Container(
                                                       width: 100.0,
-                                                      height: 500.0,
+                                                      height: 800.0,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
                                                                 .of(context)
@@ -764,8 +837,9 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                             .fontStyle,
                                                                       ),
                                                               indicatorColor:
-                                                                  Color(
-                                                                      0xFFABE1FF),
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
                                                               indicatorWeight:
                                                                   5.0,
                                                               tabs: [
@@ -847,7 +921,15 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                         width: 100.0,
                                                                                         height: 35.0,
                                                                                         decoration: BoxDecoration(
-                                                                                          color: FlutterFlowTheme.of(context).primary,
+                                                                                          gradient: LinearGradient(
+                                                                                            colors: [
+                                                                                              Color(0xFFFBBF24),
+                                                                                              Color(0xFFFCD34D)
+                                                                                            ],
+                                                                                            stops: [0.0, 1.0],
+                                                                                            begin: AlignmentDirectional(1.0, 1.0),
+                                                                                            end: AlignmentDirectional(-1.0, -1.0),
+                                                                                          ),
                                                                                         ),
                                                                                         child: Row(
                                                                                           mainAxisSize: MainAxisSize.max,
@@ -855,7 +937,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                           children: [
                                                                                             Icon(
                                                                                               FFIcons.kmoneyFill1,
-                                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                                              color: Colors.white,
                                                                                               size: 24.0,
                                                                                             ),
                                                                                             Text(
@@ -865,6 +947,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                       fontWeight: FontWeight.w600,
                                                                                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                     ),
+                                                                                                    color: Colors.white,
                                                                                                     letterSpacing: 0.0,
                                                                                                     fontWeight: FontWeight.w600,
                                                                                                     fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -929,15 +1012,27 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                     color: Colors.transparent,
                                                                                     elevation: 1.0,
                                                                                     shape: RoundedRectangleBorder(
-                                                                                      borderRadius: BorderRadius.circular(8.0),
+                                                                                      borderRadius: BorderRadius.circular(20.0),
                                                                                     ),
                                                                                     child: Container(
                                                                                       width: 560.0,
                                                                                       decoration: BoxDecoration(
                                                                                         color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                        borderRadius: BorderRadius.circular(8.0),
+                                                                                        boxShadow: [
+                                                                                          BoxShadow(
+                                                                                            blurRadius: 16.0,
+                                                                                            color: Color(0x26D97706),
+                                                                                            offset: Offset(
+                                                                                              0.0,
+                                                                                              6.0,
+                                                                                            ),
+                                                                                            spreadRadius: 0.0,
+                                                                                          )
+                                                                                        ],
+                                                                                        borderRadius: BorderRadius.circular(20.0),
                                                                                         border: Border.all(
-                                                                                          color: FlutterFlowTheme.of(context).alternate,
+                                                                                          color: Color(0x1FD97706),
+                                                                                          width: 1.5,
                                                                                         ),
                                                                                       ),
                                                                                       child: Padding(
@@ -1006,10 +1101,13 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                               ),
                                                                                                               alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                               child: Text(
-                                                                                                                getJsonField(
-                                                                                                                  affiliateOverviewResult1Item,
-                                                                                                                  r'''$.month''',
-                                                                                                                ).toString(),
+                                                                                                                valueOrDefault<String>(
+                                                                                                                  getJsonField(
+                                                                                                                    affiliateOverviewResult1Item,
+                                                                                                                    r'''$.month''',
+                                                                                                                  )?.toString(),
+                                                                                                                  '-',
+                                                                                                                ),
                                                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                       font: GoogleFonts.inter(
                                                                                                                         fontWeight: FontWeight.w500,
@@ -1070,10 +1168,13 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                               ),
                                                                                                               alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                               child: Text(
-                                                                                                                getJsonField(
-                                                                                                                  affiliateOverviewResult1Item,
-                                                                                                                  r'''$.affiliator_nickname''',
-                                                                                                                ).toString(),
+                                                                                                                valueOrDefault<String>(
+                                                                                                                  getJsonField(
+                                                                                                                    affiliateOverviewResult1Item,
+                                                                                                                    r'''$.affiliator_nickname''',
+                                                                                                                  )?.toString(),
+                                                                                                                  '-',
+                                                                                                                ),
                                                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                       font: GoogleFonts.inter(
                                                                                                                         fontWeight: FontWeight.w500,
@@ -1142,10 +1243,13 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                                     size: 14.0,
                                                                                                                   ),
                                                                                                                   Text(
-                                                                                                                    getJsonField(
-                                                                                                                      affiliateOverviewResult1Item,
-                                                                                                                      r'''$.status_label''',
-                                                                                                                    ).toString(),
+                                                                                                                    valueOrDefault<String>(
+                                                                                                                      getJsonField(
+                                                                                                                        affiliateOverviewResult1Item,
+                                                                                                                        r'''$.status_label''',
+                                                                                                                      )?.toString(),
+                                                                                                                      '-',
+                                                                                                                    ),
                                                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                           font: GoogleFonts.inter(
                                                                                                                             fontWeight: FontWeight.w500,
@@ -1233,10 +1337,13 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                                                                                 children: [
                                                                                                                   Text(
-                                                                                                                    getJsonField(
-                                                                                                                      affiliateOverviewResult1Item,
-                                                                                                                      r'''$.reward_amount_display''',
-                                                                                                                    ).toString(),
+                                                                                                                    valueOrDefault<String>(
+                                                                                                                      getJsonField(
+                                                                                                                        affiliateOverviewResult1Item,
+                                                                                                                        r'''$.reward_amount_display''',
+                                                                                                                      )?.toString(),
+                                                                                                                      '-',
+                                                                                                                    ),
                                                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                           font: GoogleFonts.inter(
                                                                                                                             fontWeight: FontWeight.w500,
@@ -1312,10 +1419,13 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                               ),
                                                                                                               alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                               child: Text(
-                                                                                                                getJsonField(
-                                                                                                                  affiliateOverviewResult1Item,
-                                                                                                                  r'''$.referred_nickname''',
-                                                                                                                ).toString(),
+                                                                                                                valueOrDefault<String>(
+                                                                                                                  getJsonField(
+                                                                                                                    affiliateOverviewResult1Item,
+                                                                                                                    r'''$.referred_nickname''',
+                                                                                                                  )?.toString(),
+                                                                                                                  '-',
+                                                                                                                ),
                                                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                       font: GoogleFonts.inter(
                                                                                                                         fontWeight: FontWeight.w500,
@@ -1377,10 +1487,13 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                               child: Align(
                                                                                                                 alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                                 child: Text(
-                                                                                                                  getJsonField(
-                                                                                                                    affiliateOverviewResult1Item,
-                                                                                                                    r'''$.paid_at_display''',
-                                                                                                                  ).toString(),
+                                                                                                                  valueOrDefault<String>(
+                                                                                                                    getJsonField(
+                                                                                                                      affiliateOverviewResult1Item,
+                                                                                                                      r'''$.paid_at_display''',
+                                                                                                                    )?.toString(),
+                                                                                                                    '-',
+                                                                                                                  ),
                                                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                         font: GoogleFonts.inter(
                                                                                                                           fontWeight: FontWeight.w500,
@@ -1407,7 +1520,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                       ),
                                                                                     ),
                                                                                   ),
-                                                                                );
+                                                                                ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation1']!);
                                                                               }),
                                                                             );
                                                                           },
@@ -1453,7 +1566,15 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                         width: 100.0,
                                                                                         height: 35.0,
                                                                                         decoration: BoxDecoration(
-                                                                                          color: FlutterFlowTheme.of(context).primary,
+                                                                                          gradient: LinearGradient(
+                                                                                            colors: [
+                                                                                              Color(0xFFFBBF24),
+                                                                                              Color(0xFFFCD34D)
+                                                                                            ],
+                                                                                            stops: [0.0, 1.0],
+                                                                                            begin: AlignmentDirectional(1.0, 1.0),
+                                                                                            end: AlignmentDirectional(-1.0, -1.0),
+                                                                                          ),
                                                                                         ),
                                                                                         child: Row(
                                                                                           mainAxisSize: MainAxisSize.max,
@@ -1461,7 +1582,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                           children: [
                                                                                             Icon(
                                                                                               FFIcons.kusersFourFillG,
-                                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                                              color: Colors.white,
                                                                                               size: 24.0,
                                                                                             ),
                                                                                             Text(
@@ -1471,6 +1592,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                       fontWeight: FontWeight.w600,
                                                                                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                     ),
+                                                                                                    color: Colors.white,
                                                                                                     letterSpacing: 0.0,
                                                                                                     fontWeight: FontWeight.w600,
                                                                                                     fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -1535,15 +1657,27 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                     color: Colors.transparent,
                                                                                     elevation: 1.0,
                                                                                     shape: RoundedRectangleBorder(
-                                                                                      borderRadius: BorderRadius.circular(8.0),
+                                                                                      borderRadius: BorderRadius.circular(20.0),
                                                                                     ),
                                                                                     child: Container(
                                                                                       width: 560.0,
                                                                                       decoration: BoxDecoration(
                                                                                         color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                        borderRadius: BorderRadius.circular(8.0),
+                                                                                        boxShadow: [
+                                                                                          BoxShadow(
+                                                                                            blurRadius: 16.0,
+                                                                                            color: Color(0x26D97706),
+                                                                                            offset: Offset(
+                                                                                              0.0,
+                                                                                              6.0,
+                                                                                            ),
+                                                                                            spreadRadius: 0.0,
+                                                                                          )
+                                                                                        ],
+                                                                                        borderRadius: BorderRadius.circular(20.0),
                                                                                         border: Border.all(
-                                                                                          color: FlutterFlowTheme.of(context).alternate,
+                                                                                          color: Color(0x1FD97706),
+                                                                                          width: 1.5,
                                                                                         ),
                                                                                       ),
                                                                                       child: Padding(
@@ -1612,10 +1746,13 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                               ),
                                                                                                               alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                               child: Text(
-                                                                                                                getJsonField(
-                                                                                                                  affiliatorsItem,
-                                                                                                                  r'''$.nickname''',
-                                                                                                                ).toString(),
+                                                                                                                valueOrDefault<String>(
+                                                                                                                  getJsonField(
+                                                                                                                    affiliatorsItem,
+                                                                                                                    r'''$.nickname''',
+                                                                                                                  )?.toString(),
+                                                                                                                  '-',
+                                                                                                                ),
                                                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                       font: GoogleFonts.inter(
                                                                                                                         fontWeight: FontWeight.w500,
@@ -1680,10 +1817,13 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                                                                                 children: [
                                                                                                                   Text(
-                                                                                                                    getJsonField(
-                                                                                                                      affiliatorsItem,
-                                                                                                                      r'''$.current_month_reward_display''',
-                                                                                                                    ).toString(),
+                                                                                                                    valueOrDefault<String>(
+                                                                                                                      getJsonField(
+                                                                                                                        affiliatorsItem,
+                                                                                                                        r'''$.current_month_reward_display''',
+                                                                                                                      )?.toString(),
+                                                                                                                      '-',
+                                                                                                                    ),
                                                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                           font: GoogleFonts.inter(
                                                                                                                             fontWeight: FontWeight.w500,
@@ -1762,10 +1902,13 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                                                                                 children: [
                                                                                                                   Text(
-                                                                                                                    getJsonField(
-                                                                                                                      affiliatorsItem,
-                                                                                                                      r'''$.affiliate_rate_display''',
-                                                                                                                    ).toString(),
+                                                                                                                    functions.affiliateRateDisplayFor(
+                                                                                                                        getJsonField(
+                                                                                                                          affiliatorsItem,
+                                                                                                                          r'''$''',
+                                                                                                                        ),
+                                                                                                                        _model.lastChangedAffiliatorUid,
+                                                                                                                        _model.lastChangedAffiliatorRateDisplay)!,
                                                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                           font: GoogleFonts.inter(
                                                                                                                             fontWeight: FontWeight.w500,
@@ -1866,10 +2009,13 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                                                                                 children: [
                                                                                                                   Text(
-                                                                                                                    getJsonField(
-                                                                                                                      affiliatorsItem,
-                                                                                                                      r'''$.referred_cast_count''',
-                                                                                                                    ).toString(),
+                                                                                                                    valueOrDefault<String>(
+                                                                                                                      getJsonField(
+                                                                                                                        affiliatorsItem,
+                                                                                                                        r'''$.referred_cast_count''',
+                                                                                                                      )?.toString(),
+                                                                                                                      '-',
+                                                                                                                    ),
                                                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                           font: GoogleFonts.inter(
                                                                                                                             fontWeight: FontWeight.w500,
@@ -1949,10 +2095,13 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                                                                                 children: [
                                                                                                                   Text(
-                                                                                                                    getJsonField(
-                                                                                                                      affiliatorsItem,
-                                                                                                                      r'''$.cumulative_paid_display''',
-                                                                                                                    ).toString(),
+                                                                                                                    valueOrDefault<String>(
+                                                                                                                      getJsonField(
+                                                                                                                        affiliatorsItem,
+                                                                                                                        r'''$.cumulative_paid_display''',
+                                                                                                                      )?.toString(),
+                                                                                                                      '-',
+                                                                                                                    ),
                                                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                           font: GoogleFonts.inter(
                                                                                                                             fontWeight: FontWeight.w500,
@@ -2029,10 +2178,13 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                               child: Align(
                                                                                                                 alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                                 child: Text(
-                                                                                                                  getJsonField(
-                                                                                                                    affiliatorsItem,
-                                                                                                                    r'''$.created_at_display''',
-                                                                                                                  ).toString(),
+                                                                                                                  valueOrDefault<String>(
+                                                                                                                    getJsonField(
+                                                                                                                      affiliatorsItem,
+                                                                                                                      r'''$.created_at_display''',
+                                                                                                                    )?.toString(),
+                                                                                                                    '-',
+                                                                                                                  ),
                                                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                         font: GoogleFonts.inter(
                                                                                                                           fontWeight: FontWeight.w500,
@@ -2059,7 +2211,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                       ),
                                                                                     ),
                                                                                   ),
-                                                                                );
+                                                                                ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation2']!);
                                                                               }),
                                                                             );
                                                                           },
@@ -2105,7 +2257,15 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                         width: 100.0,
                                                                                         height: 35.0,
                                                                                         decoration: BoxDecoration(
-                                                                                          color: FlutterFlowTheme.of(context).primary,
+                                                                                          gradient: LinearGradient(
+                                                                                            colors: [
+                                                                                              Color(0xFFFBBF24),
+                                                                                              Color(0xFFFCD34D)
+                                                                                            ],
+                                                                                            stops: [0.0, 1.0],
+                                                                                            begin: AlignmentDirectional(1.0, 1.0),
+                                                                                            end: AlignmentDirectional(-1.0, -1.0),
+                                                                                          ),
                                                                                         ),
                                                                                         child: Row(
                                                                                           mainAxisSize: MainAxisSize.max,
@@ -2113,7 +2273,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                           children: [
                                                                                             Icon(
                                                                                               FFIcons.kpiggyBankFill,
-                                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                                              color: Colors.white,
                                                                                               size: 24.0,
                                                                                             ),
                                                                                             Text(
@@ -2123,6 +2283,7 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                                       fontWeight: FontWeight.w600,
                                                                                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                     ),
+                                                                                                    color: Colors.white,
                                                                                                     letterSpacing: 0.0,
                                                                                                     fontWeight: FontWeight.w600,
                                                                                                     fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -2135,8 +2296,6 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                   ],
                                                                                 ),
                                                                                 Container(
-                                                                                  width: double.infinity,
-                                                                                  height: 100.0,
                                                                                   decoration: BoxDecoration(),
                                                                                   child: Padding(
                                                                                     padding: EdgeInsets.all(8.0),
@@ -2145,8 +2304,6 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                       children: [
                                                                                         Expanded(
                                                                                           child: Container(
-                                                                                            width: 100.0,
-                                                                                            height: 100.0,
                                                                                             decoration: BoxDecoration(
                                                                                               color: FlutterFlowTheme.of(context).alternate,
                                                                                             ),
@@ -2155,34 +2312,241 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                                               children: [
                                                                                                 Align(
                                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                                  child: Text(
-                                                                                                    'アフィリエイト報酬率設定',
-                                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                          font: GoogleFonts.inter(
+                                                                                                  child: Padding(
+                                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                                                                                                    child: Text(
+                                                                                                      'アフィリエイト報酬率設定',
+                                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                            font: GoogleFonts.inter(
+                                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                            ),
+                                                                                                            fontSize: 17.0,
+                                                                                                            letterSpacing: 0.0,
                                                                                                             fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                                             fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                           ),
-                                                                                                          letterSpacing: 0.0,
-                                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                        ),
+                                                                                                    ),
                                                                                                   ),
                                                                                                 ),
-                                                                                                Align(
-                                                                                                  alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                                  child: Text(
-                                                                                                    _model.selectedAffiliatorNickname,
-                                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                          font: GoogleFonts.inter(
-                                                                                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                Padding(
+                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                                                                                                  child: InkWell(
+                                                                                                    splashColor: Colors.transparent,
+                                                                                                    focusColor: Colors.transparent,
+                                                                                                    hoverColor: Colors.transparent,
+                                                                                                    highlightColor: Colors.transparent,
+                                                                                                    onTap: () async {
+                                                                                                      _model.isAffiliatePickerOpen = true;
+                                                                                                      safeSetState(() {});
+                                                                                                    },
+                                                                                                    child: Container(
+                                                                                                      height: 50.0,
+                                                                                                      decoration: BoxDecoration(
+                                                                                                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                        borderRadius: BorderRadius.circular(4.0),
+                                                                                                        border: Border.all(
+                                                                                                          color: FlutterFlowTheme.of(context).alternate,
+                                                                                                          width: 1.0,
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                      child: Padding(
+                                                                                                        padding: EdgeInsets.all(12.0),
+                                                                                                        child: Row(
+                                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                                          children: [
+                                                                                                            Text(
+                                                                                                              functions.affiliatePickerPromptText(_model.selectedAffiliatorNickname)!,
+                                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                    font: GoogleFonts.inter(
+                                                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                    ),
+                                                                                                                    letterSpacing: 0.0,
+                                                                                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                  ),
+                                                                                                            ),
+                                                                                                            Icon(
+                                                                                                              Icons.keyboard_arrow_down_rounded,
+                                                                                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                              size: 24.0,
+                                                                                                            ),
+                                                                                                          ],
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                                if (_model.isAffiliatePickerOpen ?? true)
+                                                                                                  Column(
+                                                                                                    mainAxisSize: MainAxisSize.min,
+                                                                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                                                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                                                                    children: [
+                                                                                                      Row(
+                                                                                                        mainAxisSize: MainAxisSize.max,
+                                                                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                                        children: [
+                                                                                                          Flexible(
+                                                                                                            flex: 1,
+                                                                                                            child: TextFormField(
+                                                                                                              controller: _model.affiliateSearchField3TextController,
+                                                                                                              focusNode: _model.affiliateSearchField3FocusNode,
+                                                                                                              onChanged: (_) => EasyDebounce.debounce(
+                                                                                                                '_model.affiliateSearchField3TextController',
+                                                                                                                Duration(milliseconds: 2000),
+                                                                                                                () async {
+                                                                                                                  _model.affiliateSearchQuery = _model.affiliateSearchField3TextController.text;
+                                                                                                                  safeSetState(() {});
+                                                                                                                },
+                                                                                                              ),
+                                                                                                              obscureText: false,
+                                                                                                              decoration: InputDecoration(
+                                                                                                                hintText: '名前で検索',
+                                                                                                                enabledBorder: OutlineInputBorder(
+                                                                                                                  borderSide: BorderSide(
+                                                                                                                    color: FlutterFlowTheme.of(context).secondary,
+                                                                                                                    width: 1.0,
+                                                                                                                  ),
+                                                                                                                  borderRadius: const BorderRadius.only(
+                                                                                                                    topLeft: Radius.circular(4.0),
+                                                                                                                    topRight: Radius.circular(4.0),
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                                focusedBorder: OutlineInputBorder(
+                                                                                                                  borderSide: BorderSide(
+                                                                                                                    color: Color(0x00000000),
+                                                                                                                    width: 1.0,
+                                                                                                                  ),
+                                                                                                                  borderRadius: const BorderRadius.only(
+                                                                                                                    topLeft: Radius.circular(4.0),
+                                                                                                                    topRight: Radius.circular(4.0),
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                                errorBorder: OutlineInputBorder(
+                                                                                                                  borderSide: BorderSide(
+                                                                                                                    color: Color(0x00000000),
+                                                                                                                    width: 1.0,
+                                                                                                                  ),
+                                                                                                                  borderRadius: const BorderRadius.only(
+                                                                                                                    topLeft: Radius.circular(4.0),
+                                                                                                                    topRight: Radius.circular(4.0),
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                                focusedErrorBorder: OutlineInputBorder(
+                                                                                                                  borderSide: BorderSide(
+                                                                                                                    color: Color(0x00000000),
+                                                                                                                    width: 1.0,
+                                                                                                                  ),
+                                                                                                                  borderRadius: const BorderRadius.only(
+                                                                                                                    topLeft: Radius.circular(4.0),
+                                                                                                                    topRight: Radius.circular(4.0),
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                                filled: true,
+                                                                                                              ),
+                                                                                                              style: TextStyle(),
+                                                                                                              maxLines: null,
+                                                                                                              validator: _model.affiliateSearchField3TextControllerValidator.asValidator(context),
+                                                                                                            ),
                                                                                                           ),
-                                                                                                          letterSpacing: 0.0,
-                                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                          FFButtonWidget(
+                                                                                                            onPressed: () async {
+                                                                                                              _model.affiliateSearchQuery = _model.affiliateSearchField3TextController.text;
+                                                                                                              safeSetState(() {});
+                                                                                                            },
+                                                                                                            text: '検索',
+                                                                                                            options: FFButtonOptions(
+                                                                                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                                              iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                                              color: FlutterFlowTheme.of(context).primary,
+                                                                                                              textStyle: TextStyle(
+                                                                                                                color: Colors.white,
+                                                                                                              ),
+                                                                                                              borderSide: BorderSide(
+                                                                                                                color: FlutterFlowTheme.of(context).primary,
+                                                                                                              ),
+                                                                                                              borderRadius: BorderRadius.circular(8.0),
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                        ].divide(SizedBox(width: 6.0)),
+                                                                                                      ),
+                                                                                                      Container(
+                                                                                                        height: 160.0,
+                                                                                                        child: Builder(
+                                                                                                          builder: (context) {
+                                                                                                            final affiliators = functions
+                                                                                                                    .affiliateSearchResults(
+                                                                                                                        getJsonField(
+                                                                                                                          _model.affiliateOverviewResult1,
+                                                                                                                          r'''$.affiliators''',
+                                                                                                                          true,
+                                                                                                                        ),
+                                                                                                                        _model.affiliateSearchQuery)
+                                                                                                                    ?.toList() ??
+                                                                                                                [];
+
+                                                                                                            return ListView.builder(
+                                                                                                              padding: EdgeInsets.zero,
+                                                                                                              primary: false,
+                                                                                                              scrollDirection: Axis.vertical,
+                                                                                                              itemCount: affiliators.length,
+                                                                                                              itemBuilder: (context, affiliatorsIndex) {
+                                                                                                                final affiliatorsItem = affiliators[affiliatorsIndex];
+                                                                                                                return InkWell(
+                                                                                                                  splashColor: Colors.transparent,
+                                                                                                                  focusColor: Colors.transparent,
+                                                                                                                  hoverColor: Colors.transparent,
+                                                                                                                  highlightColor: Colors.transparent,
+                                                                                                                  onTap: () async {
+                                                                                                                    _model.selectedAffiliatorUid = getJsonField(
+                                                                                                                      affiliatorsItem,
+                                                                                                                      r'''$.affiliator_uid''',
+                                                                                                                    ).toString();
+                                                                                                                    safeSetState(() {});
+                                                                                                                    _model.selectedAffiliatorNickname = getJsonField(
+                                                                                                                      affiliatorsItem,
+                                                                                                                      r'''$.nickname''',
+                                                                                                                    ).toString();
+                                                                                                                    safeSetState(() {});
+                                                                                                                    _model.isAffiliatePickerOpen = false;
+                                                                                                                    safeSetState(() {});
+                                                                                                                  },
+                                                                                                                  child: Material(
+                                                                                                                    color: Colors.transparent,
+                                                                                                                    child: ListTile(
+                                                                                                                      title: Text(
+                                                                                                                        getJsonField(
+                                                                                                                          affiliatorsItem,
+                                                                                                                          r'''$.nickname''',
+                                                                                                                        ).toString(),
+                                                                                                                        style: TextStyle(),
+                                                                                                                      ),
+                                                                                                                      subtitle: Text(
+                                                                                                                        functions.affiliateRateDisplayFor(
+                                                                                                                            getJsonField(
+                                                                                                                              affiliatorsItem,
+                                                                                                                              r'''$''',
+                                                                                                                            ),
+                                                                                                                            _model.lastChangedAffiliatorUid,
+                                                                                                                            _model.lastChangedAffiliatorRateDisplay)!,
+                                                                                                                        style: TextStyle(),
+                                                                                                                      ),
+                                                                                                                      dense: true,
+                                                                                                                    ),
+                                                                                                                  ),
+                                                                                                                );
+                                                                                                              },
+                                                                                                            );
+                                                                                                          },
                                                                                                         ),
+                                                                                                      ),
+                                                                                                    ].divide(SizedBox(height: 6.0)),
                                                                                                   ),
-                                                                                                ),
                                                                                               ],
                                                                                             ),
                                                                                           ),
@@ -2254,35 +2618,98 @@ class _AffiliateListPageWidgetState extends State<AffiliateListPageWidget>
                                                                           FFButtonWidget(
                                                                         onPressed:
                                                                             () async {
-                                                                          _model.saveRateResult =
-                                                                              await actions.adminUpdateAffiliateRate(
+                                                                          _model.affiliateRateInputsValid =
+                                                                              await actions.affiliateRateSaveInputsValid(
                                                                             _model.selectedAffiliatorUid,
-                                                                            _model.dropDownValue!,
+                                                                            _model.dropDownValue,
                                                                           );
-                                                                          if (getJsonField(
-                                                                            _model.saveRateResult,
-                                                                            r'''$.success''',
-                                                                          )) {
-                                                                            await showDialog(
-                                                                              context: context,
-                                                                              builder: (alertDialogContext) {
-                                                                                return AlertDialog(
-                                                                                  content: Text('保存しました。'),
-                                                                                  actions: [
-                                                                                    TextButton(
-                                                                                      onPressed: () => Navigator.pop(alertDialogContext),
-                                                                                      child: Text('Ok'),
-                                                                                    ),
-                                                                                  ],
+                                                                          if (_model
+                                                                              .affiliateRateInputsValid!) {
+                                                                            var confirmDialogResponse = await showDialog<bool>(
+                                                                                  context: context,
+                                                                                  builder: (alertDialogContext) {
+                                                                                    return AlertDialog(
+                                                                                      title: Text('ご確認ください'),
+                                                                                      content: Text('本当に更新しますか？'),
+                                                                                      actions: [
+                                                                                        TextButton(
+                                                                                          onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                          child: Text('いいえ'),
+                                                                                        ),
+                                                                                        TextButton(
+                                                                                          onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                          child: Text('はい'),
+                                                                                        ),
+                                                                                      ],
+                                                                                    );
+                                                                                  },
+                                                                                ) ??
+                                                                                false;
+                                                                            if (confirmDialogResponse) {
+                                                                              _model.saveRateResult = await actions.adminUpdateAffiliateRate(
+                                                                                _model.selectedAffiliatorUid,
+                                                                                _model.dropDownValue!,
+                                                                              );
+                                                                              if (getJsonField(
+                                                                                _model.saveRateResult,
+                                                                                r'''$.success''',
+                                                                              )) {
+                                                                                await showDialog(
+                                                                                  context: context,
+                                                                                  builder: (alertDialogContext) {
+                                                                                    return AlertDialog(
+                                                                                      content: Text('保存しました。'),
+                                                                                      actions: [
+                                                                                        TextButton(
+                                                                                          onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                          child: Text('Ok'),
+                                                                                        ),
+                                                                                      ],
+                                                                                    );
+                                                                                  },
                                                                                 );
-                                                                              },
-                                                                            );
+                                                                                _model.lastChangedAffiliatorUid = _model.selectedAffiliatorUid;
+                                                                                safeSetState(() {});
+                                                                                _model.lastChangedAffiliatorRateDisplay = _model.dropDownValue;
+                                                                                safeSetState(() {});
+                                                                              } else {
+                                                                                await showDialog(
+                                                                                  context: context,
+                                                                                  builder: (alertDialogContext) {
+                                                                                    return AlertDialog(
+                                                                                      content: Text('更新に失敗しました。'),
+                                                                                      actions: [
+                                                                                        TextButton(
+                                                                                          onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                          child: Text('Ok'),
+                                                                                        ),
+                                                                                      ],
+                                                                                    );
+                                                                                  },
+                                                                                );
+                                                                              }
+                                                                            } else {
+                                                                              await showDialog(
+                                                                                context: context,
+                                                                                builder: (alertDialogContext) {
+                                                                                  return AlertDialog(
+                                                                                    content: Text('操作をキャンセルしました。'),
+                                                                                    actions: [
+                                                                                      TextButton(
+                                                                                        onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                        child: Text('Ok'),
+                                                                                      ),
+                                                                                    ],
+                                                                                  );
+                                                                                },
+                                                                              );
+                                                                            }
                                                                           } else {
                                                                             await showDialog(
                                                                               context: context,
                                                                               builder: (alertDialogContext) {
                                                                                 return AlertDialog(
-                                                                                  content: Text('更新に失敗しました。'),
+                                                                                  content: Text('アフィリエイターと新しい報酬率を選択してください。'),
                                                                                   actions: [
                                                                                     TextButton(
                                                                                       onPressed: () => Navigator.pop(alertDialogContext),

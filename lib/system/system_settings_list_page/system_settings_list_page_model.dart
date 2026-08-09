@@ -1,3 +1,5 @@
+import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
@@ -33,8 +35,24 @@ class SystemSettingsListPageModel
 
   bool areaFukuokaActive = false;
 
+  List<ServiceAreaItemStruct> serviceAreaListStruct = [];
+  void addToServiceAreaListStruct(ServiceAreaItemStruct item) =>
+      serviceAreaListStruct.add(item);
+  void removeFromServiceAreaListStruct(ServiceAreaItemStruct item) =>
+      serviceAreaListStruct.remove(item);
+  void removeAtIndexFromServiceAreaListStruct(int index) =>
+      serviceAreaListStruct.removeAt(index);
+  void insertAtIndexInServiceAreaListStruct(
+          int index, ServiceAreaItemStruct item) =>
+      serviceAreaListStruct.insert(index, item);
+  void updateServiceAreaListStructAtIndex(
+          int index, Function(ServiceAreaItemStruct) updateFn) =>
+      serviceAreaListStruct[index] = updateFn(serviceAreaListStruct[index]);
+
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Custom Action - adminGetAllServiceAreas] action in SystemSettingsListPage widget.
+  List<ServiceAreaItemStruct>? allServiceAreasInit;
   // Stores action output result for [Custom Action - adminGetSystemConfig] action in SystemSettingsListPage widget.
   dynamic systemConfigResult;
   // Model for Main_Menu_Comp component.
@@ -122,30 +140,12 @@ class SystemSettingsListPageModel
   FormFieldController<String>? dropDownValueController13;
   // Stores action output result for [Custom Action - adminUpdateAffiliateSettings] action in Button widget.
   dynamic saveAffiliateResult;
-  // State field(s) for Switch widget.
-  bool? switchValue1;
-  // State field(s) for Switch widget.
-  bool? switchValue2;
-  // State field(s) for Switch widget.
-  bool? switchValue3;
-  // State field(s) for Switch widget.
-  bool? switchValue4;
-  // State field(s) for Switch widget.
-  bool? switchValue5;
-  // State field(s) for Switch widget.
-  bool? switchValue6;
-  // State field(s) for Switch widget.
-  bool? switchValue7;
-  // State field(s) for Switch widget.
-  bool? switchValue8;
-  // State field(s) for Switch widget.
-  bool? switchValue9;
-  // State field(s) for Switch widget.
-  bool? switchValue10;
-  // State field(s) for Switch widget.
-  bool? switchValue11;
-  // Stores action output result for [Custom Action - adminUpdateServiceAreaSettings] action in Button widget.
-  dynamic saveServiceAreaResult;
+  // Stores action output result for [Custom Action - adminToggleServiceArea] action in Container widget.
+  List<ServiceAreaItemStruct>? serviceAreaStatusToggleResult;
+  // Stores action output result for [Custom Action - adminToggleServiceArea] action in Container widget.
+  List<ServiceAreaItemStruct>? extraServiceAreaStatusToggleResult;
+  // Stores action output result for [Custom Action - adminGetAllServiceAreas] action in AddServiceAreaButton widget.
+  List<ServiceAreaItemStruct>? refreshedServiceAreas;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode1;
   TextEditingController? textController3;

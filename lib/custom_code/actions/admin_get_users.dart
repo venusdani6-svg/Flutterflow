@@ -4,6 +4,7 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'index.dart'; // Imports other custom actions
+import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
@@ -50,7 +51,7 @@ Future<dynamic> adminGetUsers(
         : <String, dynamic>{};
     final usersRaw = data['users'];
     if (usersRaw is List) {
-      data['users'] = usersRaw.map((u) {
+      final normalized = usersRaw.map((u) {
         if (u is! Map) return u;
         try {
           return _normalizeUser(Map<String, dynamic>.from(u));
@@ -58,6 +59,19 @@ Future<dynamic> adminGetUsers(
           return u;
         }
       }).toList();
+      // Online-first: a stable partition, not a fresh sort - keeps the
+      // backend's own ordering (created_at desc, or nickname under a
+      // name search) intact within each group, just moves is_online
+      // accounts ahead of everyone else. See the client-feedback note
+      // above this action's own updateCustomAction call for why this
+      // lives here (covers Guest/Cast/Staff/Administrator list pages at
+      // once) rather than per-page.
+      final online =
+          normalized.where((u) => u is Map && u['is_online'] == true).toList();
+      final rest = normalized
+          .where((u) => !(u is Map && u['is_online'] == true))
+          .toList();
+      data['users'] = [...online, ...rest];
     }
     final userRaw = data['user'];
     if (userRaw is Map) {

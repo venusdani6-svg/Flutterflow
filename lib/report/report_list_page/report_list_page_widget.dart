@@ -1,13 +1,16 @@
 import '/components/report_chat_log_dialog_comp_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/report/filter_report_dialog_comp/filter_report_dialog_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
-import 'package:aligned_dialog/aligned_dialog.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'report_list_page_model.dart';
 export 'report_list_page_model.dart';
@@ -27,10 +30,13 @@ class ReportListPageWidget extends StatefulWidget {
   State<ReportListPageWidget> createState() => _ReportListPageWidgetState();
 }
 
-class _ReportListPageWidgetState extends State<ReportListPageWidget> {
+class _ReportListPageWidgetState extends State<ReportListPageWidget>
+    with TickerProviderStateMixin {
   late ReportListPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -50,6 +56,29 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
     _model.reportResolutionReasonFieldTextController ??=
         TextEditingController();
     _model.reportResolutionReasonFieldFocusNode ??= FocusNode();
+
+    animationsMap.addAll({
+      'containerOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 20.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -107,15 +136,16 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Color(0x1FF59E0B),
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/transparent.png',
+                                      child: SvgPicture.asset(
+                                        'assets/images/icoccha_logo_color.svg',
                                         width: 80.0,
                                         height: 80.0,
                                         fit: BoxFit.contain,
@@ -127,8 +157,15 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                       width: 100.0,
                                       height: 80.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFF59E0B),
+                                            Color(0xFFFBBF24)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 1.0),
+                                          end: AlignmentDirectional(-1.0, -1.0),
+                                        ),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -138,9 +175,17 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                               width: 250.0,
                                               height: 80.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFF59E0B),
+                                                    Color(0xFFFBBF24)
+                                                  ],
+                                                  stops: [0.0, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 1.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, -1.0),
+                                                ),
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
@@ -198,6 +243,8 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           14.0,
                                                                       letterSpacing:
@@ -226,6 +273,8 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           12.0,
                                                                       letterSpacing:
@@ -287,18 +336,17 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                             height: 35.0,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
+                                                              color: Color(
+                                                                  0x33FFFFFF),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8.0),
+                                                                          12.0),
                                                               border:
                                                                   Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .alternate,
+                                                                color: Color(
+                                                                    0x4DFFFFFF),
+                                                                width: 1.0,
                                                               ),
                                                             ),
                                                             child: Builder(
@@ -317,8 +365,8 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                       Icon(
                                                                         FFIcons
                                                                             .ksun,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -331,6 +379,7 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -348,8 +397,8 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                       Icon(
                                                                         FFIcons
                                                                             .kstarAndCrescent,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -362,6 +411,7 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -404,7 +454,7 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                             .transparent,
                                                                     alignment: AlignmentDirectional(
                                                                             0.0,
-                                                                            -1.0)
+                                                                            0.0)
                                                                         .resolve(
                                                                             Directionality.of(context)),
                                                                     child:
@@ -437,18 +487,17 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                               height: 35.0,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
+                                                                color: Color(
+                                                                    0x33FFFFFF),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            8.0),
+                                                                            12.0),
                                                                 border:
                                                                     Border.all(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
+                                                                  color: Color(
+                                                                      0x4DFFFFFF),
+                                                                  width: 1.0,
                                                                 ),
                                                               ),
                                                               child: Column(
@@ -462,9 +511,8 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                   Icon(
                                                                     FFIcons
                                                                         .karticleG,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                                    color: Colors
+                                                                        .white,
                                                                     size: 20.0,
                                                                   ),
                                                                   Text(
@@ -481,7 +529,7 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                                 FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               10.0,
                                                                           letterSpacing:
@@ -569,6 +617,7 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
+                                                            color: Colors.white,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -725,9 +774,25 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                   height: 35.0,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
+                                                                    gradient:
+                                                                        LinearGradient(
+                                                                      colors: [
+                                                                        Color(
+                                                                            0xFFFBBF24),
+                                                                        Color(
+                                                                            0xFFFCD34D)
+                                                                      ],
+                                                                      stops: [
+                                                                        0.0,
+                                                                        1.0
+                                                                      ],
+                                                                      begin: AlignmentDirectional(
+                                                                          1.0,
+                                                                          1.0),
+                                                                      end: AlignmentDirectional(
+                                                                          -1.0,
+                                                                          -1.0),
+                                                                    ),
                                                                   ),
                                                                   child: Row(
                                                                     mainAxisSize:
@@ -740,8 +805,8 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                       Icon(
                                                                         FFIcons
                                                                             .ksirenFill,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             24.0,
                                                                       ),
@@ -754,6 +819,7 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                                 fontWeight: FontWeight.w600,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FontWeight.w600,
                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -916,7 +982,7 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                         shape:
                                                                             RoundedRectangleBorder(
                                                                           borderRadius:
-                                                                              BorderRadius.circular(8.0),
+                                                                              BorderRadius.circular(20.0),
                                                                         ),
                                                                         child:
                                                                             Container(
@@ -924,11 +990,23 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                               BoxDecoration(
                                                                             color:
                                                                                 FlutterFlowTheme.of(context).primaryBackground,
+                                                                            boxShadow: [
+                                                                              BoxShadow(
+                                                                                blurRadius: 16.0,
+                                                                                color: Color(0x26D97706),
+                                                                                offset: Offset(
+                                                                                  0.0,
+                                                                                  6.0,
+                                                                                ),
+                                                                                spreadRadius: 0.0,
+                                                                              )
+                                                                            ],
                                                                             borderRadius:
-                                                                                BorderRadius.circular(8.0),
+                                                                                BorderRadius.circular(20.0),
                                                                             border:
                                                                                 Border.all(
-                                                                              color: FlutterFlowTheme.of(context).alternate,
+                                                                              color: Color(0x1FD97706),
+                                                                              width: 1.5,
                                                                             ),
                                                                           ),
                                                                           child:
@@ -1003,10 +1081,13 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                                                       ),
                                                                                                       alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                       child: Text(
-                                                                                                        getJsonField(
-                                                                                                          reportsResult1ItemItem,
-                                                                                                          r'''$.reporter_id''',
-                                                                                                        ).toString(),
+                                                                                                        valueOrDefault<String>(
+                                                                                                          getJsonField(
+                                                                                                            reportsResult1ItemItem,
+                                                                                                            r'''$.reporter_id''',
+                                                                                                          )?.toString(),
+                                                                                                          '-',
+                                                                                                        ),
                                                                                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                               font: GoogleFonts.inter(
                                                                                                                 fontWeight: FontWeight.w500,
@@ -1132,10 +1213,13 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                                                       child: Align(
                                                                                                         alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                         child: Text(
-                                                                                                          getJsonField(
-                                                                                                            reportsResult1ItemItem,
-                                                                                                            r'''$.created_at_display''',
-                                                                                                          ).toString(),
+                                                                                                          valueOrDefault<String>(
+                                                                                                            getJsonField(
+                                                                                                              reportsResult1ItemItem,
+                                                                                                              r'''$.created_at_display''',
+                                                                                                            )?.toString(),
+                                                                                                            '-',
+                                                                                                          ),
                                                                                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                 font: GoogleFonts.inter(
                                                                                                                   fontWeight: FontWeight.w500,
@@ -1197,10 +1281,13 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                                                       ),
                                                                                                       alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                       child: Text(
-                                                                                                        getJsonField(
-                                                                                                          reportsResult1ItemItem,
-                                                                                                          r'''$.reported_id''',
-                                                                                                        ).toString(),
+                                                                                                        valueOrDefault<String>(
+                                                                                                          getJsonField(
+                                                                                                            reportsResult1ItemItem,
+                                                                                                            r'''$.reported_id''',
+                                                                                                          )?.toString(),
+                                                                                                          '-',
+                                                                                                        ),
                                                                                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                               font: GoogleFonts.inter(
                                                                                                                 fontWeight: FontWeight.w500,
@@ -1265,14 +1352,23 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                                                         children: [
                                                                                                           Icon(
                                                                                                             Icons.circle,
-                                                                                                            color: Color(0xFF06F705),
+                                                                                                            color: functions.reportStatusDotColor(valueOrDefault<String>(
+                                                                                                              getJsonField(
+                                                                                                                reportsResult1ItemItem,
+                                                                                                                r'''$.status_label''',
+                                                                                                              )?.toString(),
+                                                                                                              '-',
+                                                                                                            )),
                                                                                                             size: 14.0,
                                                                                                           ),
                                                                                                           Text(
-                                                                                                            getJsonField(
-                                                                                                              reportsResult1ItemItem,
-                                                                                                              r'''$.status_label''',
-                                                                                                            ).toString(),
+                                                                                                            valueOrDefault<String>(
+                                                                                                              getJsonField(
+                                                                                                                reportsResult1ItemItem,
+                                                                                                                r'''$.status_label''',
+                                                                                                              )?.toString(),
+                                                                                                              '-',
+                                                                                                            ),
                                                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                   font: GoogleFonts.inter(
                                                                                                                     fontWeight: FontWeight.w500,
@@ -1359,10 +1455,13 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                                                         child: Padding(
                                                                                                           padding: EdgeInsets.all(8.0),
                                                                                                           child: Text(
-                                                                                                            getJsonField(
-                                                                                                              reportsResult1ItemItem,
-                                                                                                              r'''$.reason''',
-                                                                                                            ).toString(),
+                                                                                                            valueOrDefault<String>(
+                                                                                                              getJsonField(
+                                                                                                                reportsResult1ItemItem,
+                                                                                                                r'''$.reason''',
+                                                                                                              )?.toString(),
+                                                                                                              '-',
+                                                                                                            ),
                                                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                   font: GoogleFonts.inter(
                                                                                                                     fontWeight: FontWeight.w500,
@@ -1382,62 +1481,335 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                                               ),
                                                                                               FFButtonWidget(
                                                                                                 onPressed: () async {
-                                                                                                  _model.resolveResult1 = await actions.adminResolveReport(
-                                                                                                    getJsonField(
-                                                                                                      reportsResult1ItemItem,
-                                                                                                      r'''$.id''',
-                                                                                                    ).toString(),
-                                                                                                    _model.reportResolutionReasonFieldTextController.text,
-                                                                                                    'resolve',
-                                                                                                  );
-                                                                                                  if (getJsonField(
-                                                                                                    _model.resolveResult1,
-                                                                                                    r'''$.success''',
+                                                                                                  if (valueOrDefault<bool>(
+                                                                                                    _model.freezeReportedUserCheckboxValueMap[reportsResult1ItemItem],
+                                                                                                    false,
                                                                                                   )) {
-                                                                                                    await showDialog(
-                                                                                                      context: context,
-                                                                                                      builder: (alertDialogContext) {
-                                                                                                        return AlertDialog(
-                                                                                                          content: Text('解決しました。'),
-                                                                                                          actions: [
-                                                                                                            TextButton(
-                                                                                                              onPressed: () => Navigator.pop(alertDialogContext),
-                                                                                                              child: Text('Ok'),
-                                                                                                            ),
-                                                                                                          ],
-                                                                                                        );
-                                                                                                      },
-                                                                                                    );
-                                                                                                    if (_model.freezeReportedUserCheckboxValueMap[reportsResult1ItemItem]!) {
-                                                                                                      _model.reportFreezeResult = await actions.adminToggleFreeze(
+                                                                                                    var confirmDialogResponse = await showDialog<bool>(
+                                                                                                          context: context,
+                                                                                                          builder: (alertDialogContext) {
+                                                                                                            return AlertDialog(
+                                                                                                              title: Text('アカウント凍結の確認'),
+                                                                                                              content: Text('このユーザーを凍結します。ログインおよびマッチングができなくなります。よろしいですか？'),
+                                                                                                              actions: [
+                                                                                                                TextButton(
+                                                                                                                  onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                                                  child: Text('キャンセル'),
+                                                                                                                ),
+                                                                                                                TextButton(
+                                                                                                                  onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                                                  child: Text('凍結する'),
+                                                                                                                ),
+                                                                                                              ],
+                                                                                                            );
+                                                                                                          },
+                                                                                                        ) ??
+                                                                                                        false;
+                                                                                                    if (confirmDialogResponse) {
+                                                                                                      _model.resolveResult1Checked = await actions.adminResolveReport(
                                                                                                         getJsonField(
                                                                                                           reportsResult1ItemItem,
-                                                                                                          r'''$.reported_id''',
+                                                                                                          r'''$.id''',
                                                                                                         ).toString(),
-                                                                                                        true,
-                                                                                                        '通報解決に伴う凍結',
+                                                                                                        _model.reportResolutionReasonFieldTextController.text,
+                                                                                                        'resolve',
+                                                                                                      );
+                                                                                                      if (getJsonField(
+                                                                                                        _model.resolveResult1Checked,
+                                                                                                        r'''$.success''',
+                                                                                                      )) {
+                                                                                                        await showDialog(
+                                                                                                          context: context,
+                                                                                                          builder: (alertDialogContext) {
+                                                                                                            return AlertDialog(
+                                                                                                              content: Text('解決しました。'),
+                                                                                                              actions: [
+                                                                                                                TextButton(
+                                                                                                                  onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                                                  child: Text('Ok'),
+                                                                                                                ),
+                                                                                                              ],
+                                                                                                            );
+                                                                                                          },
+                                                                                                        );
+                                                                                                        if (valueOrDefault<bool>(
+                                                                                                          _model.freezeReportedUserCheckboxValueMap[reportsResult1ItemItem],
+                                                                                                          false,
+                                                                                                        )) {
+                                                                                                          _model.reportFreezeResultChecked = await actions.adminToggleFreeze(
+                                                                                                            getJsonField(
+                                                                                                              reportsResult1ItemItem,
+                                                                                                              r'''$.reported_id''',
+                                                                                                            ).toString(),
+                                                                                                            true,
+                                                                                                            '通報解決に伴う凍結',
+                                                                                                          );
+                                                                                                          if (getJsonField(
+                                                                                                            _model.reportFreezeResultChecked,
+                                                                                                            r'''$.success''',
+                                                                                                          )) {
+                                                                                                            await showDialog(
+                                                                                                              context: context,
+                                                                                                              builder: (alertDialogContext) {
+                                                                                                                return AlertDialog(
+                                                                                                                  content: Text('ユーザーを凍結しました。'),
+                                                                                                                  actions: [
+                                                                                                                    TextButton(
+                                                                                                                      onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                                                      child: Text('Ok'),
+                                                                                                                    ),
+                                                                                                                  ],
+                                                                                                                );
+                                                                                                              },
+                                                                                                            );
+                                                                                                            if (Navigator.of(context).canPop()) {
+                                                                                                              context.pop();
+                                                                                                            }
+                                                                                                            context.pushNamed(
+                                                                                                              ReportListPageWidget.routeName,
+                                                                                                              queryParameters: {
+                                                                                                                'filterStatus': serializeParam(
+                                                                                                                  widget.filterStatus,
+                                                                                                                  ParamType.String,
+                                                                                                                ),
+                                                                                                              }.withoutNulls,
+                                                                                                            );
+                                                                                                          } else {
+                                                                                                            await showDialog(
+                                                                                                              context: context,
+                                                                                                              builder: (alertDialogContext) {
+                                                                                                                return AlertDialog(
+                                                                                                                  content: Text('ユーザーの凍結に失敗しました。'),
+                                                                                                                  actions: [
+                                                                                                                    TextButton(
+                                                                                                                      onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                                                      child: Text('Ok'),
+                                                                                                                    ),
+                                                                                                                  ],
+                                                                                                                );
+                                                                                                              },
+                                                                                                            );
+                                                                                                            if (Navigator.of(context).canPop()) {
+                                                                                                              context.pop();
+                                                                                                            }
+                                                                                                            context.pushNamed(
+                                                                                                              ReportListPageWidget.routeName,
+                                                                                                              queryParameters: {
+                                                                                                                'filterStatus': serializeParam(
+                                                                                                                  widget.filterStatus,
+                                                                                                                  ParamType.String,
+                                                                                                                ),
+                                                                                                              }.withoutNulls,
+                                                                                                            );
+                                                                                                          }
+                                                                                                        } else {
+                                                                                                          if (Navigator.of(context).canPop()) {
+                                                                                                            context.pop();
+                                                                                                          }
+                                                                                                          context.pushNamed(
+                                                                                                            ReportListPageWidget.routeName,
+                                                                                                            queryParameters: {
+                                                                                                              'filterStatus': serializeParam(
+                                                                                                                widget.filterStatus,
+                                                                                                                ParamType.String,
+                                                                                                              ),
+                                                                                                            }.withoutNulls,
+                                                                                                          );
+                                                                                                        }
+                                                                                                      } else {
+                                                                                                        await showDialog(
+                                                                                                          context: context,
+                                                                                                          builder: (alertDialogContext) {
+                                                                                                            return AlertDialog(
+                                                                                                              content: Text('更新に失敗しました。'),
+                                                                                                              actions: [
+                                                                                                                TextButton(
+                                                                                                                  onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                                                  child: Text('Ok'),
+                                                                                                                ),
+                                                                                                              ],
+                                                                                                            );
+                                                                                                          },
+                                                                                                        );
+                                                                                                      }
+                                                                                                    } else {
+                                                                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                        SnackBar(
+                                                                                                          content: Text(
+                                                                                                            '操作をキャンセルしました。',
+                                                                                                            style: TextStyle(),
+                                                                                                          ),
+                                                                                                          duration: Duration(milliseconds: 4000),
+                                                                                                        ),
                                                                                                       );
                                                                                                     }
                                                                                                   } else {
-                                                                                                    await showDialog(
-                                                                                                      context: context,
-                                                                                                      builder: (alertDialogContext) {
-                                                                                                        return AlertDialog(
-                                                                                                          content: Text('更新に失敗しました。'),
-                                                                                                          actions: [
-                                                                                                            TextButton(
-                                                                                                              onPressed: () => Navigator.pop(alertDialogContext),
-                                                                                                              child: Text('Ok'),
-                                                                                                            ),
-                                                                                                          ],
+                                                                                                    var confirmDialogResponse = await showDialog<bool>(
+                                                                                                          context: context,
+                                                                                                          builder: (alertDialogContext) {
+                                                                                                            return AlertDialog(
+                                                                                                              title: Text('解決確認'),
+                                                                                                              content: Text('この通報を解決済みにしますか？'),
+                                                                                                              actions: [
+                                                                                                                TextButton(
+                                                                                                                  onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                                                  child: Text('キャンセル'),
+                                                                                                                ),
+                                                                                                                TextButton(
+                                                                                                                  onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                                                  child: Text('解決する'),
+                                                                                                                ),
+                                                                                                              ],
+                                                                                                            );
+                                                                                                          },
+                                                                                                        ) ??
+                                                                                                        false;
+                                                                                                    if (confirmDialogResponse) {
+                                                                                                      _model.resolveResult1Unchecked = await actions.adminResolveReport(
+                                                                                                        getJsonField(
+                                                                                                          reportsResult1ItemItem,
+                                                                                                          r'''$.id''',
+                                                                                                        ).toString(),
+                                                                                                        _model.reportResolutionReasonFieldTextController.text,
+                                                                                                        'resolve',
+                                                                                                      );
+                                                                                                      if (getJsonField(
+                                                                                                        _model.resolveResult1Unchecked,
+                                                                                                        r'''$.success''',
+                                                                                                      )) {
+                                                                                                        await showDialog(
+                                                                                                          context: context,
+                                                                                                          builder: (alertDialogContext) {
+                                                                                                            return AlertDialog(
+                                                                                                              content: Text('解決しました。'),
+                                                                                                              actions: [
+                                                                                                                TextButton(
+                                                                                                                  onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                                                  child: Text('Ok'),
+                                                                                                                ),
+                                                                                                              ],
+                                                                                                            );
+                                                                                                          },
                                                                                                         );
-                                                                                                      },
-                                                                                                    );
+                                                                                                        if (valueOrDefault<bool>(
+                                                                                                          _model.freezeReportedUserCheckboxValueMap[reportsResult1ItemItem],
+                                                                                                          false,
+                                                                                                        )) {
+                                                                                                          _model.reportFreezeResultUnchecked = await actions.adminToggleFreeze(
+                                                                                                            getJsonField(
+                                                                                                              reportsResult1ItemItem,
+                                                                                                              r'''$.reported_id''',
+                                                                                                            ).toString(),
+                                                                                                            true,
+                                                                                                            '通報解決に伴う凍結',
+                                                                                                          );
+                                                                                                          if (getJsonField(
+                                                                                                            _model.reportFreezeResultUnchecked,
+                                                                                                            r'''$.success''',
+                                                                                                          )) {
+                                                                                                            await showDialog(
+                                                                                                              context: context,
+                                                                                                              builder: (alertDialogContext) {
+                                                                                                                return AlertDialog(
+                                                                                                                  content: Text('ユーザーを凍結しました。'),
+                                                                                                                  actions: [
+                                                                                                                    TextButton(
+                                                                                                                      onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                                                      child: Text('Ok'),
+                                                                                                                    ),
+                                                                                                                  ],
+                                                                                                                );
+                                                                                                              },
+                                                                                                            );
+                                                                                                            if (Navigator.of(context).canPop()) {
+                                                                                                              context.pop();
+                                                                                                            }
+                                                                                                            context.pushNamed(
+                                                                                                              ReportListPageWidget.routeName,
+                                                                                                              queryParameters: {
+                                                                                                                'filterStatus': serializeParam(
+                                                                                                                  widget.filterStatus,
+                                                                                                                  ParamType.String,
+                                                                                                                ),
+                                                                                                              }.withoutNulls,
+                                                                                                            );
+                                                                                                          } else {
+                                                                                                            await showDialog(
+                                                                                                              context: context,
+                                                                                                              builder: (alertDialogContext) {
+                                                                                                                return AlertDialog(
+                                                                                                                  content: Text('ユーザーの凍結に失敗しました。'),
+                                                                                                                  actions: [
+                                                                                                                    TextButton(
+                                                                                                                      onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                                                      child: Text('Ok'),
+                                                                                                                    ),
+                                                                                                                  ],
+                                                                                                                );
+                                                                                                              },
+                                                                                                            );
+                                                                                                            if (Navigator.of(context).canPop()) {
+                                                                                                              context.pop();
+                                                                                                            }
+                                                                                                            context.pushNamed(
+                                                                                                              ReportListPageWidget.routeName,
+                                                                                                              queryParameters: {
+                                                                                                                'filterStatus': serializeParam(
+                                                                                                                  widget.filterStatus,
+                                                                                                                  ParamType.String,
+                                                                                                                ),
+                                                                                                              }.withoutNulls,
+                                                                                                            );
+                                                                                                          }
+                                                                                                        } else {
+                                                                                                          if (Navigator.of(context).canPop()) {
+                                                                                                            context.pop();
+                                                                                                          }
+                                                                                                          context.pushNamed(
+                                                                                                            ReportListPageWidget.routeName,
+                                                                                                            queryParameters: {
+                                                                                                              'filterStatus': serializeParam(
+                                                                                                                widget.filterStatus,
+                                                                                                                ParamType.String,
+                                                                                                              ),
+                                                                                                            }.withoutNulls,
+                                                                                                          );
+                                                                                                        }
+                                                                                                      } else {
+                                                                                                        await showDialog(
+                                                                                                          context: context,
+                                                                                                          builder: (alertDialogContext) {
+                                                                                                            return AlertDialog(
+                                                                                                              content: Text('更新に失敗しました。'),
+                                                                                                              actions: [
+                                                                                                                TextButton(
+                                                                                                                  onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                                                  child: Text('Ok'),
+                                                                                                                ),
+                                                                                                              ],
+                                                                                                            );
+                                                                                                          },
+                                                                                                        );
+                                                                                                      }
+                                                                                                    } else {
+                                                                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                        SnackBar(
+                                                                                                          content: Text(
+                                                                                                            '操作をキャンセルしました。',
+                                                                                                            style: TextStyle(),
+                                                                                                          ),
+                                                                                                          duration: Duration(milliseconds: 4000),
+                                                                                                        ),
+                                                                                                      );
+                                                                                                    }
                                                                                                   }
 
                                                                                                   safeSetState(() {});
                                                                                                 },
-                                                                                                text: '解決する',
+                                                                                                text: functions.reportResolveButtonLabel(valueOrDefault<bool>(
+                                                                                                  _model.freezeReportedUserCheckboxValueMap[reportsResult1ItemItem],
+                                                                                                  false,
+                                                                                                ))!,
                                                                                                 options: FFButtonOptions(
                                                                                                   height: 40.0,
                                                                                                   padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
@@ -1454,11 +1826,12 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                                                         fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
                                                                                                       ),
                                                                                                   elevation: 0.0,
-                                                                                                  borderRadius: BorderRadius.circular(8.0),
+                                                                                                  borderRadius: BorderRadius.circular(20.0),
                                                                                                 ),
                                                                                               ),
                                                                                               Row(
                                                                                                 mainAxisSize: MainAxisSize.min,
+                                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                                                 crossAxisAlignment: CrossAxisAlignment.center,
                                                                                                 children: [
                                                                                                   Theme(
@@ -1485,6 +1858,23 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                                                       checkColor: FlutterFlowTheme.of(context).primaryBackground,
                                                                                                     ),
                                                                                                   ),
+                                                                                                  Container(
+                                                                                                    width: 190.0,
+                                                                                                    child: Text(
+                                                                                                      'このユーザーを凍結する',
+                                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                            font: GoogleFonts.inter(
+                                                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                            ),
+                                                                                                            color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                            fontSize: 16.0,
+                                                                                                            letterSpacing: 0.0,
+                                                                                                            fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                          ),
+                                                                                                    ),
+                                                                                                  ),
                                                                                                   Builder(
                                                                                                     builder: (context) => FFButtonWidget(
                                                                                                       onPressed: () async {
@@ -1494,15 +1884,14 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                                                             r'''$.id''',
                                                                                                           ).toString(),
                                                                                                         );
-                                                                                                        await showAlignedDialog(
+                                                                                                        await showDialog(
                                                                                                           context: context,
-                                                                                                          isGlobal: false,
-                                                                                                          avoidOverflow: false,
-                                                                                                          targetAnchor: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                                                          followerAnchor: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
                                                                                                           builder: (dialogContext) {
-                                                                                                            return Material(
-                                                                                                              color: Colors.transparent,
+                                                                                                            return Dialog(
+                                                                                                              elevation: 0,
+                                                                                                              insetPadding: EdgeInsets.zero,
+                                                                                                              backgroundColor: Colors.transparent,
+                                                                                                              alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
                                                                                                               child: GestureDetector(
                                                                                                                 onTap: () {
                                                                                                                   FocusScope.of(dialogContext).unfocus();
@@ -1521,7 +1910,8 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                                                       },
                                                                                                       text: 'チャットログを見る',
                                                                                                       options: FFButtonOptions(
-                                                                                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                                        width: 155.0,
+                                                                                                        padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                                                                                                         iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                                                                                                         color: Colors.transparent,
                                                                                                         textStyle: TextStyle(
@@ -1532,16 +1922,9 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                                                           color: FlutterFlowTheme.of(context).primary,
                                                                                                           width: 1.0,
                                                                                                         ),
-                                                                                                        borderRadius: BorderRadius.circular(8.0),
+                                                                                                        borderRadius: BorderRadius.circular(20.0),
                                                                                                       ),
                                                                                                     ),
-                                                                                                  ),
-                                                                                                  Container(
-                                                                                                    width: 8.0,
-                                                                                                  ),
-                                                                                                  Text(
-                                                                                                    'このユーザーを凍結する',
-                                                                                                    style: TextStyle(),
                                                                                                   ),
                                                                                                 ],
                                                                                               ),
@@ -1556,7 +1939,9 @@ class _ReportListPageWidgetState extends State<ReportListPageWidget> {
                                                                             ],
                                                                           ),
                                                                         ),
-                                                                      );
+                                                                      ).animateOnPageLoad(
+                                                                          animationsMap[
+                                                                              'containerOnPageLoadAnimation']!);
                                                                     }),
                                                                   );
                                                                 },

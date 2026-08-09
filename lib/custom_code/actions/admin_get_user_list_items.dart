@@ -4,6 +4,7 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'index.dart'; // Imports other custom actions
+import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
@@ -99,7 +100,16 @@ AdminUserListItemStruct _toAdminUserListItem(
     extra = '$debtNum円';
   } else if (accountType == 'staff') {
     final st = u['staff_type']?.toString() ?? '';
-    typeLabel = st == 'transport' ? '送迎スタッフ' : (st.isEmpty ? 'スタッフ' : st);
+    switch (st) {
+      case 'security':
+        typeLabel = '警備スタッフ';
+      case 'transport':
+        typeLabel = '送迎スタッフ';
+      case 'both':
+        typeLabel = '警備・送迎スタッフ';
+      default:
+        typeLabel = 'スタッフ';
+    }
     extra = (u['is_online'] == true) ? 'ON' : 'OFF';
   } else {
     final pref = u['prefecture']?.toString() ?? '';

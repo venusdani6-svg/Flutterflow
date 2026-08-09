@@ -17,6 +17,28 @@ class AffiliateListPageModel extends FlutterFlowModel<AffiliateListPageWidget> {
 
   bool isOverviewLoaded1 = false;
 
+  String? affiliateSearchQuery = '';
+
+  String? lastChangedAffiliatorUid = '';
+
+  String? lastChangedAffiliatorRateDisplay = '';
+
+  List<dynamic> affiliatorPickerPlaceholder = [];
+  void addToAffiliatorPickerPlaceholder(dynamic item) =>
+      affiliatorPickerPlaceholder.add(item);
+  void removeFromAffiliatorPickerPlaceholder(dynamic item) =>
+      affiliatorPickerPlaceholder.remove(item);
+  void removeAtIndexFromAffiliatorPickerPlaceholder(int index) =>
+      affiliatorPickerPlaceholder.removeAt(index);
+  void insertAtIndexInAffiliatorPickerPlaceholder(int index, dynamic item) =>
+      affiliatorPickerPlaceholder.insert(index, item);
+  void updateAffiliatorPickerPlaceholderAtIndex(
+          int index, Function(dynamic) updateFn) =>
+      affiliatorPickerPlaceholder[index] =
+          updateFn(affiliatorPickerPlaceholder[index]);
+
+  bool? isAffiliatePickerOpen = false;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Custom Action - adminGetAffiliateOverview] action in AffiliateListPage widget.
@@ -30,9 +52,16 @@ class AffiliateListPageModel extends FlutterFlowModel<AffiliateListPageWidget> {
   int get tabBarPreviousIndex =>
       tabBarController != null ? tabBarController!.previousIndex : 0;
 
+  // State field(s) for AffiliateSearchField3 widget.
+  FocusNode? affiliateSearchField3FocusNode;
+  TextEditingController? affiliateSearchField3TextController;
+  String? Function(BuildContext, String?)?
+      affiliateSearchField3TextControllerValidator;
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
+  // Stores action output result for [Custom Action - affiliateRateSaveInputsValid] action in Button widget.
+  bool? affiliateRateInputsValid;
   // Stores action output result for [Custom Action - adminUpdateAffiliateRate] action in Button widget.
   dynamic saveRateResult;
 
@@ -45,5 +74,7 @@ class AffiliateListPageModel extends FlutterFlowModel<AffiliateListPageWidget> {
   void dispose() {
     mainMenuCompModel.dispose();
     tabBarController?.dispose();
+    affiliateSearchField3FocusNode?.dispose();
+    affiliateSearchField3TextController?.dispose();
   }
 }

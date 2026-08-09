@@ -8,10 +8,10 @@ import '/pages/info_dialog_comp/info_dialog_comp_widget.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'cast_userdetails_page_model.dart';
 export 'cast_userdetails_page_model.dart';
@@ -135,15 +135,16 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Color(0x1FF59E0B),
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/transparent.png',
+                                      child: SvgPicture.asset(
+                                        'assets/images/icoccha_logo_color.svg',
                                         width: 80.0,
                                         height: 80.0,
                                         fit: BoxFit.contain,
@@ -155,8 +156,15 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                       width: 100.0,
                                       height: 80.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFF59E0B),
+                                            Color(0xFFFBBF24)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 1.0),
+                                          end: AlignmentDirectional(-1.0, -1.0),
+                                        ),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -166,9 +174,17 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                               width: 250.0,
                                               height: 80.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFF59E0B),
+                                                    Color(0xFFFBBF24)
+                                                  ],
+                                                  stops: [0.0, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 1.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, -1.0),
+                                                ),
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
@@ -226,6 +242,8 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           14.0,
                                                                       letterSpacing:
@@ -254,6 +272,8 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           12.0,
                                                                       letterSpacing:
@@ -315,18 +335,17 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                             height: 35.0,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
+                                                              color: Color(
+                                                                  0x33FFFFFF),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8.0),
+                                                                          12.0),
                                                               border:
                                                                   Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .alternate,
+                                                                color: Color(
+                                                                    0x4DFFFFFF),
+                                                                width: 1.0,
                                                               ),
                                                             ),
                                                             child: Builder(
@@ -345,8 +364,8 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                       Icon(
                                                                         FFIcons
                                                                             .ksun,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -359,6 +378,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -376,8 +396,8 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                       Icon(
                                                                         FFIcons
                                                                             .kstarAndCrescent,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -390,6 +410,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -432,7 +453,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                             .transparent,
                                                                     alignment: AlignmentDirectional(
                                                                             0.0,
-                                                                            -1.0)
+                                                                            0.0)
                                                                         .resolve(
                                                                             Directionality.of(context)),
                                                                     child:
@@ -468,18 +489,17 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                               height: 35.0,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
+                                                                color: Color(
+                                                                    0x33FFFFFF),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            8.0),
+                                                                            12.0),
                                                                 border:
                                                                     Border.all(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
+                                                                  color: Color(
+                                                                      0x4DFFFFFF),
+                                                                  width: 1.0,
                                                                 ),
                                                               ),
                                                               child: Column(
@@ -493,9 +513,8 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                   Icon(
                                                                     FFIcons
                                                                         .kchatCenteredTextG,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                                    color: Colors
+                                                                        .white,
                                                                     size: 20.0,
                                                                   ),
                                                                   Text(
@@ -512,7 +531,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                 FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               10.0,
                                                                           letterSpacing:
@@ -602,6 +621,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
+                                                            color: Colors.white,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -917,7 +937,15 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                         width: 100.0,
                                                                                         height: 35.0,
                                                                                         decoration: BoxDecoration(
-                                                                                          color: FlutterFlowTheme.of(context).primary,
+                                                                                          gradient: LinearGradient(
+                                                                                            colors: [
+                                                                                              Color(0xFFFBBF24),
+                                                                                              Color(0xFFFCD34D)
+                                                                                            ],
+                                                                                            stops: [0.0, 1.0],
+                                                                                            begin: AlignmentDirectional(1.0, 1.0),
+                                                                                            end: AlignmentDirectional(-1.0, -1.0),
+                                                                                          ),
                                                                                         ),
                                                                                         child: Row(
                                                                                           mainAxisSize: MainAxisSize.max,
@@ -925,7 +953,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                           children: [
                                                                                             Icon(
                                                                                               FFIcons.kuserListFill1G,
-                                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                                              color: Colors.white,
                                                                                               size: 24.0,
                                                                                             ),
                                                                                             Text(
@@ -935,6 +963,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                                       fontWeight: FontWeight.w600,
                                                                                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                     ),
+                                                                                                    color: Colors.white,
                                                                                                     letterSpacing: 0.0,
                                                                                                     fontWeight: FontWeight.w600,
                                                                                                     fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -1392,7 +1421,15 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                                   width: 250.0,
                                                                                                   height: 35.0,
                                                                                                   decoration: BoxDecoration(
-                                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                                    gradient: LinearGradient(
+                                                                                                      colors: [
+                                                                                                        Color(0xFFFBBF24),
+                                                                                                        Color(0xFFFCD34D)
+                                                                                                      ],
+                                                                                                      stops: [0.0, 1.0],
+                                                                                                      begin: AlignmentDirectional(1.0, 1.0),
+                                                                                                      end: AlignmentDirectional(-1.0, -1.0),
+                                                                                                    ),
                                                                                                     borderRadius: BorderRadius.only(),
                                                                                                     border: Border.all(
                                                                                                       color: FlutterFlowTheme.of(context).alternate,
@@ -1407,6 +1444,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                                               fontWeight: FontWeight.w500,
                                                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                             ),
+                                                                                                            color: Colors.white,
                                                                                                             fontSize: 14.0,
                                                                                                             letterSpacing: 0.0,
                                                                                                             fontWeight: FontWeight.w500,
@@ -2201,7 +2239,15 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                       width: 100.0,
                                                                                       height: 30.0,
                                                                                       decoration: BoxDecoration(
-                                                                                        color: FlutterFlowTheme.of(context).primary,
+                                                                                        gradient: LinearGradient(
+                                                                                          colors: [
+                                                                                            Color(0xFFFBBF24),
+                                                                                            Color(0xFFFCD34D)
+                                                                                          ],
+                                                                                          stops: [0.0, 1.0],
+                                                                                          begin: AlignmentDirectional(1.0, 1.0),
+                                                                                          end: AlignmentDirectional(-1.0, -1.0),
+                                                                                        ),
                                                                                         border: Border.all(
                                                                                           color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                         ),
@@ -2215,6 +2261,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                                   fontWeight: FontWeight.w500,
                                                                                                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                 ),
+                                                                                                color: Colors.white,
                                                                                                 fontSize: 12.0,
                                                                                                 letterSpacing: 0.0,
                                                                                                 fontWeight: FontWeight.w500,
@@ -3542,7 +3589,15 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                                   width: 250.0,
                                                                                                   height: 35.0,
                                                                                                   decoration: BoxDecoration(
-                                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                                    gradient: LinearGradient(
+                                                                                                      colors: [
+                                                                                                        Color(0xFFFBBF24),
+                                                                                                        Color(0xFFFCD34D)
+                                                                                                      ],
+                                                                                                      stops: [0.0, 1.0],
+                                                                                                      begin: AlignmentDirectional(1.0, 1.0),
+                                                                                                      end: AlignmentDirectional(-1.0, -1.0),
+                                                                                                    ),
                                                                                                     borderRadius: BorderRadius.only(),
                                                                                                     border: Border.all(
                                                                                                       color: FlutterFlowTheme.of(context).alternate,
@@ -3557,6 +3612,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                                               fontWeight: FontWeight.w500,
                                                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                             ),
+                                                                                                            color: Colors.white,
                                                                                                             fontSize: 14.0,
                                                                                                             letterSpacing: 0.0,
                                                                                                             fontWeight: FontWeight.w500,
@@ -3892,7 +3948,15 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                       width: 100.0,
                                                                                       height: 30.0,
                                                                                       decoration: BoxDecoration(
-                                                                                        color: FlutterFlowTheme.of(context).primary,
+                                                                                        gradient: LinearGradient(
+                                                                                          colors: [
+                                                                                            Color(0xFFFBBF24),
+                                                                                            Color(0xFFFCD34D)
+                                                                                          ],
+                                                                                          stops: [0.0, 1.0],
+                                                                                          begin: AlignmentDirectional(1.0, 1.0),
+                                                                                          end: AlignmentDirectional(-1.0, -1.0),
+                                                                                        ),
                                                                                         border: Border.all(
                                                                                           color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                         ),
@@ -3906,6 +3970,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                                   fontWeight: FontWeight.w500,
                                                                                                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                 ),
+                                                                                                color: Colors.white,
                                                                                                 fontSize: 12.0,
                                                                                                 letterSpacing: 0.0,
                                                                                                 fontWeight: FontWeight.w500,
@@ -4291,7 +4356,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                   height: 40.0,
                                                                                   padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                                                                                   iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                                                                  color: Color(0xFF8FE2FA),
+                                                                                  color: FlutterFlowTheme.of(context).primary,
                                                                                   textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                                                                         font: GoogleFonts.interTight(
                                                                                           fontWeight: FontWeight.w500,
@@ -4455,6 +4520,16 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                                   );
 
                                                                                                   context.pushNamed(CastUserListPageWidget.routeName);
+                                                                                                } else {
+                                                                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                    SnackBar(
+                                                                                                      content: Text(
+                                                                                                        '操作をキャンセルしました。',
+                                                                                                        style: TextStyle(),
+                                                                                                      ),
+                                                                                                      duration: Duration(milliseconds: 4000),
+                                                                                                    ),
+                                                                                                  );
                                                                                                 }
 
                                                                                                 safeSetState(() {});
@@ -4593,6 +4668,16 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                                           duration: Duration(milliseconds: 4000),
                                                                                                         ),
                                                                                                       );
+                                                                                                    } else {
+                                                                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                        SnackBar(
+                                                                                                          content: Text(
+                                                                                                            '操作をキャンセルしました。',
+                                                                                                            style: TextStyle(),
+                                                                                                          ),
+                                                                                                          duration: Duration(milliseconds: 4000),
+                                                                                                        ),
+                                                                                                      );
                                                                                                     }
 
                                                                                                     safeSetState(() {});
@@ -4640,6 +4725,16 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                                         SnackBar(
                                                                                                           content: Text(
                                                                                                             '凍結を解除しました。',
+                                                                                                            style: TextStyle(),
+                                                                                                          ),
+                                                                                                          duration: Duration(milliseconds: 4000),
+                                                                                                        ),
+                                                                                                      );
+                                                                                                    } else {
+                                                                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                        SnackBar(
+                                                                                                          content: Text(
+                                                                                                            '操作をキャンセルしました。',
                                                                                                             style: TextStyle(),
                                                                                                           ),
                                                                                                           duration: Duration(milliseconds: 4000),
@@ -4723,15 +4818,14 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                             Builder(
                                                                                               builder: (context) => FFButtonWidget(
                                                                                                 onPressed: () async {
-                                                                                                  await showAlignedDialog(
+                                                                                                  await showDialog(
                                                                                                     context: context,
-                                                                                                    isGlobal: false,
-                                                                                                    avoidOverflow: false,
-                                                                                                    targetAnchor: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                                                    followerAnchor: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
                                                                                                     builder: (dialogContext) {
-                                                                                                      return Material(
-                                                                                                        color: Colors.transparent,
+                                                                                                      return Dialog(
+                                                                                                        elevation: 0,
+                                                                                                        insetPadding: EdgeInsets.zero,
+                                                                                                        backgroundColor: Colors.transparent,
+                                                                                                        alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
                                                                                                         child: GestureDetector(
                                                                                                           onTap: () {
                                                                                                             FocusScope.of(dialogContext).unfocus();
@@ -4818,7 +4912,15 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                         width: 100.0,
                                                                                         height: 35.0,
                                                                                         decoration: BoxDecoration(
-                                                                                          color: FlutterFlowTheme.of(context).primary,
+                                                                                          gradient: LinearGradient(
+                                                                                            colors: [
+                                                                                              Color(0xFFFBBF24),
+                                                                                              Color(0xFFFCD34D)
+                                                                                            ],
+                                                                                            stops: [0.0, 1.0],
+                                                                                            begin: AlignmentDirectional(1.0, 1.0),
+                                                                                            end: AlignmentDirectional(-1.0, -1.0),
+                                                                                          ),
                                                                                         ),
                                                                                         child: Row(
                                                                                           mainAxisSize: MainAxisSize.max,
@@ -4826,7 +4928,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                           children: [
                                                                                             Icon(
                                                                                               FFIcons.kmoneyFill1,
-                                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                                              color: Colors.white,
                                                                                               size: 24.0,
                                                                                             ),
                                                                                             Text(
@@ -4836,6 +4938,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                                       fontWeight: FontWeight.w600,
                                                                                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                     ),
+                                                                                                    color: Colors.white,
                                                                                                     letterSpacing: 0.0,
                                                                                                     fontWeight: FontWeight.w600,
                                                                                                     fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -5613,7 +5716,15 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                         width: 100.0,
                                                                                         height: 35.0,
                                                                                         decoration: BoxDecoration(
-                                                                                          color: FlutterFlowTheme.of(context).primary,
+                                                                                          gradient: LinearGradient(
+                                                                                            colors: [
+                                                                                              Color(0xFFFBBF24),
+                                                                                              Color(0xFFFCD34D)
+                                                                                            ],
+                                                                                            stops: [0.0, 1.0],
+                                                                                            begin: AlignmentDirectional(1.0, 1.0),
+                                                                                            end: AlignmentDirectional(-1.0, -1.0),
+                                                                                          ),
                                                                                         ),
                                                                                         child: Row(
                                                                                           mainAxisSize: MainAxisSize.max,
@@ -5621,7 +5732,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                           children: [
                                                                                             Icon(
                                                                                               FFIcons.kcalendarCheckFillG,
-                                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                                              color: Colors.white,
                                                                                               size: 24.0,
                                                                                             ),
                                                                                             Text(
@@ -5631,6 +5742,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                                       fontWeight: FontWeight.w600,
                                                                                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                     ),
+                                                                                                    color: Colors.white,
                                                                                                     letterSpacing: 0.0,
                                                                                                     fontWeight: FontWeight.w600,
                                                                                                     fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -6326,7 +6438,18 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                 35.0,
                                                                             decoration:
                                                                                 BoxDecoration(
-                                                                              color: FlutterFlowTheme.of(context).primary,
+                                                                              gradient: LinearGradient(
+                                                                                colors: [
+                                                                                  Color(0xFFFBBF24),
+                                                                                  Color(0xFFFCD34D)
+                                                                                ],
+                                                                                stops: [
+                                                                                  0.0,
+                                                                                  1.0
+                                                                                ],
+                                                                                begin: AlignmentDirectional(1.0, 1.0),
+                                                                                end: AlignmentDirectional(-1.0, -1.0),
+                                                                              ),
                                                                             ),
                                                                             child:
                                                                                 Row(
@@ -6335,7 +6458,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                               children: [
                                                                                 Icon(
                                                                                   FFIcons.kcreditCardFill,
-                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  color: Colors.white,
                                                                                   size: 24.0,
                                                                                 ),
                                                                                 Text(
@@ -6345,6 +6468,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                           fontWeight: FontWeight.w600,
                                                                                           fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                         ),
+                                                                                        color: Colors.white,
                                                                                         letterSpacing: 0.0,
                                                                                         fontWeight: FontWeight.w600,
                                                                                         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -6882,7 +7006,18 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                 35.0,
                                                                             decoration:
                                                                                 BoxDecoration(
-                                                                              color: FlutterFlowTheme.of(context).primary,
+                                                                              gradient: LinearGradient(
+                                                                                colors: [
+                                                                                  Color(0xFFFBBF24),
+                                                                                  Color(0xFFFCD34D)
+                                                                                ],
+                                                                                stops: [
+                                                                                  0.0,
+                                                                                  1.0
+                                                                                ],
+                                                                                begin: AlignmentDirectional(1.0, 1.0),
+                                                                                end: AlignmentDirectional(-1.0, -1.0),
+                                                                              ),
                                                                             ),
                                                                             child:
                                                                                 Row(
@@ -6891,7 +7026,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                               children: [
                                                                                 Icon(
                                                                                   FFIcons.knotePencilFill,
-                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  color: Colors.white,
                                                                                   size: 24.0,
                                                                                 ),
                                                                                 Text(
@@ -6901,6 +7036,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                           fontWeight: FontWeight.w600,
                                                                                           fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                         ),
+                                                                                        color: Colors.white,
                                                                                         letterSpacing: 0.0,
                                                                                         fontWeight: FontWeight.w600,
                                                                                         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -7420,7 +7556,18 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                 35.0,
                                                                             decoration:
                                                                                 BoxDecoration(
-                                                                              color: FlutterFlowTheme.of(context).primary,
+                                                                              gradient: LinearGradient(
+                                                                                colors: [
+                                                                                  Color(0xFFFBBF24),
+                                                                                  Color(0xFFFCD34D)
+                                                                                ],
+                                                                                stops: [
+                                                                                  0.0,
+                                                                                  1.0
+                                                                                ],
+                                                                                begin: AlignmentDirectional(1.0, 1.0),
+                                                                                end: AlignmentDirectional(-1.0, -1.0),
+                                                                              ),
                                                                             ),
                                                                             child:
                                                                                 Row(
@@ -7429,7 +7576,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                               children: [
                                                                                 Icon(
                                                                                   FFIcons.ksirenFill,
-                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  color: Colors.white,
                                                                                   size: 24.0,
                                                                                 ),
                                                                                 Text(
@@ -7439,6 +7586,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                           fontWeight: FontWeight.w600,
                                                                                           fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                         ),
+                                                                                        color: Colors.white,
                                                                                         letterSpacing: 0.0,
                                                                                         fontWeight: FontWeight.w600,
                                                                                         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -7961,7 +8109,18 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                 35.0,
                                                                             decoration:
                                                                                 BoxDecoration(
-                                                                              color: FlutterFlowTheme.of(context).primary,
+                                                                              gradient: LinearGradient(
+                                                                                colors: [
+                                                                                  Color(0xFFFBBF24),
+                                                                                  Color(0xFFFCD34D)
+                                                                                ],
+                                                                                stops: [
+                                                                                  0.0,
+                                                                                  1.0
+                                                                                ],
+                                                                                begin: AlignmentDirectional(1.0, 1.0),
+                                                                                end: AlignmentDirectional(-1.0, -1.0),
+                                                                              ),
                                                                             ),
                                                                             child:
                                                                                 Row(
@@ -7970,7 +8129,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                               children: [
                                                                                 Icon(
                                                                                   FFIcons.klistBulletsFill,
-                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  color: Colors.white,
                                                                                   size: 24.0,
                                                                                 ),
                                                                                 Text(
@@ -7980,6 +8139,7 @@ class _CastUserdetailsPageWidgetState extends State<CastUserdetailsPageWidget>
                                                                                           fontWeight: FontWeight.w600,
                                                                                           fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                         ),
+                                                                                        color: Colors.white,
                                                                                         letterSpacing: 0.0,
                                                                                         fontWeight: FontWeight.w600,
                                                                                         fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,

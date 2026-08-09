@@ -167,12 +167,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: ReservationdetailsPageWidget.routeName,
           path: ReservationdetailsPageWidget.routePath,
           requireAuth: true,
-          builder: (context, params) => ReservationdetailsPageWidget(
-            reservation: params.getParam(
-              'reservation',
-              ParamType.JSON,
-            ),
-          ),
+          builder: (context, params) => ReservationdetailsPageWidget(),
         ),
         FFRoute(
           name: PaymentLedgerListPageWidget.routeName,
@@ -321,6 +316,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.String,
             ),
           ),
+        ),
+        FFRoute(
+          name: ProcessedEventsListPageWidget.routeName,
+          path: ProcessedEventsListPageWidget.routePath,
+          builder: (context, params) => ProcessedEventsListPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

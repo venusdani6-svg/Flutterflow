@@ -1,4 +1,5 @@
 import '/components/banner_form_dialog_comp_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -7,6 +8,8 @@ import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'banner_list_page_model.dart';
 export 'banner_list_page_model.dart';
@@ -21,10 +24,13 @@ class BannerListPageWidget extends StatefulWidget {
   State<BannerListPageWidget> createState() => _BannerListPageWidgetState();
 }
 
-class _BannerListPageWidgetState extends State<BannerListPageWidget> {
+class _BannerListPageWidgetState extends State<BannerListPageWidget>
+    with TickerProviderStateMixin {
   late BannerListPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -36,6 +42,29 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
       _model.bannersResult = await actions.adminGetBanners();
       _model.isBannersLoaded = true;
       safeSetState(() {});
+    });
+
+    animationsMap.addAll({
+      'containerOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 20.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
     });
   }
 
@@ -94,15 +123,16 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Color(0x1FF59E0B),
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/transparent.png',
+                                      child: SvgPicture.asset(
+                                        'assets/images/icoccha_logo_color.svg',
                                         width: 80.0,
                                         height: 80.0,
                                         fit: BoxFit.contain,
@@ -114,8 +144,15 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                       width: 100.0,
                                       height: 80.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFF59E0B),
+                                            Color(0xFFFBBF24)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 1.0),
+                                          end: AlignmentDirectional(-1.0, -1.0),
+                                        ),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -125,9 +162,17 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                               width: 250.0,
                                               height: 80.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFF59E0B),
+                                                    Color(0xFFFBBF24)
+                                                  ],
+                                                  stops: [0.0, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 1.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, -1.0),
+                                                ),
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
@@ -185,6 +230,8 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           14.0,
                                                                       letterSpacing:
@@ -213,6 +260,8 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           12.0,
                                                                       letterSpacing:
@@ -274,18 +323,17 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                             height: 35.0,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
+                                                              color: Color(
+                                                                  0x33FFFFFF),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8.0),
+                                                                          12.0),
                                                               border:
                                                                   Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .alternate,
+                                                                color: Color(
+                                                                    0x4DFFFFFF),
+                                                                width: 1.0,
                                                               ),
                                                             ),
                                                             child: Builder(
@@ -304,8 +352,8 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                       Icon(
                                                                         FFIcons
                                                                             .ksun,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -318,6 +366,7 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -335,8 +384,8 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                       Icon(
                                                                         FFIcons
                                                                             .kstarAndCrescent,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -349,6 +398,7 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -367,17 +417,16 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                           height: 35.0,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryBackground,
+                                                            color: Color(
+                                                                0x33FFFFFF),
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        8.0),
+                                                                        12.0),
                                                             border: Border.all(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .alternate,
+                                                              color: Color(
+                                                                  0x4DFFFFFF),
+                                                              width: 1.0,
                                                             ),
                                                           ),
                                                           child: Column(
@@ -391,9 +440,8 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                               Icon(
                                                                 FFIcons
                                                                     .k15ListMagnifyingGlass,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
+                                                                color: Colors
+                                                                    .white,
                                                                 size: 20.0,
                                                               ),
                                                               Text(
@@ -411,9 +459,8 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText,
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           10.0,
                                                                       letterSpacing:
@@ -503,6 +550,7 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
+                                                            color: Colors.white,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -659,9 +707,25 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                   height: 35.0,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
+                                                                    gradient:
+                                                                        LinearGradient(
+                                                                      colors: [
+                                                                        Color(
+                                                                            0xFFFBBF24),
+                                                                        Color(
+                                                                            0xFFFCD34D)
+                                                                      ],
+                                                                      stops: [
+                                                                        0.0,
+                                                                        1.0
+                                                                      ],
+                                                                      begin: AlignmentDirectional(
+                                                                          1.0,
+                                                                          1.0),
+                                                                      end: AlignmentDirectional(
+                                                                          -1.0,
+                                                                          -1.0),
+                                                                    ),
                                                                   ),
                                                                   child: Row(
                                                                     mainAxisSize:
@@ -674,8 +738,8 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                       Icon(
                                                                         FFIcons
                                                                             .k4StorefrontFill,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             24.0,
                                                                       ),
@@ -688,6 +752,7 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                                 fontWeight: FontWeight.w600,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FontWeight.w600,
                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -817,7 +882,7 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                         shape:
                                                                             RoundedRectangleBorder(
                                                                           borderRadius:
-                                                                              BorderRadius.circular(8.0),
+                                                                              BorderRadius.circular(20.0),
                                                                         ),
                                                                         child:
                                                                             Container(
@@ -825,11 +890,23 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                               BoxDecoration(
                                                                             color:
                                                                                 FlutterFlowTheme.of(context).primaryBackground,
+                                                                            boxShadow: [
+                                                                              BoxShadow(
+                                                                                blurRadius: 16.0,
+                                                                                color: Color(0x26D97706),
+                                                                                offset: Offset(
+                                                                                  0.0,
+                                                                                  6.0,
+                                                                                ),
+                                                                                spreadRadius: 0.0,
+                                                                              )
+                                                                            ],
                                                                             borderRadius:
-                                                                                BorderRadius.circular(8.0),
+                                                                                BorderRadius.circular(20.0),
                                                                             border:
                                                                                 Border.all(
-                                                                              color: FlutterFlowTheme.of(context).alternate,
+                                                                              color: Color(0x1FD97706),
+                                                                              width: 1.5,
                                                                             ),
                                                                           ),
                                                                           child:
@@ -865,26 +942,62 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                                             size: 19.0,
                                                                                           ),
                                                                                           onPressed: () async {
-                                                                                            await showDialog(
-                                                                                              context: context,
-                                                                                              builder: (dialogContext) {
-                                                                                                return Dialog(
-                                                                                                  elevation: 0,
-                                                                                                  insetPadding: EdgeInsets.zero,
-                                                                                                  backgroundColor: Colors.transparent,
-                                                                                                  alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                                                  child: GestureDetector(
-                                                                                                    onTap: () {
-                                                                                                      FocusScope.of(dialogContext).unfocus();
-                                                                                                      FocusManager.instance.primaryFocus?.unfocus();
-                                                                                                    },
-                                                                                                    child: BannerFormDialogCompWidget(
-                                                                                                      existingBanner: bannersItemItem,
+                                                                                            var confirmDialogResponse = await showDialog<bool>(
+                                                                                                  context: context,
+                                                                                                  builder: (alertDialogContext) {
+                                                                                                    return AlertDialog(
+                                                                                                      title: Text('ご確認ください'),
+                                                                                                      content: Text('本当に更新しますか？'),
+                                                                                                      actions: [
+                                                                                                        TextButton(
+                                                                                                          onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                                          child: Text('いいえ'),
+                                                                                                        ),
+                                                                                                        TextButton(
+                                                                                                          onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                                          child: Text('はい'),
+                                                                                                        ),
+                                                                                                      ],
+                                                                                                    );
+                                                                                                  },
+                                                                                                ) ??
+                                                                                                false;
+                                                                                            if (confirmDialogResponse) {
+                                                                                              await showDialog(
+                                                                                                context: context,
+                                                                                                builder: (dialogContext) {
+                                                                                                  return Dialog(
+                                                                                                    elevation: 0,
+                                                                                                    insetPadding: EdgeInsets.zero,
+                                                                                                    backgroundColor: Colors.transparent,
+                                                                                                    alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                                                    child: GestureDetector(
+                                                                                                      onTap: () {
+                                                                                                        FocusScope.of(dialogContext).unfocus();
+                                                                                                        FocusManager.instance.primaryFocus?.unfocus();
+                                                                                                      },
+                                                                                                      child: BannerFormDialogCompWidget(
+                                                                                                        existingBanner: bannersItemItem,
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  );
+                                                                                                },
+                                                                                              );
+                                                                                            } else {
+                                                                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                SnackBar(
+                                                                                                  content: Text(
+                                                                                                    '失敗しました',
+                                                                                                    style: TextStyle(
+                                                                                                      color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                      fontSize: 16.0,
                                                                                                     ),
                                                                                                   ),
-                                                                                                );
-                                                                                              },
-                                                                                            );
+                                                                                                  duration: Duration(milliseconds: 4000),
+                                                                                                  backgroundColor: FlutterFlowTheme.of(context).secondary,
+                                                                                                ),
+                                                                                              );
+                                                                                            }
                                                                                           },
                                                                                         ),
                                                                                       ),
@@ -1061,10 +1174,13 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                                                       ),
                                                                                                       alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                       child: Text(
-                                                                                                        getJsonField(
-                                                                                                          bannersItemItem,
-                                                                                                          r'''$.title''',
-                                                                                                        ).toString(),
+                                                                                                        valueOrDefault<String>(
+                                                                                                          getJsonField(
+                                                                                                            bannersItemItem,
+                                                                                                            r'''$.title''',
+                                                                                                          )?.toString(),
+                                                                                                          '-',
+                                                                                                        ),
                                                                                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                               font: GoogleFonts.inter(
                                                                                                                 fontWeight: FontWeight.w500,
@@ -1125,10 +1241,13 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                                                       ),
                                                                                                       alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                       child: Text(
-                                                                                                        getJsonField(
-                                                                                                          bannersItemItem,
-                                                                                                          r'''$.link_url''',
-                                                                                                        ).toString(),
+                                                                                                        valueOrDefault<String>(
+                                                                                                          getJsonField(
+                                                                                                            bannersItemItem,
+                                                                                                            r'''$.link_url''',
+                                                                                                          )?.toString(),
+                                                                                                          '-',
+                                                                                                        ),
                                                                                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                               font: GoogleFonts.inter(
                                                                                                                 fontWeight: FontWeight.w500,
@@ -1189,10 +1308,13 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                                                       ),
                                                                                                       alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                       child: Text(
-                                                                                                        getJsonField(
-                                                                                                          bannersItemItem,
-                                                                                                          r'''$.page''',
-                                                                                                        ).toString(),
+                                                                                                        valueOrDefault<String>(
+                                                                                                          getJsonField(
+                                                                                                            bannersItemItem,
+                                                                                                            r'''$.page''',
+                                                                                                          )?.toString(),
+                                                                                                          '-',
+                                                                                                        ),
                                                                                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                               font: GoogleFonts.inter(
                                                                                                                 fontWeight: FontWeight.w500,
@@ -1255,10 +1377,13 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                                                       child: Align(
                                                                                                         alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                         child: Text(
-                                                                                                          getJsonField(
-                                                                                                            bannersItemItem,
-                                                                                                            r'''$.start_date_display''',
-                                                                                                          ).toString(),
+                                                                                                          valueOrDefault<String>(
+                                                                                                            getJsonField(
+                                                                                                              bannersItemItem,
+                                                                                                              r'''$.start_date_display''',
+                                                                                                            )?.toString(),
+                                                                                                            '-',
+                                                                                                          ),
                                                                                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                 font: GoogleFonts.inter(
                                                                                                                   fontWeight: FontWeight.w500,
@@ -1343,10 +1468,13 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                                                       child: Align(
                                                                                                         alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                         child: Text(
-                                                                                                          getJsonField(
-                                                                                                            bannersItemItem,
-                                                                                                            r'''$.display_order''',
-                                                                                                          ).toString(),
+                                                                                                          valueOrDefault<String>(
+                                                                                                            getJsonField(
+                                                                                                              bannersItemItem,
+                                                                                                              r'''$.display_order''',
+                                                                                                            )?.toString(),
+                                                                                                            '-',
+                                                                                                          ),
                                                                                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                 font: GoogleFonts.inter(
                                                                                                                   fontWeight: FontWeight.w500,
@@ -1410,10 +1538,13 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                                                       child: Align(
                                                                                                         alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                         child: Text(
-                                                                                                          getJsonField(
-                                                                                                            bannersItemItem,
-                                                                                                            r'''$.advertiser''',
-                                                                                                          ).toString(),
+                                                                                                          valueOrDefault<String>(
+                                                                                                            getJsonField(
+                                                                                                              bannersItemItem,
+                                                                                                              r'''$.advertiser''',
+                                                                                                            )?.toString(),
+                                                                                                            '-',
+                                                                                                          ),
                                                                                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                 font: GoogleFonts.inter(
                                                                                                                   fontWeight: FontWeight.w500,
@@ -1477,10 +1608,13 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                                                       child: Align(
                                                                                                         alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                         child: Text(
-                                                                                                          getJsonField(
-                                                                                                            bannersItemItem,
-                                                                                                            r'''$.display_days_display''',
-                                                                                                          ).toString(),
+                                                                                                          valueOrDefault<String>(
+                                                                                                            getJsonField(
+                                                                                                              bannersItemItem,
+                                                                                                              r'''$.display_days_display''',
+                                                                                                            )?.toString(),
+                                                                                                            '-',
+                                                                                                          ),
                                                                                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                 font: GoogleFonts.inter(
                                                                                                                   fontWeight: FontWeight.w500,
@@ -1577,7 +1711,9 @@ class _BannerListPageWidgetState extends State<BannerListPageWidget> {
                                                                             ],
                                                                           ),
                                                                         ),
-                                                                      );
+                                                                      ).animateOnPageLoad(
+                                                                          animationsMap[
+                                                                              'containerOnPageLoadAnimation']!);
                                                                     }),
                                                                   );
                                                                 },

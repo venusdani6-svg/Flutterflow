@@ -7,9 +7,10 @@ import '/paymet_ledger/filter_ledgert_dialog_comp/filter_ledgert_dialog_comp_wid
 import '/paymet_ledger/filter_payment_dialog_comp/filter_payment_dialog_comp_widget.dart';
 import '/paymet_ledger/filter_stripelog_dialog_comp/filter_stripelog_dialog_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
-import 'package:aligned_dialog/aligned_dialog.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'payment_ledger_list_page_model.dart';
@@ -153,15 +154,16 @@ class _PaymentLedgerListPageWidgetState
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Color(0x1FF59E0B),
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/transparent.png',
+                                      child: SvgPicture.asset(
+                                        'assets/images/icoccha_logo_color.svg',
                                         width: 80.0,
                                         height: 80.0,
                                         fit: BoxFit.contain,
@@ -173,8 +175,15 @@ class _PaymentLedgerListPageWidgetState
                                       width: 100.0,
                                       height: 80.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFF59E0B),
+                                            Color(0xFFFBBF24)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 1.0),
+                                          end: AlignmentDirectional(-1.0, -1.0),
+                                        ),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -184,9 +193,17 @@ class _PaymentLedgerListPageWidgetState
                                               width: 250.0,
                                               height: 80.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFF59E0B),
+                                                    Color(0xFFFBBF24)
+                                                  ],
+                                                  stops: [0.0, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 1.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, -1.0),
+                                                ),
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
@@ -244,6 +261,8 @@ class _PaymentLedgerListPageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           14.0,
                                                                       letterSpacing:
@@ -272,6 +291,8 @@ class _PaymentLedgerListPageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           12.0,
                                                                       letterSpacing:
@@ -333,18 +354,17 @@ class _PaymentLedgerListPageWidgetState
                                                             height: 35.0,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
+                                                              color: Color(
+                                                                  0x33FFFFFF),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8.0),
+                                                                          12.0),
                                                               border:
                                                                   Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .alternate,
+                                                                color: Color(
+                                                                    0x4DFFFFFF),
+                                                                width: 1.0,
                                                               ),
                                                             ),
                                                             child: Builder(
@@ -363,8 +383,8 @@ class _PaymentLedgerListPageWidgetState
                                                                       Icon(
                                                                         FFIcons
                                                                             .ksun,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -377,6 +397,7 @@ class _PaymentLedgerListPageWidgetState
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -394,8 +415,8 @@ class _PaymentLedgerListPageWidgetState
                                                                       Icon(
                                                                         FFIcons
                                                                             .kstarAndCrescent,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -408,6 +429,7 @@ class _PaymentLedgerListPageWidgetState
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -450,7 +472,7 @@ class _PaymentLedgerListPageWidgetState
                                                                             .transparent,
                                                                     alignment: AlignmentDirectional(
                                                                             0.0,
-                                                                            -1.0)
+                                                                            0.0)
                                                                         .resolve(
                                                                             Directionality.of(context)),
                                                                     child:
@@ -483,18 +505,17 @@ class _PaymentLedgerListPageWidgetState
                                                               height: 35.0,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
+                                                                color: Color(
+                                                                    0x33FFFFFF),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            8.0),
+                                                                            12.0),
                                                                 border:
                                                                     Border.all(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
+                                                                  color: Color(
+                                                                      0x4DFFFFFF),
+                                                                  width: 1.0,
                                                                 ),
                                                               ),
                                                               child: Column(
@@ -508,9 +529,8 @@ class _PaymentLedgerListPageWidgetState
                                                                   Icon(
                                                                     FFIcons
                                                                         .kchatCenteredTextG,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                                    color: Colors
+                                                                        .white,
                                                                     size: 20.0,
                                                                   ),
                                                                   Text(
@@ -527,7 +547,7 @@ class _PaymentLedgerListPageWidgetState
                                                                                 FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               10.0,
                                                                           letterSpacing:
@@ -617,6 +637,7 @@ class _PaymentLedgerListPageWidgetState
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
+                                                            color: Colors.white,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -891,7 +912,7 @@ class _PaymentLedgerListPageWidgetState
                                                                                         child: Container(
                                                                                           width: 100.0,
                                                                                           decoration: BoxDecoration(
-                                                                                            color: FlutterFlowTheme.of(context).primary,
+                                                                                            color: Color(0xFFFFD372),
                                                                                           ),
                                                                                           child: Stack(
                                                                                             alignment: AlignmentDirectional(1.0, 0.0),
@@ -935,7 +956,7 @@ class _PaymentLedgerListPageWidgetState
                                                                                                             elevation: 0,
                                                                                                             insetPadding: EdgeInsets.zero,
                                                                                                             backgroundColor: Colors.transparent,
-                                                                                                            alignment: AlignmentDirectional(0.0, -1.0).resolve(Directionality.of(context)),
+                                                                                                            alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
                                                                                                             child: GestureDetector(
                                                                                                               onTap: () {
                                                                                                                 FocusScope.of(dialogContext).unfocus();
@@ -1104,10 +1125,13 @@ class _PaymentLedgerListPageWidgetState
                                                                                                             ),
                                                                                                             alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                             child: Text(
-                                                                                                              getJsonField(
-                                                                                                                paymentItem,
-                                                                                                                r'''$.payment_intent_id''',
-                                                                                                              ).toString(),
+                                                                                                              valueOrDefault<String>(
+                                                                                                                getJsonField(
+                                                                                                                  paymentItem,
+                                                                                                                  r'''$.payment_intent_id''',
+                                                                                                                )?.toString(),
+                                                                                                                '-',
+                                                                                                              ),
                                                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                     font: GoogleFonts.inter(
                                                                                                                       fontWeight: FontWeight.w500,
@@ -1168,10 +1192,13 @@ class _PaymentLedgerListPageWidgetState
                                                                                                             ),
                                                                                                             alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                             child: Text(
-                                                                                                              getJsonField(
-                                                                                                                paymentItem,
-                                                                                                                r'''$.guest_id''',
-                                                                                                              ).toString(),
+                                                                                                              valueOrDefault<String>(
+                                                                                                                getJsonField(
+                                                                                                                  paymentItem,
+                                                                                                                  r'''$.guest_id''',
+                                                                                                                )?.toString(),
+                                                                                                                '-',
+                                                                                                              ),
                                                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                     font: GoogleFonts.inter(
                                                                                                                       fontWeight: FontWeight.w500,
@@ -1236,14 +1263,23 @@ class _PaymentLedgerListPageWidgetState
                                                                                                               children: [
                                                                                                                 Icon(
                                                                                                                   Icons.circle,
-                                                                                                                  color: Color(0xFF06F705),
+                                                                                                                  color: functions.paymentStatusDotColor(valueOrDefault<String>(
+                                                                                                                    getJsonField(
+                                                                                                                      paymentItem,
+                                                                                                                      r'''$.status_label''',
+                                                                                                                    )?.toString(),
+                                                                                                                    '-',
+                                                                                                                  )),
                                                                                                                   size: 14.0,
                                                                                                                 ),
                                                                                                                 Text(
-                                                                                                                  getJsonField(
-                                                                                                                    paymentItem,
-                                                                                                                    r'''$.status_label''',
-                                                                                                                  ).toString(),
+                                                                                                                  valueOrDefault<String>(
+                                                                                                                    getJsonField(
+                                                                                                                      paymentItem,
+                                                                                                                      r'''$.status_label''',
+                                                                                                                    )?.toString(),
+                                                                                                                    '-',
+                                                                                                                  ),
                                                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                         font: GoogleFonts.inter(
                                                                                                                           fontWeight: FontWeight.w500,
@@ -1327,10 +1363,13 @@ class _PaymentLedgerListPageWidgetState
                                                                                                             ),
                                                                                                             alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                             child: Text(
-                                                                                                              getJsonField(
-                                                                                                                paymentItem,
-                                                                                                                r'''$.id''',
-                                                                                                              ).toString(),
+                                                                                                              valueOrDefault<String>(
+                                                                                                                getJsonField(
+                                                                                                                  paymentItem,
+                                                                                                                  r'''$.id''',
+                                                                                                                )?.toString(),
+                                                                                                                '-',
+                                                                                                              ),
                                                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                     font: GoogleFonts.inter(
                                                                                                                       fontWeight: FontWeight.w500,
@@ -1395,10 +1434,13 @@ class _PaymentLedgerListPageWidgetState
                                                                                                               mainAxisAlignment: MainAxisAlignment.center,
                                                                                                               children: [
                                                                                                                 Text(
-                                                                                                                  getJsonField(
-                                                                                                                    paymentItem,
-                                                                                                                    r'''$.total_amount''',
-                                                                                                                  ).toString(),
+                                                                                                                  valueOrDefault<String>(
+                                                                                                                    getJsonField(
+                                                                                                                      paymentItem,
+                                                                                                                      r'''$.total_amount''',
+                                                                                                                    )?.toString(),
+                                                                                                                    '-',
+                                                                                                                  ),
                                                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                         font: GoogleFonts.inter(
                                                                                                                           fontWeight: FontWeight.w500,
@@ -1475,10 +1517,13 @@ class _PaymentLedgerListPageWidgetState
                                                                                                             child: Align(
                                                                                                               alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                               child: Text(
-                                                                                                                getJsonField(
-                                                                                                                  paymentItem,
-                                                                                                                  r'''$.created_at''',
-                                                                                                                ).toString(),
+                                                                                                                valueOrDefault<String>(
+                                                                                                                  getJsonField(
+                                                                                                                    paymentItem,
+                                                                                                                    r'''$.created_at''',
+                                                                                                                  )?.toString(),
+                                                                                                                  '-',
+                                                                                                                ),
                                                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                       font: GoogleFonts.inter(
                                                                                                                         fontWeight: FontWeight.w500,
@@ -1510,6 +1555,23 @@ class _PaymentLedgerListPageWidgetState
                                                                           },
                                                                         ),
                                                                       ),
+                                                                      if (!(FFAppState()
+                                                                          .paymentList
+                                                                          .isNotEmpty))
+                                                                        Text(
+                                                                          '該当する決済がありません\n',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                font: GoogleFonts.inter(
+                                                                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                ),
+                                                                                letterSpacing: 0.0,
+                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                              ),
+                                                                        ),
                                                                     ],
                                                                   ),
                                                                 ),
@@ -1592,7 +1654,7 @@ class _PaymentLedgerListPageWidgetState
                                                                                                             elevation: 0,
                                                                                                             insetPadding: EdgeInsets.zero,
                                                                                                             backgroundColor: Colors.transparent,
-                                                                                                            alignment: AlignmentDirectional(0.0, -1.0).resolve(Directionality.of(context)),
+                                                                                                            alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
                                                                                                             child: GestureDetector(
                                                                                                               onTap: () {
                                                                                                                 FocusScope.of(dialogContext).unfocus();
@@ -1892,10 +1954,13 @@ class _PaymentLedgerListPageWidgetState
                                                                                                             ),
                                                                                                             alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                             child: Text(
-                                                                                                              getJsonField(
-                                                                                                                ledgerItem,
-                                                                                                                r'''$.id''',
-                                                                                                              ).toString(),
+                                                                                                              valueOrDefault<String>(
+                                                                                                                getJsonField(
+                                                                                                                  ledgerItem,
+                                                                                                                  r'''$.id''',
+                                                                                                                )?.toString(),
+                                                                                                                '-',
+                                                                                                              ),
                                                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                     font: GoogleFonts.inter(
                                                                                                                       fontWeight: FontWeight.w500,
@@ -1957,10 +2022,13 @@ class _PaymentLedgerListPageWidgetState
                                                                                                             ),
                                                                                                             alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                             child: Text(
-                                                                                                              getJsonField(
-                                                                                                                ledgerItem,
-                                                                                                                r'''$.user_id''',
-                                                                                                              ).toString(),
+                                                                                                              valueOrDefault<String>(
+                                                                                                                getJsonField(
+                                                                                                                  ledgerItem,
+                                                                                                                  r'''$.user_id''',
+                                                                                                                )?.toString(),
+                                                                                                                '-',
+                                                                                                              ),
                                                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                     font: GoogleFonts.inter(
                                                                                                                       fontWeight: FontWeight.w500,
@@ -2025,14 +2093,23 @@ class _PaymentLedgerListPageWidgetState
                                                                                                               children: [
                                                                                                                 Icon(
                                                                                                                   Icons.circle,
-                                                                                                                  color: Color(0xFF06F705),
+                                                                                                                  color: functions.paymentStatusDotColor(valueOrDefault<String>(
+                                                                                                                    getJsonField(
+                                                                                                                      ledgerItem,
+                                                                                                                      r'''$.status_label''',
+                                                                                                                    )?.toString(),
+                                                                                                                    '-',
+                                                                                                                  )),
                                                                                                                   size: 14.0,
                                                                                                                 ),
                                                                                                                 Text(
-                                                                                                                  getJsonField(
-                                                                                                                    ledgerItem,
-                                                                                                                    r'''$.status_label''',
-                                                                                                                  ).toString(),
+                                                                                                                  valueOrDefault<String>(
+                                                                                                                    getJsonField(
+                                                                                                                      ledgerItem,
+                                                                                                                      r'''$.status_label''',
+                                                                                                                    )?.toString(),
+                                                                                                                    '-',
+                                                                                                                  ),
                                                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                         font: GoogleFonts.inter(
                                                                                                                           fontWeight: FontWeight.w500,
@@ -2116,10 +2193,13 @@ class _PaymentLedgerListPageWidgetState
                                                                                                             ),
                                                                                                             alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                             child: Text(
-                                                                                                              getJsonField(
-                                                                                                                ledgerItem,
-                                                                                                                r'''$.type_label''',
-                                                                                                              ).toString(),
+                                                                                                              valueOrDefault<String>(
+                                                                                                                getJsonField(
+                                                                                                                  ledgerItem,
+                                                                                                                  r'''$.type_label''',
+                                                                                                                )?.toString(),
+                                                                                                                '-',
+                                                                                                              ),
                                                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                     font: GoogleFonts.inter(
                                                                                                                       fontWeight: FontWeight.w500,
@@ -2184,10 +2264,13 @@ class _PaymentLedgerListPageWidgetState
                                                                                                               mainAxisAlignment: MainAxisAlignment.center,
                                                                                                               children: [
                                                                                                                 Text(
-                                                                                                                  getJsonField(
-                                                                                                                    ledgerItem,
-                                                                                                                    r'''$.amount''',
-                                                                                                                  ).toString(),
+                                                                                                                  valueOrDefault<String>(
+                                                                                                                    getJsonField(
+                                                                                                                      ledgerItem,
+                                                                                                                      r'''$.amount''',
+                                                                                                                    )?.toString(),
+                                                                                                                    '-',
+                                                                                                                  ),
                                                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                         font: GoogleFonts.inter(
                                                                                                                           fontWeight: FontWeight.w500,
@@ -2264,10 +2347,13 @@ class _PaymentLedgerListPageWidgetState
                                                                                                             child: Align(
                                                                                                               alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                               child: Text(
-                                                                                                                getJsonField(
-                                                                                                                  ledgerItem,
-                                                                                                                  r'''$.created_at''',
-                                                                                                                ).toString(),
+                                                                                                                valueOrDefault<String>(
+                                                                                                                  getJsonField(
+                                                                                                                    ledgerItem,
+                                                                                                                    r'''$.created_at''',
+                                                                                                                  )?.toString(),
+                                                                                                                  '-',
+                                                                                                                ),
                                                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                       font: GoogleFonts.inter(
                                                                                                                         fontWeight: FontWeight.w500,
@@ -2299,6 +2385,23 @@ class _PaymentLedgerListPageWidgetState
                                                                           },
                                                                         ),
                                                                       ),
+                                                                      if (!(FFAppState()
+                                                                          .ledgerList
+                                                                          .isNotEmpty))
+                                                                        Text(
+                                                                          '該当する台帳データがありません\n',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                font: GoogleFonts.inter(
+                                                                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                ),
+                                                                                letterSpacing: 0.0,
+                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                              ),
+                                                                        ),
                                                                     ],
                                                                   ),
                                                                 ),
@@ -2381,7 +2484,7 @@ class _PaymentLedgerListPageWidgetState
                                                                                                             elevation: 0,
                                                                                                             insetPadding: EdgeInsets.zero,
                                                                                                             backgroundColor: Colors.transparent,
-                                                                                                            alignment: AlignmentDirectional(0.0, -1.0).resolve(Directionality.of(context)),
+                                                                                                            alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
                                                                                                             child: GestureDetector(
                                                                                                               onTap: () {
                                                                                                                 FocusScope.of(dialogContext).unfocus();
@@ -2476,15 +2579,14 @@ class _PaymentLedgerListPageWidgetState
                                                                                     hoverColor: Colors.transparent,
                                                                                     highlightColor: Colors.transparent,
                                                                                     onTap: () async {
-                                                                                      await showAlignedDialog(
+                                                                                      await showDialog(
                                                                                         context: context,
-                                                                                        isGlobal: false,
-                                                                                        avoidOverflow: false,
-                                                                                        targetAnchor: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                                        followerAnchor: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
                                                                                         builder: (dialogContext) {
-                                                                                          return Material(
-                                                                                            color: Colors.transparent,
+                                                                                          return Dialog(
+                                                                                            elevation: 0,
+                                                                                            insetPadding: EdgeInsets.zero,
+                                                                                            backgroundColor: Colors.transparent,
+                                                                                            alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
                                                                                             child: GestureDetector(
                                                                                               onTap: () {
                                                                                                 FocusScope.of(dialogContext).unfocus();
@@ -2582,10 +2684,13 @@ class _PaymentLedgerListPageWidgetState
                                                                                                                 ),
                                                                                                                 alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                                 child: Text(
-                                                                                                                  getJsonField(
-                                                                                                                    stripeLogItem,
-                                                                                                                    r'''$.event_type''',
-                                                                                                                  ).toString(),
+                                                                                                                  valueOrDefault<String>(
+                                                                                                                    getJsonField(
+                                                                                                                      stripeLogItem,
+                                                                                                                      r'''$.event_type''',
+                                                                                                                    )?.toString(),
+                                                                                                                    '-',
+                                                                                                                  ),
                                                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                         font: GoogleFonts.inter(
                                                                                                                           fontWeight: FontWeight.w500,
@@ -2646,10 +2751,13 @@ class _PaymentLedgerListPageWidgetState
                                                                                                                 ),
                                                                                                                 alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                                 child: Text(
-                                                                                                                  getJsonField(
-                                                                                                                    stripeLogItem,
-                                                                                                                    r'''$.created_at''',
-                                                                                                                  ).toString(),
+                                                                                                                  valueOrDefault<String>(
+                                                                                                                    getJsonField(
+                                                                                                                      stripeLogItem,
+                                                                                                                      r'''$.created_at''',
+                                                                                                                    )?.toString(),
+                                                                                                                    '-',
+                                                                                                                  ),
                                                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                         font: GoogleFonts.inter(
                                                                                                                           fontWeight: FontWeight.w500,
@@ -2762,10 +2870,13 @@ class _PaymentLedgerListPageWidgetState
                                                                                                                 ),
                                                                                                                 alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                                 child: Text(
-                                                                                                                  getJsonField(
-                                                                                                                    stripeLogItem,
-                                                                                                                    r'''$.res_id''',
-                                                                                                                  ).toString(),
+                                                                                                                  valueOrDefault<String>(
+                                                                                                                    getJsonField(
+                                                                                                                      stripeLogItem,
+                                                                                                                      r'''$.res_id''',
+                                                                                                                    )?.toString(),
+                                                                                                                    '-',
+                                                                                                                  ),
                                                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                         font: GoogleFonts.inter(
                                                                                                                           fontWeight: FontWeight.w500,
@@ -2861,6 +2972,23 @@ class _PaymentLedgerListPageWidgetState
                                                                           },
                                                                         ),
                                                                       ),
+                                                                      if (!(FFAppState()
+                                                                          .stripeLogList
+                                                                          .isNotEmpty))
+                                                                        Text(
+                                                                          '該当するStripeログがありません\n',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                font: GoogleFonts.inter(
+                                                                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                ),
+                                                                                letterSpacing: 0.0,
+                                                                                fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                              ),
+                                                                        ),
                                                                     ],
                                                                   ),
                                                                 ),

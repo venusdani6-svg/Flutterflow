@@ -16,6 +16,8 @@ class ProfileEditDialogCompModel
   TextEditingController? profileEditReasonFieldTextController;
   String? Function(BuildContext, String?)?
       profileEditReasonFieldTextControllerValidator;
+  // Stores action output result for [Custom Action - profileEditHasChanges] action in SaveProfileEditButton widget.
+  bool? profileEditHasChangesResult;
   // Stores action output result for [Custom Action - adminUpdateUserProfile] action in SaveProfileEditButton widget.
   dynamic updateProfileResult;
 

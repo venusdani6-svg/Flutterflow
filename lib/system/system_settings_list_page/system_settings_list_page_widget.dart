@@ -1,3 +1,5 @@
+import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -6,11 +8,12 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/pages/info_dialog_comp/info_dialog_comp_widget.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
-import '/prefectures/prefectures_dialog_comp/prefectures_dialog_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'system_settings_list_page_model.dart';
 export 'system_settings_list_page_model.dart';
@@ -39,6 +42,10 @@ class _SystemSettingsListPageWidgetState
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.allServiceAreasInit = await actions.adminGetAllServiceAreas();
+      _model.serviceAreaListStruct =
+          _model.allServiceAreasInit!.toList().cast<ServiceAreaItemStruct>();
+      safeSetState(() {});
       _model.systemConfigResult = await actions.adminGetSystemConfig();
       _model.isConfigLoaded = true;
       safeSetState(() {});
@@ -125,29 +132,24 @@ class _SystemSettingsListPageWidgetState
     ));
     _model.chatCloseSecFieldFocusNode ??= FocusNode();
 
-    _model.switchValue1 = _model.areaTokyoActive;
-    _model.switchValue2 = _model.areaChibaActive;
-    _model.switchValue3 = _model.areaKanagawaActive;
-    _model.switchValue4 = _model.areaGifuActive;
-    _model.switchValue5 = _model.areaAichiActive;
-    _model.switchValue6 = _model.areaKyotoActive;
-    _model.switchValue7 = _model.areaOsakaActive;
-    _model.switchValue8 = _model.areaHyogoActive;
-    _model.switchValue9 = _model.areaOkayamaActive;
-    _model.switchValue10 = _model.areaHiroshimaActive;
-    _model.switchValue11 = _model.areaFukuokaActive;
     _model.textController3 ??= TextEditingController(
-        text: getJsonField(
-      _model.systemConfigResult,
-      r'''$.transport_fee_amount''',
-    ).toString());
+        text: valueOrDefault<String>(
+      getJsonField(
+        _model.systemConfigResult,
+        r'''$.transport_fee_amount''',
+      )?.toString(),
+      '-',
+    ));
     _model.textFieldFocusNode1 ??= FocusNode();
 
     _model.textController4 ??= TextEditingController(
-        text: getJsonField(
-      _model.systemConfigResult,
-      r'''$.transport_fee_threshold_sec''',
-    ).toString());
+        text: valueOrDefault<String>(
+      getJsonField(
+        _model.systemConfigResult,
+        r'''$.transport_fee_threshold_sec''',
+      )?.toString(),
+      '-',
+    ));
     _model.textFieldFocusNode2 ??= FocusNode();
   }
 
@@ -206,15 +208,16 @@ class _SystemSettingsListPageWidgetState
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Color(0x1FF59E0B),
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/transparent.png',
+                                      child: SvgPicture.asset(
+                                        'assets/images/icoccha_logo_color.svg',
                                         width: 80.0,
                                         height: 80.0,
                                         fit: BoxFit.contain,
@@ -226,8 +229,15 @@ class _SystemSettingsListPageWidgetState
                                       width: 100.0,
                                       height: 80.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFF59E0B),
+                                            Color(0xFFFBBF24)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 1.0),
+                                          end: AlignmentDirectional(-1.0, -1.0),
+                                        ),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -237,9 +247,17 @@ class _SystemSettingsListPageWidgetState
                                               width: 250.0,
                                               height: 80.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFF59E0B),
+                                                    Color(0xFFFBBF24)
+                                                  ],
+                                                  stops: [0.0, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 1.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, -1.0),
+                                                ),
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
@@ -297,6 +315,8 @@ class _SystemSettingsListPageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           14.0,
                                                                       letterSpacing:
@@ -325,6 +345,8 @@ class _SystemSettingsListPageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           12.0,
                                                                       letterSpacing:
@@ -386,18 +408,17 @@ class _SystemSettingsListPageWidgetState
                                                             height: 35.0,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
+                                                              color: Color(
+                                                                  0x33FFFFFF),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8.0),
+                                                                          12.0),
                                                               border:
                                                                   Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .alternate,
+                                                                color: Color(
+                                                                    0x4DFFFFFF),
+                                                                width: 1.0,
                                                               ),
                                                             ),
                                                             child: Builder(
@@ -416,8 +437,8 @@ class _SystemSettingsListPageWidgetState
                                                                       Icon(
                                                                         FFIcons
                                                                             .ksun,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -430,6 +451,7 @@ class _SystemSettingsListPageWidgetState
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -447,8 +469,8 @@ class _SystemSettingsListPageWidgetState
                                                                       Icon(
                                                                         FFIcons
                                                                             .kstarAndCrescent,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -461,6 +483,7 @@ class _SystemSettingsListPageWidgetState
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -503,7 +526,7 @@ class _SystemSettingsListPageWidgetState
                                                                             .transparent,
                                                                     alignment: AlignmentDirectional(
                                                                             0.0,
-                                                                            -1.0)
+                                                                            0.0)
                                                                         .resolve(
                                                                             Directionality.of(context)),
                                                                     child:
@@ -536,18 +559,17 @@ class _SystemSettingsListPageWidgetState
                                                               height: 35.0,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
+                                                                color: Color(
+                                                                    0x33FFFFFF),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            8.0),
+                                                                            12.0),
                                                                 border:
                                                                     Border.all(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
+                                                                  color: Color(
+                                                                      0x4DFFFFFF),
+                                                                  width: 1.0,
                                                                 ),
                                                               ),
                                                               child: Column(
@@ -561,9 +583,8 @@ class _SystemSettingsListPageWidgetState
                                                                   Icon(
                                                                     FFIcons
                                                                         .kchatCenteredTextG,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                                    color: Colors
+                                                                        .white,
                                                                     size: 20.0,
                                                                   ),
                                                                   Text(
@@ -580,7 +601,7 @@ class _SystemSettingsListPageWidgetState
                                                                                 FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               10.0,
                                                                           letterSpacing:
@@ -670,6 +691,7 @@ class _SystemSettingsListPageWidgetState
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
+                                                            color: Colors.white,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -974,7 +996,7 @@ class _SystemSettingsListPageWidgetState
                                                                                       width: 100.0,
                                                                                       height: 35.0,
                                                                                       decoration: BoxDecoration(
-                                                                                        color: FlutterFlowTheme.of(context).primary,
+                                                                                        color: Color(0xFFFBC684),
                                                                                       ),
                                                                                       child: Row(
                                                                                         mainAxisSize: MainAxisSize.max,
@@ -1625,7 +1647,15 @@ class _SystemSettingsListPageWidgetState
                                                                                               width: double.infinity,
                                                                                               height: 35.0,
                                                                                               decoration: BoxDecoration(
-                                                                                                color: FlutterFlowTheme.of(context).primary,
+                                                                                                gradient: LinearGradient(
+                                                                                                  colors: [
+                                                                                                    Color(0xFFFBBF24),
+                                                                                                    Color(0xFFFCD34D)
+                                                                                                  ],
+                                                                                                  stops: [0.0, 1.0],
+                                                                                                  begin: AlignmentDirectional(1.0, 1.0),
+                                                                                                  end: AlignmentDirectional(-1.0, -1.0),
+                                                                                                ),
                                                                                               ),
                                                                                               child: Align(
                                                                                                 alignment: AlignmentDirectional(0.0, 0.0),
@@ -1636,6 +1666,7 @@ class _SystemSettingsListPageWidgetState
                                                                                                           fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                                           fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                         ),
+                                                                                                        color: Colors.white,
                                                                                                         fontSize: 12.0,
                                                                                                         letterSpacing: 0.0,
                                                                                                         fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -1962,7 +1993,15 @@ class _SystemSettingsListPageWidgetState
                                                                                               width: double.infinity,
                                                                                               height: 33.0,
                                                                                               decoration: BoxDecoration(
-                                                                                                color: FlutterFlowTheme.of(context).primary,
+                                                                                                gradient: LinearGradient(
+                                                                                                  colors: [
+                                                                                                    Color(0xFFFBBF24),
+                                                                                                    Color(0xFFFCD34D)
+                                                                                                  ],
+                                                                                                  stops: [0.0, 1.0],
+                                                                                                  begin: AlignmentDirectional(1.0, 1.0),
+                                                                                                  end: AlignmentDirectional(-1.0, -1.0),
+                                                                                                ),
                                                                                               ),
                                                                                               child: Align(
                                                                                                 alignment: AlignmentDirectional(0.0, 0.0),
@@ -1973,6 +2012,7 @@ class _SystemSettingsListPageWidgetState
                                                                                                           fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                                           fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                         ),
+                                                                                                        color: Colors.white,
                                                                                                         fontSize: 12.0,
                                                                                                         letterSpacing: 0.0,
                                                                                                         fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -2259,49 +2299,101 @@ class _SystemSettingsListPageWidgetState
                                                                                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 28.0, 0.0, 0.0),
                                                                                 child: FFButtonWidget(
                                                                                   onPressed: () async {
-                                                                                    _model.saveBasicSettingsResult = await actions.adminUpdateBasicSettings(
-                                                                                      _model.chatCloseSecFieldTextController.text,
-                                                                                      _model.extensionLimitCountControllerValue!,
-                                                                                      _model.maxTotalHoursControllerValue!,
-                                                                                      _model.taxRateFieldTextController.text,
-                                                                                      _model.nightSlot1CheckboxValue!,
-                                                                                      _model.nightSlot2CheckboxValue!,
-                                                                                      _model.nightSlot3CheckboxValue!,
-                                                                                      _model.nightSlot4CheckboxValue!,
-                                                                                      _model.affiliateSwitchValue!,
-                                                                                      _model.securityStaffSwitchValue!,
-                                                                                      _model.transportStaffSwitchValue!,
-                                                                                      _model.cocotenSwitchValue!,
-                                                                                      _model.workBoardSwitchValue!,
-                                                                                    );
-                                                                                    if (getJsonField(
-                                                                                      _model.saveBasicSettingsResult,
-                                                                                      r'''$.success''',
-                                                                                    )
-                                                                                        ? true
-                                                                                        : false) {
-                                                                                      await showDialog(
-                                                                                        context: context,
-                                                                                        builder: (alertDialogContext) {
-                                                                                          return AlertDialog(
-                                                                                            title: Text(' 基本設定'),
-                                                                                            content: Text('保存しました。'),
-                                                                                            actions: [
-                                                                                              TextButton(
-                                                                                                onPressed: () => Navigator.pop(alertDialogContext),
-                                                                                                child: Text('Ok'),
-                                                                                              ),
-                                                                                            ],
+                                                                                    if (_model.isConfigLoaded) {
+                                                                                      var confirmDialogResponse = await showDialog<bool>(
+                                                                                            context: context,
+                                                                                            builder: (alertDialogContext) {
+                                                                                              return AlertDialog(
+                                                                                                title: Text('ご確認ください。'),
+                                                                                                content: Text('本当に更新しますか？'),
+                                                                                                actions: [
+                                                                                                  TextButton(
+                                                                                                    onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                                    child: Text('いいえ'),
+                                                                                                  ),
+                                                                                                  TextButton(
+                                                                                                    onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                                    child: Text('はい'),
+                                                                                                  ),
+                                                                                                ],
+                                                                                              );
+                                                                                            },
+                                                                                          ) ??
+                                                                                          false;
+                                                                                      if (confirmDialogResponse) {
+                                                                                        _model.saveBasicSettingsResult = await actions.adminUpdateBasicSettings(
+                                                                                          _model.chatCloseSecFieldTextController.text,
+                                                                                          _model.extensionLimitCountControllerValue!,
+                                                                                          _model.maxTotalHoursControllerValue!,
+                                                                                          _model.taxRateFieldTextController.text,
+                                                                                          _model.nightSlot1CheckboxValue!,
+                                                                                          _model.nightSlot2CheckboxValue!,
+                                                                                          _model.nightSlot3CheckboxValue!,
+                                                                                          _model.nightSlot4CheckboxValue!,
+                                                                                          _model.affiliateSwitchValue!,
+                                                                                          _model.securityStaffSwitchValue!,
+                                                                                          _model.transportStaffSwitchValue!,
+                                                                                          _model.cocotenSwitchValue!,
+                                                                                          _model.workBoardSwitchValue!,
+                                                                                        );
+                                                                                        if (getJsonField(
+                                                                                          _model.saveBasicSettingsResult,
+                                                                                          r'''$.success''',
+                                                                                        )
+                                                                                            ? true
+                                                                                            : false) {
+                                                                                          await showDialog(
+                                                                                            context: context,
+                                                                                            builder: (alertDialogContext) {
+                                                                                              return AlertDialog(
+                                                                                                title: Text(' 基本設定'),
+                                                                                                content: Text('保存しました。'),
+                                                                                                actions: [
+                                                                                                  TextButton(
+                                                                                                    onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                                    child: Text('Ok'),
+                                                                                                  ),
+                                                                                                ],
+                                                                                              );
+                                                                                            },
                                                                                           );
-                                                                                        },
-                                                                                      );
+                                                                                        } else {
+                                                                                          await showDialog(
+                                                                                            context: context,
+                                                                                            builder: (alertDialogContext) {
+                                                                                              return AlertDialog(
+                                                                                                title: Text(' 基本設定'),
+                                                                                                content: Text('更新に失敗しました。'),
+                                                                                                actions: [
+                                                                                                  TextButton(
+                                                                                                    onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                                    child: Text('Ok'),
+                                                                                                  ),
+                                                                                                ],
+                                                                                              );
+                                                                                            },
+                                                                                          );
+                                                                                        }
+                                                                                      } else {
+                                                                                        ScaffoldMessenger.of(context).showSnackBar(
+                                                                                          SnackBar(
+                                                                                            content: Text(
+                                                                                              '操作をキャンセルしました。',
+                                                                                              style: TextStyle(
+                                                                                                color: FlutterFlowTheme.of(context).primaryText,
+                                                                                              ),
+                                                                                            ),
+                                                                                            duration: Duration(milliseconds: 4000),
+                                                                                            backgroundColor: FlutterFlowTheme.of(context).secondary,
+                                                                                          ),
+                                                                                        );
+                                                                                      }
                                                                                     } else {
                                                                                       await showDialog(
                                                                                         context: context,
                                                                                         builder: (alertDialogContext) {
                                                                                           return AlertDialog(
-                                                                                            title: Text(' 基本設定'),
-                                                                                            content: Text('更新に失敗しました。'),
+                                                                                            content: Text('設定を読み込み中です。しばらく待ってから保存してください。'),
                                                                                             actions: [
                                                                                               TextButton(
                                                                                                 onPressed: () => Navigator.pop(alertDialogContext),
@@ -2321,7 +2413,7 @@ class _SystemSettingsListPageWidgetState
                                                                                     height: 40.0,
                                                                                     padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                                                                                     iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                                                                    color: Color(0xFF8FE2FA),
+                                                                                    color: FlutterFlowTheme.of(context).primary,
                                                                                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                                                                           font: GoogleFonts.interTight(
                                                                                             fontWeight: FontWeight.w500,
@@ -2814,7 +2906,15 @@ class _SystemSettingsListPageWidgetState
                                                                                           width: double.infinity,
                                                                                           height: 35.0,
                                                                                           decoration: BoxDecoration(
-                                                                                            color: FlutterFlowTheme.of(context).primary,
+                                                                                            gradient: LinearGradient(
+                                                                                              colors: [
+                                                                                                Color(0xFFFBBF24),
+                                                                                                Color(0xFFFCD34D)
+                                                                                              ],
+                                                                                              stops: [0.0, 1.0],
+                                                                                              begin: AlignmentDirectional(1.0, 1.0),
+                                                                                              end: AlignmentDirectional(-1.0, -1.0),
+                                                                                            ),
                                                                                           ),
                                                                                           child: Align(
                                                                                             alignment: AlignmentDirectional(0.0, 0.0),
@@ -2825,6 +2925,7 @@ class _SystemSettingsListPageWidgetState
                                                                                                       fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                     ),
+                                                                                                    color: Colors.white,
                                                                                                     fontSize: 12.0,
                                                                                                     letterSpacing: 0.0,
                                                                                                     fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -2890,7 +2991,15 @@ class _SystemSettingsListPageWidgetState
                                                                                           width: double.infinity,
                                                                                           height: 35.0,
                                                                                           decoration: BoxDecoration(
-                                                                                            color: FlutterFlowTheme.of(context).primary,
+                                                                                            gradient: LinearGradient(
+                                                                                              colors: [
+                                                                                                Color(0xFFFBBF24),
+                                                                                                Color(0xFFFCD34D)
+                                                                                              ],
+                                                                                              stops: [0.0, 1.0],
+                                                                                              begin: AlignmentDirectional(1.0, 1.0),
+                                                                                              end: AlignmentDirectional(-1.0, -1.0),
+                                                                                            ),
                                                                                           ),
                                                                                           child: Align(
                                                                                             alignment: AlignmentDirectional(0.0, 0.0),
@@ -2901,6 +3010,7 @@ class _SystemSettingsListPageWidgetState
                                                                                                       fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                     ),
+                                                                                                    color: Colors.white,
                                                                                                     fontSize: 12.0,
                                                                                                     letterSpacing: 0.0,
                                                                                                     fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -3054,7 +3164,15 @@ class _SystemSettingsListPageWidgetState
                                                                                           width: double.infinity,
                                                                                           height: 35.0,
                                                                                           decoration: BoxDecoration(
-                                                                                            color: FlutterFlowTheme.of(context).primary,
+                                                                                            gradient: LinearGradient(
+                                                                                              colors: [
+                                                                                                Color(0xFFFBBF24),
+                                                                                                Color(0xFFFCD34D)
+                                                                                              ],
+                                                                                              stops: [0.0, 1.0],
+                                                                                              begin: AlignmentDirectional(1.0, 1.0),
+                                                                                              end: AlignmentDirectional(-1.0, -1.0),
+                                                                                            ),
                                                                                           ),
                                                                                           child: Align(
                                                                                             alignment: AlignmentDirectional(0.0, 0.0),
@@ -3065,6 +3183,7 @@ class _SystemSettingsListPageWidgetState
                                                                                                       fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                                       fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                     ),
+                                                                                                    color: Colors.white,
                                                                                                     fontSize: 12.0,
                                                                                                     letterSpacing: 0.0,
                                                                                                     fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -3232,40 +3351,92 @@ class _SystemSettingsListPageWidgetState
                                                                               FFButtonWidget(
                                                                             onPressed:
                                                                                 () async {
-                                                                              _model.saveCastRewardResult = await actions.adminUpdateCastRewardSettings(
-                                                                                _model.dropDownValue1!,
-                                                                                _model.dropDownValue2!,
-                                                                                _model.dropDownValue3!,
-                                                                                _model.dropDownValue4!,
-                                                                              );
-                                                                              if (getJsonField(
-                                                                                _model.saveCastRewardResult,
-                                                                                r'''$.success''',
-                                                                              )
-                                                                                  ? true
-                                                                                  : false) {
-                                                                                await showDialog(
-                                                                                  context: context,
-                                                                                  builder: (alertDialogContext) {
-                                                                                    return AlertDialog(
-                                                                                      title: Text('キャスト報酬設定'),
-                                                                                      content: Text('保存しました。'),
-                                                                                      actions: [
-                                                                                        TextButton(
-                                                                                          onPressed: () => Navigator.pop(alertDialogContext),
-                                                                                          child: Text('Ok'),
-                                                                                        ),
-                                                                                      ],
+                                                                              if (_model.isConfigLoaded) {
+                                                                                var confirmDialogResponse = await showDialog<bool>(
+                                                                                      context: context,
+                                                                                      builder: (alertDialogContext) {
+                                                                                        return AlertDialog(
+                                                                                          title: Text('ご確認ください。'),
+                                                                                          content: Text('本当に更新しますか？'),
+                                                                                          actions: [
+                                                                                            TextButton(
+                                                                                              onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                              child: Text('いいえ'),
+                                                                                            ),
+                                                                                            TextButton(
+                                                                                              onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                              child: Text('はい'),
+                                                                                            ),
+                                                                                          ],
+                                                                                        );
+                                                                                      },
+                                                                                    ) ??
+                                                                                    false;
+                                                                                if (confirmDialogResponse) {
+                                                                                  _model.saveCastRewardResult = await actions.adminUpdateCastRewardSettings(
+                                                                                    _model.dropDownValue1!,
+                                                                                    _model.dropDownValue2!,
+                                                                                    _model.dropDownValue3!,
+                                                                                    _model.dropDownValue4!,
+                                                                                  );
+                                                                                  if (getJsonField(
+                                                                                    _model.saveCastRewardResult,
+                                                                                    r'''$.success''',
+                                                                                  )
+                                                                                      ? true
+                                                                                      : false) {
+                                                                                    await showDialog(
+                                                                                      context: context,
+                                                                                      builder: (alertDialogContext) {
+                                                                                        return AlertDialog(
+                                                                                          title: Text('キャスト報酬設定'),
+                                                                                          content: Text('保存しました。'),
+                                                                                          actions: [
+                                                                                            TextButton(
+                                                                                              onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                              child: Text('Ok'),
+                                                                                            ),
+                                                                                          ],
+                                                                                        );
+                                                                                      },
                                                                                     );
-                                                                                  },
-                                                                                );
+                                                                                  } else {
+                                                                                    await showDialog(
+                                                                                      context: context,
+                                                                                      builder: (alertDialogContext) {
+                                                                                        return AlertDialog(
+                                                                                          title: Text('キャスト報酬設定'),
+                                                                                          content: Text('更新に失敗しました。'),
+                                                                                          actions: [
+                                                                                            TextButton(
+                                                                                              onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                              child: Text('Ok'),
+                                                                                            ),
+                                                                                          ],
+                                                                                        );
+                                                                                      },
+                                                                                    );
+                                                                                  }
+                                                                                } else {
+                                                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                                                    SnackBar(
+                                                                                      content: Text(
+                                                                                        '操作をキャンセルしました。',
+                                                                                        style: TextStyle(
+                                                                                          color: FlutterFlowTheme.of(context).primaryText,
+                                                                                        ),
+                                                                                      ),
+                                                                                      duration: Duration(milliseconds: 4000),
+                                                                                      backgroundColor: FlutterFlowTheme.of(context).secondary,
+                                                                                    ),
+                                                                                  );
+                                                                                }
                                                                               } else {
                                                                                 await showDialog(
                                                                                   context: context,
                                                                                   builder: (alertDialogContext) {
                                                                                     return AlertDialog(
-                                                                                      title: Text('キャスト報酬設定'),
-                                                                                      content: Text('更新に失敗しました。'),
+                                                                                      content: Text('設定を読み込み中です。しばらく待ってから保存してください。'),
                                                                                       actions: [
                                                                                         TextButton(
                                                                                           onPressed: () => Navigator.pop(alertDialogContext),
@@ -3287,7 +3458,7 @@ class _SystemSettingsListPageWidgetState
                                                                               height: 40.0,
                                                                               padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                                                                               iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                                                              color: Color(0xFF8FE2FA),
+                                                                              color: FlutterFlowTheme.of(context).primary,
                                                                               textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                                                                     font: GoogleFonts.interTight(
                                                                                       fontWeight: FontWeight.w500,
@@ -3767,39 +3938,91 @@ class _SystemSettingsListPageWidgetState
                                                                               FFButtonWidget(
                                                                             onPressed:
                                                                                 () async {
-                                                                              _model.saveAffiliateResult = await actions.adminUpdateAffiliateSettings(
-                                                                                _model.dropDownValue11!,
-                                                                                _model.dropDownValue12!,
-                                                                                _model.dropDownValue13!,
-                                                                              );
-                                                                              if (getJsonField(
-                                                                                _model.saveAffiliateResult,
-                                                                                r'''$.success''',
-                                                                              )
-                                                                                  ? true
-                                                                                  : false) {
-                                                                                await showDialog(
-                                                                                  context: context,
-                                                                                  builder: (alertDialogContext) {
-                                                                                    return AlertDialog(
-                                                                                      title: Text('アフィリエイト設定'),
-                                                                                      content: Text('保存しました。'),
-                                                                                      actions: [
-                                                                                        TextButton(
-                                                                                          onPressed: () => Navigator.pop(alertDialogContext),
-                                                                                          child: Text('Ok'),
-                                                                                        ),
-                                                                                      ],
+                                                                              if (_model.isConfigLoaded) {
+                                                                                var confirmDialogResponse = await showDialog<bool>(
+                                                                                      context: context,
+                                                                                      builder: (alertDialogContext) {
+                                                                                        return AlertDialog(
+                                                                                          title: Text('ご確認ください。'),
+                                                                                          content: Text('本当に更新しますか？'),
+                                                                                          actions: [
+                                                                                            TextButton(
+                                                                                              onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                              child: Text('いいえ'),
+                                                                                            ),
+                                                                                            TextButton(
+                                                                                              onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                              child: Text('はい'),
+                                                                                            ),
+                                                                                          ],
+                                                                                        );
+                                                                                      },
+                                                                                    ) ??
+                                                                                    false;
+                                                                                if (confirmDialogResponse) {
+                                                                                  _model.saveAffiliateResult = await actions.adminUpdateAffiliateSettings(
+                                                                                    _model.dropDownValue11!,
+                                                                                    _model.dropDownValue12!,
+                                                                                    _model.dropDownValue13!,
+                                                                                  );
+                                                                                  if (getJsonField(
+                                                                                    _model.saveAffiliateResult,
+                                                                                    r'''$.success''',
+                                                                                  )
+                                                                                      ? true
+                                                                                      : false) {
+                                                                                    await showDialog(
+                                                                                      context: context,
+                                                                                      builder: (alertDialogContext) {
+                                                                                        return AlertDialog(
+                                                                                          title: Text('アフィリエイト設定'),
+                                                                                          content: Text('保存しました。'),
+                                                                                          actions: [
+                                                                                            TextButton(
+                                                                                              onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                              child: Text('Ok'),
+                                                                                            ),
+                                                                                          ],
+                                                                                        );
+                                                                                      },
                                                                                     );
-                                                                                  },
-                                                                                );
+                                                                                  } else {
+                                                                                    await showDialog(
+                                                                                      context: context,
+                                                                                      builder: (alertDialogContext) {
+                                                                                        return AlertDialog(
+                                                                                          title: Text('アフィリエイト設定'),
+                                                                                          content: Text('更新に失敗しました。'),
+                                                                                          actions: [
+                                                                                            TextButton(
+                                                                                              onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                              child: Text('Ok'),
+                                                                                            ),
+                                                                                          ],
+                                                                                        );
+                                                                                      },
+                                                                                    );
+                                                                                  }
+                                                                                } else {
+                                                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                                                    SnackBar(
+                                                                                      content: Text(
+                                                                                        '操作をキャンセルしました。',
+                                                                                        style: TextStyle(
+                                                                                          color: FlutterFlowTheme.of(context).primaryText,
+                                                                                        ),
+                                                                                      ),
+                                                                                      duration: Duration(milliseconds: 4000),
+                                                                                      backgroundColor: FlutterFlowTheme.of(context).secondary,
+                                                                                    ),
+                                                                                  );
+                                                                                }
                                                                               } else {
                                                                                 await showDialog(
                                                                                   context: context,
                                                                                   builder: (alertDialogContext) {
                                                                                     return AlertDialog(
-                                                                                      title: Text('アフィリエイト設定'),
-                                                                                      content: Text('更新に失敗しました。'),
+                                                                                      content: Text('設定を読み込み中です。しばらく待ってから保存してください。'),
                                                                                       actions: [
                                                                                         TextButton(
                                                                                           onPressed: () => Navigator.pop(alertDialogContext),
@@ -3821,7 +4044,7 @@ class _SystemSettingsListPageWidgetState
                                                                               height: 40.0,
                                                                               padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                                                                               iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                                                              color: Color(0xFF8FE2FA),
+                                                                              color: FlutterFlowTheme.of(context).primary,
                                                                               textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                                                                     font: GoogleFonts.interTight(
                                                                                       fontWeight: FontWeight.w500,
@@ -3906,986 +4129,477 @@ class _SystemSettingsListPageWidgetState
                                                                     ],
                                                                   ),
                                                                   Expanded(
+                                                                    flex: 1,
                                                                     child:
-                                                                        Column(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children:
-                                                                          [
-                                                                        Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              8.0,
-                                                                              0.0,
-                                                                              8.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Row(
+                                                                        SingleChildScrollView(
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.min,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.start,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.center,
+                                                                        children: [
+                                                                          Row(
                                                                             mainAxisSize:
                                                                                 MainAxisSize.max,
-                                                                            children: [
-                                                                              Expanded(
-                                                                                child: Container(
-                                                                                  width: 250.0,
-                                                                                  height: 400.0,
-                                                                                  decoration: BoxDecoration(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children:
+                                                                                [
+                                                                              Container(
+                                                                                width: 380.0,
+                                                                                height: 520.0,
+                                                                                decoration: BoxDecoration(
+                                                                                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                  border: Border.all(
                                                                                     color: FlutterFlowTheme.of(context).alternate,
-                                                                                    borderRadius: BorderRadius.only(),
-                                                                                    border: Border.all(
-                                                                                      color: FlutterFlowTheme.of(context).alternate,
-                                                                                    ),
-                                                                                  ),
-                                                                                  child: Align(
-                                                                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                    child: Text(
-                                                                                      'サービス提供エリア一覧',
-                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                            font: GoogleFonts.inter(
-                                                                                              fontWeight: FontWeight.w500,
-                                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                            ),
-                                                                                            fontSize: 14.0,
-                                                                                            letterSpacing: 0.0,
-                                                                                            fontWeight: FontWeight.w500,
-                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                          ),
-                                                                                    ),
+                                                                                    width: 1.0,
                                                                                   ),
                                                                                 ),
-                                                                              ),
-                                                                              Expanded(
-                                                                                child: Container(
-                                                                                  width: 250.0,
-                                                                                  height: 400.0,
-                                                                                  decoration: BoxDecoration(
-                                                                                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                    borderRadius: BorderRadius.circular(0.0),
-                                                                                    border: Border.all(
-                                                                                      color: FlutterFlowTheme.of(context).alternate,
-                                                                                    ),
-                                                                                  ),
-                                                                                  child: Column(
-                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                    children: [
-                                                                                      Container(
-                                                                                        width: double.infinity,
-                                                                                        height: 35.0,
-                                                                                        decoration: BoxDecoration(
-                                                                                          color: FlutterFlowTheme.of(context).primary,
+                                                                                child: Column(
+                                                                                  mainAxisSize: MainAxisSize.min,
+                                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                  children: [
+                                                                                    Container(
+                                                                                      width: double.infinity,
+                                                                                      height: 35.0,
+                                                                                      decoration: BoxDecoration(
+                                                                                        gradient: LinearGradient(
+                                                                                          colors: [
+                                                                                            Color(0xFFFBBF24),
+                                                                                            Color(0xFFFCD34D)
+                                                                                          ],
+                                                                                          stops: [0.0, 1.0],
+                                                                                          begin: AlignmentDirectional(1.0, 1.0),
+                                                                                          end: AlignmentDirectional(-1.0, -1.0),
                                                                                         ),
-                                                                                        child: Align(
-                                                                                          alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                          child: Text(
-                                                                                            '提供都道府県一覧',
-                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      ),
+                                                                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                      child: Row(
+                                                                                        mainAxisSize: MainAxisSize.max,
+                                                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                        children: [
+                                                                                          Icon(
+                                                                                            Icons.location_on,
+                                                                                            color: Colors.white,
+                                                                                            size: 16.0,
+                                                                                          ),
+                                                                                          Text(
+                                                                                            '提供中エリア',
+                                                                                            style: FlutterFlowTheme.of(context).bodySmall.override(
                                                                                                   font: GoogleFonts.inter(
-                                                                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                    fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
                                                                                                   ),
-                                                                                                  fontSize: 12.0,
+                                                                                                  color: Colors.white,
                                                                                                   letterSpacing: 0.0,
-                                                                                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                  fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
                                                                                                 ),
                                                                                           ),
-                                                                                        ),
+                                                                                        ].divide(SizedBox(width: 6.0)),
                                                                                       ),
-                                                                                      Expanded(
-                                                                                        child: SingleChildScrollView(
+                                                                                    ),
+                                                                                    Expanded(
+                                                                                      flex: 1,
+                                                                                      child: Container(
+                                                                                        child: Padding(
+                                                                                          padding: EdgeInsets.all(20.0),
                                                                                           child: Column(
-                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                            mainAxisSize: MainAxisSize.min,
+                                                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                                                            crossAxisAlignment: CrossAxisAlignment.center,
                                                                                             children: [
-                                                                                              Row(
-                                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                                children: [
-                                                                                                  Expanded(
-                                                                                                    child: Padding(
-                                                                                                      padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                                                                                                      child: Material(
-                                                                                                        color: Colors.transparent,
-                                                                                                        elevation: 1.0,
-                                                                                                        shape: RoundedRectangleBorder(
-                                                                                                          borderRadius: BorderRadius.circular(8.0),
-                                                                                                        ),
-                                                                                                        child: Container(
-                                                                                                          height: 45.0,
-                                                                                                          decoration: BoxDecoration(
-                                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            borderRadius: BorderRadius.circular(8.0),
-                                                                                                            border: Border.all(
-                                                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                          child: Padding(
-                                                                                                            padding: EdgeInsets.all(8.0),
-                                                                                                            child: Row(
-                                                                                                              mainAxisSize: MainAxisSize.max,
-                                                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                              children: [
-                                                                                                                Text(
-                                                                                                                  '東京都',
-                                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                        font: GoogleFonts.inter(
-                                                                                                                          fontWeight: FontWeight.w600,
-                                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                        ),
-                                                                                                                        letterSpacing: 0.0,
-                                                                                                                        fontWeight: FontWeight.w600,
-                                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                      ),
-                                                                                                                ),
-                                                                                                                if (_model.isConfigLoaded)
-                                                                                                                  Switch.adaptive(
-                                                                                                                    value: _model.switchValue1!,
-                                                                                                                    onChanged: (newValue) async {
-                                                                                                                      safeSetState(() => _model.switchValue1 = newValue);
-                                                                                                                      if (newValue) {
-                                                                                                                        _model.areaTokyoActive = _model.switchValue1!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      } else {
-                                                                                                                        _model.areaTokyoActive = _model.switchValue1!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      }
-                                                                                                                    },
-                                                                                                                    activeColor: Color(0xFF06F705),
-                                                                                                                    activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                                    inactiveTrackColor: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                                                    inactiveThumbColor: Color(0xFFF70505),
-                                                                                                                  ),
-                                                                                                              ],
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                        ),
+                                                                                              Text(
+                                                                                                'エリア数',
+                                                                                                textAlign: TextAlign.center,
+                                                                                                style: FlutterFlowTheme.of(context).labelSmall.override(
+                                                                                                      font: GoogleFonts.inter(
+                                                                                                        fontWeight: FlutterFlowTheme.of(context).labelSmall.fontWeight,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).labelSmall.fontStyle,
                                                                                                       ),
+                                                                                                      color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                      letterSpacing: 0.0,
+                                                                                                      fontWeight: FlutterFlowTheme.of(context).labelSmall.fontWeight,
+                                                                                                      fontStyle: FlutterFlowTheme.of(context).labelSmall.fontStyle,
                                                                                                     ),
-                                                                                                  ),
-                                                                                                ],
                                                                                               ),
-                                                                                              Row(
-                                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                                children: [
-                                                                                                  Expanded(
-                                                                                                    child: Padding(
-                                                                                                      padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                                                                                                      child: Material(
-                                                                                                        color: Colors.transparent,
-                                                                                                        elevation: 1.0,
-                                                                                                        shape: RoundedRectangleBorder(
-                                                                                                          borderRadius: BorderRadius.circular(8.0),
-                                                                                                        ),
-                                                                                                        child: Container(
-                                                                                                          height: 45.0,
-                                                                                                          decoration: BoxDecoration(
-                                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            borderRadius: BorderRadius.circular(8.0),
-                                                                                                            border: Border.all(
-                                                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                          child: Padding(
-                                                                                                            padding: EdgeInsets.all(8.0),
-                                                                                                            child: Row(
-                                                                                                              mainAxisSize: MainAxisSize.max,
-                                                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                              children: [
-                                                                                                                Text(
-                                                                                                                  '千葉県',
-                                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                        font: GoogleFonts.inter(
-                                                                                                                          fontWeight: FontWeight.w600,
-                                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                        ),
-                                                                                                                        letterSpacing: 0.0,
-                                                                                                                        fontWeight: FontWeight.w600,
-                                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                      ),
-                                                                                                                ),
-                                                                                                                if (_model.isConfigLoaded)
-                                                                                                                  Switch.adaptive(
-                                                                                                                    value: _model.switchValue2!,
-                                                                                                                    onChanged: (newValue) async {
-                                                                                                                      safeSetState(() => _model.switchValue2 = newValue);
-                                                                                                                      if (newValue) {
-                                                                                                                        _model.areaChibaActive = _model.switchValue2!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      } else {
-                                                                                                                        _model.areaChibaActive = _model.switchValue2!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      }
-                                                                                                                    },
-                                                                                                                    activeColor: Color(0xFF06F705),
-                                                                                                                    activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                                    inactiveTrackColor: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                                                    inactiveThumbColor: Color(0xFFF70505),
-                                                                                                                  ),
-                                                                                                              ],
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                        ),
+                                                                                              Text(
+                                                                                                functions.serviceAreaActiveCount(_model.serviceAreaListStruct.toList())!,
+                                                                                                textAlign: TextAlign.center,
+                                                                                                style: FlutterFlowTheme.of(context).headlineSmall.override(
+                                                                                                      font: GoogleFonts.interTight(
+                                                                                                        fontWeight: FlutterFlowTheme.of(context).headlineSmall.fontWeight,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).headlineSmall.fontStyle,
                                                                                                       ),
+                                                                                                      color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                      letterSpacing: 0.0,
+                                                                                                      fontWeight: FlutterFlowTheme.of(context).headlineSmall.fontWeight,
+                                                                                                      fontStyle: FlutterFlowTheme.of(context).headlineSmall.fontStyle,
                                                                                                     ),
-                                                                                                  ),
-                                                                                                ],
                                                                                               ),
-                                                                                              Row(
-                                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                                children: [
-                                                                                                  Expanded(
-                                                                                                    child: Padding(
-                                                                                                      padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                                                                                                      child: Material(
-                                                                                                        color: Colors.transparent,
-                                                                                                        elevation: 1.0,
-                                                                                                        shape: RoundedRectangleBorder(
-                                                                                                          borderRadius: BorderRadius.circular(8.0),
-                                                                                                        ),
-                                                                                                        child: Container(
-                                                                                                          height: 45.0,
-                                                                                                          decoration: BoxDecoration(
-                                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            borderRadius: BorderRadius.circular(8.0),
-                                                                                                            border: Border.all(
-                                                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                          child: Padding(
-                                                                                                            padding: EdgeInsets.all(8.0),
-                                                                                                            child: Row(
-                                                                                                              mainAxisSize: MainAxisSize.max,
-                                                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                              children: [
-                                                                                                                Text(
-                                                                                                                  '神奈川県',
-                                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                        font: GoogleFonts.inter(
-                                                                                                                          fontWeight: FontWeight.w600,
-                                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                        ),
-                                                                                                                        letterSpacing: 0.0,
-                                                                                                                        fontWeight: FontWeight.w600,
-                                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                      ),
-                                                                                                                ),
-                                                                                                                if (_model.isConfigLoaded)
-                                                                                                                  Switch.adaptive(
-                                                                                                                    value: _model.switchValue3!,
-                                                                                                                    onChanged: (newValue) async {
-                                                                                                                      safeSetState(() => _model.switchValue3 = newValue);
-                                                                                                                      if (newValue) {
-                                                                                                                        _model.areaKanagawaActive = _model.switchValue3!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      } else {
-                                                                                                                        _model.areaKanagawaActive = _model.switchValue3!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      }
-                                                                                                                    },
-                                                                                                                    activeColor: Color(0xFF06F705),
-                                                                                                                    activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                                    inactiveTrackColor: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                                                    inactiveThumbColor: Color(0xFFF70505),
-                                                                                                                  ),
-                                                                                                              ],
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                        ),
+                                                                                              Text(
+                                                                                                functions.serviceAreaActiveNames(_model.serviceAreaListStruct.toList())!,
+                                                                                                textAlign: TextAlign.center,
+                                                                                                maxLines: 8,
+                                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                      font: GoogleFonts.inter(
+                                                                                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                       ),
+                                                                                                      color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                      letterSpacing: 0.0,
+                                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                                                     ),
-                                                                                                  ),
-                                                                                                ],
+                                                                                                overflow: TextOverflow.ellipsis,
                                                                                               ),
-                                                                                              Row(
-                                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                                children: [
-                                                                                                  Expanded(
-                                                                                                    child: Padding(
-                                                                                                      padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                                                                                                      child: Material(
-                                                                                                        color: Colors.transparent,
-                                                                                                        elevation: 1.0,
-                                                                                                        shape: RoundedRectangleBorder(
-                                                                                                          borderRadius: BorderRadius.circular(8.0),
-                                                                                                        ),
-                                                                                                        child: Container(
-                                                                                                          height: 45.0,
-                                                                                                          decoration: BoxDecoration(
-                                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            borderRadius: BorderRadius.circular(8.0),
-                                                                                                            border: Border.all(
-                                                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                          child: Padding(
-                                                                                                            padding: EdgeInsets.all(8.0),
-                                                                                                            child: Row(
-                                                                                                              mainAxisSize: MainAxisSize.max,
-                                                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                              children: [
-                                                                                                                Text(
-                                                                                                                  '岐阜県',
-                                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                        font: GoogleFonts.inter(
-                                                                                                                          fontWeight: FontWeight.w600,
-                                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                        ),
-                                                                                                                        letterSpacing: 0.0,
-                                                                                                                        fontWeight: FontWeight.w600,
-                                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                      ),
-                                                                                                                ),
-                                                                                                                if (_model.isConfigLoaded)
-                                                                                                                  Switch.adaptive(
-                                                                                                                    value: _model.switchValue4!,
-                                                                                                                    onChanged: (newValue) async {
-                                                                                                                      safeSetState(() => _model.switchValue4 = newValue);
-                                                                                                                      if (newValue) {
-                                                                                                                        _model.areaGifuActive = _model.switchValue4!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      } else {
-                                                                                                                        _model.areaGifuActive = _model.switchValue4!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      }
-                                                                                                                    },
-                                                                                                                    activeColor: Color(0xFF06F705),
-                                                                                                                    activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                                    inactiveTrackColor: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                                                    inactiveThumbColor: Color(0xFFF70505),
-                                                                                                                  ),
-                                                                                                              ],
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ],
-                                                                                              ),
-                                                                                              Row(
-                                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                                children: [
-                                                                                                  Expanded(
-                                                                                                    child: Padding(
-                                                                                                      padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                                                                                                      child: Material(
-                                                                                                        color: Colors.transparent,
-                                                                                                        elevation: 1.0,
-                                                                                                        shape: RoundedRectangleBorder(
-                                                                                                          borderRadius: BorderRadius.circular(8.0),
-                                                                                                        ),
-                                                                                                        child: Container(
-                                                                                                          height: 45.0,
-                                                                                                          decoration: BoxDecoration(
-                                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            borderRadius: BorderRadius.circular(8.0),
-                                                                                                            border: Border.all(
-                                                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                          child: Padding(
-                                                                                                            padding: EdgeInsets.all(8.0),
-                                                                                                            child: Row(
-                                                                                                              mainAxisSize: MainAxisSize.max,
-                                                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                              children: [
-                                                                                                                Text(
-                                                                                                                  '愛知県',
-                                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                        font: GoogleFonts.inter(
-                                                                                                                          fontWeight: FontWeight.w600,
-                                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                        ),
-                                                                                                                        letterSpacing: 0.0,
-                                                                                                                        fontWeight: FontWeight.w600,
-                                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                      ),
-                                                                                                                ),
-                                                                                                                if (_model.isConfigLoaded)
-                                                                                                                  Switch.adaptive(
-                                                                                                                    value: _model.switchValue5!,
-                                                                                                                    onChanged: (newValue) async {
-                                                                                                                      safeSetState(() => _model.switchValue5 = newValue);
-                                                                                                                      if (newValue) {
-                                                                                                                        _model.areaAichiActive = _model.switchValue5!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      } else {
-                                                                                                                        _model.areaAichiActive = _model.switchValue5!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      }
-                                                                                                                    },
-                                                                                                                    activeColor: Color(0xFF06F705),
-                                                                                                                    activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                                    inactiveTrackColor: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                                                    inactiveThumbColor: Color(0xFFF70505),
-                                                                                                                  ),
-                                                                                                              ],
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ],
-                                                                                              ),
-                                                                                              Row(
-                                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                                children: [
-                                                                                                  Expanded(
-                                                                                                    child: Padding(
-                                                                                                      padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                                                                                                      child: Material(
-                                                                                                        color: Colors.transparent,
-                                                                                                        elevation: 1.0,
-                                                                                                        shape: RoundedRectangleBorder(
-                                                                                                          borderRadius: BorderRadius.circular(8.0),
-                                                                                                        ),
-                                                                                                        child: Container(
-                                                                                                          height: 45.0,
-                                                                                                          decoration: BoxDecoration(
-                                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            borderRadius: BorderRadius.circular(8.0),
-                                                                                                            border: Border.all(
-                                                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                          child: Padding(
-                                                                                                            padding: EdgeInsets.all(8.0),
-                                                                                                            child: Row(
-                                                                                                              mainAxisSize: MainAxisSize.max,
-                                                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                              children: [
-                                                                                                                Text(
-                                                                                                                  '京都府',
-                                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                        font: GoogleFonts.inter(
-                                                                                                                          fontWeight: FontWeight.w600,
-                                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                        ),
-                                                                                                                        letterSpacing: 0.0,
-                                                                                                                        fontWeight: FontWeight.w600,
-                                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                      ),
-                                                                                                                ),
-                                                                                                                if (_model.isConfigLoaded)
-                                                                                                                  Switch.adaptive(
-                                                                                                                    value: _model.switchValue6!,
-                                                                                                                    onChanged: (newValue) async {
-                                                                                                                      safeSetState(() => _model.switchValue6 = newValue);
-                                                                                                                      if (newValue) {
-                                                                                                                        _model.areaKyotoActive = _model.switchValue6!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      } else {
-                                                                                                                        _model.areaKyotoActive = _model.switchValue6!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      }
-                                                                                                                    },
-                                                                                                                    activeColor: Color(0xFF06F705),
-                                                                                                                    activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                                    inactiveTrackColor: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                                                    inactiveThumbColor: Color(0xFFF70505),
-                                                                                                                  ),
-                                                                                                              ],
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ],
-                                                                                              ),
-                                                                                              Row(
-                                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                                children: [
-                                                                                                  Expanded(
-                                                                                                    child: Padding(
-                                                                                                      padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                                                                                                      child: Material(
-                                                                                                        color: Colors.transparent,
-                                                                                                        elevation: 1.0,
-                                                                                                        shape: RoundedRectangleBorder(
-                                                                                                          borderRadius: BorderRadius.circular(8.0),
-                                                                                                        ),
-                                                                                                        child: Container(
-                                                                                                          height: 45.0,
-                                                                                                          decoration: BoxDecoration(
-                                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            borderRadius: BorderRadius.circular(8.0),
-                                                                                                            border: Border.all(
-                                                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                          child: Padding(
-                                                                                                            padding: EdgeInsets.all(8.0),
-                                                                                                            child: Row(
-                                                                                                              mainAxisSize: MainAxisSize.max,
-                                                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                              children: [
-                                                                                                                Text(
-                                                                                                                  '大阪府',
-                                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                        font: GoogleFonts.inter(
-                                                                                                                          fontWeight: FontWeight.w600,
-                                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                        ),
-                                                                                                                        letterSpacing: 0.0,
-                                                                                                                        fontWeight: FontWeight.w600,
-                                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                      ),
-                                                                                                                ),
-                                                                                                                if (_model.isConfigLoaded)
-                                                                                                                  Switch.adaptive(
-                                                                                                                    value: _model.switchValue7!,
-                                                                                                                    onChanged: (newValue) async {
-                                                                                                                      safeSetState(() => _model.switchValue7 = newValue);
-                                                                                                                      if (newValue) {
-                                                                                                                        _model.areaOsakaActive = _model.switchValue7!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      } else {
-                                                                                                                        _model.areaOsakaActive = _model.switchValue7!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      }
-                                                                                                                    },
-                                                                                                                    activeColor: Color(0xFF06F705),
-                                                                                                                    activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                                    inactiveTrackColor: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                                                    inactiveThumbColor: Color(0xFFF70505),
-                                                                                                                  ),
-                                                                                                              ],
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ],
-                                                                                              ),
-                                                                                              Row(
-                                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                                children: [
-                                                                                                  Expanded(
-                                                                                                    child: Padding(
-                                                                                                      padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                                                                                                      child: Material(
-                                                                                                        color: Colors.transparent,
-                                                                                                        elevation: 1.0,
-                                                                                                        shape: RoundedRectangleBorder(
-                                                                                                          borderRadius: BorderRadius.circular(8.0),
-                                                                                                        ),
-                                                                                                        child: Container(
-                                                                                                          height: 45.0,
-                                                                                                          decoration: BoxDecoration(
-                                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            borderRadius: BorderRadius.circular(8.0),
-                                                                                                            border: Border.all(
-                                                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                          child: Padding(
-                                                                                                            padding: EdgeInsets.all(8.0),
-                                                                                                            child: Row(
-                                                                                                              mainAxisSize: MainAxisSize.max,
-                                                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                              children: [
-                                                                                                                Text(
-                                                                                                                  '兵庫県',
-                                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                        font: GoogleFonts.inter(
-                                                                                                                          fontWeight: FontWeight.w600,
-                                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                        ),
-                                                                                                                        letterSpacing: 0.0,
-                                                                                                                        fontWeight: FontWeight.w600,
-                                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                      ),
-                                                                                                                ),
-                                                                                                                if (_model.isConfigLoaded)
-                                                                                                                  Switch.adaptive(
-                                                                                                                    value: _model.switchValue8!,
-                                                                                                                    onChanged: (newValue) async {
-                                                                                                                      safeSetState(() => _model.switchValue8 = newValue);
-                                                                                                                      if (newValue) {
-                                                                                                                        _model.areaHyogoActive = _model.switchValue8!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      } else {
-                                                                                                                        _model.areaHyogoActive = _model.switchValue8!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      }
-                                                                                                                    },
-                                                                                                                    activeColor: Color(0xFF06F705),
-                                                                                                                    activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                                    inactiveTrackColor: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                                                    inactiveThumbColor: Color(0xFFF70505),
-                                                                                                                  ),
-                                                                                                              ],
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ],
-                                                                                              ),
-                                                                                              Row(
-                                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                                children: [
-                                                                                                  Expanded(
-                                                                                                    child: Padding(
-                                                                                                      padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                                                                                                      child: Material(
-                                                                                                        color: Colors.transparent,
-                                                                                                        elevation: 1.0,
-                                                                                                        shape: RoundedRectangleBorder(
-                                                                                                          borderRadius: BorderRadius.circular(8.0),
-                                                                                                        ),
-                                                                                                        child: Container(
-                                                                                                          height: 45.0,
-                                                                                                          decoration: BoxDecoration(
-                                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            borderRadius: BorderRadius.circular(8.0),
-                                                                                                            border: Border.all(
-                                                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                          child: Padding(
-                                                                                                            padding: EdgeInsets.all(8.0),
-                                                                                                            child: Row(
-                                                                                                              mainAxisSize: MainAxisSize.max,
-                                                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                              children: [
-                                                                                                                Text(
-                                                                                                                  '岡山県',
-                                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                        font: GoogleFonts.inter(
-                                                                                                                          fontWeight: FontWeight.w600,
-                                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                        ),
-                                                                                                                        letterSpacing: 0.0,
-                                                                                                                        fontWeight: FontWeight.w600,
-                                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                      ),
-                                                                                                                ),
-                                                                                                                if (_model.isConfigLoaded)
-                                                                                                                  Switch.adaptive(
-                                                                                                                    value: _model.switchValue9!,
-                                                                                                                    onChanged: (newValue) async {
-                                                                                                                      safeSetState(() => _model.switchValue9 = newValue);
-                                                                                                                      if (newValue) {
-                                                                                                                        _model.areaOkayamaActive = _model.switchValue9!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      } else {
-                                                                                                                        _model.areaOkayamaActive = _model.switchValue9!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      }
-                                                                                                                    },
-                                                                                                                    activeColor: Color(0xFF06F705),
-                                                                                                                    activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                                    inactiveTrackColor: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                                                    inactiveThumbColor: Color(0xFFF70505),
-                                                                                                                  ),
-                                                                                                              ],
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ],
-                                                                                              ),
-                                                                                              Row(
-                                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                                children: [
-                                                                                                  Expanded(
-                                                                                                    child: Padding(
-                                                                                                      padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                                                                                                      child: Material(
-                                                                                                        color: Colors.transparent,
-                                                                                                        elevation: 1.0,
-                                                                                                        shape: RoundedRectangleBorder(
-                                                                                                          borderRadius: BorderRadius.circular(8.0),
-                                                                                                        ),
-                                                                                                        child: Container(
-                                                                                                          height: 45.0,
-                                                                                                          decoration: BoxDecoration(
-                                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            borderRadius: BorderRadius.circular(8.0),
-                                                                                                            border: Border.all(
-                                                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                          child: Padding(
-                                                                                                            padding: EdgeInsets.all(8.0),
-                                                                                                            child: Row(
-                                                                                                              mainAxisSize: MainAxisSize.max,
-                                                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                              children: [
-                                                                                                                Text(
-                                                                                                                  '広島県',
-                                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                        font: GoogleFonts.inter(
-                                                                                                                          fontWeight: FontWeight.w600,
-                                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                        ),
-                                                                                                                        letterSpacing: 0.0,
-                                                                                                                        fontWeight: FontWeight.w600,
-                                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                      ),
-                                                                                                                ),
-                                                                                                                if (_model.isConfigLoaded)
-                                                                                                                  Switch.adaptive(
-                                                                                                                    value: _model.switchValue10!,
-                                                                                                                    onChanged: (newValue) async {
-                                                                                                                      safeSetState(() => _model.switchValue10 = newValue);
-                                                                                                                      if (newValue) {
-                                                                                                                        _model.areaHiroshimaActive = _model.switchValue10!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      } else {
-                                                                                                                        _model.areaHiroshimaActive = _model.switchValue10!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      }
-                                                                                                                    },
-                                                                                                                    activeColor: Color(0xFF06F705),
-                                                                                                                    activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                                    inactiveTrackColor: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                                                    inactiveThumbColor: Color(0xFFF70505),
-                                                                                                                  ),
-                                                                                                              ],
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ],
-                                                                                              ),
-                                                                                              Row(
-                                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                                children: [
-                                                                                                  Expanded(
-                                                                                                    child: Padding(
-                                                                                                      padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                                                                                                      child: Material(
-                                                                                                        color: Colors.transparent,
-                                                                                                        elevation: 1.0,
-                                                                                                        shape: RoundedRectangleBorder(
-                                                                                                          borderRadius: BorderRadius.circular(8.0),
-                                                                                                        ),
-                                                                                                        child: Container(
-                                                                                                          height: 45.0,
-                                                                                                          decoration: BoxDecoration(
-                                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            borderRadius: BorderRadius.circular(8.0),
-                                                                                                            border: Border.all(
-                                                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                          child: Padding(
-                                                                                                            padding: EdgeInsets.all(8.0),
-                                                                                                            child: Row(
-                                                                                                              mainAxisSize: MainAxisSize.max,
-                                                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                                              children: [
-                                                                                                                Text(
-                                                                                                                  '福岡県',
-                                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                        font: GoogleFonts.inter(
-                                                                                                                          fontWeight: FontWeight.w600,
-                                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                        ),
-                                                                                                                        letterSpacing: 0.0,
-                                                                                                                        fontWeight: FontWeight.w600,
-                                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                                                      ),
-                                                                                                                ),
-                                                                                                                if (_model.isConfigLoaded)
-                                                                                                                  Switch.adaptive(
-                                                                                                                    value: _model.switchValue11!,
-                                                                                                                    onChanged: (newValue) async {
-                                                                                                                      safeSetState(() => _model.switchValue11 = newValue);
-                                                                                                                      if (newValue) {
-                                                                                                                        _model.areaFukuokaActive = _model.switchValue11!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      } else {
-                                                                                                                        _model.areaFukuokaActive = _model.switchValue11!;
-                                                                                                                        safeSetState(() {});
-                                                                                                                      }
-                                                                                                                    },
-                                                                                                                    activeColor: Color(0xFF06F705),
-                                                                                                                    activeTrackColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                                                    inactiveTrackColor: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                                                    inactiveThumbColor: Color(0xFFF70505),
-                                                                                                                  ),
-                                                                                                              ],
-                                                                                                            ),
-                                                                                                          ),
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                    ),
-                                                                                                  ),
-                                                                                                ],
-                                                                                              ),
-                                                                                            ].divide(SizedBox(height: 8.0)).around(SizedBox(height: 8.0)),
+                                                                                            ].divide(SizedBox(height: 8.0)),
                                                                                           ),
                                                                                         ),
                                                                                       ),
-                                                                                      Container(
-                                                                                        width: double.infinity,
-                                                                                        height: 45.0,
-                                                                                        decoration: BoxDecoration(
-                                                                                          color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                              Container(
+                                                                                width: 420.0,
+                                                                                decoration: BoxDecoration(
+                                                                                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                  border: Border.all(
+                                                                                    color: FlutterFlowTheme.of(context).alternate,
+                                                                                    width: 1.0,
+                                                                                  ),
+                                                                                ),
+                                                                                child: Column(
+                                                                                  mainAxisSize: MainAxisSize.min,
+                                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                  children: [
+                                                                                    Container(
+                                                                                      width: double.infinity,
+                                                                                      height: 35.0,
+                                                                                      decoration: BoxDecoration(
+                                                                                        gradient: LinearGradient(
+                                                                                          colors: [
+                                                                                            Color(0xFFFBBF24),
+                                                                                            Color(0xFFFCD34D)
+                                                                                          ],
+                                                                                          stops: [0.0, 1.0],
+                                                                                          begin: AlignmentDirectional(1.0, 1.0),
+                                                                                          end: AlignmentDirectional(-1.0, -1.0),
                                                                                         ),
-                                                                                        child: Row(
-                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                                                          children: [
-                                                                                            Builder(
-                                                                                              builder: (context) => FFButtonWidget(
-                                                                                                onPressed: () async {
-                                                                                                  await showDialog(
-                                                                                                    context: context,
-                                                                                                    builder: (dialogContext) {
-                                                                                                      return Dialog(
-                                                                                                        elevation: 0,
-                                                                                                        insetPadding: EdgeInsets.zero,
-                                                                                                        backgroundColor: Colors.transparent,
-                                                                                                        alignment: AlignmentDirectional(0.0, -1.0).resolve(Directionality.of(context)),
-                                                                                                        child: GestureDetector(
-                                                                                                          onTap: () {
-                                                                                                            FocusScope.of(dialogContext).unfocus();
-                                                                                                            FocusManager.instance.primaryFocus?.unfocus();
-                                                                                                          },
-                                                                                                          child: Container(
-                                                                                                            height: 600.0,
-                                                                                                            width: 500.0,
-                                                                                                            child: PrefecturesDialogCompWidget(),
+                                                                                      ),
+                                                                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                      child: Text(
+                                                                                        '提供都道府県一覧',
+                                                                                        style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                              font: GoogleFonts.inter(
+                                                                                                fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                                fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                              ),
+                                                                                              color: Colors.white,
+                                                                                              letterSpacing: 0.0,
+                                                                                              fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                              fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                            ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Container(
+                                                                                      child: Padding(
+                                                                                        padding: EdgeInsets.all(8.0),
+                                                                                        child: Builder(
+                                                                                          builder: (context) {
+                                                                                            final item = functions.canonicalServiceAreas(_model.serviceAreaListStruct.toList())?.toList() ?? [];
+
+                                                                                            return ListView.separated(
+                                                                                              padding: EdgeInsets.zero,
+                                                                                              primary: false,
+                                                                                              shrinkWrap: true,
+                                                                                              scrollDirection: Axis.vertical,
+                                                                                              itemCount: item.length,
+                                                                                              separatorBuilder: (_, __) => SizedBox(height: 4.0),
+                                                                                              itemBuilder: (context, itemIndex) {
+                                                                                                final itemItem = item[itemIndex];
+                                                                                                return InkWell(
+                                                                                                  splashColor: Colors.transparent,
+                                                                                                  focusColor: Colors.transparent,
+                                                                                                  hoverColor: Colors.transparent,
+                                                                                                  highlightColor: Colors.transparent,
+                                                                                                  onTap: () async {
+                                                                                                    _model.serviceAreaStatusToggleResult = await actions.adminToggleServiceArea(
+                                                                                                      itemItem.prefecture,
+                                                                                                      !itemItem.active,
+                                                                                                    );
+                                                                                                    _model.serviceAreaListStruct = _model.serviceAreaStatusToggleResult!.toList().cast<ServiceAreaItemStruct>();
+                                                                                                    safeSetState(() {});
+
+                                                                                                    safeSetState(() {});
+                                                                                                  },
+                                                                                                  child: Container(
+                                                                                                    decoration: BoxDecoration(
+                                                                                                      color: FlutterFlowTheme.of(context).alternate,
+                                                                                                      borderRadius: BorderRadius.circular(8.0),
+                                                                                                    ),
+                                                                                                    child: Padding(
+                                                                                                      padding: EdgeInsets.all(8.0),
+                                                                                                      child: Row(
+                                                                                                        mainAxisSize: MainAxisSize.max,
+                                                                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                                        children: [
+                                                                                                          Text(
+                                                                                                            itemItem.prefecture,
+                                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                  font: GoogleFonts.inter(
+                                                                                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                  ),
+                                                                                                                  letterSpacing: 0.0,
+                                                                                                                  fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                ),
                                                                                                           ),
-                                                                                                        ),
-                                                                                                      );
+                                                                                                          Row(
+                                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                                            children: [
+                                                                                                              Icon(
+                                                                                                                Icons.circle,
+                                                                                                                color: functions.activeStatusDotColor(itemItem.activeLabel),
+                                                                                                                size: 14.0,
+                                                                                                              ),
+                                                                                                              Text(
+                                                                                                                itemItem.activeLabel,
+                                                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                      font: GoogleFonts.inter(
+                                                                                                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                      ),
+                                                                                                                      letterSpacing: 0.0,
+                                                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                    ),
+                                                                                                              ),
+                                                                                                            ].divide(SizedBox(width: 8.0)),
+                                                                                                          ),
+                                                                                                        ],
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                );
+                                                                                              },
+                                                                                            );
+                                                                                          },
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    if (functions.hasExtraServiceAreas(_model.serviceAreaListStruct.toList()) ?? true)
+                                                                                      Container(
+                                                                                        child: Padding(
+                                                                                          padding: EdgeInsets.all(8.0),
+                                                                                          child: Row(
+                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                            children: [
+                                                                                              Icon(
+                                                                                                Icons.add_location,
+                                                                                                color: FlutterFlowTheme.of(context).secondary,
+                                                                                                size: 14.0,
+                                                                                              ),
+                                                                                              Text(
+                                                                                                '追加エリア',
+                                                                                                style: FlutterFlowTheme.of(context).labelSmall.override(
+                                                                                                      font: GoogleFonts.inter(
+                                                                                                        fontWeight: FlutterFlowTheme.of(context).labelSmall.fontWeight,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).labelSmall.fontStyle,
+                                                                                                      ),
+                                                                                                      color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                      letterSpacing: 0.0,
+                                                                                                      fontWeight: FlutterFlowTheme.of(context).labelSmall.fontWeight,
+                                                                                                      fontStyle: FlutterFlowTheme.of(context).labelSmall.fontStyle,
+                                                                                                    ),
+                                                                                              ),
+                                                                                            ].divide(SizedBox(width: 6.0)),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    if (functions.hasExtraServiceAreas(_model.serviceAreaListStruct.toList()) ?? true)
+                                                                                      Container(
+                                                                                        child: Padding(
+                                                                                          padding: EdgeInsets.all(8.0),
+                                                                                          child: Builder(
+                                                                                            builder: (context) {
+                                                                                              final item = functions.extraServiceAreas(_model.serviceAreaListStruct.toList())?.toList() ?? [];
+
+                                                                                              return ListView.separated(
+                                                                                                padding: EdgeInsets.zero,
+                                                                                                primary: false,
+                                                                                                shrinkWrap: true,
+                                                                                                scrollDirection: Axis.vertical,
+                                                                                                itemCount: item.length,
+                                                                                                separatorBuilder: (_, __) => SizedBox(height: 4.0),
+                                                                                                itemBuilder: (context, itemIndex) {
+                                                                                                  final itemItem = item[itemIndex];
+                                                                                                  return InkWell(
+                                                                                                    splashColor: Colors.transparent,
+                                                                                                    focusColor: Colors.transparent,
+                                                                                                    hoverColor: Colors.transparent,
+                                                                                                    highlightColor: Colors.transparent,
+                                                                                                    onTap: () async {
+                                                                                                      var confirmDialogResponse = await showDialog<bool>(
+                                                                                                            context: context,
+                                                                                                            builder: (alertDialogContext) {
+                                                                                                              return AlertDialog(
+                                                                                                                title: Text('削除確認'),
+                                                                                                                content: Text('このエリアを提供中エリアから削除しますか？'),
+                                                                                                                actions: [
+                                                                                                                  TextButton(
+                                                                                                                    onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                                                    child: Text('キャンセル'),
+                                                                                                                  ),
+                                                                                                                  TextButton(
+                                                                                                                    onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                                                    child: Text('削除する'),
+                                                                                                                  ),
+                                                                                                                ],
+                                                                                                              );
+                                                                                                            },
+                                                                                                          ) ??
+                                                                                                          false;
+                                                                                                      if (confirmDialogResponse) {
+                                                                                                        _model.extraServiceAreaStatusToggleResult = await actions.adminToggleServiceArea(
+                                                                                                          itemItem.prefecture,
+                                                                                                          !itemItem.active,
+                                                                                                        );
+                                                                                                        _model.serviceAreaListStruct = _model.extraServiceAreaStatusToggleResult!.toList().cast<ServiceAreaItemStruct>();
+                                                                                                        safeSetState(() {});
+                                                                                                        ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                          SnackBar(
+                                                                                                            content: Text(
+                                                                                                              '削除しました。',
+                                                                                                              style: TextStyle(),
+                                                                                                            ),
+                                                                                                            duration: Duration(milliseconds: 4000),
+                                                                                                          ),
+                                                                                                        );
+                                                                                                      } else {
+                                                                                                        ScaffoldMessenger.of(context).showSnackBar(
+                                                                                                          SnackBar(
+                                                                                                            content: Text(
+                                                                                                              '操作をキャンセルしました。',
+                                                                                                              style: TextStyle(),
+                                                                                                            ),
+                                                                                                            duration: Duration(milliseconds: 4000),
+                                                                                                          ),
+                                                                                                        );
+                                                                                                      }
+
+                                                                                                      safeSetState(() {});
                                                                                                     },
+                                                                                                    child: Container(
+                                                                                                      decoration: BoxDecoration(
+                                                                                                        color: FlutterFlowTheme.of(context).alternate,
+                                                                                                        borderRadius: BorderRadius.circular(8.0),
+                                                                                                      ),
+                                                                                                      child: Padding(
+                                                                                                        padding: EdgeInsets.all(8.0),
+                                                                                                        child: Row(
+                                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                                          children: [
+                                                                                                            Text(
+                                                                                                              itemItem.prefecture,
+                                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                    font: GoogleFonts.inter(
+                                                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                    ),
+                                                                                                                    letterSpacing: 0.0,
+                                                                                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                  ),
+                                                                                                            ),
+                                                                                                            Row(
+                                                                                                              mainAxisSize: MainAxisSize.max,
+                                                                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                                              children: [
+                                                                                                                Icon(
+                                                                                                                  Icons.circle,
+                                                                                                                  color: functions.activeStatusDotColor(itemItem.activeLabel),
+                                                                                                                  size: 14.0,
+                                                                                                                ),
+                                                                                                                Text(
+                                                                                                                  itemItem.activeLabel,
+                                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                        font: GoogleFonts.inter(
+                                                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                        ),
+                                                                                                                        letterSpacing: 0.0,
+                                                                                                                        fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                                                      ),
+                                                                                                                ),
+                                                                                                              ].divide(SizedBox(width: 8.0)),
+                                                                                                            ),
+                                                                                                          ],
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
                                                                                                   );
                                                                                                 },
-                                                                                                text: '提供エリア追加',
-                                                                                                options: FFButtonOptions(
-                                                                                                  width: 120.0,
-                                                                                                  height: 30.0,
-                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                                                                                                  iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                                                                                  color: Color(0xFF8FE2FA),
-                                                                                                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                                                                                        font: GoogleFonts.interTight(
-                                                                                                          fontWeight: FontWeight.w500,
-                                                                                                          fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                                                        ),
-                                                                                                        color: Colors.white,
-                                                                                                        fontSize: 12.0,
-                                                                                                        letterSpacing: 0.0,
-                                                                                                        fontWeight: FontWeight.w500,
-                                                                                                        fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                                                      ),
-                                                                                                  elevation: 1.0,
-                                                                                                  borderRadius: BorderRadius.circular(8.0),
-                                                                                                ),
-                                                                                              ),
-                                                                                            ),
-                                                                                          ],
+                                                                                              );
+                                                                                            },
+                                                                                          ),
                                                                                         ),
                                                                                       ),
-                                                                                    ],
-                                                                                  ),
+                                                                                    Container(
+                                                                                      child: Padding(
+                                                                                        padding: EdgeInsets.all(8.0),
+                                                                                        child: FFButtonWidget(
+                                                                                          onPressed: () async {
+                                                                                            await actions.openPrefecturesDialog(
+                                                                                              context,
+                                                                                            );
+                                                                                            _model.refreshedServiceAreas = await actions.adminGetAllServiceAreas();
+                                                                                            _model.serviceAreaListStruct = _model.refreshedServiceAreas!.toList().cast<ServiceAreaItemStruct>();
+                                                                                            safeSetState(() {});
+
+                                                                                            safeSetState(() {});
+                                                                                          },
+                                                                                          text: '提供エリア追加',
+                                                                                          options: FFButtonOptions(
+                                                                                            width: double.infinity,
+                                                                                            height: 32.0,
+                                                                                            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                            iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                            color: FlutterFlowTheme.of(context).primary,
+                                                                                            textStyle: TextStyle(
+                                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                            ),
+                                                                                            borderRadius: BorderRadius.circular(8.0),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
                                                                                 ),
                                                                               ),
-                                                                            ],
+                                                                            ].divide(SizedBox(width: 24.0)),
                                                                           ),
-                                                                        ),
-                                                                        Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              0.0,
-                                                                              28.0,
-                                                                              0.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              FFButtonWidget(
-                                                                            onPressed:
-                                                                                () async {
-                                                                              _model.saveServiceAreaResult = await actions.adminUpdateServiceAreaSettings(
-                                                                                _model.areaTokyoActive,
-                                                                                _model.areaChibaActive,
-                                                                                _model.areaKanagawaActive,
-                                                                                _model.areaGifuActive,
-                                                                                _model.areaAichiActive,
-                                                                                _model.areaKyotoActive,
-                                                                                _model.areaOsakaActive,
-                                                                                _model.areaHyogoActive,
-                                                                                _model.areaOkayamaActive,
-                                                                                _model.areaHiroshimaActive,
-                                                                                _model.areaFukuokaActive,
-                                                                              );
-                                                                              if (getJsonField(
-                                                                                _model.saveServiceAreaResult,
-                                                                                r'''$.success''',
-                                                                              )
-                                                                                  ? true
-                                                                                  : false) {
-                                                                                await showDialog(
-                                                                                  context: context,
-                                                                                  builder: (alertDialogContext) {
-                                                                                    return AlertDialog(
-                                                                                      title: Text('提供エリア設定'),
-                                                                                      content: Text('保存しました。'),
-                                                                                      actions: [
-                                                                                        TextButton(
-                                                                                          onPressed: () => Navigator.pop(alertDialogContext),
-                                                                                          child: Text('Ok'),
-                                                                                        ),
-                                                                                      ],
-                                                                                    );
-                                                                                  },
-                                                                                );
-                                                                              } else {
-                                                                                await showDialog(
-                                                                                  context: context,
-                                                                                  builder: (alertDialogContext) {
-                                                                                    return AlertDialog(
-                                                                                      title: Text('提供エリア設定'),
-                                                                                      content: Text('更新に失敗しました。'),
-                                                                                      actions: [
-                                                                                        TextButton(
-                                                                                          onPressed: () => Navigator.pop(alertDialogContext),
-                                                                                          child: Text('Ok'),
-                                                                                        ),
-                                                                                      ],
-                                                                                    );
-                                                                                  },
-                                                                                );
-                                                                              }
-
-                                                                              safeSetState(() {});
-                                                                            },
-                                                                            text:
-                                                                                '提供エリア設定を保存する',
-                                                                            options:
-                                                                                FFButtonOptions(
-                                                                              width: 250.0,
-                                                                              height: 40.0,
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                                                                              iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                                                              color: Color(0xFF8FE2FA),
-                                                                              textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                                                                    font: GoogleFonts.interTight(
-                                                                                      fontWeight: FontWeight.w500,
-                                                                                      fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                                    ),
-                                                                                    color: Colors.white,
-                                                                                    fontSize: 14.0,
-                                                                                    letterSpacing: 0.0,
-                                                                                    fontWeight: FontWeight.w500,
-                                                                                    fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                                                                                  ),
-                                                                              elevation: 0.0,
-                                                                              borderRadius: BorderRadius.circular(8.0),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ].divide(SizedBox(height: 8.0)).around(
-                                                                              SizedBox(height: 8.0)),
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ],
@@ -5289,38 +5003,90 @@ class _SystemSettingsListPageWidgetState
                                                                               FFButtonWidget(
                                                                             onPressed:
                                                                                 () async {
-                                                                              _model.saveTaxiResult = await actions.adminUpdateTaxiSettings(
-                                                                                _model.textController3.text,
-                                                                                _model.textController4.text,
-                                                                              );
-                                                                              if (getJsonField(
-                                                                                _model.saveTaxiResult,
-                                                                                r'''$.success''',
-                                                                              )
-                                                                                  ? true
-                                                                                  : false) {
-                                                                                await showDialog(
-                                                                                  context: context,
-                                                                                  builder: (alertDialogContext) {
-                                                                                    return AlertDialog(
-                                                                                      title: Text('タクシー代設定'),
-                                                                                      content: Text('保存しました。'),
-                                                                                      actions: [
-                                                                                        TextButton(
-                                                                                          onPressed: () => Navigator.pop(alertDialogContext),
-                                                                                          child: Text('Ok'),
-                                                                                        ),
-                                                                                      ],
+                                                                              if (_model.isConfigLoaded) {
+                                                                                var confirmDialogResponse = await showDialog<bool>(
+                                                                                      context: context,
+                                                                                      builder: (alertDialogContext) {
+                                                                                        return AlertDialog(
+                                                                                          title: Text('ご確認ください。'),
+                                                                                          content: Text('本当に更新しますか？'),
+                                                                                          actions: [
+                                                                                            TextButton(
+                                                                                              onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                              child: Text('いいえ'),
+                                                                                            ),
+                                                                                            TextButton(
+                                                                                              onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                              child: Text('はい'),
+                                                                                            ),
+                                                                                          ],
+                                                                                        );
+                                                                                      },
+                                                                                    ) ??
+                                                                                    false;
+                                                                                if (confirmDialogResponse) {
+                                                                                  _model.saveTaxiResult = await actions.adminUpdateTaxiSettings(
+                                                                                    _model.textController3.text,
+                                                                                    _model.textController4.text,
+                                                                                  );
+                                                                                  if (getJsonField(
+                                                                                    _model.saveTaxiResult,
+                                                                                    r'''$.success''',
+                                                                                  )
+                                                                                      ? true
+                                                                                      : false) {
+                                                                                    await showDialog(
+                                                                                      context: context,
+                                                                                      builder: (alertDialogContext) {
+                                                                                        return AlertDialog(
+                                                                                          title: Text('タクシー代設定'),
+                                                                                          content: Text('保存しました。'),
+                                                                                          actions: [
+                                                                                            TextButton(
+                                                                                              onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                              child: Text('Ok'),
+                                                                                            ),
+                                                                                          ],
+                                                                                        );
+                                                                                      },
                                                                                     );
-                                                                                  },
-                                                                                );
+                                                                                  } else {
+                                                                                    await showDialog(
+                                                                                      context: context,
+                                                                                      builder: (alertDialogContext) {
+                                                                                        return AlertDialog(
+                                                                                          title: Text('タクシー代設定'),
+                                                                                          content: Text('更新に失敗しました。'),
+                                                                                          actions: [
+                                                                                            TextButton(
+                                                                                              onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                              child: Text('Ok'),
+                                                                                            ),
+                                                                                          ],
+                                                                                        );
+                                                                                      },
+                                                                                    );
+                                                                                  }
+                                                                                } else {
+                                                                                  ScaffoldMessenger.of(context).showSnackBar(
+                                                                                    SnackBar(
+                                                                                      content: Text(
+                                                                                        '操作をキャンセルしました。',
+                                                                                        style: TextStyle(
+                                                                                          color: FlutterFlowTheme.of(context).primaryText,
+                                                                                        ),
+                                                                                      ),
+                                                                                      duration: Duration(milliseconds: 4000),
+                                                                                      backgroundColor: FlutterFlowTheme.of(context).secondary,
+                                                                                    ),
+                                                                                  );
+                                                                                }
                                                                               } else {
                                                                                 await showDialog(
                                                                                   context: context,
                                                                                   builder: (alertDialogContext) {
                                                                                     return AlertDialog(
-                                                                                      title: Text('タクシー代設定'),
-                                                                                      content: Text('更新に失敗しました。'),
+                                                                                      content: Text('設定を読み込み中です。しばらく待ってから保存してください。'),
                                                                                       actions: [
                                                                                         TextButton(
                                                                                           onPressed: () => Navigator.pop(alertDialogContext),
@@ -5342,7 +5108,7 @@ class _SystemSettingsListPageWidgetState
                                                                               height: 40.0,
                                                                               padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                                                                               iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                                                              color: Color(0xFF8FE2FA),
+                                                                              color: FlutterFlowTheme.of(context).primary,
                                                                               textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                                                                     font: GoogleFonts.interTight(
                                                                                       fontWeight: FontWeight.w500,

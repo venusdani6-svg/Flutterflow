@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -8,6 +9,8 @@ import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'admin_dashboard_page_model.dart';
 export 'admin_dashboard_page_model.dart';
@@ -23,10 +26,13 @@ class AdminDashboardPageWidget extends StatefulWidget {
       _AdminDashboardPageWidgetState();
 }
 
-class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
+class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget>
+    with TickerProviderStateMixin {
   late AdminDashboardPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -102,6 +108,309 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
         context.pushNamedAuth(AdminLoginPageWidget.routeName, context.mounted);
       }
     });
+
+    animationsMap.addAll({
+      'containerOnPageLoadAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 60.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 60.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 60.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation3': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 120.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 120.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 120.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation4': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 180.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 180.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 180.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation5': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 240.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 240.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 240.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation6': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 300.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 300.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 300.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation7': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 360.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 360.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 360.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation8': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 420.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 420.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 420.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation9': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 480.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 480.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 480.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation10': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 540.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 540.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 540.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation11': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 600.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 600.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 600.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation12': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 660.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 660.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 660.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation13': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 720.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 720.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 720.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation14': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 780.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 780.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 780.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnPageLoadAnimation15': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 840.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 840.0.ms,
+            duration: 500.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 840.0.ms,
+            duration: 500.0.ms,
+            begin: Offset(0.0, 30.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -114,9 +423,11 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
   @override
   Widget build(BuildContext context) {
     final chartPieChartColorsList2 = [
-      Color(0xFF3829FE),
-      Color(0xFFF804DA),
-      Color(0xFFF8DD04)
+      Color(0xFF3D1B3F),
+      Color(0xFFE2705C),
+      Color(0xFFF4A13E),
+      Color(0xFF8E2255),
+      Color(0xFFB23F6C)
     ];
     return GestureDetector(
       onTap: () {
@@ -164,17 +475,18 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Color(0x1FF59E0B),
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/transparent.png',
-                                        width: 80.0,
-                                        height: 80.0,
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: SvgPicture.asset(
+                                        'assets/images/icoccha_logo_color.svg',
+                                        width: 200.0,
+                                        height: 200.0,
                                         fit: BoxFit.contain,
                                       ),
                                     ),
@@ -184,8 +496,15 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                       width: 100.0,
                                       height: 80.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFF59E0B),
+                                            Color(0xFFFBBF24)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 1.0),
+                                          end: AlignmentDirectional(-1.0, -1.0),
+                                        ),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -195,9 +514,17 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                               width: 250.0,
                                               height: 80.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
+                                                gradient: LinearGradient(
+                                                  colors: [
+                                                    Color(0xFFF59E0B),
+                                                    Color(0xFFFBBF24)
+                                                  ],
+                                                  stops: [0.0, 1.0],
+                                                  begin: AlignmentDirectional(
+                                                      1.0, 1.0),
+                                                  end: AlignmentDirectional(
+                                                      -1.0, -1.0),
+                                                ),
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
@@ -255,6 +582,8 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           14.0,
                                                                       letterSpacing:
@@ -283,6 +612,8 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           12.0,
                                                                       letterSpacing:
@@ -344,18 +675,17 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                             height: 35.0,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
+                                                              color: Color(
+                                                                  0x33FFFFFF),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8.0),
+                                                                          12.0),
                                                               border:
                                                                   Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .alternate,
+                                                                color: Color(
+                                                                    0x4DFFFFFF),
+                                                                width: 1.0,
                                                               ),
                                                             ),
                                                             child: Builder(
@@ -374,8 +704,8 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                       Icon(
                                                                         FFIcons
                                                                             .ksun,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -388,6 +718,7 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -405,8 +736,8 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                       Icon(
                                                                         FFIcons
                                                                             .kstarAndCrescent,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             20.0,
                                                                       ),
@@ -419,6 +750,7 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               fontSize: 10.0,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -461,7 +793,7 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                             .transparent,
                                                                     alignment: AlignmentDirectional(
                                                                             0.0,
-                                                                            -1.0)
+                                                                            0.0)
                                                                         .resolve(
                                                                             Directionality.of(context)),
                                                                     child:
@@ -494,18 +826,17 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                               height: 35.0,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
+                                                                color: Color(
+                                                                    0x33FFFFFF),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            8.0),
+                                                                            12.0),
                                                                 border:
                                                                     Border.all(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
+                                                                  color: Color(
+                                                                      0x4DFFFFFF),
+                                                                  width: 1.0,
                                                                 ),
                                                               ),
                                                               child: Column(
@@ -519,9 +850,8 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                   Icon(
                                                                     FFIcons
                                                                         .kchatCenteredTextG,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                                    color: Colors
+                                                                        .white,
                                                                     size: 20.0,
                                                                   ),
                                                                   Text(
@@ -538,7 +868,7 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                                 FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                              Colors.white,
                                                                           fontSize:
                                                                               10.0,
                                                                           letterSpacing:
@@ -618,6 +948,7 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
+                                                        color: Colors.white,
                                                         fontSize: 16.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
@@ -691,10 +1022,27 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryBackground,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              blurRadius: 16.0,
+                                                              color: Color(
+                                                                  0x26D97706),
+                                                              offset: Offset(
+                                                                0.0,
+                                                                6.0,
+                                                              ),
+                                                              spreadRadius: 0.0,
+                                                            )
+                                                          ],
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      16.0),
+                                                                      20.0),
+                                                          border: Border.all(
+                                                            color: Color(
+                                                                0x1FD97706),
+                                                            width: 1.5,
+                                                          ),
                                                         ),
                                                         child: Column(
                                                           mainAxisSize:
@@ -730,17 +1078,47 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                           50.0,
                                                                       decoration:
                                                                           BoxDecoration(
-                                                                        color: Color(
-                                                                            0xFF3829FE),
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            blurRadius:
+                                                                                14.0,
+                                                                            color:
+                                                                                Color(0x4DF59E0B),
+                                                                            offset:
+                                                                                Offset(
+                                                                              0.0,
+                                                                              4.0,
+                                                                            ),
+                                                                            spreadRadius:
+                                                                                0.0,
+                                                                          )
+                                                                        ],
+                                                                        gradient:
+                                                                            LinearGradient(
+                                                                          colors: [
+                                                                            Color(0xFFF59E0B),
+                                                                            Color(0xFFFBBF24)
+                                                                          ],
+                                                                          stops: [
+                                                                            0.0,
+                                                                            1.0
+                                                                          ],
+                                                                          begin: AlignmentDirectional(
+                                                                              1.0,
+                                                                              1.0),
+                                                                          end: AlignmentDirectional(
+                                                                              -1.0,
+                                                                              -1.0),
+                                                                        ),
                                                                         borderRadius:
-                                                                            BorderRadius.circular(8.0),
+                                                                            BorderRadius.circular(16.0),
                                                                       ),
                                                                       child:
                                                                           Icon(
                                                                         FFIcons
                                                                             .kuserPlusG,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             32.0,
                                                                       ),
@@ -851,7 +1229,9 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           ],
                                                         ),
                                                       ),
-                                                    ),
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation1']!),
                                                   ),
                                                   Expanded(
                                                     child: InkWell(
@@ -891,10 +1271,27 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryBackground,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              blurRadius: 16.0,
+                                                              color: Color(
+                                                                  0x26D97706),
+                                                              offset: Offset(
+                                                                0.0,
+                                                                6.0,
+                                                              ),
+                                                              spreadRadius: 0.0,
+                                                            )
+                                                          ],
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      16.0),
+                                                                      20.0),
+                                                          border: Border.all(
+                                                            color: Color(
+                                                                0x1FD97706),
+                                                            width: 1.5,
+                                                          ),
                                                         ),
                                                         child: Column(
                                                           mainAxisSize:
@@ -927,17 +1324,47 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                           50.0,
                                                                       decoration:
                                                                           BoxDecoration(
-                                                                        color: Color(
-                                                                            0xFFF80404),
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            blurRadius:
+                                                                                14.0,
+                                                                            color:
+                                                                                Color(0x4DF59E0B),
+                                                                            offset:
+                                                                                Offset(
+                                                                              0.0,
+                                                                              4.0,
+                                                                            ),
+                                                                            spreadRadius:
+                                                                                0.0,
+                                                                          )
+                                                                        ],
+                                                                        gradient:
+                                                                            LinearGradient(
+                                                                          colors: [
+                                                                            Color(0xFFF59E0B),
+                                                                            Color(0xFFFBBF24)
+                                                                          ],
+                                                                          stops: [
+                                                                            0.0,
+                                                                            1.0
+                                                                          ],
+                                                                          begin: AlignmentDirectional(
+                                                                              1.0,
+                                                                              1.0),
+                                                                          end: AlignmentDirectional(
+                                                                              -1.0,
+                                                                              -1.0),
+                                                                        ),
                                                                         borderRadius:
-                                                                            BorderRadius.circular(8.0),
+                                                                            BorderRadius.circular(16.0),
                                                                       ),
                                                                       child:
                                                                           Icon(
                                                                         FFIcons
                                                                             .kcalendarCheckG,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             32.0,
                                                                       ),
@@ -1048,7 +1475,9 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           ],
                                                         ),
                                                       ),
-                                                    ),
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation2']!),
                                                   ),
                                                   Expanded(
                                                     child: InkWell(
@@ -1088,10 +1517,27 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryBackground,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              blurRadius: 16.0,
+                                                              color: Color(
+                                                                  0x26D97706),
+                                                              offset: Offset(
+                                                                0.0,
+                                                                6.0,
+                                                              ),
+                                                              spreadRadius: 0.0,
+                                                            )
+                                                          ],
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      16.0),
+                                                                      20.0),
+                                                          border: Border.all(
+                                                            color: Color(
+                                                                0x1FD97706),
+                                                            width: 1.5,
+                                                          ),
                                                         ),
                                                         child: Column(
                                                           mainAxisSize:
@@ -1124,17 +1570,47 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                           50.0,
                                                                       decoration:
                                                                           BoxDecoration(
-                                                                        color: Color(
-                                                                            0xFF37F804),
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            blurRadius:
+                                                                                14.0,
+                                                                            color:
+                                                                                Color(0x4DF59E0B),
+                                                                            offset:
+                                                                                Offset(
+                                                                              0.0,
+                                                                              4.0,
+                                                                            ),
+                                                                            spreadRadius:
+                                                                                0.0,
+                                                                          )
+                                                                        ],
+                                                                        gradient:
+                                                                            LinearGradient(
+                                                                          colors: [
+                                                                            Color(0xFFF59E0B),
+                                                                            Color(0xFFFBBF24)
+                                                                          ],
+                                                                          stops: [
+                                                                            0.0,
+                                                                            1.0
+                                                                          ],
+                                                                          begin: AlignmentDirectional(
+                                                                              1.0,
+                                                                              1.0),
+                                                                          end: AlignmentDirectional(
+                                                                              -1.0,
+                                                                              -1.0),
+                                                                        ),
                                                                         borderRadius:
-                                                                            BorderRadius.circular(8.0),
+                                                                            BorderRadius.circular(16.0),
                                                                       ),
                                                                       child:
                                                                           Icon(
                                                                         FFIcons
                                                                             .kcreditCard,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             32.0,
                                                                       ),
@@ -1245,7 +1721,9 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           ],
                                                         ),
                                                       ),
-                                                    ),
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation3']!),
                                                   ),
                                                 ].divide(SizedBox(width: 8.0)),
                                               ),
@@ -1290,10 +1768,27 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryBackground,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              blurRadius: 16.0,
+                                                              color: Color(
+                                                                  0x26D97706),
+                                                              offset: Offset(
+                                                                0.0,
+                                                                6.0,
+                                                              ),
+                                                              spreadRadius: 0.0,
+                                                            )
+                                                          ],
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      16.0),
+                                                                      20.0),
+                                                          border: Border.all(
+                                                            color: Color(
+                                                                0x1FD97706),
+                                                            width: 1.5,
+                                                          ),
                                                         ),
                                                         child: Column(
                                                           mainAxisSize:
@@ -1326,17 +1821,47 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                           50.0,
                                                                       decoration:
                                                                           BoxDecoration(
-                                                                        color: Color(
-                                                                            0xFF9D04F8),
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            blurRadius:
+                                                                                14.0,
+                                                                            color:
+                                                                                Color(0x4DD97706),
+                                                                            offset:
+                                                                                Offset(
+                                                                              0.0,
+                                                                              4.0,
+                                                                            ),
+                                                                            spreadRadius:
+                                                                                0.0,
+                                                                          )
+                                                                        ],
+                                                                        gradient:
+                                                                            LinearGradient(
+                                                                          colors: [
+                                                                            Color(0xFFD97706),
+                                                                            Color(0xFFF59E0B)
+                                                                          ],
+                                                                          stops: [
+                                                                            0.0,
+                                                                            1.0
+                                                                          ],
+                                                                          begin: AlignmentDirectional(
+                                                                              1.0,
+                                                                              1.0),
+                                                                          end: AlignmentDirectional(
+                                                                              -1.0,
+                                                                              -1.0),
+                                                                        ),
                                                                         borderRadius:
-                                                                            BorderRadius.circular(8.0),
+                                                                            BorderRadius.circular(16.0),
                                                                       ),
                                                                       child:
                                                                           Icon(
                                                                         FFIcons
                                                                             .kmoney1,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             32.0,
                                                                       ),
@@ -1447,7 +1972,9 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           ],
                                                         ),
                                                       ),
-                                                    ),
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation4']!),
                                                   ),
                                                   Expanded(
                                                     child: InkWell(
@@ -1487,10 +2014,27 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryBackground,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              blurRadius: 16.0,
+                                                              color: Color(
+                                                                  0x26D97706),
+                                                              offset: Offset(
+                                                                0.0,
+                                                                6.0,
+                                                              ),
+                                                              spreadRadius: 0.0,
+                                                            )
+                                                          ],
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      16.0),
+                                                                      20.0),
+                                                          border: Border.all(
+                                                            color: Color(
+                                                                0x1FD97706),
+                                                            width: 1.5,
+                                                          ),
                                                         ),
                                                         child: Column(
                                                           mainAxisSize:
@@ -1523,17 +2067,47 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                           50.0,
                                                                       decoration:
                                                                           BoxDecoration(
-                                                                        color: Color(
-                                                                            0xFFF804DA),
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            blurRadius:
+                                                                                14.0,
+                                                                            color:
+                                                                                Color(0x4DD97706),
+                                                                            offset:
+                                                                                Offset(
+                                                                              0.0,
+                                                                              4.0,
+                                                                            ),
+                                                                            spreadRadius:
+                                                                                0.0,
+                                                                          )
+                                                                        ],
+                                                                        gradient:
+                                                                            LinearGradient(
+                                                                          colors: [
+                                                                            Color(0xFFD97706),
+                                                                            Color(0xFFF59E0B)
+                                                                          ],
+                                                                          stops: [
+                                                                            0.0,
+                                                                            1.0
+                                                                          ],
+                                                                          begin: AlignmentDirectional(
+                                                                              1.0,
+                                                                              1.0),
+                                                                          end: AlignmentDirectional(
+                                                                              -1.0,
+                                                                              -1.0),
+                                                                        ),
                                                                         borderRadius:
-                                                                            BorderRadius.circular(8.0),
+                                                                            BorderRadius.circular(16.0),
                                                                       ),
                                                                       child:
                                                                           Icon(
                                                                         FFIcons
                                                                             .kuserCircleCheck,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             32.0,
                                                                       ),
@@ -1644,7 +2218,9 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           ],
                                                         ),
                                                       ),
-                                                    ),
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation5']!),
                                                   ),
                                                   Expanded(
                                                     child: InkWell(
@@ -1684,10 +2260,27 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryBackground,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              blurRadius: 16.0,
+                                                              color: Color(
+                                                                  0x26D97706),
+                                                              offset: Offset(
+                                                                0.0,
+                                                                6.0,
+                                                              ),
+                                                              spreadRadius: 0.0,
+                                                            )
+                                                          ],
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      16.0),
+                                                                      20.0),
+                                                          border: Border.all(
+                                                            color: Color(
+                                                                0x1FD97706),
+                                                            width: 1.5,
+                                                          ),
                                                         ),
                                                         child: Column(
                                                           mainAxisSize:
@@ -1720,17 +2313,47 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                           50.0,
                                                                       decoration:
                                                                           BoxDecoration(
-                                                                        color: Color(
-                                                                            0xFFF8DD04),
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            blurRadius:
+                                                                                14.0,
+                                                                            color:
+                                                                                Color(0x4DD97706),
+                                                                            offset:
+                                                                                Offset(
+                                                                              0.0,
+                                                                              4.0,
+                                                                            ),
+                                                                            spreadRadius:
+                                                                                0.0,
+                                                                          )
+                                                                        ],
+                                                                        gradient:
+                                                                            LinearGradient(
+                                                                          colors: [
+                                                                            Color(0xFFD97706),
+                                                                            Color(0xFFF59E0B)
+                                                                          ],
+                                                                          stops: [
+                                                                            0.0,
+                                                                            1.0
+                                                                          ],
+                                                                          begin: AlignmentDirectional(
+                                                                              1.0,
+                                                                              1.0),
+                                                                          end: AlignmentDirectional(
+                                                                              -1.0,
+                                                                              -1.0),
+                                                                        ),
                                                                         borderRadius:
-                                                                            BorderRadius.circular(8.0),
+                                                                            BorderRadius.circular(16.0),
                                                                       ),
                                                                       child:
                                                                           Icon(
                                                                         FFIcons
                                                                             .ksiren,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             32.0,
                                                                       ),
@@ -1841,7 +2464,9 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           ],
                                                         ),
                                                       ),
-                                                    ),
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation6']!),
                                                   ),
                                                 ].divide(SizedBox(width: 8.0)),
                                               ),
@@ -1886,10 +2511,27 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryBackground,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              blurRadius: 16.0,
+                                                              color: Color(
+                                                                  0x26D97706),
+                                                              offset: Offset(
+                                                                0.0,
+                                                                6.0,
+                                                              ),
+                                                              spreadRadius: 0.0,
+                                                            )
+                                                          ],
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      16.0),
+                                                                      20.0),
+                                                          border: Border.all(
+                                                            color: Color(
+                                                                0x1FD97706),
+                                                            width: 1.5,
+                                                          ),
                                                         ),
                                                         child: Column(
                                                           mainAxisSize:
@@ -1922,17 +2564,47 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                           50.0,
                                                                       decoration:
                                                                           BoxDecoration(
-                                                                        color: Color(
-                                                                            0xFF04B7C2),
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            blurRadius:
+                                                                                14.0,
+                                                                            color:
+                                                                                Color(0x4DB45309),
+                                                                            offset:
+                                                                                Offset(
+                                                                              0.0,
+                                                                              4.0,
+                                                                            ),
+                                                                            spreadRadius:
+                                                                                0.0,
+                                                                          )
+                                                                        ],
+                                                                        gradient:
+                                                                            LinearGradient(
+                                                                          colors: [
+                                                                            Color(0xFFB45309),
+                                                                            Color(0xFFF59E0B)
+                                                                          ],
+                                                                          stops: [
+                                                                            0.0,
+                                                                            1.0
+                                                                          ],
+                                                                          begin: AlignmentDirectional(
+                                                                              1.0,
+                                                                              1.0),
+                                                                          end: AlignmentDirectional(
+                                                                              -1.0,
+                                                                              -1.0),
+                                                                        ),
                                                                         borderRadius:
-                                                                            BorderRadius.circular(8.0),
+                                                                            BorderRadius.circular(16.0),
                                                                       ),
                                                                       child:
                                                                           Icon(
                                                                         FFIcons
                                                                             .kusersFourG,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             32.0,
                                                                       ),
@@ -2043,7 +2715,9 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           ],
                                                         ),
                                                       ),
-                                                    ),
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation7']!),
                                                   ),
                                                   Expanded(
                                                     child: InkWell(
@@ -2083,10 +2757,27 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryBackground,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              blurRadius: 16.0,
+                                                              color: Color(
+                                                                  0x26D97706),
+                                                              offset: Offset(
+                                                                0.0,
+                                                                6.0,
+                                                              ),
+                                                              spreadRadius: 0.0,
+                                                            )
+                                                          ],
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      16.0),
+                                                                      20.0),
+                                                          border: Border.all(
+                                                            color: Color(
+                                                                0x1FD97706),
+                                                            width: 1.5,
+                                                          ),
                                                         ),
                                                         child: Column(
                                                           mainAxisSize:
@@ -2119,17 +2810,47 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                           50.0,
                                                                       decoration:
                                                                           BoxDecoration(
-                                                                        color: Color(
-                                                                            0xFFFF5963),
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            blurRadius:
+                                                                                14.0,
+                                                                            color:
+                                                                                Color(0x4DB45309),
+                                                                            offset:
+                                                                                Offset(
+                                                                              0.0,
+                                                                              4.0,
+                                                                            ),
+                                                                            spreadRadius:
+                                                                                0.0,
+                                                                          )
+                                                                        ],
+                                                                        gradient:
+                                                                            LinearGradient(
+                                                                          colors: [
+                                                                            Color(0xFFB45309),
+                                                                            Color(0xFFF59E0B)
+                                                                          ],
+                                                                          stops: [
+                                                                            0.0,
+                                                                            1.0
+                                                                          ],
+                                                                          begin: AlignmentDirectional(
+                                                                              1.0,
+                                                                              1.0),
+                                                                          end: AlignmentDirectional(
+                                                                              -1.0,
+                                                                              -1.0),
+                                                                        ),
                                                                         borderRadius:
-                                                                            BorderRadius.circular(8.0),
+                                                                            BorderRadius.circular(16.0),
                                                                       ),
                                                                       child:
                                                                           Icon(
                                                                         FFIcons
                                                                             .k3Storefront,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             32.0,
                                                                       ),
@@ -2240,7 +2961,9 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           ],
                                                         ),
                                                       ),
-                                                    ),
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation8']!),
                                                   ),
                                                   Expanded(
                                                     child: InkWell(
@@ -2280,10 +3003,27 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryBackground,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              blurRadius: 16.0,
+                                                              color: Color(
+                                                                  0x26D97706),
+                                                              offset: Offset(
+                                                                0.0,
+                                                                6.0,
+                                                              ),
+                                                              spreadRadius: 0.0,
+                                                            )
+                                                          ],
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      16.0),
+                                                                      20.0),
+                                                          border: Border.all(
+                                                            color: Color(
+                                                                0x1FD97706),
+                                                            width: 1.5,
+                                                          ),
                                                         ),
                                                         child: Column(
                                                           mainAxisSize:
@@ -2316,17 +3056,47 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                           50.0,
                                                                       decoration:
                                                                           BoxDecoration(
-                                                                        color: Color(
-                                                                            0xFFC7F804),
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            blurRadius:
+                                                                                14.0,
+                                                                            color:
+                                                                                Color(0x4DB45309),
+                                                                            offset:
+                                                                                Offset(
+                                                                              0.0,
+                                                                              4.0,
+                                                                            ),
+                                                                            spreadRadius:
+                                                                                0.0,
+                                                                          )
+                                                                        ],
+                                                                        gradient:
+                                                                            LinearGradient(
+                                                                          colors: [
+                                                                            Color(0xFFB45309),
+                                                                            Color(0xFFF59E0B)
+                                                                          ],
+                                                                          stops: [
+                                                                            0.0,
+                                                                            1.0
+                                                                          ],
+                                                                          begin: AlignmentDirectional(
+                                                                              1.0,
+                                                                              1.0),
+                                                                          end: AlignmentDirectional(
+                                                                              -1.0,
+                                                                              -1.0),
+                                                                        ),
                                                                         borderRadius:
-                                                                            BorderRadius.circular(8.0),
+                                                                            BorderRadius.circular(16.0),
                                                                       ),
                                                                       child:
                                                                           Icon(
                                                                         FFIcons
                                                                             .k7ForkKnife,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             32.0,
                                                                       ),
@@ -2437,7 +3207,9 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           ],
                                                         ),
                                                       ),
-                                                    ),
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation9']!),
                                                   ),
                                                 ].divide(SizedBox(width: 8.0)),
                                               ),
@@ -2482,10 +3254,27 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryBackground,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              blurRadius: 16.0,
+                                                              color: Color(
+                                                                  0x26D97706),
+                                                              offset: Offset(
+                                                                0.0,
+                                                                6.0,
+                                                              ),
+                                                              spreadRadius: 0.0,
+                                                            )
+                                                          ],
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      16.0),
+                                                                      20.0),
+                                                          border: Border.all(
+                                                            color: Color(
+                                                                0x1FD97706),
+                                                            width: 1.5,
+                                                          ),
                                                         ),
                                                         child: Column(
                                                           mainAxisSize:
@@ -2518,17 +3307,47 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                           50.0,
                                                                       decoration:
                                                                           BoxDecoration(
-                                                                        color: Color(
-                                                                            0xFF3294D1),
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            blurRadius:
+                                                                                14.0,
+                                                                            color:
+                                                                                Color(0x4D92400E),
+                                                                            offset:
+                                                                                Offset(
+                                                                              0.0,
+                                                                              4.0,
+                                                                            ),
+                                                                            spreadRadius:
+                                                                                0.0,
+                                                                          )
+                                                                        ],
+                                                                        gradient:
+                                                                            LinearGradient(
+                                                                          colors: [
+                                                                            Color(0xFF92400E),
+                                                                            Color(0xFFD97706)
+                                                                          ],
+                                                                          stops: [
+                                                                            0.0,
+                                                                            1.0
+                                                                          ],
+                                                                          begin: AlignmentDirectional(
+                                                                              1.0,
+                                                                              1.0),
+                                                                          end: AlignmentDirectional(
+                                                                              -1.0,
+                                                                              -1.0),
+                                                                        ),
                                                                         borderRadius:
-                                                                            BorderRadius.circular(8.0),
+                                                                            BorderRadius.circular(16.0),
                                                                       ),
                                                                       child:
                                                                           Icon(
                                                                         FFIcons
                                                                             .kchatCenteredG,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             32.0,
                                                                       ),
@@ -2639,7 +3458,9 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           ],
                                                         ),
                                                       ),
-                                                    ),
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation10']!),
                                                   ),
                                                   Expanded(
                                                     child: InkWell(
@@ -2679,10 +3500,27 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryBackground,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              blurRadius: 16.0,
+                                                              color: Color(
+                                                                  0x26D97706),
+                                                              offset: Offset(
+                                                                0.0,
+                                                                6.0,
+                                                              ),
+                                                              spreadRadius: 0.0,
+                                                            )
+                                                          ],
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      16.0),
+                                                                      20.0),
+                                                          border: Border.all(
+                                                            color: Color(
+                                                                0x1FD97706),
+                                                            width: 1.5,
+                                                          ),
                                                         ),
                                                         child: Padding(
                                                           padding:
@@ -2707,18 +3545,49 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                   height: 50.0,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color(
-                                                                        0xFFF6217F),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                        blurRadius:
+                                                                            14.0,
+                                                                        color: Color(
+                                                                            0x4D92400E),
+                                                                        offset:
+                                                                            Offset(
+                                                                          0.0,
+                                                                          4.0,
+                                                                        ),
+                                                                        spreadRadius:
+                                                                            0.0,
+                                                                      )
+                                                                    ],
+                                                                    gradient:
+                                                                        LinearGradient(
+                                                                      colors: [
+                                                                        Color(
+                                                                            0xFF92400E),
+                                                                        Color(
+                                                                            0xFFD97706)
+                                                                      ],
+                                                                      stops: [
+                                                                        0.0,
+                                                                        1.0
+                                                                      ],
+                                                                      begin: AlignmentDirectional(
+                                                                          1.0,
+                                                                          1.0),
+                                                                      end: AlignmentDirectional(
+                                                                          -1.0,
+                                                                          -1.0),
+                                                                    ),
                                                                     borderRadius:
                                                                         BorderRadius.circular(
-                                                                            8.0),
+                                                                            16.0),
                                                                   ),
                                                                   child: Icon(
                                                                     FFIcons
                                                                         .kappWindow,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                                    color: Colors
+                                                                        .white,
                                                                     size: 32.0,
                                                                   ),
                                                                 ),
@@ -2755,7 +3624,9 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation11']!),
                                                   ),
                                                   Expanded(
                                                     child: InkWell(
@@ -2795,10 +3666,27 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryBackground,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              blurRadius: 16.0,
+                                                              color: Color(
+                                                                  0x26D97706),
+                                                              offset: Offset(
+                                                                0.0,
+                                                                6.0,
+                                                              ),
+                                                              spreadRadius: 0.0,
+                                                            )
+                                                          ],
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      16.0),
+                                                                      20.0),
+                                                          border: Border.all(
+                                                            color: Color(
+                                                                0x1FD97706),
+                                                            width: 1.5,
+                                                          ),
                                                         ),
                                                         child: Padding(
                                                           padding:
@@ -2823,18 +3711,49 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                   height: 50.0,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color(
-                                                                        0xFF3D9F5F),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                        blurRadius:
+                                                                            14.0,
+                                                                        color: Color(
+                                                                            0x4D92400E),
+                                                                        offset:
+                                                                            Offset(
+                                                                          0.0,
+                                                                          4.0,
+                                                                        ),
+                                                                        spreadRadius:
+                                                                            0.0,
+                                                                      )
+                                                                    ],
+                                                                    gradient:
+                                                                        LinearGradient(
+                                                                      colors: [
+                                                                        Color(
+                                                                            0xFF92400E),
+                                                                        Color(
+                                                                            0xFFD97706)
+                                                                      ],
+                                                                      stops: [
+                                                                        0.0,
+                                                                        1.0
+                                                                      ],
+                                                                      begin: AlignmentDirectional(
+                                                                          1.0,
+                                                                          1.0),
+                                                                      end: AlignmentDirectional(
+                                                                          -1.0,
+                                                                          -1.0),
+                                                                    ),
                                                                     borderRadius:
                                                                         BorderRadius.circular(
-                                                                            8.0),
+                                                                            16.0),
                                                                   ),
                                                                   child: Icon(
                                                                     FFIcons
                                                                         .klistChecks,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
+                                                                    color: Colors
+                                                                        .white,
                                                                     size: 32.0,
                                                                   ),
                                                                 ),
@@ -2871,7 +3790,9 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation12']!),
                                                   ),
                                                 ].divide(SizedBox(width: 8.0)),
                                               ),
@@ -2881,14 +3802,31 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                   Expanded(
                                                     child: Container(
                                                       width: 250.0,
-                                                      height: 350.0,
+                                                      height: 360.0,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
                                                                 .of(context)
                                                             .primaryBackground,
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            blurRadius: 24.0,
+                                                            color: Color(
+                                                                0x33D97706),
+                                                            offset: Offset(
+                                                              0.0,
+                                                              10.0,
+                                                            ),
+                                                            spreadRadius: 0.0,
+                                                          )
+                                                        ],
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(16.0),
+                                                                .circular(24.0),
+                                                        border: Border.all(
+                                                          color:
+                                                              Color(0x1FD97706),
+                                                          width: 1.5,
+                                                        ),
                                                       ),
                                                       child: Column(
                                                         mainAxisSize:
@@ -2921,18 +3859,49 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                         50.0,
                                                                     decoration:
                                                                         BoxDecoration(
-                                                                      color: Color(
-                                                                          0xFFF76744),
+                                                                      boxShadow: [
+                                                                        BoxShadow(
+                                                                          blurRadius:
+                                                                              14.0,
+                                                                          color:
+                                                                              Color(0x4DF59E0B),
+                                                                          offset:
+                                                                              Offset(
+                                                                            0.0,
+                                                                            4.0,
+                                                                          ),
+                                                                          spreadRadius:
+                                                                              0.0,
+                                                                        )
+                                                                      ],
+                                                                      gradient:
+                                                                          LinearGradient(
+                                                                        colors: [
+                                                                          Color(
+                                                                              0xFFF59E0B),
+                                                                          Color(
+                                                                              0xFFFBBF24)
+                                                                        ],
+                                                                        stops: [
+                                                                          0.0,
+                                                                          1.0
+                                                                        ],
+                                                                        begin: AlignmentDirectional(
+                                                                            1.0,
+                                                                            1.0),
+                                                                        end: AlignmentDirectional(
+                                                                            -1.0,
+                                                                            -1.0),
+                                                                      ),
                                                                       borderRadius:
                                                                           BorderRadius.circular(
-                                                                              8.0),
+                                                                              16.0),
                                                                     ),
                                                                     child: Icon(
                                                                       FFIcons
                                                                           .kpresentationChart,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText,
+                                                                      color: Colors
+                                                                          .white,
                                                                       size:
                                                                           32.0,
                                                                     ),
@@ -2980,7 +3949,7 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                       .center,
                                                               children: [
                                                                 Container(
-                                                                  width: 350.0,
+                                                                  width: 220.0,
                                                                   height: 250.0,
                                                                   decoration:
                                                                       BoxDecoration(
@@ -2991,7 +3960,7 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                   child:
                                                                       Container(
                                                                     width:
-                                                                        370.0,
+                                                                        220.0,
                                                                     height:
                                                                         230.0,
                                                                     child:
@@ -3002,6 +3971,17 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                               _model.salesAmounts,
                                                                           color:
                                                                               Color(0xFFF76744),
+                                                                          gradient:
+                                                                              LinearGradient(
+                                                                            colors: [
+                                                                              Color(0xFFF76744),
+                                                                              Color(0xFFFFB199)
+                                                                            ],
+                                                                            begin:
+                                                                                Alignment.bottomCenter,
+                                                                            end:
+                                                                                Alignment.topCenter,
+                                                                          ),
                                                                         )
                                                                       ],
                                                                       xLabels:
@@ -3021,6 +4001,8 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                           ChartStylingInfo(
                                                                         backgroundColor:
                                                                             FlutterFlowTheme.of(context).secondaryBackground,
+                                                                        showGrid:
+                                                                            true,
                                                                         showBorder:
                                                                             false,
                                                                       ),
@@ -3028,11 +4010,15 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                           AxisBounds(),
                                                                       xAxisLabelInfo:
                                                                           AxisLabelInfo(
+                                                                        showLabels:
+                                                                            true,
                                                                         reservedSize:
                                                                             28.0,
                                                                       ),
                                                                       yAxisLabelInfo:
                                                                           AxisLabelInfo(
+                                                                        showLabels:
+                                                                            true,
                                                                         reservedSize:
                                                                             42.0,
                                                                       ),
@@ -3045,19 +4031,38 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                           ),
                                                         ],
                                                       ),
-                                                    ),
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation13']!),
                                                   ),
                                                   Expanded(
                                                     child: Container(
                                                       width: 250.0,
-                                                      height: 350.0,
+                                                      height: 360.0,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
                                                                 .of(context)
                                                             .primaryBackground,
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            blurRadius: 24.0,
+                                                            color: Color(
+                                                                0x33D97706),
+                                                            offset: Offset(
+                                                              0.0,
+                                                              10.0,
+                                                            ),
+                                                            spreadRadius: 0.0,
+                                                          )
+                                                        ],
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(16.0),
+                                                                .circular(24.0),
+                                                        border: Border.all(
+                                                          color:
+                                                              Color(0x1FD97706),
+                                                          width: 1.5,
+                                                        ),
                                                       ),
                                                       child: Column(
                                                         mainAxisSize:
@@ -3090,18 +4095,49 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                         50.0,
                                                                     decoration:
                                                                         BoxDecoration(
-                                                                      color: Color(
-                                                                          0xFF5D4388),
+                                                                      boxShadow: [
+                                                                        BoxShadow(
+                                                                          blurRadius:
+                                                                              14.0,
+                                                                          color:
+                                                                              Color(0x4DF59E0B),
+                                                                          offset:
+                                                                              Offset(
+                                                                            0.0,
+                                                                            4.0,
+                                                                          ),
+                                                                          spreadRadius:
+                                                                              0.0,
+                                                                        )
+                                                                      ],
+                                                                      gradient:
+                                                                          LinearGradient(
+                                                                        colors: [
+                                                                          Color(
+                                                                              0xFFF59E0B),
+                                                                          Color(
+                                                                              0xFFFBBF24)
+                                                                        ],
+                                                                        stops: [
+                                                                          0.0,
+                                                                          1.0
+                                                                        ],
+                                                                        begin: AlignmentDirectional(
+                                                                            1.0,
+                                                                            1.0),
+                                                                        end: AlignmentDirectional(
+                                                                            -1.0,
+                                                                            -1.0),
+                                                                      ),
                                                                       borderRadius:
                                                                           BorderRadius.circular(
-                                                                              8.0),
+                                                                              25.0),
                                                                     ),
                                                                     child: Icon(
                                                                       FFIcons
                                                                           .kpresentationChart,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText,
+                                                                      color: Colors
+                                                                          .white,
                                                                       size:
                                                                           32.0,
                                                                     ),
@@ -3133,87 +4169,6 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                                 FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                     ),
-                                                                    Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children:
-                                                                          [
-                                                                        Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          children:
-                                                                              [
-                                                                            Icon(
-                                                                              Icons.circle,
-                                                                              color: Color(0xFF3829FE),
-                                                                              size: 16.0,
-                                                                            ),
-                                                                            Text(
-                                                                              'ゲスト',
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    font: GoogleFonts.inter(
-                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                    ),
-                                                                                    letterSpacing: 0.0,
-                                                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                  ),
-                                                                            ),
-                                                                          ].divide(SizedBox(width: 4.0)),
-                                                                        ),
-                                                                        Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          children:
-                                                                              [
-                                                                            Icon(
-                                                                              Icons.circle,
-                                                                              color: Color(0xFFF804DA),
-                                                                              size: 16.0,
-                                                                            ),
-                                                                            Text(
-                                                                              'キャスト',
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    font: GoogleFonts.inter(
-                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                    ),
-                                                                                    letterSpacing: 0.0,
-                                                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                  ),
-                                                                            ),
-                                                                          ].divide(SizedBox(width: 4.0)),
-                                                                        ),
-                                                                        Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          children:
-                                                                              [
-                                                                            Icon(
-                                                                              Icons.circle,
-                                                                              color: Color(0xFFF8DD04),
-                                                                              size: 16.0,
-                                                                            ),
-                                                                            Text(
-                                                                              'スタッフ',
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    font: GoogleFonts.inter(
-                                                                                      fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                      fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                    ),
-                                                                                    letterSpacing: 0.0,
-                                                                                    fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                  ),
-                                                                            ),
-                                                                          ].divide(SizedBox(width: 4.0)),
-                                                                        ),
-                                                                      ].divide(SizedBox(
-                                                                              width: 8.0)),
-                                                                    ),
                                                                   ].divide(SizedBox(
                                                                       height:
                                                                           8.0)),
@@ -3222,71 +4177,290 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                   width: 16.0)),
                                                             ),
                                                           ),
-                                                          Align(
-                                                            alignment:
-                                                                AlignmentDirectional(
-                                                                    0.0, 0.0),
-                                                            child: Container(
-                                                              width: 350.0,
-                                                              height: 250.0,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryBackground,
-                                                              ),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Container(
-                                                                    width:
-                                                                        350.0,
-                                                                    height:
-                                                                        250.0,
-                                                                    child:
-                                                                        FlutterFlowPieChart(
-                                                                      data:
-                                                                          FFPieChartData(
-                                                                        values:
-                                                                            _model.userTypeValues,
-                                                                        colors:
-                                                                            chartPieChartColorsList2,
-                                                                        radius: [
-                                                                          100.0
-                                                                        ],
-                                                                      ),
-                                                                      donutHoleRadius:
-                                                                          0.0,
-                                                                      donutHoleColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      sectionLabelStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .headlineSmall
-                                                                          .override(
-                                                                            font:
-                                                                                GoogleFonts.interTight(
-                                                                              fontWeight: FlutterFlowTheme.of(context).headlineSmall.fontWeight,
-                                                                              fontStyle: FlutterFlowTheme.of(context).headlineSmall.fontStyle,
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Container(
+                                                                decoration:
+                                                                    BoxDecoration(),
+                                                                child: Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          8.0,
+                                                                          4.0,
+                                                                          8.0,
+                                                                          4.0),
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .start,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.start,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.center,
+                                                                        children:
+                                                                            [
+                                                                          Container(
+                                                                            width:
+                                                                                14.0,
+                                                                            height:
+                                                                                14.0,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              color: Color(0xFF3D1B3F),
+                                                                              borderRadius: BorderRadius.circular(4.0),
                                                                             ),
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            fontWeight:
-                                                                                FlutterFlowTheme.of(context).headlineSmall.fontWeight,
-                                                                            fontStyle:
-                                                                                FlutterFlowTheme.of(context).headlineSmall.fontStyle,
                                                                           ),
-                                                                    ),
+                                                                          Text(
+                                                                            'ゲスト',
+                                                                            style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                  font: GoogleFonts.inter(
+                                                                                    fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                  ),
+                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  letterSpacing: 0.0,
+                                                                                  fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                ),
+                                                                          ),
+                                                                        ].divide(SizedBox(width: 8.0)),
+                                                                      ),
+                                                                      Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.start,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.center,
+                                                                        children:
+                                                                            [
+                                                                          Container(
+                                                                            width:
+                                                                                14.0,
+                                                                            height:
+                                                                                14.0,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              color: Color(0xFFE2705C),
+                                                                              borderRadius: BorderRadius.circular(4.0),
+                                                                            ),
+                                                                          ),
+                                                                          Text(
+                                                                            'キャスト',
+                                                                            style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                  font: GoogleFonts.inter(
+                                                                                    fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                  ),
+                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  letterSpacing: 0.0,
+                                                                                  fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                ),
+                                                                          ),
+                                                                        ].divide(SizedBox(width: 8.0)),
+                                                                      ),
+                                                                      Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.start,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.center,
+                                                                        children:
+                                                                            [
+                                                                          Container(
+                                                                            width:
+                                                                                14.0,
+                                                                            height:
+                                                                                14.0,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              color: Color(0xFFF4A13E),
+                                                                              borderRadius: BorderRadius.circular(4.0),
+                                                                            ),
+                                                                          ),
+                                                                          Text(
+                                                                            '警備スタッフ',
+                                                                            style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                  font: GoogleFonts.inter(
+                                                                                    fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                  ),
+                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  letterSpacing: 0.0,
+                                                                                  fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                ),
+                                                                          ),
+                                                                        ].divide(SizedBox(width: 8.0)),
+                                                                      ),
+                                                                      Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.start,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.center,
+                                                                        children:
+                                                                            [
+                                                                          Container(
+                                                                            width:
+                                                                                14.0,
+                                                                            height:
+                                                                                14.0,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              color: Color(0xFF8E2255),
+                                                                              borderRadius: BorderRadius.circular(4.0),
+                                                                            ),
+                                                                          ),
+                                                                          Text(
+                                                                            '送迎スタッフ',
+                                                                            style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                  font: GoogleFonts.inter(
+                                                                                    fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                  ),
+                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  letterSpacing: 0.0,
+                                                                                  fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                ),
+                                                                          ),
+                                                                        ].divide(SizedBox(width: 8.0)),
+                                                                      ),
+                                                                      Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.start,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.center,
+                                                                        children:
+                                                                            [
+                                                                          Container(
+                                                                            width:
+                                                                                14.0,
+                                                                            height:
+                                                                                14.0,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              color: Color(0xFFB23F6C),
+                                                                              borderRadius: BorderRadius.circular(4.0),
+                                                                            ),
+                                                                          ),
+                                                                          Text(
+                                                                            '警備・送迎',
+                                                                            style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                  font: GoogleFonts.inter(
+                                                                                    fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                  ),
+                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  letterSpacing: 0.0,
+                                                                                  fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                ),
+                                                                          ),
+                                                                        ].divide(SizedBox(width: 8.0)),
+                                                                      ),
+                                                                    ].divide(SizedBox(
+                                                                        height:
+                                                                            4.0)),
                                                                   ),
-                                                                ],
+                                                                ),
                                                               ),
-                                                            ),
+                                                              Align(
+                                                                alignment:
+                                                                    AlignmentDirectional(
+                                                                        0.0,
+                                                                        0.0),
+                                                                child:
+                                                                    Container(
+                                                                  width: 340.0,
+                                                                  height: 168.0,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryBackground,
+                                                                  ),
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Container(
+                                                                        width:
+                                                                            340.0,
+                                                                        height:
+                                                                            168.0,
+                                                                        child:
+                                                                            FlutterFlowPieChart(
+                                                                          data:
+                                                                              FFPieChartData(
+                                                                            values:
+                                                                                _model.userTypeValues,
+                                                                            colors:
+                                                                                chartPieChartColorsList2,
+                                                                            radius: [
+                                                                              78.0
+                                                                            ],
+                                                                          ),
+                                                                          donutHoleRadius:
+                                                                              0.0,
+                                                                          donutHoleColor:
+                                                                              Colors.transparent,
+                                                                          sectionLabelType:
+                                                                              PieChartSectionLabelType.percent,
+                                                                          sectionLabelStyle: FlutterFlowTheme.of(context)
+                                                                              .headlineSmall
+                                                                              .override(
+                                                                                font: GoogleFonts.interTight(
+                                                                                  fontWeight: FlutterFlowTheme.of(context).headlineSmall.fontWeight,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).headlineSmall.fontStyle,
+                                                                                ),
+                                                                                color: Color(0xFFF9FDFF),
+                                                                                fontSize: 11.0,
+                                                                                letterSpacing: 0.0,
+                                                                                fontWeight: FlutterFlowTheme.of(context).headlineSmall.fontWeight,
+                                                                                fontStyle: FlutterFlowTheme.of(context).headlineSmall.fontStyle,
+                                                                              ),
+                                                                          sectionsSpace:
+                                                                              2.0,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
-                                                    ),
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation14']!),
                                                   ),
                                                 ].divide(SizedBox(width: 8.0)),
                                               ),
@@ -3301,9 +4475,26 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                         color: FlutterFlowTheme
                                                                 .of(context)
                                                             .primaryBackground,
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            blurRadius: 24.0,
+                                                            color: Color(
+                                                                0x33D97706),
+                                                            offset: Offset(
+                                                              0.0,
+                                                              10.0,
+                                                            ),
+                                                            spreadRadius: 0.0,
+                                                          )
+                                                        ],
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(16.0),
+                                                                .circular(24.0),
+                                                        border: Border.all(
+                                                          color:
+                                                              Color(0x1FD97706),
+                                                          width: 1.5,
+                                                        ),
                                                       ),
                                                       child: Column(
                                                         mainAxisSize:
@@ -3336,18 +4527,49 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                         50.0,
                                                                     decoration:
                                                                         BoxDecoration(
-                                                                      color: Color(
-                                                                          0xFF518BA4),
+                                                                      boxShadow: [
+                                                                        BoxShadow(
+                                                                          blurRadius:
+                                                                              14.0,
+                                                                          color:
+                                                                              Color(0x4D92400E),
+                                                                          offset:
+                                                                              Offset(
+                                                                            0.0,
+                                                                            4.0,
+                                                                          ),
+                                                                          spreadRadius:
+                                                                              0.0,
+                                                                        )
+                                                                      ],
+                                                                      gradient:
+                                                                          LinearGradient(
+                                                                        colors: [
+                                                                          Color(
+                                                                              0xFF92400E),
+                                                                          Color(
+                                                                              0xFFD97706)
+                                                                        ],
+                                                                        stops: [
+                                                                          0.0,
+                                                                          1.0
+                                                                        ],
+                                                                        begin: AlignmentDirectional(
+                                                                            1.0,
+                                                                            1.0),
+                                                                        end: AlignmentDirectional(
+                                                                            -1.0,
+                                                                            -1.0),
+                                                                      ),
                                                                       borderRadius:
                                                                           BorderRadius.circular(
-                                                                              8.0),
+                                                                              16.0),
                                                                     ),
                                                                     child: Icon(
                                                                       FFIcons
                                                                           .kfileTextG,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText,
+                                                                      color: Colors
+                                                                          .white,
                                                                       size:
                                                                           32.0,
                                                                     ),
@@ -3425,10 +4647,11 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                                 width: 300.0,
                                                                                 height: 110.0,
                                                                                 decoration: BoxDecoration(
-                                                                                  color: FlutterFlowTheme.of(context).alternate,
-                                                                                  borderRadius: BorderRadius.circular(8.0),
+                                                                                  color: Color(0x14D97706),
+                                                                                  borderRadius: BorderRadius.circular(12.0),
                                                                                   border: Border.all(
-                                                                                    color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                    color: Color(0x1FD97706),
+                                                                                    width: 1.0,
                                                                                   ),
                                                                                 ),
                                                                                 child: Padding(
@@ -3546,10 +4769,11 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                                 width: 300.0,
                                                                                 height: 110.0,
                                                                                 decoration: BoxDecoration(
-                                                                                  color: FlutterFlowTheme.of(context).alternate,
-                                                                                  borderRadius: BorderRadius.circular(8.0),
+                                                                                  color: Color(0x14D97706),
+                                                                                  borderRadius: BorderRadius.circular(12.0),
                                                                                   border: Border.all(
-                                                                                    color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                    color: Color(0x1FD97706),
+                                                                                    width: 1.0,
                                                                                   ),
                                                                                 ),
                                                                                 child: Padding(
@@ -3667,10 +4891,11 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                                                 width: 300.0,
                                                                                 height: 110.0,
                                                                                 decoration: BoxDecoration(
-                                                                                  color: FlutterFlowTheme.of(context).alternate,
-                                                                                  borderRadius: BorderRadius.circular(8.0),
+                                                                                  color: Color(0x14D97706),
+                                                                                  borderRadius: BorderRadius.circular(12.0),
                                                                                   border: Border.all(
-                                                                                    color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                    color: Color(0x1FD97706),
+                                                                                    width: 1.0,
                                                                                   ),
                                                                                 ),
                                                                                 child: Padding(
@@ -3790,7 +5015,9 @@ class _AdminDashboardPageWidgetState extends State<AdminDashboardPageWidget> {
                                                         ].divide(SizedBox(
                                                             height: 8.0)),
                                                       ),
-                                                    ),
+                                                    ).animateOnPageLoad(
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation15']!),
                                                   ),
                                                 ].divide(SizedBox(width: 8.0)),
                                               ),

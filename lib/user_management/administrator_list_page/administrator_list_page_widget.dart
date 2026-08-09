@@ -1,13 +1,17 @@
 import '/backend/schema/structs/index.dart';
 import '/components/search_administrator_dialog_comp_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/main_menu_comp/main_menu_comp_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'administrator_list_page_model.dart';
@@ -25,10 +29,12 @@ class AdministratorListPageWidget extends StatefulWidget {
 }
 
 class _AdministratorListPageWidgetState
-    extends State<AdministratorListPageWidget> {
+    extends State<AdministratorListPageWidget> with TickerProviderStateMixin {
   late AdministratorListPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
@@ -54,6 +60,29 @@ class _AdministratorListPageWidgetState
 
     _model.adminBulkFreezeReasonFieldTextController ??= TextEditingController();
     _model.adminBulkFreezeReasonFieldFocusNode ??= FocusNode();
+
+    animationsMap.addAll({
+      'containerOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          FadeEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeOut,
+            delay: 0.0.ms,
+            duration: 400.0.ms,
+            begin: Offset(0.0, 20.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -113,15 +142,16 @@ class _AdministratorListPageWidgetState
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(12.0),
                                       border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Color(0x1FF59E0B),
+                                        width: 1.5,
                                       ),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/transparent.png',
+                                      child: SvgPicture.asset(
+                                        'assets/images/icoccha_logo_color.svg',
                                         width: 80.0,
                                         height: 80.0,
                                         fit: BoxFit.contain,
@@ -133,8 +163,15 @@ class _AdministratorListPageWidgetState
                                       width: 100.0,
                                       height: 80.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0xFFF59E0B),
+                                            Color(0xFFFBBF24)
+                                          ],
+                                          stops: [0.0, 1.0],
+                                          begin: AlignmentDirectional(1.0, 1.0),
+                                          end: AlignmentDirectional(-1.0, -1.0),
+                                        ),
                                       ),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -187,6 +224,8 @@ class _AdministratorListPageWidgetState
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                               ),
+                                                              color:
+                                                                  Colors.white,
                                                               fontSize: 14.0,
                                                               letterSpacing:
                                                                   0.0,
@@ -217,6 +256,8 @@ class _AdministratorListPageWidgetState
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                               ),
+                                                              color:
+                                                                  Colors.white,
                                                               fontSize: 12.0,
                                                               letterSpacing:
                                                                   0.0,
@@ -270,17 +311,14 @@ class _AdministratorListPageWidgetState
                                                     width: 35.0,
                                                     height: 35.0,
                                                     decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryBackground,
+                                                      color: Color(0x33FFFFFF),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              8.0),
+                                                              12.0),
                                                       border: Border.all(
                                                         color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .alternate,
+                                                            Color(0x4DFFFFFF),
+                                                        width: 1.0,
                                                       ),
                                                     ),
                                                     child: Builder(
@@ -297,9 +335,8 @@ class _AdministratorListPageWidgetState
                                                             children: [
                                                               Icon(
                                                                 FFIcons.ksun,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
+                                                                color: Colors
+                                                                    .white,
                                                                 size: 20.0,
                                                               ),
                                                               Text(
@@ -317,6 +354,8 @@ class _AdministratorListPageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           10.0,
                                                                       letterSpacing:
@@ -342,9 +381,8 @@ class _AdministratorListPageWidgetState
                                                               Icon(
                                                                 FFIcons
                                                                     .kstarAndCrescent,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
+                                                                color: Colors
+                                                                    .white,
                                                                 size: 20.0,
                                                               ),
                                                               Text(
@@ -362,6 +400,8 @@ class _AdministratorListPageWidgetState
                                                                             .bodyMedium
                                                                             .fontStyle,
                                                                       ),
+                                                                      color: Colors
+                                                                          .white,
                                                                       fontSize:
                                                                           10.0,
                                                                       letterSpacing:
@@ -406,7 +446,7 @@ class _AdministratorListPageWidgetState
                                                                 Colors
                                                                     .transparent,
                                                             alignment: AlignmentDirectional(
-                                                                    0.0, -1.0)
+                                                                    0.0, 0.0)
                                                                 .resolve(
                                                                     Directionality.of(
                                                                         context)),
@@ -436,16 +476,15 @@ class _AdministratorListPageWidgetState
                                                       width: 35.0,
                                                       height: 35.0,
                                                       decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .primaryBackground,
+                                                        color:
+                                                            Color(0x33FFFFFF),
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(8.0),
+                                                                .circular(12.0),
                                                         border: Border.all(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .alternate,
+                                                          color:
+                                                              Color(0x4DFFFFFF),
+                                                          width: 1.0,
                                                         ),
                                                       ),
                                                       child: Column(
@@ -458,9 +497,7 @@ class _AdministratorListPageWidgetState
                                                           Icon(
                                                             FFIcons
                                                                 .k15ListMagnifyingGlass,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryText,
+                                                            color: Colors.white,
                                                             size: 20.0,
                                                           ),
                                                           Text(
@@ -481,9 +518,8 @@ class _AdministratorListPageWidgetState
                                                                         .bodyMedium
                                                                         .fontStyle,
                                                                   ),
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
+                                                                  color: Colors
+                                                                      .white,
                                                                   fontSize:
                                                                       10.0,
                                                                   letterSpacing:
@@ -570,6 +606,7 @@ class _AdministratorListPageWidgetState
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
+                                                            color: Colors.white,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -726,9 +763,25 @@ class _AdministratorListPageWidgetState
                                                                   height: 40.0,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
+                                                                    gradient:
+                                                                        LinearGradient(
+                                                                      colors: [
+                                                                        Color(
+                                                                            0xFFFBBF24),
+                                                                        Color(
+                                                                            0xFFFCD34D)
+                                                                      ],
+                                                                      stops: [
+                                                                        0.0,
+                                                                        1.0
+                                                                      ],
+                                                                      begin: AlignmentDirectional(
+                                                                          1.0,
+                                                                          1.0),
+                                                                      end: AlignmentDirectional(
+                                                                          -1.0,
+                                                                          -1.0),
+                                                                    ),
                                                                   ),
                                                                   child: Row(
                                                                     mainAxisSize:
@@ -741,8 +794,8 @@ class _AdministratorListPageWidgetState
                                                                       Icon(
                                                                         FFIcons
                                                                             .k10UserCircleFill,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                        color: Colors
+                                                                            .white,
                                                                         size:
                                                                             24.0,
                                                                       ),
@@ -755,6 +808,7 @@ class _AdministratorListPageWidgetState
                                                                                 fontWeight: FontWeight.w600,
                                                                                 fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                               ),
+                                                                              color: Colors.white,
                                                                               letterSpacing: 0.0,
                                                                               fontWeight: FontWeight.w600,
                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -769,9 +823,8 @@ class _AdministratorListPageWidgetState
                                                               Container(
                                                                 decoration:
                                                                     BoxDecoration(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
+                                                                  color: Color(
+                                                                      0xFFECBB78),
                                                                 ),
                                                                 child: Row(
                                                                   mainAxisSize:
@@ -821,15 +874,27 @@ class _AdministratorListPageWidgetState
                                                                                     },
                                                                                   ) ??
                                                                                   false;
-                                                                              _model.bulkFreezeResult = await actions.adminBulkToggleFreeze(
-                                                                                _model.selectedIds.toList(),
-                                                                                true,
-                                                                                _model.adminBulkFreezeReasonFieldTextController.text,
-                                                                              );
-                                                                              _model.selectedIds = [];
-                                                                              safeSetState(() {});
+                                                                              if (confirmDialogResponse) {
+                                                                                _model.bulkFreezeResult = await actions.adminBulkToggleFreeze(
+                                                                                  _model.selectedIds.toList(),
+                                                                                  true,
+                                                                                  _model.adminBulkFreezeReasonFieldTextController.text,
+                                                                                );
+                                                                                _model.selectedIds = [];
+                                                                                safeSetState(() {});
 
-                                                                              context.pushNamed(AdministratorListPageWidget.routeName);
+                                                                                context.pushNamed(AdministratorListPageWidget.routeName);
+                                                                              } else {
+                                                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                                                  SnackBar(
+                                                                                    content: Text(
+                                                                                      '操作をキャンセルしました。',
+                                                                                      style: TextStyle(),
+                                                                                    ),
+                                                                                    duration: Duration(milliseconds: 4000),
+                                                                                  ),
+                                                                                );
+                                                                              }
                                                                             } else {
                                                                               ScaffoldMessenger.of(context).showSnackBar(
                                                                                 SnackBar(
@@ -908,15 +973,27 @@ class _AdministratorListPageWidgetState
                                                                                     },
                                                                                   ) ??
                                                                                   false;
-                                                                              _model.bulkUnfreezeResult = await actions.adminBulkToggleFreeze(
-                                                                                _model.selectedIds.toList(),
-                                                                                false,
-                                                                                _model.adminBulkFreezeReasonFieldTextController.text,
-                                                                              );
-                                                                              _model.selectedIds = [];
-                                                                              safeSetState(() {});
+                                                                              if (confirmDialogResponse) {
+                                                                                _model.bulkUnfreezeResult = await actions.adminBulkToggleFreeze(
+                                                                                  _model.selectedIds.toList(),
+                                                                                  false,
+                                                                                  _model.adminBulkFreezeReasonFieldTextController.text,
+                                                                                );
+                                                                                _model.selectedIds = [];
+                                                                                safeSetState(() {});
 
-                                                                              context.pushNamed(AdministratorListPageWidget.routeName);
+                                                                                context.pushNamed(AdministratorListPageWidget.routeName);
+                                                                              } else {
+                                                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                                                  SnackBar(
+                                                                                    content: Text(
+                                                                                      '操作をキャンセルしました。',
+                                                                                      style: TextStyle(),
+                                                                                    ),
+                                                                                    duration: Duration(milliseconds: 4000),
+                                                                                  ),
+                                                                                );
+                                                                              }
                                                                             } else {
                                                                               ScaffoldMessenger.of(context).showSnackBar(
                                                                                 SnackBar(
@@ -1086,7 +1163,22 @@ class _AdministratorListPageWidgetState
                                                                             decoration:
                                                                                 BoxDecoration(
                                                                               color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                              borderRadius: BorderRadius.circular(8.0),
+                                                                              boxShadow: [
+                                                                                BoxShadow(
+                                                                                  blurRadius: 16.0,
+                                                                                  color: Color(0x26D97706),
+                                                                                  offset: Offset(
+                                                                                    0.0,
+                                                                                    6.0,
+                                                                                  ),
+                                                                                  spreadRadius: 0.0,
+                                                                                )
+                                                                              ],
+                                                                              borderRadius: BorderRadius.circular(20.0),
+                                                                              border: Border.all(
+                                                                                color: Color(0x1FD97706),
+                                                                                width: 1.5,
+                                                                              ),
                                                                             ),
                                                                             child:
                                                                                 Padding(
@@ -1105,7 +1197,26 @@ class _AdministratorListPageWidgetState
                                                                                         width: 50.0,
                                                                                         height: 50.0,
                                                                                         decoration: BoxDecoration(
-                                                                                          color: FlutterFlowTheme.of(context).alternate,
+                                                                                          boxShadow: [
+                                                                                            BoxShadow(
+                                                                                              blurRadius: 10.0,
+                                                                                              color: Color(0x4DF59E0B),
+                                                                                              offset: Offset(
+                                                                                                0.0,
+                                                                                                3.0,
+                                                                                              ),
+                                                                                              spreadRadius: 0.0,
+                                                                                            )
+                                                                                          ],
+                                                                                          gradient: LinearGradient(
+                                                                                            colors: [
+                                                                                              Color(0xFFF59E0B),
+                                                                                              Color(0xFFFBBF24)
+                                                                                            ],
+                                                                                            stops: [0.0, 1.0],
+                                                                                            begin: AlignmentDirectional(1.0, 1.0),
+                                                                                            end: AlignmentDirectional(-1.0, -1.0),
+                                                                                          ),
                                                                                           borderRadius: BorderRadius.circular(25.0),
                                                                                         ),
                                                                                       ),
@@ -1305,7 +1416,7 @@ class _AdministratorListPageWidgetState
                                                                                                           children: [
                                                                                                             Icon(
                                                                                                               Icons.circle,
-                                                                                                              color: Color(0xFF06F705),
+                                                                                                              color: functions.kycStatusDotColor(itemItem.kycStatus),
                                                                                                               size: 14.0,
                                                                                                             ),
                                                                                                             Text(
@@ -1329,7 +1440,7 @@ class _AdministratorListPageWidgetState
                                                                                                           children: [
                                                                                                             Icon(
                                                                                                               Icons.circle,
-                                                                                                              color: Color(0xFF06F705),
+                                                                                                              color: functions.activeStatusDotColor(itemItem.isActive),
                                                                                                               size: 14.0,
                                                                                                             ),
                                                                                                             Text(
@@ -1449,7 +1560,7 @@ class _AdministratorListPageWidgetState
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                        ),
+                                                                        ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation']!),
                                                                       ),
                                                                     ].divide(SizedBox(
                                                                         width:
@@ -1459,6 +1570,38 @@ class _AdministratorListPageWidgetState
                                                               );
                                                             },
                                                           ),
+                                                          if (!(FFAppState()
+                                                              .administratorListStruct
+                                                              .isNotEmpty))
+                                                            Text(
+                                                              '該当する管理者が見つかりませんでした\n',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .inter(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                            ),
                                                           TextFormField(
                                                             controller: _model
                                                                 .adminBulkFreezeReasonFieldTextController,

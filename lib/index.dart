@@ -67,3 +67,5 @@ export '/user_management/cast_userdetails_page/cast_userdetails_page_widget.dart
     show CastUserdetailsPageWidget;
 export '/user_management/guest_userdetails_page/guest_userdetails_page_widget.dart'
     show GuestUserdetailsPageWidget;
+export '/audit_log/processed_events_list_page/processed_events_list_page_widget.dart'
+    show ProcessedEventsListPageWidget;
